@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>抗疲劳组合 | 每天疲劳？不是你累，是营养缺了 — 荣旺企业商城</title>
+<meta name="description" content="B族维生素+螯合镁+Omega-3科学组合，从细胞层面恢复能量。92%用户30天内精力明显提升。¥299/套。">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+SC:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --teal:#00D4C8;--teal-dark:#00b3a8;--orange:#FF6B00;--orange-hover:#E55F00;
+  --black:#171717;--gray-900:#1F2937;--gray-600:#4B5563;--gray-500:#64748B;
+  --gray-400:#94A3B8;--gray-300:#CBD5E1;--gray-200:#E2E8F0;--gray-100:#F1F5F9;
+  --bg:#FAFAFA;--white:#FFFFFF;--green:#22C55E;--red:#EF4444;
+  --shadow-border:rgba(0,0,0,0.08) 0px 0px 0px 1px;
+  --shadow-sm:rgba(50,50,93,0.08) 0px 2px 5px -1px,rgba(0,0,0,0.05) 0px 1px 3px -1px;
+  --shadow-md:rgba(50,50,93,0.12) 0px 6px 12px -2px,rgba(0,0,0,0.06) 0px 3px 7px -3px;
+  --shadow-lg:rgba(50,50,93,0.15) 0px 13px 27px -5px,rgba(0,0,0,0.08) 0px 8px 16px -8px;
+  --r-sm:6px;--r-md:8px;--r-lg:12px;--r-xl:16px;--r-2xl:24px;--r-pill:9999px;
+  --ease:cubic-bezier(0.4,0,0.2,1);--t-normal:250ms;
+}
+html{font-size:16px;scroll-behavior:smooth}
+body{
+  font-family:'Inter','Noto Sans SC',-apple-system,system-ui,sans-serif;
+  font-feature-settings:'cv01','ss01';
+  background:var(--bg);color:var(--gray-600);line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+a{text-decoration:none;color:inherit}button{cursor:pointer;border:none;background:none;font-family:inherit}
+
+/* Header — Apple glass */
+.header{
+  position:sticky;top:0;z-index:100;height:56px;
+  background:rgba(255,255,255,0.72);
+  backdrop-filter:saturate(180%) blur(20px);
+  border-bottom:1px solid rgba(0,0,0,0.06);
+}
+.header-inner{display:flex;align-items:center;justify-content:space-between;height:100%;max-width:1200px;margin:0 auto;padding:0 24px}
+.logo{font-size:17px;font-weight:600;color:var(--black);letter-spacing:-0.3px}
+.logo span{color:var(--teal)}
+.btn-quiz{padding:8px 18px;background:var(--black);color:var(--white);font-size:13px;font-weight:600;border-radius:var(--r-md);transition:all var(--t-normal) var(--ease)}
+.btn-quiz:hover{background:#333}
+
+/* Hero */
+.pd-hero{padding:48px 0 0;background:var(--white)}
+.container{max-width:1200px;margin:0 auto;padding:0 24px}
+.pd-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start}
+
+/* Visual */
+.pd-visual{position:sticky;top:80px}
+.pd-img{
+  width:100%;aspect-ratio:1;border-radius:var(--r-2xl);
+  background:linear-gradient(145deg,#FFF5EB,#FFECD0);
+  display:flex;align-items:center;justify-content:center;font-size:140px;
+  box-shadow:var(--shadow-lg);overflow:hidden;position:relative;
+}
+.pd-img img{width:100%;height:100%;object-fit:cover;position:absolute;top:0;left:0}
+
+/* Info */
+.pd-info{padding:16px 0 80px}
+.pain-badge{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:5px 14px;border-radius:var(--r-pill);
+  background:rgba(239,68,68,0.06);border:1px solid rgba(239,68,68,0.12);
+  font-size:12px;font-weight:600;color:var(--red);margin-bottom:16px;
+}
+.pd-info h1{font-size:clamp(24px,3vw,36px);font-weight:800;color:var(--black);letter-spacing:-0.8px;line-height:1.2;margin-bottom:12px}
+.pd-info h1 em{font-style:normal;color:var(--teal)}
+.rating{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--gray-400);margin-bottom:24px}
+.rating .stars{color:#F59E0B;letter-spacing:1px}
+
+/* Price card — Stripe elevated */
+.price-card{
+  padding:20px;background:var(--white);border-radius:var(--r-xl);
+  box-shadow:var(--shadow-border),var(--shadow-md);margin-bottom:32px;
+}
+.price-main{font-size:36px;font-weight:800;color:var(--black);letter-spacing:-1px}
+.price-old{font-size:16px;color:var(--gray-400);text-decoration:line-through;margin-left:8px;font-weight:400}
+.price-save{display:inline-block;padding:3px 10px;background:rgba(34,197,94,0.08);color:var(--green);font-size:12px;font-weight:600;border-radius:var(--r-sm);margin-left:8px}
+.price-per{font-size:14px;color:var(--gray-500);margin-top:6px}
+
+/* Sections */
+.pd-section{margin-bottom:36px}
+.pd-section h2{font-size:18px;font-weight:700;color:var(--black);letter-spacing:-0.3px;margin-bottom:14px;display:flex;align-items:center;gap:8px}
+
+/* Pain list */
+.pain-list{display:flex;flex-direction:column;gap:8px}
+.pain-item{
+  padding:14px 16px;background:var(--gray-100);border-radius:var(--r-lg);
+  font-size:14px;color:var(--gray-600);display:flex;align-items:center;gap:10px;
+}
+.pain-item .emoji{font-size:16px;min-width:20px}
+
+/* Cause box */
+.cause-box{
+  padding:24px;background:var(--gray-100);border-radius:var(--r-xl);
+  border-left:3px solid var(--teal);
+}
+.cause-box h3{font-size:15px;font-weight:700;color:var(--black);margin-bottom:8px}
+.cause-box p{font-size:14px;line-height:1.8;color:var(--gray-600)}
+.cause-box strong{color:var(--black)}
+
+/* Product items */
+.product-items{display:flex;flex-direction:column;gap:10px}
+.pi{
+  display:flex;align-items:center;gap:14px;padding:16px;
+  background:var(--white);border-radius:var(--r-lg);
+  box-shadow:var(--shadow-border),var(--shadow-sm);
+  transition:all var(--t-normal) var(--ease);
+}
+.pi:hover{box-shadow:var(--shadow-border),var(--shadow-md);transform:translateY(-2px)}
+.pi-icon{width:48px;height:48px;min-width:48px;border-radius:var(--r-md);display:flex;align-items:center;justify-content:center;font-size:22px}
+.pi-icon.c1{background:#FEE2E2}.pi-icon.c2{background:#FEF3C7}.pi-icon.c3{background:#DCFCE7}
+.pi-info h4{font-size:14px;font-weight:600;color:var(--black)}
+.pi-info p{font-size:12px;color:var(--gray-400)}
+.pi-info .why{font-size:11px;font-weight:600;color:var(--teal);margin-top:3px}
+
+/* Evidence grid */
+.evidence-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.ev-card{
+  padding:18px;background:var(--white);border-radius:var(--r-lg);
+  box-shadow:var(--shadow-border);text-align:center;
+}
+.ev-card .num{font-size:28px;font-weight:800;color:var(--teal);letter-spacing:-0.5px}
+.ev-card .label{font-size:12px;color:var(--gray-500);margin-top:2px}
+.ev-card .source{font-size:10px;color:var(--gray-400);margin-top:4px}
+
+/* Compare table */
+.compare-wrap{
+  background:var(--white);border-radius:var(--r-xl);overflow:hidden;
+  box-shadow:var(--shadow-border),var(--shadow-sm);
+}
+.compare-table{width:100%;border-collapse:collapse}
+.compare-table th,.compare-table td{padding:12px 16px;text-align:left;font-size:14px}
+.compare-table th{background:var(--gray-100);font-weight:600;font-size:12px;color:var(--gray-500)}
+.compare-table td{border-bottom:1px solid var(--gray-200)}
+.bad{color:var(--red)}.good{color:var(--green);font-weight:600}
+
+/* Reviews */
+.review-list{display:flex;flex-direction:column;gap:10px}
+.review{
+  padding:20px;background:var(--white);border-radius:var(--r-xl);
+  box-shadow:var(--shadow-border),var(--shadow-sm);
+}
+.review-top{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.review-avatar{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--teal),var(--teal-dark));display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:13px}
+.review-name{font-size:14px;font-weight:600;color:var(--black)}
+.review-meta{font-size:11px;color:var(--gray-400)}
+.review-stars{color:#F59E0B;font-size:13px;margin-bottom:6px}
+.review-text{font-size:14px;color:var(--gray-600);line-height:1.7}
+.review-verified{font-size:11px;color:var(--teal);font-weight:600;margin-top:6px}
+
+/* Sticky CTA */
+.cta-bar{
+  position:sticky;bottom:0;z-index:50;
+  background:rgba(255,255,255,0.88);
+  backdrop-filter:saturate(180%) blur(20px);
+  border-top:1px solid rgba(0,0,0,0.06);
+  padding:14px 0;
+}
+.cta-inner{display:flex;align-items:center;gap:16px;max-width:1200px;margin:0 auto;padding:0 24px}
+.cta-price{font-size:24px;font-weight:800;color:var(--black);letter-spacing:-0.5px}
+.cta-price small{font-size:14px;color:var(--gray-400);text-decoration:line-through;margin-left:6px;font-weight:400}
+.cta-btns{display:flex;gap:10px;margin-left:auto}
+.btn-cart{
+  padding:13px 28px;background:var(--orange);color:var(--white);font-size:15px;font-weight:700;
+  border-radius:var(--r-md);transition:all var(--t-normal) var(--ease);
+  box-shadow:rgba(255,107,0,0.25) 0px 4px 12px -2px;
+}
+.btn-cart:hover{background:var(--orange-hover);transform:translateY(-1px)}
+.btn-sub{
+  padding:13px 20px;font-size:14px;font-weight:600;color:var(--teal);
+  border:1px solid var(--gray-200);border-radius:var(--r-md);
+  transition:all var(--t-normal) var(--ease);
+}
+.btn-sub:hover{border-color:var(--teal);background:rgba(0,212,200,0.04)}
+
+/* Responsive */
+@media(max-width:768px){
+  .pd-grid{grid-template-columns:1fr;gap:32px}
+  .pd-visual{position:static}
+  .evidence-grid{grid-template-columns:1fr}
+  .cta-inner{flex-direction:column;text-align:center}
+  .cta-btns{width:100%}.btn-cart,.btn-sub{flex:1}
+}
+</style>
+</head>
+<body>
+<header class="header">
+  <div class="header-inner">
+    <a href="index-v2.html" class="logo"><span>荣旺</span>企业商城</a>
+    <a href="ai-quiz-v2.html" class="btn-quiz">🧬 AI检测</a>
+  </div>
+</header>
+
+<section class="pd-hero">
+  <div class="container">
+    <div class="pd-grid">
+      <div class="pd-visual"><div class="pd-img"><img src="images/bundle-fatigue.png" alt="抗疲劳组合 - B族+螯合镁+Omega-3" loading="eager"></div></div>
+      <div class="pd-info">
+        <div class="pain-badge">😫 解决：持续性疲劳</div>
+        <h1>每天疲劳？<br>不是你累，是<em>营养缺了</em></h1>
+        <div class="rating"><span class="stars">★★★★★</span> 4.9 (3,287评价) · 月销 5,200+</div>
+
+        <div class="price-card">
+          <span class="price-main">¥299</span><span class="price-old">¥459</span><span class="price-save">省35%</span>
+          <div class="price-per">套餐含3种产品 · 30天用量 · ¥9.97/天</div>
+        </div>
+
+        <div class="pd-section">
+          <h2>😫 你是否经常这样？</h2>
+          <div class="pain-list">
+            <div class="pain-item"><span class="emoji">☕</span> 下午2-3点严重犯困，靠咖啡撑着</div>
+            <div class="pain-item"><span class="emoji">😴</span> 明明睡了8小时，醒来还是很累</div>
+            <div class="pain-item"><span class="emoji">🧠</span> 注意力无法集中，工作效率越来越低</div>
+            <div class="pain-item"><span class="emoji">😩</span> 周末补觉也恢复不过来</div>
+          </div>
+        </div>
+
+        <div class="pd-section">
+          <h2>🔬 真正的原因</h2>
+          <div class="cause-box">
+            <h3>不是你不够努力休息，而是细胞在"缺电"</h3>
+            <p>长期压力和不规律饮食导致<strong>辅酶Q10</strong>水平下降，线粒体产能效率降低。同时<strong>B族维生素</strong>被大量消耗用于应激反应。<strong>镁</strong>参与300+种酶反应，是ATP能量代谢的关键矿物质。<strong>Omega-3</strong>对抗慢性炎症——这是"莫名疲劳感"的隐藏推手。</p>
+          </div>
+        </div>
+
+        <div class="pd-section">
+          <h2>💊 科学解决方案</h2>
+          <div class="product-items">
+            <div class="pi"><div class="pi-icon c1">💊</div><div class="pi-info"><h4>活性B族复合维生素</h4><p>8种B族甲基化协同 · 吸收率提升3倍</p><div class="why">→ 修复压力消耗的B族储备</div></div></div>
+            <div class="pi"><div class="pi-icon c2">🟡</div><div class="pi-info"><h4>螯合镁 400mg · Doctor's Best</h4><p>甘氨酸镁 · 美国原装 · 不伤胃</p><div class="why">→ 参与ATP产能 + 放松神经</div></div></div>
+            <div class="pi"><div class="pi-icon c3">🟢</div><div class="pi-info"><h4>Omega-3 深海鱼油 1200mg</h4><p>Nordic Naturals · 挪威原装 · 无腥味</p><div class="why">→ 对抗慢性炎症性疲劳</div></div></div>
+          </div>
+        </div>
+
+        <div class="pd-section">
+          <h2>📊 科学证据</h2>
+          <div class="evidence-grid">
+            <div class="ev-card"><div class="num">92%</div><div class="label">用户30天内精力改善</div><div class="source">荣旺用户调研 n=1,200</div></div>
+            <div class="ev-card"><div class="num">67%</div><div class="label">成人缺乏B族维生素</div><div class="source">中国营养学会 2025</div></div>
+            <div class="ev-card"><div class="num">3倍</div><div class="label">甲基化B族吸收率提升</div><div class="source">J. Nutr. 2024</div></div>
+            <div class="ev-card"><div class="num">48%</div><div class="label">中国人镁摄入不足</div><div class="source">中国居民营养报告</div></div>
+          </div>
+        </div>
+
+        <div class="pd-section">
+          <h2>📋 补充 vs 不补充</h2>
+          <div class="compare-wrap">
+            <table class="compare-table">
+              <tr><th></th><th class="bad">不补充</th><th class="good">补充30天后</th></tr>
+              <tr><td>下午精力</td><td class="bad">严重犯困</td><td class="good">全天稳定 ↑</td></tr>
+              <tr><td>注意力</td><td class="bad">难以集中</td><td class="good">清晰专注 ↑</td></tr>
+              <tr><td>晨起状态</td><td class="bad">闹钟起不来</td><td class="good">自然清醒 ↑</td></tr>
+              <tr><td>运动恢复</td><td class="bad">酸痛持续3天</td><td class="good">恢复加速 ↑</td></tr>
+              <tr><td>咖啡依赖</td><td class="bad">每天3杯+</td><td class="good">不再依赖 ↑</td></tr>
+            </table>
+          </div>
+        </div>
+
+        <div class="pd-section">
+          <h2>💬 真实用户反馈</h2>
+          <div class="review-list">
+            <div class="review">
+              <div class="review-top"><div class="review-avatar">陈</div><div><div class="review-name">陈女士 · 42岁</div><div class="review-meta">广州 · 已订阅6个月</div></div></div>
+              <div class="review-stars">★★★★★</div>
+              <div class="review-text">吃了两周下午不崩溃了！以前每天3杯咖啡现在完全不需要。AI检测说我是"营养流失型"，推荐得太准了。</div>
+              <div class="review-verified">✅ 已验证购买 · 2026-03-18</div>
+            </div>
+            <div class="review">
+              <div class="review-top"><div class="review-avatar">张</div><div><div class="review-name">张先生 · 35岁</div><div class="review-meta">深圳 · 购买2次</div></div></div>
+              <div class="review-stars">★★★★★</div>
+              <div class="review-text">程序员加班多，精力一直不行。这个组合吃了一个月，感觉晨起轻松了很多，代码效率也上去了。比单独买划算。</div>
+              <div class="review-verified">✅ 已验证购买 · 2026-03-22</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="cta-bar">
+  <div class="cta-inner">
+    <div class="cta-price">¥299 <small>¥459</small></div>
+    <div class="cta-btns">
+      <button class="btn-cart">🛒 加入购物车</button>
+      <button class="btn-sub">📦 订阅省20%</button>
+    </div>
+  </div>
+</div>
+
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Product","name":"抗疲劳组合","description":"B族维生素+螯合镁+Omega-3科学组合，30天用量","brand":"荣旺企业商城","offers":{"@type":"Offer","price":"299","priceCurrency":"CNY","availability":"https://schema.org/InStock"},"aggregateRating":{"@type":"AggregateRating","ratingValue":"4.9","reviewCount":"3287"}}</script>
+</body>
+</html>

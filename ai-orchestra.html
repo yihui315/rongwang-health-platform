@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Multi-AI Orchestra — 多模型协同架构方案</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Noto+Sans+SC:wght@300;400;500;600;700;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{--ease:cubic-bezier(0.4,0,0.2,1)}
+html{font-size:16px;scroll-behavior:smooth}
+body{font-family:'Inter','Noto Sans SC',-apple-system,sans-serif;background:#09090b;color:#a1a1aa;-webkit-font-smoothing:antialiased;line-height:1.6}
+code{font-family:'JetBrains Mono',monospace;font-size:13px;padding:2px 6px;background:rgba(255,255,255,0.06);border-radius:4px;color:#d4d4d8}
+pre{font-family:'JetBrains Mono',monospace;font-size:13px;line-height:1.7;padding:20px 24px;background:#0f0f11;border:1px solid rgba(255,255,255,0.06);border-radius:12px;overflow-x:auto;color:#d4d4d8;margin:16px 0}
+pre .cm{color:#52525b}
+pre .kw{color:#00D4C8}
+pre .str{color:#9fe870}
+pre .fn{color:#c4b5fd}
+pre .num{color:#FF6B00}
+
+.wrap{max-width:900px;margin:0 auto;padding:40px 24px 120px}
+
+/* Header */
+.hero{text-align:center;padding:80px 0 48px;border-bottom:1px solid rgba(255,255,255,0.06)}
+.hero h1{font-size:clamp(32px,5vw,48px);font-weight:800;color:#fff;letter-spacing:-1.5px;line-height:1.08;margin-bottom:12px}
+.hero h1 em{font-style:normal;background:linear-gradient(135deg,#00D4C8,#c4b5fd,#9fe870);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero p{font-size:17px;color:#71717a;max-width:600px;margin:0 auto}
+
+/* Section */
+.sec{margin-top:56px}
+.sec h2{font-size:22px;font-weight:700;color:#fff;letter-spacing:-0.5px;margin-bottom:6px}
+.sec h2 .badge{display:inline-block;font-size:11px;font-weight:600;padding:3px 10px;border-radius:999px;margin-left:8px;vertical-align:middle}
+.sec>p{font-size:15px;color:#71717a;margin-bottom:24px}
+
+/* Architecture cards */
+.arch-grid{display:grid;gap:12px;margin-bottom:32px}
+.arch-card{padding:20px 24px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);border-radius:14px;display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:start}
+.arch-icon{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
+.arch-card h3{font-size:16px;font-weight:700;color:#e4e4e7;margin-bottom:4px}
+.arch-card .role{font-size:12px;font-weight:600;color:#71717a;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px}
+.arch-card .desc{font-size:14px;color:#a1a1aa;line-height:1.65}
+.arch-card .tasks{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.arch-card .tag{padding:3px 10px;border-radius:999px;font-size:11px;font-weight:600}
+
+/* Flow */
+.flow{display:flex;flex-direction:column;gap:2px;margin:32px 0}
+.flow-step{display:flex;align-items:center;gap:12px;padding:14px 20px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);border-radius:10px}
+.flow-num{width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0}
+.flow-arrow{text-align:center;color:#52525b;font-size:18px;padding:2px 0}
+.flow-step .model{font-size:12px;font-weight:600;padding:2px 8px;border-radius:6px}
+
+/* Table */
+.tbl{width:100%;border-collapse:collapse;margin:16px 0;font-size:13px}
+.tbl th{text-align:left;padding:10px 14px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);color:#d4d4d8;font-weight:600}
+.tbl td{padding:10px 14px;border:1px solid rgba(255,255,255,0.06);color:#a1a1aa}
+.tbl tr:hover td{background:rgba(255,255,255,0.02)}
+
+/* Callout */
+.callout{padding:20px 24px;border-radius:12px;margin:24px 0;font-size:14px;line-height:1.7}
+.callout.tip{background:rgba(0,212,200,0.05);border:1px solid rgba(0,212,200,0.15);color:#a1a1aa}
+.callout.warn{background:rgba(255,107,0,0.05);border:1px solid rgba(255,107,0,0.15)}
+.callout strong{color:#fff}
+.callout code{background:rgba(255,255,255,0.08)}
+
+@media(max-width:640px){.arch-card{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="hero">
+  <h1>Multi-AI <em>Orchestra</em></h1>
+  <p>以 Claude 为 CEO 大脑，GPT / Codex / MiniMax / Grok / Qwen3 为专业执行团队的多模型协同架构</p>
+</header>
+
+<!-- ============================================================ -->
+<div class="sec">
+  <h2>核心思路</h2>
+  <p>不是让所有模型做同一件事（重复浪费），而是根据每个模型的独特优势分配专业角色，像一个公司一样运转。</p>
+
+  <div style="padding:24px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);border-radius:14px;margin-bottom:24px">
+    <div style="text-align:center;font-size:15px;color:#71717a;margin-bottom:20px">架构拓扑</div>
+    <pre style="text-align:center;background:transparent;border:none;padding:0;color:#d4d4d8;font-size:12px;line-height:2">
+                    ┌─────────────────────┐
+                    │   <span class="kw">Claude (CEO)</span>       │
+                    │  架构 · 审核 · 决策   │
+                    │  Cowork / Claude Code│
+                    └──────────┬──────────┘
+                               │
+              ┌────────────────┼────────────────┐
+              │                │                │
+     ┌────────▼───────┐ ┌─────▼──────┐ ┌───────▼────────┐
+     │ <span class="str">GPT Pro</span>         │ │ <span class="fn">Codex</span>      │ │ <span class="num">Grok Pro</span>       │
+     │ 文案·营销·翻译  │ │ 批量代码    │ │ 实时数据·竞品   │
+     └────────────────┘ │ 自动执行    │ └────────────────┘
+                        └────────────┘
+              ┌────────────────┼────────────────┐
+              │                                 │
+     ┌────────▼───────┐                ┌────────▼───────┐
+     │ <span class="str">MiniMax 2.7</span>    │                │ <span class="fn">Qwen3-Coder</span>    │
+     │ 中文SEO·长文   │                │ 本地代码·隐私   │
+     │ Coding Plan    │                │ Ollama 30B     │
+     └────────────────┘                └────────────────┘
+    </pre>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<div class="sec">
+  <h2>角色分配 <span class="badge" style="background:rgba(0,212,200,0.1);color:#00D4C8">6个AI · 5个角色</span></h2>
+  <p>每个模型只做自己最擅长的事，Claude 负责全局决策、质量把关和最终集成。</p>
+
+  <div class="arch-grid">
+    <!-- Claude -->
+    <div class="arch-card" style="border-color:rgba(0,212,200,0.2);background:rgba(0,212,200,0.03)">
+      <div class="arch-icon" style="background:rgba(0,212,200,0.12);color:#00D4C8">🧠</div>
+      <div>
+        <div class="role" style="color:#00D4C8">CEO · 架构师 · 质量总监</div>
+        <h3>Claude (Opus / Sonnet)</h3>
+        <div class="desc">
+          <strong style="color:#00D4C8">你当前正在使用的就是这个角色。</strong> 负责：项目整体架构设计、任务拆解与分配、代码审核与集成、关键业务逻辑编写、最终质量把关。所有其他模型的输出都必须经过Claude审核才能合入项目。
+        </div>
+        <div class="tasks">
+          <span class="tag" style="background:rgba(0,212,200,0.1);color:#00D4C8">架构决策</span>
+          <span class="tag" style="background:rgba(0,212,200,0.1);color:#00D4C8">代码审核</span>
+          <span class="tag" style="background:rgba(0,212,200,0.1);color:#00D4C8">复杂逻辑</span>
+          <span class="tag" style="background:rgba(0,212,200,0.1);color:#00D4C8">质量门禁</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- GPT Pro -->
+    <div class="arch-card">
+      <div class="arch-icon" style="background:rgba(139,92,246,0.12);color:#8B5CF6">💬</div>
+      <div>
+        <div class="role">VP of Content · 内容副总裁</div>
+        <h3>GPT-4o Pro (桌面版)</h3>
+        <div class="desc">
+          GPT在长篇创意写作、多语言翻译、营销文案方面极强。让它专门负责：SEO文章正文撰写（中英文）、产品描述文案、广告投放文案变体、邮件营销序列、用户评论回复模板。
+        </div>
+        <div class="tasks">
+          <span class="tag" style="background:rgba(139,92,246,0.1);color:#8B5CF6">SEO文章</span>
+          <span class="tag" style="background:rgba(139,92,246,0.1);color:#8B5CF6">广告文案</span>
+          <span class="tag" style="background:rgba(139,92,246,0.1);color:#8B5CF6">多语言</span>
+          <span class="tag" style="background:rgba(139,92,246,0.1);color:#8B5CF6">邮件序列</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Codex -->
+    <div class="arch-card">
+      <div class="arch-icon" style="background:rgba(59,130,246,0.12);color:#3B82F6">⚙️</div>
+      <div>
+        <div class="role">DevOps Lead · 自动化执行官</div>
+        <h3>OpenAI Codex (桌面版)</h3>
+        <div class="desc">
+          Codex的核心能力是<strong style="color:#fff">自主执行多步骤编码任务</strong>，它有自己的沙箱环境，可以写代码、跑测试、修bug。非常适合：批量页面生成、重复性代码修改（如把所有产品页从V1迁移到V2）、单元测试编写、CI/CD脚本、数据处理脚本。
+        </div>
+        <div class="tasks">
+          <span class="tag" style="background:rgba(59,130,246,0.1);color:#3B82F6">批量代码</span>
+          <span class="tag" style="background:rgba(59,130,246,0.1);color:#3B82F6">测试编写</span>
+          <span class="tag" style="background:rgba(59,130,246,0.1);color:#3B82F6">CI/CD</span>
+          <span class="tag" style="background:rgba(59,130,246,0.1);color:#3B82F6">数据脚本</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Grok -->
+    <div class="arch-card">
+      <div class="arch-icon" style="background:rgba(255,107,0,0.12);color:#FF6B00">📡</div>
+      <div>
+        <div class="role">Intelligence Analyst · 情报分析师</div>
+        <h3>Grok Pro (xAI)</h3>
+        <div class="desc">
+          Grok的独特优势是<strong style="color:#fff">实时互联网数据接入</strong>（通过X/Twitter数据流）。让它负责：竞品实时监控（AG1/Ritual/iHerb价格变动、新品发布）、社交媒体舆情分析、保健品行业趋势追踪、热门健康话题挖掘（用于SEO选题）、实时搜索引擎排名检查。
+        </div>
+        <div class="tasks">
+          <span class="tag" style="background:rgba(255,107,0,0.1);color:#FF6B00">竞品监控</span>
+          <span class="tag" style="background:rgba(255,107,0,0.1);color:#FF6B00">舆情分析</span>
+          <span class="tag" style="background:rgba(255,107,0,0.1);color:#FF6B00">趋势追踪</span>
+          <span class="tag" style="background:rgba(255,107,0,0.1);color:#FF6B00">SEO选题</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- MiniMax -->
+    <div class="arch-card">
+      <div class="arch-icon" style="background:rgba(244,63,94,0.12);color:#F43F5E">📝</div>
+      <div>
+        <div class="role">China Market Specialist · 中国市场专员</div>
+        <h3>MiniMax 2.7 Coding Plan</h3>
+        <div class="desc">
+          MiniMax作为国产模型，在<strong style="color:#fff">中文语义理解和本地化</strong>方面有天然优势。让它负责：中文SEO关键词优化（百度/小红书/知乎）、中文长文撰写（3000字+健康科普）、中国消费者心理文案、微信/小红书内容适配、中文合规检查（广告法敏感词过滤）。
+        </div>
+        <div class="tasks">
+          <span class="tag" style="background:rgba(244,63,94,0.1);color:#F43F5E">中文SEO</span>
+          <span class="tag" style="background:rgba(244,63,94,0.1);color:#F43F5E">长文撰写</span>
+          <span class="tag" style="background:rgba(244,63,94,0.1);color:#F43F5E">合规检查</span>
+          <span class="tag" style="background:rgba(244,63,94,0.1);color:#F43F5E">本地化</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Qwen3 -->
+    <div class="arch-card">
+      <div class="arch-icon" style="background:rgba(34,197,94,0.12);color:#22C55E">🏠</div>
+      <div>
+        <div class="role">Local Engineer · 本地工程师</div>
+        <h3>Qwen3-Coder:30B (Ollama本地)</h3>
+        <div class="desc">
+          本地运行的最大优势是<strong style="color:#fff">零成本、零延迟、无限调用、完全隐私</strong>。让它负责：日常代码补全和小改动、CSS调试和微调、JSON/数据格式转换、正则表达式和脚本工具、代码注释和文档生成、不需要联网的重复性编码任务。
+        </div>
+        <div class="tasks">
+          <span class="tag" style="background:rgba(34,197,94,0.1);color:#22C55E">代码补全</span>
+          <span class="tag" style="background:rgba(34,197,94,0.1);color:#22C55E">CSS调试</span>
+          <span class="tag" style="background:rgba(34,197,94,0.1);color:#22C55E">数据转换</span>
+          <span class="tag" style="background:rgba(34,197,94,0.1);color:#22C55E">零成本</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<div class="sec">
+  <h2>实际工作流程 <span class="badge" style="background:rgba(139,92,246,0.1);color:#8B5CF6">以SEO文章为例</span></h2>
+  <p>一篇SEO文章从构思到上线，6个AI如何协作：</p>
+
+  <div class="flow">
+    <div class="flow-step">
+      <div class="flow-num" style="background:rgba(255,107,0,0.12);color:#FF6B00">1</div>
+      <div><strong style="color:#fff">Grok Pro</strong> → 分析最近7天保健品热门话题和搜索趋势，输出5个选题建议</div>
+      <span class="model" style="background:rgba(255,107,0,0.1);color:#FF6B00">Grok</span>
+    </div>
+    <div class="flow-arrow">↓</div>
+    <div class="flow-step">
+      <div class="flow-num" style="background:rgba(0,212,200,0.12);color:#00D4C8">2</div>
+      <div><strong style="color:#fff">Claude (CEO)</strong> → 审核选题，选择最优方向，制定文章大纲和SEO策略</div>
+      <span class="model" style="background:rgba(0,212,200,0.1);color:#00D4C8">Claude</span>
+    </div>
+    <div class="flow-arrow">↓</div>
+    <div class="flow-step">
+      <div class="flow-num" style="background:rgba(244,63,94,0.12);color:#F43F5E">3</div>
+      <div><strong style="color:#fff">MiniMax</strong> → 根据大纲撰写3000字中文长文，针对百度SEO优化</div>
+      <span class="model" style="background:rgba(244,63,94,0.1);color:#F43F5E">MiniMax</span>
+    </div>
+    <div class="flow-arrow">↓</div>
+    <div class="flow-step">
+      <div class="flow-num" style="background:rgba(139,92,246,0.12);color:#8B5CF6">4</div>
+      <div><strong style="color:#fff">GPT Pro</strong> → 撰写英文版本 + 生成5组标题变体 + 社交媒体推广文案</div>
+      <span class="model" style="background:rgba(139,92,246,0.1);color:#8B5CF6">GPT</span>
+    </div>
+    <div class="flow-arrow">↓</div>
+    <div class="flow-step">
+      <div class="flow-num" style="background:rgba(0,212,200,0.12);color:#00D4C8">5</div>
+      <div><strong style="color:#fff">Claude (CEO)</strong> → 审核全部内容质量，修正医学准确性，确认GEO优化</div>
+      <span class="model" style="background:rgba(0,212,200,0.1);color:#00D4C8">Claude</span>
+    </div>
+    <div class="flow-arrow">↓</div>
+    <div class="flow-step">
+      <div class="flow-num" style="background:rgba(59,130,246,0.12);color:#3B82F6">6</div>
+      <div><strong style="color:#fff">Codex</strong> → 用seo-generator.js批量生成HTML页面 + sitemap + 部署</div>
+      <span class="model" style="background:rgba(59,130,246,0.1);color:#3B82F6">Codex</span>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<div class="sec">
+  <h2>三种落地方案 <span class="badge" style="background:rgba(34,197,94,0.1);color:#22C55E">由简到繁</span></h2>
+
+  <h3 style="color:#fff;font-size:17px;margin:32px 0 12px">方案① 手动协调（今天就能用）</h3>
+  <div class="callout tip">
+    <strong>零代码，纯流程管理。</strong> 你在不同窗口打开各个AI，用共享文件夹（就是当前的香港荣旺目录）作为"交接口"。Claude负责写任务brief → 你复制给对应AI执行 → 把输出结果文件放回目录 → Claude审核合入。<br><br>
+    <strong>实操：</strong> 在项目根目录创建一个 <code>ai-tasks/</code> 文件夹，每个任务一个markdown文件（如 <code>task-seo-article-027.md</code>），里面写清楚：任务描述、分配给哪个AI、输入文件路径、输出要求、deadline。Claude每次开始工作先扫描这个目录。
+  </div>
+
+  <h3 style="color:#fff;font-size:17px;margin:32px 0 12px">方案② API自动化（推荐，1-2天搭建）</h3>
+  <div class="callout tip">
+    <strong>用Node.js脚本统一调度所有API。</strong> Claude通过Bash工具执行调度脚本，脚本内部调用各模型API。这是性价比最高的方案。
+  </div>
+
+  <pre>
+<span class="cm">// orchestrator.js — 多模型调度器</span>
+<span class="kw">const</span> models = {
+  claude:  { api: <span class="str">'anthropic'</span>,  model: <span class="str">'claude-sonnet-4-6'</span> },
+  gpt:     { api: <span class="str">'openai'</span>,     model: <span class="str">'gpt-4o'</span> },
+  minimax: { api: <span class="str">'minimax'</span>,    model: <span class="str">'minimax-2.7'</span> },
+  grok:    { api: <span class="str">'xai'</span>,        model: <span class="str">'grok-3'</span> },
+  qwen:    { api: <span class="str">'ollama'</span>,     model: <span class="str">'qwen3-coder:30b'</span>, local: <span class="kw">true</span> }
+};
+
+<span class="cm">// Claude CEO 发起任务</span>
+<span class="kw">async function</span> <span class="fn">delegateTask</span>(taskType, context) {
+  <span class="kw">switch</span>(taskType) {
+    <span class="kw">case</span> <span class="str">'seo_research'</span>:
+      <span class="kw">return</span> <span class="kw">await</span> <span class="fn">callModel</span>(<span class="str">'grok'</span>, <span class="str">`分析最近保健品搜索趋势: ${context}`</span>);
+    <span class="kw">case</span> <span class="str">'cn_article'</span>:
+      <span class="kw">return</span> <span class="kw">await</span> <span class="fn">callModel</span>(<span class="str">'minimax'</span>, <span class="str">`写3000字中文SEO文章: ${context}`</span>);
+    <span class="kw">case</span> <span class="str">'en_translate'</span>:
+      <span class="kw">return</span> <span class="kw">await</span> <span class="fn">callModel</span>(<span class="str">'gpt'</span>, <span class="str">`翻译为英文并优化: ${context}`</span>);
+    <span class="kw">case</span> <span class="str">'code_batch'</span>:
+      <span class="kw">return</span> <span class="kw">await</span> <span class="fn">callModel</span>(<span class="str">'qwen'</span>, <span class="str">`批量生成代码: ${context}`</span>);
+  }
+}
+
+<span class="cm">// 统一API调用</span>
+<span class="kw">async function</span> <span class="fn">callModel</span>(name, prompt) {
+  <span class="kw">const</span> m = models[name];
+  <span class="kw">if</span> (m.local) {
+    <span class="cm">// Ollama 本地调用 — 零成本</span>
+    <span class="kw">const</span> res = <span class="kw">await</span> fetch(<span class="str">'http://localhost:11434/api/generate'</span>, {
+      method: <span class="str">'POST'</span>,
+      body: JSON.stringify({ model: m.model, prompt })
+    });
+    <span class="kw">return</span> res.json();
+  }
+  <span class="cm">// 云端API调用</span>
+  <span class="kw">return</span> <span class="kw">await</span> <span class="fn">callCloudAPI</span>(m.api, m.model, prompt);
+}
+  </pre>
+
+  <h3 style="color:#fff;font-size:17px;margin:32px 0 12px">方案③ MCP Server 深度集成（最优雅）</h3>
+  <div class="callout tip">
+    <strong>把每个AI包装成MCP Server，Claude Code原生调用。</strong> 这样我在对话中可以直接用工具调用其他模型，无需你手动复制粘贴。<br><br>
+    原理：写一个MCP Server，暴露 <code>ask_gpt</code>、<code>ask_grok</code>、<code>ask_minimax</code>、<code>ask_qwen</code> 等工具。Claude Code连接这个MCP Server后，就能在对话中直接调度其他模型。
+  </div>
+
+  <pre>
+<span class="cm">// mcp-multi-ai/index.ts — MCP Server</span>
+<span class="kw">import</span> { McpServer } <span class="kw">from</span> <span class="str">'@modelcontextprotocol/sdk/server'</span>;
+
+<span class="kw">const</span> server = <span class="kw">new</span> McpServer({ name: <span class="str">'multi-ai-orchestra'</span> });
+
+server.<span class="fn">tool</span>(<span class="str">'ask_gpt'</span>, <span class="str">'委派任务给GPT-4o（擅长文案/翻译）'</span>,
+  { prompt: { type: <span class="str">'string'</span> }, temperature: { type: <span class="str">'number'</span>, default: <span class="num">0.7</span> } },
+  <span class="kw">async</span> ({ prompt, temperature }) => {
+    <span class="kw">const</span> res = <span class="kw">await</span> openai.chat.completions.create({
+      model: <span class="str">'gpt-4o'</span>, messages: [{ role: <span class="str">'user'</span>, content: prompt }],
+      temperature
+    });
+    <span class="kw">return</span> { content: [{ type: <span class="str">'text'</span>, text: res.choices[<span class="num">0</span>].message.content }] };
+  }
+);
+
+server.<span class="fn">tool</span>(<span class="str">'ask_qwen_local'</span>, <span class="str">'委派任务给本地Qwen3（零成本/隐私）'</span>,
+  { prompt: { type: <span class="str">'string'</span> } },
+  <span class="kw">async</span> ({ prompt }) => {
+    <span class="kw">const</span> res = <span class="kw">await</span> fetch(<span class="str">'http://localhost:11434/api/generate'</span>, {
+      method: <span class="str">'POST'</span>,
+      body: JSON.stringify({ model: <span class="str">'qwen3-coder:30b'</span>, prompt, stream: <span class="kw">false</span> })
+    });
+    <span class="kw">return</span> { content: [{ type: <span class="str">'text'</span>, text: (<span class="kw">await</span> res.json()).response }] };
+  }
+);
+
+<span class="cm">// 同理注册 ask_grok, ask_minimax ...</span>
+  </pre>
+
+  <div class="callout warn">
+    <strong>配置方式：</strong> 在项目的 <code>.claude/settings.json</code> 中添加：<br>
+    <code>"mcpServers": { "multi-ai": { "command": "node", "args": ["mcp-multi-ai/index.js"] } }</code><br><br>
+    配置后，Claude在对话中就能直接说"让GPT帮我写一段广告文案"并自动调用。
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<div class="sec">
+  <h2>成本与效率对比</h2>
+
+  <table class="tbl">
+    <tr>
+      <th>模型</th><th>适合任务</th><th>调用成本</th><th>速度</th><th>每日建议用量</th>
+    </tr>
+    <tr>
+      <td style="color:#00D4C8;font-weight:600">Claude</td>
+      <td>架构/审核/复杂逻辑</td>
+      <td>$$$ (Pro订阅)</td>
+      <td>中</td>
+      <td>全部关键决策</td>
+    </tr>
+    <tr>
+      <td style="color:#8B5CF6;font-weight:600">GPT Pro</td>
+      <td>文案/翻译/创意</td>
+      <td>$$ (Pro订阅)</td>
+      <td>快</td>
+      <td>5-10篇文案</td>
+    </tr>
+    <tr>
+      <td style="color:#3B82F6;font-weight:600">Codex</td>
+      <td>批量代码/自动化</td>
+      <td>$$ (Pro含)</td>
+      <td>中</td>
+      <td>3-5个批量任务</td>
+    </tr>
+    <tr>
+      <td style="color:#FF6B00;font-weight:600">Grok Pro</td>
+      <td>实时数据/竞品</td>
+      <td>$$ (订阅)</td>
+      <td>快</td>
+      <td>早晨1次情报简报</td>
+    </tr>
+    <tr>
+      <td style="color:#F43F5E;font-weight:600">MiniMax</td>
+      <td>中文SEO/长文</td>
+      <td>$ (性价比高)</td>
+      <td>快</td>
+      <td>5-8篇中文内容</td>
+    </tr>
+    <tr>
+      <td style="color:#22C55E;font-weight:600">Qwen3 30B</td>
+      <td>代码补全/数据处理</td>
+      <td style="color:#22C55E;font-weight:700">免费（本地）</td>
+      <td>取决于GPU</td>
+      <td>无限</td>
+    </tr>
+  </table>
+</div>
+
+<!-- ============================================================ -->
+<div class="sec">
+  <h2>针对荣旺项目的具体任务分配</h2>
+
+  <table class="tbl">
+    <tr><th>项目任务</th><th>主执行</th><th>辅助</th><th>Claude角色</th></tr>
+    <tr><td>产品页V2开发</td><td style="color:#00D4C8">Claude</td><td>Qwen3补全</td><td>主力开发</td></tr>
+    <tr><td>SEO文章100篇</td><td style="color:#F43F5E">MiniMax</td><td>GPT英文版</td><td>大纲+审核</td></tr>
+    <tr><td>广告投放文案</td><td style="color:#8B5CF6">GPT Pro</td><td>MiniMax中文适配</td><td>策略+审核</td></tr>
+    <tr><td>竞品价格监控</td><td style="color:#FF6B00">Grok Pro</td><td>—</td><td>解读+决策</td></tr>
+    <tr><td>批量HTML生成</td><td style="color:#3B82F6">Codex</td><td>Qwen3本地</td><td>模板设计</td></tr>
+    <tr><td>CSS微调优化</td><td style="color:#22C55E">Qwen3</td><td>—</td><td>审核</td></tr>
+    <tr><td>邮件营销序列</td><td style="color:#8B5CF6">GPT Pro</td><td>MiniMax</td><td>策略+审核</td></tr>
+    <tr><td>小红书/知乎内容</td><td style="color:#F43F5E">MiniMax</td><td>—</td><td>选题+审核</td></tr>
+    <tr><td>API/后端开发</td><td style="color:#00D4C8">Claude</td><td>Codex测试</td><td>主力开发</td></tr>
+    <tr><td>数据格式转换</td><td style="color:#22C55E">Qwen3</td><td>—</td><td>不需要</td></tr>
+  </table>
+</div>
+
+<!-- ============================================================ -->
+<div class="sec">
+  <h2>立即开始的第一步</h2>
+
+  <div class="callout tip">
+    <strong>推荐从方案②开始。</strong> 今天就可以做的事：<br><br>
+    <strong>1.</strong> 在项目中创建 <code>ai-tasks/</code> 目录，我来写任务brief模板<br>
+    <strong>2.</strong> 确认你的API Key情况（OpenAI / xAI / MiniMax）<br>
+    <strong>3.</strong> 确认Ollama + Qwen3-Coder:30b已经在本地跑起来<br>
+    <strong>4.</strong> 我来搭建 <code>orchestrator.js</code> 调度脚本，统一所有API调用<br>
+    <strong>5.</strong> 之后每次你给我任务，我会自动判断哪些子任务委派给哪个AI<br><br>
+    告诉我你准备好了哪些API Key，我来搭建调度系统。
+  </div>
+</div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,10 @@
+{
+  "name": "xiaohongshu-post",
+  "description": "生成小红书种草笔记（含标题、正文、标签）",
+  "model": "minimax",
+  "system": "你是小红书爆款笔记写手，擅长保健品种草内容。风格：真实分享感、有干货、排版美观。使用emoji但不过度。标题要有数字和情绪词。内容要有亲身体验感，避免硬广。品牌是「荣旺健康」，香港品质，跨境直邮。",
+  "prompt": "为以下产品写一篇小红书种草笔记：\n\n产品：{{productName}}\n功效：{{benefit}}\n目标人群：{{audience}}\n\n要求：\n1. 5个备选标题（含emoji和数字）\n2. 正文800-1200字，分段清晰\n3. 开头用个人故事引入\n4. 中间详细讲成分和效果\n5. 结尾购买指引（跨境直邮）\n6. 15个相关标签\n7. 注明最佳发布时间建议",
+  "temperature": 0.85,
+  "maxTokens": 4096,
+  "outputFile": "xhs-{{timestamp}}.md"
+}

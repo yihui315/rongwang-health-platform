@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI健康检测 | 3分钟找到你的营养缺口 — 荣旺企业商城</title>
+<meta name="description" content="基于30万+临床文献的AI健康检测，精准分析你的营养缺口，生成专属补充方案。完全免费。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+SC:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   AI QUIZ V2 — Design System
+   Apple dark cinema + Linear luminance + Stripe precision
+   ============================================================ */
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --teal:#00D4C8;--teal-dark:#00b3a8;--teal-deep:#009E95;
+  --orange:#FF6B00;--orange-hover:#E55F00;
+  --black:#0A0A0B;--gray-900:#141416;--gray-850:#1A1A1E;
+  --gray-800:#222226;--gray-700:#2E2E34;--gray-600:#4B4B56;
+  --gray-500:#71717A;--gray-400:#A1A1AA;--gray-300:#D4D4D8;
+  --white:#F7F8F8;--pure-white:#FFFFFF;
+  --green:#22C55E;--red:#EF4444;
+  /* Linear-style semi-transparent */
+  --border-subtle:rgba(255,255,255,0.06);
+  --border-standard:rgba(255,255,255,0.1);
+  --border-strong:rgba(255,255,255,0.15);
+  --surface-1:rgba(255,255,255,0.03);
+  --surface-2:rgba(255,255,255,0.05);
+  --surface-3:rgba(255,255,255,0.08);
+  /* Shadows */
+  --shadow-glow:0 0 80px rgba(0,212,200,0.08);
+  --shadow-card:rgba(0,0,0,0.4) 0px 8px 24px -8px;
+  --shadow-elevated:rgba(0,0,0,0.5) 0px 16px 48px -12px;
+  /* Radius */
+  --r-sm:6px;--r-md:8px;--r-lg:12px;--r-xl:16px;--r-2xl:24px;--r-pill:9999px;
+  /* Timing */
+  --ease:cubic-bezier(0.4,0,0.2,1);--ease-out:cubic-bezier(0,0,0.2,1);
+  --t-fast:150ms;--t-normal:250ms;--t-slow:400ms;
+}
+html{font-size:16px;-webkit-text-size-adjust:100%}
+body{
+  font-family:'Inter','Noto Sans SC',-apple-system,BlinkMacSystemFont,system-ui,sans-serif;
+  font-feature-settings:'cv01','cv05','ss01';
+  background:var(--black);color:var(--gray-400);
+  line-height:1.6;-webkit-font-smoothing:antialiased;
+  min-height:100vh;overflow-x:hidden;
+}
+a{text-decoration:none;color:inherit}
+button{cursor:pointer;border:none;background:none;font-family:inherit}
+
+/* ===== Animations ===== */
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes scaleIn{from{opacity:0;transform:scale(0.96)}to{opacity:1;transform:none}}
+@keyframes pulse-dot{0%,100%{opacity:1}50%{opacity:0.4}}
+@keyframes slide-progress{from{width:0}to{width:100%}}
+@keyframes glow-pulse{0%,100%{box-shadow:0 0 20px rgba(0,212,200,0.1)}50%{box-shadow:0 0 40px rgba(0,212,200,0.2)}}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+@keyframes check-in{from{transform:scale(0)}to{transform:scale(1)}}
+
+/* ===== Header — Apple glass on dark ===== */
+.header{
+  position:fixed;top:0;left:0;right:0;z-index:100;height:56px;
+  background:rgba(10,10,11,0.8);
+  backdrop-filter:saturate(180%) blur(20px);
+  -webkit-backdrop-filter:saturate(180%) blur(20px);
+  border-bottom:1px solid var(--border-subtle);
+}
+.header-inner{display:flex;align-items:center;justify-content:space-between;height:100%;max-width:1200px;margin:0 auto;padding:0 24px}
+.logo{font-size:17px;font-weight:600;color:var(--white);letter-spacing:-0.3px}
+.logo span{color:var(--teal)}
+.btn-back{
+  font-size:13px;font-weight:500;color:var(--gray-500);
+  display:flex;align-items:center;gap:6px;
+  transition:color var(--t-fast) var(--ease);
+}
+.btn-back:hover{color:var(--white)}
+
+/* ===== Main Layout ===== */
+.main{
+  min-height:100vh;display:flex;align-items:center;justify-content:center;
+  padding:80px 24px 48px;position:relative;
+}
+.main::before{
+  content:'';position:absolute;top:0;left:0;right:0;bottom:0;
+  background:url('images/dark-ai-particles.png') center/cover no-repeat;
+  opacity:0.12;pointer-events:none;
+}
+.main::after{
+  content:'';position:absolute;top:20%;left:50%;width:600px;height:600px;
+  transform:translateX(-50%);
+  background:radial-gradient(circle,rgba(0,212,200,0.05) 0%,transparent 60%);
+  pointer-events:none;
+}
+.quiz-container{width:100%;max-width:580px;position:relative;z-index:1}
+
+/* ===== Progress ===== */
+.progress-bar{display:flex;align-items:center;gap:8px;margin-bottom:40px}
+.progress-step{display:flex;align-items:center;gap:8px;flex:1}
+.progress-dot{
+  width:32px;height:32px;min-width:32px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:13px;font-weight:600;
+  background:var(--surface-1);border:1px solid var(--border-subtle);
+  color:var(--gray-600);transition:all var(--t-normal) var(--ease);
+}
+.progress-dot.active{background:rgba(0,212,200,0.12);border-color:rgba(0,212,200,0.3);color:var(--teal)}
+.progress-dot.done{background:var(--teal);border-color:var(--teal);color:var(--black)}
+.progress-dot.done::after{content:'✓';font-size:14px;font-weight:700}
+.progress-dot.done span{display:none}
+.progress-line{flex:1;height:2px;background:var(--border-subtle);border-radius:99px;position:relative;overflow:hidden}
+.progress-line .fill{height:100%;background:var(--teal);border-radius:99px;width:0;transition:width var(--t-slow) var(--ease)}
+.progress-label{font-size:11px;color:var(--gray-600);margin-top:4px;text-align:center;letter-spacing:-0.1px;display:none}
+
+/* ===== Step Container ===== */
+.step{display:none;animation:fadeUp 0.5s var(--ease) both}
+.step.active{display:block}
+.step-header{margin-bottom:32px}
+.step-num{font-size:12px;font-weight:600;color:var(--teal);letter-spacing:0.5px;text-transform:uppercase;margin-bottom:8px}
+.step h2{font-size:clamp(24px,3.5vw,32px);font-weight:700;color:var(--white);letter-spacing:-0.64px;line-height:1.15;margin-bottom:8px}
+.step .hint{font-size:15px;color:var(--gray-500);letter-spacing:-0.1px}
+
+/* ===== Options — Linear card style ===== */
+.options{display:flex;flex-direction:column;gap:10px}
+.options.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.opt{
+  padding:16px 20px;
+  background:var(--surface-1);
+  border:1px solid var(--border-subtle);
+  border-radius:var(--r-lg);
+  cursor:pointer;
+  transition:all var(--t-fast) var(--ease);
+  display:flex;align-items:center;gap:14px;
+}
+.opt:hover{background:var(--surface-2);border-color:var(--border-standard)}
+.opt.selected{
+  background:rgba(0,212,200,0.08);
+  border-color:rgba(0,212,200,0.25);
+  box-shadow:0 0 0 1px rgba(0,212,200,0.1);
+}
+.opt-icon{
+  width:44px;height:44px;min-width:44px;border-radius:var(--r-md);
+  display:flex;align-items:center;justify-content:center;font-size:22px;
+  background:var(--surface-2);
+  transition:all var(--t-fast) var(--ease);
+}
+.opt.selected .opt-icon{background:rgba(0,212,200,0.12)}
+.opt-text{flex:1}
+.opt-text h4{font-size:15px;font-weight:600;color:var(--white);letter-spacing:-0.2px;margin-bottom:1px}
+.opt-text p{font-size:13px;color:var(--gray-500);line-height:1.4}
+.opt-check{
+  width:20px;height:20px;min-width:20px;border-radius:50%;
+  border:1.5px solid var(--border-standard);
+  display:flex;align-items:center;justify-content:center;
+  transition:all var(--t-fast) var(--ease);
+  font-size:11px;color:transparent;
+}
+.opt.selected .opt-check{
+  background:var(--teal);border-color:var(--teal);color:var(--black);
+  animation:check-in 0.2s var(--ease);
+}
+
+/* Multi-select indicator */
+.multi-hint{
+  display:inline-flex;align-items:center;gap:4px;
+  padding:4px 10px;border-radius:var(--r-pill);
+  background:var(--surface-2);font-size:11px;
+  color:var(--gray-500);margin-top:16px;
+}
+
+.btn-next{
+  display:block;width:100%;margin-top:24px;padding:15px;
+  font-size:16px;font-weight:600;letter-spacing:-0.2px;
+  background:var(--teal);color:var(--black);border-radius:var(--r-md);
+  transition:all var(--t-normal) var(--ease);
+  box-shadow:rgba(0,212,200,0.25) 0px 6px 16px -4px;
+}
+.btn-next:hover{background:var(--teal-dark);transform:translateY(-1px);box-shadow:rgba(0,212,200,0.35) 0px 10px 24px -4px}
+.btn-next:disabled{opacity:0.3;cursor:not-allowed;transform:none;box-shadow:none}
+
+/* ===== Loading Screen ===== */
+.loading-screen{
+  display:none;text-align:center;padding:60px 0;
+  animation:fadeIn 0.4s var(--ease) both;
+  position:relative;
+}
+.loading-bg{
+  position:absolute;top:-40px;left:50%;transform:translateX(-50%);
+  width:300px;height:300px;opacity:0.15;pointer-events:none;
+  border-radius:50%;object-fit:cover;
+  filter:blur(2px);
+}
+.loading-screen.active{display:block}
+.loading-ring{
+  width:64px;height:64px;margin:0 auto 32px;border-radius:50%;
+  border:3px solid var(--border-subtle);border-top-color:var(--teal);
+  animation:spin 1s linear infinite;
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+.loading-screen h3{color:var(--white);font-size:20px;font-weight:600;letter-spacing:-0.3px;margin-bottom:16px}
+.loading-steps{display:flex;flex-direction:column;gap:12px;max-width:320px;margin:0 auto}
+.loading-step{
+  display:flex;align-items:center;gap:10px;font-size:14px;color:var(--gray-600);
+  transition:color var(--t-normal) var(--ease);
+}
+.loading-step.active{color:var(--gray-400)}
+.loading-step.done{color:var(--teal)}
+.ls-dot{width:8px;height:8px;min-width:8px;border-radius:50%;background:var(--gray-700);transition:all var(--t-normal) var(--ease)}
+.loading-step.active .ls-dot{background:var(--teal);animation:pulse-dot 1s infinite}
+.loading-step.done .ls-dot{background:var(--teal)}
+
+/* ===== Result Screen ===== */
+.result-screen{
+  display:none;animation:fadeUp 0.6s var(--ease) both;
+}
+.result-screen.active{display:block}
+.result-badge{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:6px 14px;border-radius:var(--r-pill);
+  background:rgba(0,212,200,0.1);border:1px solid rgba(0,212,200,0.2);
+  font-size:13px;font-weight:600;color:var(--teal);margin-bottom:20px;
+}
+.result-badge .dot{width:6px;height:6px;border-radius:50%;background:var(--teal)}
+.result-screen h2{font-size:clamp(24px,3.5vw,32px);font-weight:700;color:var(--white);letter-spacing:-0.64px;margin-bottom:12px}
+.result-explain{font-size:15px;color:var(--gray-500);line-height:1.7;margin-bottom:32px}
+
+/* Product recommendations */
+.rec-list{display:flex;flex-direction:column;gap:10px;margin-bottom:32px}
+.rec-item{
+  display:flex;align-items:center;gap:14px;padding:16px 18px;
+  background:var(--surface-1);border:1px solid var(--border-subtle);
+  border-radius:var(--r-lg);transition:all var(--t-fast) var(--ease);
+}
+.rec-item:hover{background:var(--surface-2);border-color:var(--border-standard)}
+.rec-icon{
+  width:48px;height:48px;min-width:48px;border-radius:var(--r-md);
+  display:flex;align-items:center;justify-content:center;font-size:22px;
+  background:var(--surface-2);
+}
+.rec-info{flex:1}
+.rec-info h4{font-size:15px;font-weight:600;color:var(--white);letter-spacing:-0.2px}
+.rec-info p{font-size:12px;color:var(--gray-500);margin-top:2px}
+.rec-why{
+  font-size:11px;font-weight:600;color:var(--teal);margin-top:4px;
+  display:flex;align-items:center;gap:4px;
+}
+
+/* Dosage schedule */
+.dosage-card{
+  padding:24px;background:var(--surface-1);border:1px solid var(--border-subtle);
+  border-radius:var(--r-xl);margin-bottom:32px;
+}
+.dosage-card h4{font-size:14px;font-weight:600;color:var(--white);margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.dosage-row{display:flex;gap:8px;margin-bottom:8px}
+.dosage-time{
+  padding:4px 10px;border-radius:var(--r-pill);font-size:11px;font-weight:600;
+  min-width:48px;text-align:center;
+}
+.dosage-time.morning{background:rgba(255,107,0,0.1);color:#FF8533}
+.dosage-time.noon{background:rgba(0,212,200,0.1);color:var(--teal)}
+.dosage-time.night{background:rgba(99,102,241,0.1);color:#818CF8}
+.dosage-name{font-size:13px;color:var(--gray-400);display:flex;align-items:center}
+
+/* Compare table */
+.compare-card{
+  padding:24px;background:var(--surface-1);border:1px solid var(--border-subtle);
+  border-radius:var(--r-xl);margin-bottom:32px;overflow:hidden;
+}
+.compare-card h4{font-size:14px;font-weight:600;color:var(--white);margin-bottom:14px}
+.compare-table{width:100%;border-collapse:collapse}
+.compare-table th{font-size:12px;font-weight:600;color:var(--gray-500);text-align:left;padding:8px 12px;border-bottom:1px solid var(--border-subtle)}
+.compare-table td{font-size:13px;padding:10px 12px;border-bottom:1px solid var(--border-subtle)}
+.compare-table .bad{color:var(--red);font-weight:500}
+.compare-table .good{color:var(--green);font-weight:600}
+
+/* Price & CTA */
+.result-price-card{
+  padding:24px;background:var(--surface-2);border:1px solid var(--border-standard);
+  border-radius:var(--r-xl);margin-bottom:24px;text-align:center;
+  animation:glow-pulse 3s ease-in-out infinite;
+}
+.rpc-label{font-size:13px;color:var(--gray-500);margin-bottom:8px}
+.rpc-price{font-size:40px;font-weight:800;color:var(--white);letter-spacing:-1px}
+.rpc-price small{font-size:18px;color:var(--gray-600);text-decoration:line-through;margin-left:8px;font-weight:400}
+.rpc-save{display:inline-block;padding:4px 12px;background:rgba(34,197,94,0.1);color:var(--green);font-size:13px;font-weight:600;border-radius:var(--r-pill);margin-top:6px}
+.rpc-per{font-size:13px;color:var(--gray-500);margin-top:8px}
+
+.result-ctas{display:flex;gap:10px}
+.btn-buy{
+  flex:1;padding:16px;font-size:16px;font-weight:700;letter-spacing:-0.2px;
+  background:var(--orange);color:var(--pure-white);border-radius:var(--r-md);text-align:center;
+  transition:all var(--t-normal) var(--ease);
+  box-shadow:rgba(255,107,0,0.3) 0px 8px 20px -4px;
+}
+.btn-buy:hover{background:var(--orange-hover);transform:translateY(-2px);box-shadow:rgba(255,107,0,0.4) 0px 12px 28px -4px}
+.btn-detail{
+  flex:1;padding:16px;font-size:16px;font-weight:600;
+  background:var(--surface-2);color:var(--white);border:1px solid var(--border-standard);
+  border-radius:var(--r-md);text-align:center;
+  transition:all var(--t-normal) var(--ease);
+}
+.btn-detail:hover{background:var(--surface-3)}
+
+/* Guarantees */
+.guarantees{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:24px}
+.guarantee{
+  padding:14px;background:var(--surface-1);border:1px solid var(--border-subtle);
+  border-radius:var(--r-lg);text-align:center;
+}
+.guarantee .ico{font-size:20px;margin-bottom:6px}
+.guarantee .txt{font-size:12px;color:var(--gray-500);font-weight:500}
+
+/* ===== Responsive ===== */
+@media(max-width:640px){
+  .main{padding:72px 16px 32px}
+  .options.grid-2{grid-template-columns:1fr}
+  .result-ctas{flex-direction:column}
+  .guarantees{grid-template-columns:1fr}
+  .dosage-row{flex-wrap:wrap}
+  .progress-bar{gap:4px}
+  .progress-dot{width:28px;height:28px;min-width:28px;font-size:12px}
+}
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<header class="header">
+  <div class="header-inner">
+    <a href="index-v2.html" class="logo"><span>荣旺</span>企业商城</a>
+    <a href="index-v2.html" class="btn-back">← 返回首页</a>
+  </div>
+</header>
+
+<!-- Main -->
+<main class="main">
+  <div class="quiz-container">
+
+    <!-- Progress -->
+    <div class="progress-bar" id="progressBar">
+      <div class="progress-step">
+        <div class="progress-dot active" id="pd1"><span>1</span></div>
+        <div class="progress-line"><div class="fill" id="pf1"></div></div>
+      </div>
+      <div class="progress-step">
+        <div class="progress-dot" id="pd2"><span>2</span></div>
+        <div class="progress-line"><div class="fill" id="pf2"></div></div>
+      </div>
+      <div class="progress-step">
+        <div class="progress-dot" id="pd3"><span>3</span></div>
+        <div class="progress-line"><div class="fill" id="pf3"></div></div>
+      </div>
+      <div class="progress-step">
+        <div class="progress-dot" id="pd4"><span>4</span></div>
+      </div>
+    </div>
+
+    <!-- Step 1: Gender -->
+    <div class="step active" id="step1">
+      <div class="step-header">
+        <div class="step-num">Step 1 of 4</div>
+        <h2>你的性别</h2>
+        <p class="hint">不同性别的营养代谢和需求差异显著</p>
+      </div>
+      <div class="options grid-2">
+        <div class="opt" onclick="pick('gender',this,'男')">
+          <div class="opt-icon">👨</div>
+          <div class="opt-text"><h4>男性</h4><p>铁需求较低，锌需求较高</p></div>
+          <div class="opt-check">✓</div>
+        </div>
+        <div class="opt" onclick="pick('gender',this,'女')">
+          <div class="opt-icon">👩</div>
+          <div class="opt-text"><h4>女性</h4><p>铁和叶酸需求更高</p></div>
+          <div class="opt-check">✓</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 2: Age -->
+    <div class="step" id="step2">
+      <div class="step-header">
+        <div class="step-num">Step 2 of 4</div>
+        <h2>你的年龄段</h2>
+        <p class="hint">营养代谢效率随年龄显著变化</p>
+      </div>
+      <div class="options grid-2">
+        <div class="opt" onclick="pick('age',this,'18-29')">
+          <div class="opt-icon">🧑</div>
+          <div class="opt-text"><h4>18-29岁</h4><p>代谢旺盛期</p></div>
+          <div class="opt-check">✓</div>
+        </div>
+        <div class="opt" onclick="pick('age',this,'30-39')">
+          <div class="opt-icon">👨‍💼</div>
+          <div class="opt-text"><h4>30-39岁</h4><p>压力高峰期</p></div>
+          <div class="opt-check">✓</div>
+        </div>
+        <div class="opt" onclick="pick('age',this,'40-49')">
+          <div class="opt-icon">🧑‍🦳</div>
+          <div class="opt-text"><h4>40-49岁</h4><p>CoQ10下降期</p></div>
+          <div class="opt-check">✓</div>
+        </div>
+        <div class="opt" onclick="pick('age',this,'50+')">
+          <div class="opt-icon">👴</div>
+          <div class="opt-text"><h4>50岁以上</h4><p>吸收效率降低</p></div>
+          <div class="opt-check">✓</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 3: Problems -->
+    <div class="step" id="step3">
+      <div class="step-header">
+        <div class="step-num">Step 3 of 4</div>
+        <h2>你最困扰的问题</h2>
+        <p class="hint">选择1-3个最突出的健康问题</p>
+      </div>
+      <div class="options">
+        <div class="opt" onclick="multi(this,'疲劳')">
+          <div class="opt-icon">⚡</div>
+          <div class="opt-text"><h4>持续疲劳</h4><p>下午犯困、咖啡依赖、精力不足</p></div>
+          <div class="opt-check">✓</div>
+        </div>
+        <div class="opt" onclick="multi(this,'免疫差')">
+          <div class="opt-icon">🛡️</div>
+          <div class="opt-text"><h4>免疫力低</h4><p>换季感冒、口腔溃疡反复</p></div>
+          <div class="opt-check">✓</div>
+        </div>
+        <div class="opt" onclick="multi(this,'睡眠差')">
+          <div class="opt-icon">🌙</div>
+          <div class="opt-text"><h4>睡眠问题</h4><p>入睡困难、半夜醒来、浅睡眠</p></div>
+          <div class="opt-check">✓</div>
+        </div>
+        <div class="opt" onclick="multi(this,'压力大')">
+          <div class="opt-icon">🧠</div>
+          <div class="opt-text"><h4>压力焦虑</h4><p>焦虑烦躁、注意力涣散、情绪波动</p></div>
+          <div class="opt-check">✓</div>
+        </div>
+      </div>
+      <div class="multi-hint">💡 可多选，最多选3个</div>
+      <button class="btn-next" id="btnNext3" onclick="go(4)" disabled>下一步 →</button>
+    </div>
+
+    <!-- Step 4: Goal -->
+    <div class="step" id="step4">
+      <div class="step-header">
+        <div class="step-num">Step 4 of 4</div>
+        <h2>你最想达到的目标</h2>
+        <p class="hint">最后一步，帮助AI精准匹配最优方案</p>
+      </div>
+      <div class="options">
+        <div class="opt" onclick="pick('goal',this,'精力');startAnalysis()">
+          <div class="opt-icon">🚀</div>
+          <div class="opt-text"><h4>全天精力充沛</h4><p>告别午后崩溃，不依赖咖啡</p></div>
+          <div class="opt-check">✓</div>
+        </div>
+        <div class="opt" onclick="pick('goal',this,'睡眠');startAnalysis()">
+          <div class="opt-icon">😴</div>
+          <div class="opt-text"><h4>一觉到天亮</h4><p>快速入睡，深度睡眠</p></div>
+          <div class="opt-check">✓</div>
+        </div>
+        <div class="opt" onclick="pick('goal',this,'免疫');startAnalysis()">
+          <div class="opt-icon">💪</div>
+          <div class="opt-text"><h4>不再动不动生病</h4><p>换季无忧，免疫强健</p></div>
+          <div class="opt-check">✓</div>
+        </div>
+        <div class="opt" onclick="pick('goal',this,'平衡');startAnalysis()">
+          <div class="opt-icon">🧘</div>
+          <div class="opt-text"><h4>身心平衡稳定</h4><p>情绪平稳，压力可控</p></div>
+          <div class="opt-check">✓</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Loading -->
+    <div class="loading-screen" id="loadingScreen">
+      <img class="loading-bg" src="images/dark-molecules.png" alt="">
+      <div class="loading-ring"></div>
+      <h3>AI正在分析你的健康数据…</h3>
+      <div class="loading-steps">
+        <div class="loading-step" id="ls1"><div class="ls-dot"></div> 匹配临床文献数据库</div>
+        <div class="loading-step" id="ls2"><div class="ls-dot"></div> 分析营养素缺口模型</div>
+        <div class="loading-step" id="ls3"><div class="ls-dot"></div> 计算最优补充组合</div>
+        <div class="loading-step" id="ls4"><div class="ls-dot"></div> 生成个性化方案</div>
+      </div>
+    </div>
+
+    <!-- Result -->
+    <div class="result-screen" id="resultScreen">
+      <div class="result-badge"><span class="dot"></span> <span id="rType">检测完成</span></div>
+      <h2 id="rTitle">你的检测结果</h2>
+      <p class="result-explain" id="rExplain"></p>
+
+      <div class="rec-list" id="rProducts"></div>
+
+      <div class="dosage-card" id="dosageCard">
+        <h4>📋 每日服用时间表</h4>
+        <div id="dosageRows"></div>
+      </div>
+
+      <div class="compare-card">
+        <h4>补充 vs 不补充</h4>
+        <table class="compare-table" id="compareTable">
+          <thead><tr><th></th><th class="bad">不补充</th><th class="good">补充后</th></tr></thead>
+          <tbody id="compareBody"></tbody>
+        </table>
+      </div>
+
+      <div class="result-price-card">
+        <div class="rpc-label">AI推荐方案 · 30天用量</div>
+        <div class="rpc-price" id="rPrice">¥299 <small id="rOriginal">¥459</small></div>
+        <div class="rpc-save" id="rSave">省¥160 · 35%</div>
+        <div class="rpc-per" id="rPer">¥9.97/天 · 比一杯咖啡还便宜</div>
+      </div>
+
+      <div class="result-ctas">
+        <a href="#" class="btn-buy" id="rBuy">立即购买</a>
+        <a href="#" class="btn-detail" id="rDetail">查看详情 →</a>
+      </div>
+
+      <div class="guarantees">
+        <div class="guarantee"><div class="ico">🔒</div><div class="txt">30天无理由退款</div></div>
+        <div class="guarantee"><div class="ico">✈️</div><div class="txt">香港直邮包税</div></div>
+        <div class="guarantee"><div class="ico">📦</div><div class="txt">订阅省20%</div></div>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<script>
+/* ===== State ===== */
+const A = { gender:'', age:'', problems:[], goal:'' };
+let currentStep = 1;
+
+/* ===== Recommendation Database ===== */
+const DB = {
+  '疲劳': {
+    type: '高压力+营养流失型', title: '你的疲劳源于细胞"缺电"',
+    explain: '长期压力消耗B族储备，镁摄入不足导致ATP产能效率下降。Omega-3缺乏引起慢性低度炎症，进一步加剧疲劳感。三者协同补充，从细胞层面恢复能量产出。',
+    items: [
+      { icon:'💊', name:'活性B族复合维生素', desc:'8种B族甲基化协同', why:'修复压力消耗的B族储备' },
+      { icon:'🟡', name:'螯合镁 400mg', desc:'Doctor\'s Best · 美国原装', why:'参与ATP产能 + 放松神经' },
+      { icon:'🟢', name:'Omega-3 深海鱼油', desc:'Nordic Naturals · 挪威原装', why:'对抗慢性炎症性疲劳' }
+    ],
+    dosage: [
+      { time:'早', cls:'morning', name:'B族复合 1粒（随早餐）' },
+      { time:'午', cls:'noon', name:'Omega-3 2粒（随午餐）' },
+      { time:'晚', cls:'night', name:'螯合镁 2粒（睡前1小时）' }
+    ],
+    compare: [
+      ['下午精力','严重犯困','全天稳定 ↑'],['注意力','难以集中','清晰专注 ↑'],
+      ['晨起状态','闹钟起不来','自然清醒 ↑'],['咖啡依赖','每天3杯+','不再依赖 ↑']
+    ],
+    bundle:'¥299', original:'¥459', save:'省¥160 · 35%', per:'¥9.97/天', link:'product-fatigue.html'
+  },
+  '免疫差': {
+    type: '免疫屏障薄弱型', title: '你的免疫系统正在"空转"',
+    explain: '维C储备不足+锌缺乏导致T细胞应答迟钝。维D不足抑制先天免疫通路。接骨木莓花青素可物理阻断病毒入侵。四重协同，构建完整免疫防线。',
+    items: [
+      { icon:'🍊', name:'脂质体维生素C 1000mg', desc:'6倍吸收率 · 不伤胃', why:'补充免疫细胞燃料' },
+      { icon:'🔵', name:'螯合锌 30mg', desc:'Solgar · 美国原装', why:'激活T细胞分化' },
+      { icon:'☀️', name:'维生素D3 2000IU', desc:'NOW Foods · 油溶性', why:'免疫双通路激活' },
+      { icon:'🫐', name:'接骨木莓精华', desc:'65倍浓缩 · 欧洲原料', why:'阻断病毒入侵通道' }
+    ],
+    dosage: [
+      { time:'早', cls:'morning', name:'维C 1粒 + 锌 1粒（随早餐）' },
+      { time:'午', cls:'noon', name:'D3 1粒（随午餐）' },
+      { time:'晚', cls:'night', name:'接骨木莓 1粒（晚餐后）' }
+    ],
+    compare: [
+      ['感冒频率','每月1-2次','每季度0-1次 ↓'],['感冒病程','拖2-3周','3-5天恢复 ↓'],
+      ['过敏反应','频繁发作','明显减少 ↓'],['整体精力','疲惫低迷','活力充沛 ↑']
+    ],
+    bundle:'¥349', original:'¥539', save:'省¥190 · 35%', per:'¥11.63/天', link:'product-immune.html'
+  },
+  '睡眠差': {
+    type: '神经兴奋型失眠', title: '你的大脑缺少"关机键"',
+    explain: 'GABA分泌不足导致交感神经持续兴奋，镁缺乏影响GABA受体功能。光污染抑制褪黑素分泌40%以上，昼夜节律紊乱。三者协同，重建自然睡眠节律。',
+    items: [
+      { icon:'💜', name:'GABA 500mg', desc:'日本发酵工艺 · 高纯度', why:'抑制神经兴奋，帮大脑关机' },
+      { icon:'🟡', name:'甘氨酸镁 200mg', desc:'Thorne · 美国原装', why:'激活GABA受体+放松肌肉' },
+      { icon:'🔵', name:'缓释褪黑素 3mg', desc:'8小时缓释技术', why:'重建昼夜节律信号' }
+    ],
+    dosage: [
+      { time:'晚', cls:'night', name:'GABA 1粒（睡前1小时）' },
+      { time:'晚', cls:'night', name:'甘氨酸镁 2粒（睡前1小时）' },
+      { time:'晚', cls:'night', name:'褪黑素 1粒（睡前30分钟）' }
+    ],
+    compare: [
+      ['入睡时间','30-60分钟+','10-15分钟 ↓'],['夜醒次数','2-3次/晚','0-1次 ↓'],
+      ['深睡时长','不到2小时','3-4小时 ↑'],['晨起感受','头重脚轻','神清气爽 ↑']
+    ],
+    bundle:'¥259', original:'¥399', save:'省¥140 · 35%', per:'¥8.63/天', link:'product-sleep.html'
+  },
+  '压力大': {
+    type: 'HPA轴过度激活型', title: '你的压力系统在"超频运行"',
+    explain: '慢性压力导致皮质醇长期升高，HPA轴失调。镁缺乏加剧焦虑，B6不足影响GABA和血清素合成。Omega-3抗炎降低应激反应。',
+    items: [
+      { icon:'💊', name:'活性B族+B6强化', desc:'GABA合成必需辅酶', why:'支持神经递质合成' },
+      { icon:'🟡', name:'螯合镁 400mg', desc:'天然NMDA受体阻滞', why:'降低皮质醇 · 放松神经' },
+      { icon:'🟢', name:'Omega-3 高EPA', desc:'抗炎 · 降低应激反应', why:'对抗压力性炎症' }
+    ],
+    dosage: [
+      { time:'早', cls:'morning', name:'B族复合 1粒（随早餐）' },
+      { time:'午', cls:'noon', name:'Omega-3 2粒（随午餐）' },
+      { time:'晚', cls:'night', name:'螯合镁 2粒（睡前1小时）' }
+    ],
+    compare: [
+      ['焦虑程度','持续紧绷','明显缓解 ↓'],['注意力','难以集中','清晰专注 ↑'],
+      ['睡眠质量','辗转难眠','安稳入睡 ↑'],['情绪稳定','波动剧烈','平稳可控 ↑']
+    ],
+    bundle:'¥399', original:'¥599', save:'省¥200 · 33%', per:'¥13.30/天', link:'product-fatigue.html'
+  }
+};
+
+/* ===== Functions ===== */
+function updateProgress(step, done) {
+  for (let i = 1; i <= 4; i++) {
+    const dot = document.getElementById('pd' + i);
+    dot.classList.remove('active', 'done');
+    if (i < step || (done && i <= step)) dot.classList.add('done');
+    else if (i === step) dot.classList.add('active');
+  }
+  for (let i = 1; i <= 3; i++) {
+    const fill = document.getElementById('pf' + i);
+    fill.style.width = (i < step) ? '100%' : '0%';
+  }
+}
+
+function pick(key, el, val) {
+  A[key] = val;
+  el.parentElement.querySelectorAll('.opt').forEach(o => o.classList.remove('selected'));
+  el.classList.add('selected');
+  if (key !== 'goal') setTimeout(() => go(currentStep + 1), 350);
+}
+
+function multi(el, val) {
+  el.classList.toggle('selected');
+  const i = A.problems.indexOf(val);
+  if (i > -1) A.problems.splice(i, 1);
+  else if (A.problems.length < 3) A.problems.push(val);
+  else { el.classList.remove('selected'); return; }
+  document.getElementById('btnNext3').disabled = A.problems.length === 0;
+}
+
+function go(s) {
+  document.getElementById('step' + currentStep).classList.remove('active');
+  currentStep = s;
+  document.getElementById('step' + currentStep).classList.add('active');
+  updateProgress(currentStep, false);
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function startAnalysis() {
+  document.getElementById('step' + currentStep).classList.remove('active');
+  updateProgress(4, true);
+  document.getElementById('progressBar').style.display = 'none';
+
+  const loading = document.getElementById('loadingScreen');
+  loading.classList.add('active');
+
+  const steps = ['ls1','ls2','ls3','ls4'];
+  steps.forEach((id, i) => {
+    setTimeout(() => {
+      document.getElementById(id).classList.add('active');
+      if (i > 0) document.getElementById(steps[i-1]).classList.remove('active');
+      if (i > 0) document.getElementById(steps[i-1]).classList.add('done');
+    }, i * 900);
+  });
+
+  setTimeout(() => {
+    document.getElementById(steps[3]).classList.add('done');
+    document.getElementById(steps[3]).classList.remove('active');
+  }, 3400);
+
+  setTimeout(() => {
+    loading.classList.remove('active');
+    loading.style.display = 'none';
+    showResult();
+  }, 3800);
+}
+
+function showResult() {
+  const primary = A.problems[0] || '疲劳';
+  const plan = DB[primary];
+
+  document.getElementById('rType').textContent = plan.type;
+  document.getElementById('rTitle').textContent = plan.title;
+  document.getElementById('rExplain').textContent = plan.explain;
+
+  // Products
+  document.getElementById('rProducts').innerHTML = plan.items.map(it =>
+    `<div class="rec-item">
+      <div class="rec-icon">${it.icon}</div>
+      <div class="rec-info">
+        <h4>${it.name}</h4>
+        <p>${it.desc}</p>
+        <div class="rec-why">→ ${it.why}</div>
+      </div>
+    </div>`
+  ).join('');
+
+  // Dosage
+  document.getElementById('dosageRows').innerHTML = plan.dosage.map(d =>
+    `<div class="dosage-row">
+      <span class="dosage-time ${d.cls}">${d.time}</span>
+      <span class="dosage-name">${d.name}</span>
+    </div>`
+  ).join('');
+
+  // Compare
+  document.getElementById('compareBody').innerHTML = plan.compare.map(r =>
+    `<tr><td style="color:var(--gray-400)">${r[0]}</td><td class="bad">${r[1]}</td><td class="good">${r[2]}</td></tr>`
+  ).join('');
+
+  // Price
+  document.getElementById('rPrice').innerHTML = plan.bundle + ` <small>${plan.original}</small>`;
+  document.getElementById('rSave').textContent = plan.save;
+  document.getElementById('rPer').textContent = plan.per + '/天';
+  document.getElementById('rBuy').textContent = '立即购买 ' + plan.bundle;
+  document.getElementById('rDetail').href = plan.link;
+
+  const rs = document.getElementById('resultScreen');
+  rs.classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// URL param pre-selection
+const pre = new URLSearchParams(location.search).get('pre');
+if (pre) {
+  const map = { fatigue:'疲劳', sleep:'睡眠差', immune:'免疫差', stress:'压力大' };
+  if (map[pre]) A.problems = [map[pre]];
+}
+</script>
+</body>
+</html>

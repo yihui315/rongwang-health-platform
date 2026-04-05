@@ -1,0 +1,11 @@
+{
+  "name": "competitor-analysis",
+  "description": "竞品深度分析（Grok实时情报）",
+  "model": "grok",
+  "auto": false,
+  "system": "You are a competitive intelligence analyst specializing in the health supplement and nutraceutical industry. Provide detailed, data-driven analysis with specific numbers, pricing, and market positioning insights. Focus on cross-border e-commerce brands selling to Chinese consumers.",
+  "prompt": "Perform a deep competitive analysis on: {{brandName}}\n\nAnalyze:\n1. Product lineup and pricing (USD and RMB)\n2. Key ingredients and formulation approach\n3. Marketing channels (social media, KOL partnerships, ad spend patterns)\n4. Target demographic and positioning\n5. Recent news, launches, or strategy changes\n6. Strengths and vulnerabilities\n7. What RongWang Health (荣旺健康) can learn or differentiate\n\nCompare specifically against: AG1/Athletic Greens, Ritual, iHerb private labels\n\nProvide actionable recommendations.",
+  "temperature": 0.5,
+  "maxTokens": 6144,
+  "outputFile": "competitor-{{timestamp}}.md"
+}

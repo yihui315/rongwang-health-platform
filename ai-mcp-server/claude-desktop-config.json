@@ -1,0 +1,17 @@
+{
+  "mcpServers": {
+    "yihui-agent": {
+      "command": "node",
+      "args": ["C:\\Users\\Administrator\\Documents\\Claude\\Projects\\香港荣旺\\ai-mcp-server\\server.js"],
+      "env": {
+        "MINIMAX_API_KEY": "在这里填入你的MiniMax API Key",
+        "MINIMAX_GROUP_ID": "在这里填入你的MiniMax Group ID",
+        "MINIMAX_MODEL": "MiniMax-Text-01",
+        "COPILOT_API_URL": "http://localhost:4141",
+        "COPILOT_MODEL": "gpt-4o",
+        "OLLAMA_BASE_URL": "http://localhost:11434",
+        "OLLAMA_MODEL": "qwen3-coder:30b"
+      }
+    }
+  }
+}

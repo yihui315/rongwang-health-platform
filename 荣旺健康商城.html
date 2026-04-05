@@ -1,0 +1,2254 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>荣旺健康 | RongWang Health — 全球精选保健品跨境直购</title>
+<meta name="description" content="荣旺健康，香港直邮全球精选保健品与OTC药品。AI智能推荐，品质保证，全球包邮。">
+<meta name="keywords" content="保健品,跨境电商,OTC,维生素,营养补充剂,香港直邮">
+<!-- GEO: llms.txt compatible, FAQPage schema, AI-friendly structure -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Noto+Sans+SC:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+<style>
+/* ========== CSS RESET & VARIABLES ========== */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  /* Brand Colors - Premium Health */
+  --primary: #0A6847;
+  --primary-light: #16a34a;
+  --primary-dark: #064e33;
+  --accent: #F6A623;
+  --accent-warm: #FF8C42;
+  --bg: #FAFAF8;
+  --bg-cream: #F5F0E8;
+  --bg-white: #FFFFFF;
+  --bg-dark: #0C1B14;
+  --text: #1A1A1A;
+  --text-secondary: #555;
+  --text-light: #888;
+  --border: #E8E4DC;
+  --gold: #C9A84C;
+  --gold-light: #F5E6B8;
+  --success: #22c55e;
+  --danger: #ef4444;
+  --gradient-hero: linear-gradient(135deg, #0A6847 0%, #16a34a 50%, #22c55e 100%);
+  --gradient-gold: linear-gradient(135deg, #C9A84C 0%, #E8D08C 50%, #C9A84C 100%);
+  --gradient-dark: linear-gradient(180deg, #0C1B14 0%, #1a3a2a 100%);
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
+  --shadow-md: 0 4px 20px rgba(0,0,0,0.08);
+  --shadow-lg: 0 12px 40px rgba(0,0,0,0.12);
+  --shadow-xl: 0 24px 60px rgba(0,0,0,0.15);
+  --shadow-glow: 0 0 40px rgba(10,104,71,0.15);
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-xl: 32px;
+  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+html { scroll-behavior: smooth; font-size: 16px; }
+body {
+  font-family: 'Inter', 'Noto Sans SC', -apple-system, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+a { text-decoration: none; color: inherit; }
+button { cursor: pointer; border: none; background: none; font-family: inherit; }
+img { max-width: 100%; display: block; }
+
+/* ========== UTILITY CLASSES ========== */
+.container { max-width: 1280px; margin: 0 auto; padding: 0 24px; }
+.section { padding: 100px 0; }
+.text-center { text-align: center; }
+.flex { display: flex; }
+.flex-col { flex-direction: column; }
+.items-center { align-items: center; }
+.justify-between { justify-content: space-between; }
+.gap-sm { gap: 12px; }
+.gap-md { gap: 24px; }
+.gap-lg { gap: 40px; }
+
+/* ========== ANIMATIONS ========== */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(40px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes slideInLeft {
+  from { opacity: 0; transform: translateX(-60px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+@keyframes slideInRight {
+  from { opacity: 0; transform: translateX(60px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+@keyframes gradientMove {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+@keyframes countUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes chatBounce {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
+.animate-in { animation: fadeInUp 0.8s ease-out forwards; }
+.animate-delay-1 { animation-delay: 0.1s; }
+.animate-delay-2 { animation-delay: 0.2s; }
+.animate-delay-3 { animation-delay: 0.3s; }
+.animate-delay-4 { animation-delay: 0.4s; }
+
+/* ========== ANNOUNCEMENT BAR ========== */
+.announcement-bar {
+  background: var(--gradient-hero);
+  color: white;
+  text-align: center;
+  padding: 10px 20px;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  position: relative;
+  overflow: hidden;
+}
+.announcement-bar::before {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%;
+  width: 200%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+  animation: shimmer 3s infinite;
+}
+.announcement-bar span { position: relative; z-index: 1; }
+.announcement-bar .highlight { color: var(--gold-light); font-weight: 700; }
+
+/* ========== HEADER / NAV ========== */
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: rgba(255,255,255,0.95);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  transition: var(--transition);
+}
+.header.scrolled { box-shadow: var(--shadow-md); }
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 72px;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--primary);
+  letter-spacing: -0.5px;
+}
+.logo-icon {
+  width: 40px; height: 40px;
+  background: var(--gradient-hero);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 20px;
+}
+.nav-links { display: flex; align-items: center; gap: 32px; }
+.nav-links a {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  transition: var(--transition);
+  position: relative;
+}
+.nav-links a:hover { color: var(--primary); }
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--primary);
+  transition: width 0.3s ease;
+}
+.nav-links a:hover::after { width: 100%; }
+.nav-actions { display: flex; align-items: center; gap: 16px; }
+.nav-search {
+  width: 200px;
+  padding: 8px 16px;
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  font-size: 13px;
+  background: var(--bg);
+  transition: var(--transition);
+  outline: none;
+}
+.nav-search:focus { border-color: var(--primary); width: 260px; box-shadow: 0 0 0 3px rgba(10,104,71,0.1); }
+.nav-icon-btn {
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text);
+  transition: var(--transition);
+  position: relative;
+  font-size: 18px;
+}
+.nav-icon-btn:hover { background: var(--bg); color: var(--primary); }
+.cart-count {
+  position: absolute;
+  top: -2px; right: -2px;
+  width: 18px; height: 18px;
+  background: var(--danger);
+  color: white;
+  font-size: 10px;
+  font-weight: 700;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.lang-switch {
+  padding: 6px 12px;
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  transition: var(--transition);
+}
+.lang-switch:hover { border-color: var(--primary); color: var(--primary); }
+
+/* Mobile menu */
+.mobile-menu-btn { display: none; font-size: 24px; }
+@media (max-width: 768px) {
+  .nav-links, .nav-search { display: none; }
+  .mobile-menu-btn { display: block; }
+}
+
+/* ========== HERO SECTION ========== */
+.hero {
+  position: relative;
+  min-height: 92vh;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  background: var(--gradient-dark);
+}
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  opacity: 0.15;
+  background:
+    radial-gradient(ellipse 80% 60% at 70% 40%, rgba(22,163,74,0.4) 0%, transparent 70%),
+    radial-gradient(ellipse 60% 50% at 20% 80%, rgba(201,168,76,0.3) 0%, transparent 60%),
+    radial-gradient(circle at 90% 20%, rgba(34,197,94,0.2) 0%, transparent 40%);
+}
+.hero-particles {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+.hero-particle {
+  position: absolute;
+  width: 6px; height: 6px;
+  background: rgba(201,168,76,0.3);
+  border-radius: 50%;
+  animation: float 6s ease-in-out infinite;
+}
+.hero-particle:nth-child(1) { top: 20%; left: 10%; animation-delay: 0s; }
+.hero-particle:nth-child(2) { top: 60%; left: 80%; animation-delay: 1s; width: 8px; height: 8px; }
+.hero-particle:nth-child(3) { top: 30%; left: 60%; animation-delay: 2s; width: 4px; height: 4px; }
+.hero-particle:nth-child(4) { top: 70%; left: 30%; animation-delay: 3s; }
+.hero-particle:nth-child(5) { top: 15%; left: 85%; animation-delay: 4s; width: 10px; height: 10px; }
+.hero-particle:nth-child(6) { top: 80%; left: 55%; animation-delay: 1.5s; width: 5px; height: 5px; }
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+}
+.hero-text { animation: slideInLeft 1s ease-out; }
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 20px;
+  background: rgba(201,168,76,0.15);
+  border: 1px solid rgba(201,168,76,0.3);
+  border-radius: 100px;
+  color: var(--gold-light);
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 24px;
+}
+.hero-badge .dot { width: 8px; height: 8px; background: var(--gold); border-radius: 50%; animation: pulse 2s infinite; }
+.hero h1 {
+  font-size: clamp(36px, 5vw, 64px);
+  font-weight: 900;
+  color: white;
+  line-height: 1.1;
+  margin-bottom: 20px;
+  letter-spacing: -1px;
+}
+.hero h1 .gradient-text {
+  background: var(--gradient-gold);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.hero-subtitle {
+  font-size: 18px;
+  color: rgba(255,255,255,0.7);
+  line-height: 1.8;
+  margin-bottom: 36px;
+  max-width: 520px;
+}
+.hero-ctas { display: flex; gap: 16px; flex-wrap: wrap; }
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 16px 36px;
+  background: var(--gradient-gold);
+  color: var(--bg-dark);
+  font-size: 15px;
+  font-weight: 700;
+  border-radius: 100px;
+  transition: var(--transition);
+  box-shadow: 0 4px 20px rgba(201,168,76,0.4);
+}
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(201,168,76,0.5); }
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 16px 36px;
+  border: 1px solid rgba(255,255,255,0.3);
+  color: white;
+  font-size: 15px;
+  font-weight: 600;
+  border-radius: 100px;
+  transition: var(--transition);
+}
+.btn-secondary:hover { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.5); }
+.hero-stats {
+  display: flex;
+  gap: 40px;
+  margin-top: 48px;
+  padding-top: 32px;
+  border-top: 1px solid rgba(255,255,255,0.1);
+}
+.hero-stat { text-align: left; }
+.hero-stat-number {
+  font-size: 32px;
+  font-weight: 800;
+  color: white;
+  line-height: 1;
+}
+.hero-stat-number span { color: var(--gold); }
+.hero-stat-label { font-size: 13px; color: rgba(255,255,255,0.5); margin-top: 4px; }
+.hero-visual {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: slideInRight 1s ease-out;
+}
+.hero-product-showcase {
+  position: relative;
+  width: 420px;
+  height: 420px;
+}
+.hero-product-card {
+  position: absolute;
+  width: 200px;
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  text-align: center;
+  transition: var(--transition);
+  animation: float 5s ease-in-out infinite;
+}
+.hero-product-card:hover { transform: translateY(-10px) scale(1.05); border-color: rgba(201,168,76,0.4); }
+.hero-product-card:nth-child(1) { top: 0; left: 50%; transform: translateX(-50%); animation-delay: 0s; }
+.hero-product-card:nth-child(2) { bottom: 20px; left: 0; animation-delay: 1.5s; }
+.hero-product-card:nth-child(3) { bottom: 20px; right: 0; animation-delay: 3s; }
+.hero-product-emoji { font-size: 48px; margin-bottom: 12px; }
+.hero-product-name { color: white; font-weight: 600; font-size: 14px; margin-bottom: 4px; }
+.hero-product-price { color: var(--gold-light); font-weight: 700; font-size: 16px; }
+.hero-center-circle {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 120px; height: 120px;
+  background: var(--gradient-hero);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 60px rgba(10,104,71,0.4);
+}
+.hero-center-circle span { color: white; font-size: 40px; }
+
+@media (max-width: 768px) {
+  .hero-content { grid-template-columns: 1fr; text-align: center; }
+  .hero-subtitle { margin: 0 auto 36px; }
+  .hero-ctas { justify-content: center; }
+  .hero-stats { justify-content: center; }
+  .hero-visual { display: none; }
+}
+
+/* ========== TRUST BAR ========== */
+.trust-bar {
+  background: var(--bg-white);
+  border-bottom: 1px solid var(--border);
+  padding: 20px 0;
+}
+.trust-items {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 48px;
+  flex-wrap: wrap;
+}
+.trust-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+.trust-item .icon {
+  width: 36px; height: 36px;
+  background: linear-gradient(135deg, var(--primary), var(--primary-light));
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 16px;
+}
+
+/* ========== CATEGORIES ========== */
+.categories { background: var(--bg); }
+.section-header {
+  text-align: center;
+  margin-bottom: 60px;
+}
+.section-tag {
+  display: inline-block;
+  padding: 6px 16px;
+  background: rgba(10,104,71,0.08);
+  color: var(--primary);
+  border-radius: 100px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+.section-title {
+  font-size: clamp(28px, 3.5vw, 42px);
+  font-weight: 800;
+  color: var(--text);
+  line-height: 1.2;
+  margin-bottom: 12px;
+}
+.section-desc {
+  font-size: 16px;
+  color: var(--text-secondary);
+  max-width: 560px;
+  margin: 0 auto;
+}
+.cat-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 20px;
+}
+.cat-card {
+  background: var(--bg-white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 28px 16px;
+  text-align: center;
+  transition: var(--transition);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+.cat-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--gradient-hero);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.cat-card:hover::before { opacity: 1; }
+.cat-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); border-color: transparent; }
+.cat-card:hover .cat-icon { background: rgba(255,255,255,0.2); }
+.cat-card:hover .cat-name, .cat-card:hover .cat-count { color: white; }
+.cat-icon {
+  width: 60px; height: 60px;
+  margin: 0 auto 14px;
+  background: linear-gradient(135deg, rgba(10,104,71,0.08), rgba(10,104,71,0.15));
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  transition: var(--transition);
+  position: relative;
+  z-index: 1;
+}
+.cat-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+  position: relative;
+  z-index: 1;
+  transition: var(--transition);
+}
+.cat-count {
+  font-size: 12px;
+  color: var(--text-light);
+  margin-top: 4px;
+  position: relative;
+  z-index: 1;
+  transition: var(--transition);
+}
+@media (max-width: 768px) {
+  .cat-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+/* ========== FEATURED PRODUCTS ========== */
+.featured { background: var(--bg-white); }
+.products-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 48px;
+  flex-wrap: wrap;
+}
+.tab-btn {
+  padding: 10px 24px;
+  border-radius: 100px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  background: var(--bg);
+  border: 1px solid var(--border);
+  transition: var(--transition);
+}
+.tab-btn.active, .tab-btn:hover {
+  background: var(--primary);
+  color: white;
+  border-color: var(--primary);
+}
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+.product-card {
+  background: var(--bg-white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  transition: var(--transition);
+  position: relative;
+}
+.product-card:hover { transform: translateY(-8px); box-shadow: var(--shadow-xl); }
+.product-badges {
+  position: absolute;
+  top: 12px; left: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  z-index: 2;
+}
+.badge {
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 700;
+}
+.badge-hot { background: var(--danger); color: white; }
+.badge-new { background: var(--primary); color: white; }
+.badge-sale { background: var(--accent); color: white; }
+.badge-ai { background: linear-gradient(135deg, #8B5CF6, #6366F1); color: white; }
+.product-wishlist {
+  position: absolute;
+  top: 12px; right: 12px;
+  width: 36px; height: 36px;
+  background: rgba(255,255,255,0.9);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  z-index: 2;
+  transition: var(--transition);
+  box-shadow: var(--shadow-sm);
+}
+.product-wishlist:hover { background: var(--danger); color: white; transform: scale(1.1); }
+.product-img {
+  width: 100%;
+  aspect-ratio: 1;
+  background: linear-gradient(135deg, #f0fdf4, #ecfdf5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 72px;
+  position: relative;
+  overflow: hidden;
+}
+.product-img::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, transparent 60%, rgba(0,0,0,0.03));
+}
+.product-info { padding: 20px; }
+.product-brand { font-size: 11px; color: var(--primary); font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }
+.product-name {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text);
+  line-height: 1.4;
+  margin-bottom: 8px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.product-rating {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+.stars { color: var(--accent); font-size: 13px; letter-spacing: 1px; }
+.rating-count { font-size: 12px; color: var(--text-light); }
+.product-price-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+.product-price { font-size: 22px; font-weight: 800; color: var(--primary); }
+.product-price-original { font-size: 14px; color: var(--text-light); text-decoration: line-through; margin-left: 8px; }
+.product-per-unit { font-size: 11px; color: var(--text-light); }
+.product-actions { display: flex; gap: 8px; }
+.btn-add-cart {
+  flex: 1;
+  padding: 12px 16px;
+  background: var(--primary);
+  color: white;
+  font-size: 13px;
+  font-weight: 700;
+  border-radius: var(--radius-sm);
+  transition: var(--transition);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+.btn-add-cart:hover { background: var(--primary-dark); transform: translateY(-1px); }
+.btn-subscribe {
+  padding: 12px 14px;
+  border: 1px solid var(--primary);
+  color: var(--primary);
+  font-size: 13px;
+  font-weight: 600;
+  border-radius: var(--radius-sm);
+  transition: var(--transition);
+  white-space: nowrap;
+}
+.btn-subscribe:hover { background: var(--primary); color: white; }
+@media (max-width: 768px) {
+  .products-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .product-info { padding: 14px; }
+}
+
+/* ========== AI RECOMMENDATION ENGINE ========== */
+.ai-section {
+  background: var(--gradient-dark);
+  position: relative;
+  overflow: hidden;
+}
+.ai-bg-pattern {
+  position: absolute;
+  inset: 0;
+  opacity: 0.05;
+  background-image:
+    radial-gradient(circle at 20% 50%, rgba(201,168,76,0.5) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(10,104,71,0.5) 0%, transparent 40%);
+}
+.ai-content {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+.ai-left {}
+.ai-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: rgba(139,92,246,0.15);
+  border: 1px solid rgba(139,92,246,0.3);
+  border-radius: 100px;
+  color: #A78BFA;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 24px;
+}
+.ai-title {
+  font-size: clamp(28px, 3.5vw, 42px);
+  font-weight: 800;
+  color: white;
+  line-height: 1.2;
+  margin-bottom: 20px;
+}
+.ai-title .highlight { color: #A78BFA; }
+.ai-desc {
+  font-size: 16px;
+  color: rgba(255,255,255,0.6);
+  line-height: 1.8;
+  margin-bottom: 32px;
+}
+.ai-features {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.ai-feature {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+.ai-feature-icon {
+  width: 44px; height: 44px;
+  min-width: 44px;
+  background: rgba(139,92,246,0.15);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+}
+.ai-feature-text h4 { color: white; font-size: 15px; font-weight: 700; margin-bottom: 4px; }
+.ai-feature-text p { color: rgba(255,255,255,0.5); font-size: 13px; line-height: 1.6; }
+
+.ai-right { position: relative; }
+.ai-chat-window {
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  box-shadow: 0 40px 80px rgba(0,0,0,0.3);
+}
+.ai-chat-header {
+  padding: 18px 24px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.ai-chat-avatar {
+  width: 40px; height: 40px;
+  background: linear-gradient(135deg, #8B5CF6, #6366F1);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+}
+.ai-chat-info h4 { color: white; font-size: 14px; font-weight: 700; }
+.ai-chat-info p { color: rgba(255,255,255,0.4); font-size: 12px; }
+.ai-chat-status { margin-left: auto; display: flex; align-items: center; gap: 6px; }
+.ai-chat-status .dot { width: 8px; height: 8px; background: var(--success); border-radius: 50%; animation: pulse 2s infinite; }
+.ai-chat-status span { color: var(--success); font-size: 12px; font-weight: 600; }
+.ai-chat-messages {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-height: 300px;
+}
+.chat-msg {
+  display: flex;
+  gap: 10px;
+  max-width: 85%;
+}
+.chat-msg.user { align-self: flex-end; flex-direction: row-reverse; }
+.chat-msg-avatar {
+  width: 32px; height: 32px;
+  min-width: 32px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+}
+.chat-msg.bot .chat-msg-avatar { background: linear-gradient(135deg, #8B5CF6, #6366F1); }
+.chat-msg.user .chat-msg-avatar { background: rgba(255,255,255,0.1); }
+.chat-msg-bubble {
+  padding: 14px 18px;
+  border-radius: 18px;
+  font-size: 13px;
+  line-height: 1.6;
+}
+.chat-msg.bot .chat-msg-bubble { background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.9); border-bottom-left-radius: 4px; }
+.chat-msg.user .chat-msg-bubble { background: var(--primary); color: white; border-bottom-right-radius: 4px; }
+.ai-chat-reco {
+  margin: 8px 24px;
+  padding: 16px;
+  background: rgba(139,92,246,0.1);
+  border: 1px solid rgba(139,92,246,0.2);
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.ai-reco-img {
+  width: 56px; height: 56px;
+  background: rgba(255,255,255,0.1);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+}
+.ai-reco-info { flex: 1; }
+.ai-reco-info h5 { color: white; font-size: 13px; font-weight: 700; }
+.ai-reco-info p { color: rgba(255,255,255,0.5); font-size: 12px; }
+.ai-reco-price { color: var(--gold-light); font-weight: 800; font-size: 16px; }
+.ai-chat-input {
+  padding: 16px 24px;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  display: flex;
+  gap: 12px;
+}
+.ai-chat-input input {
+  flex: 1;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 100px;
+  padding: 12px 20px;
+  color: white;
+  font-size: 13px;
+  outline: none;
+}
+.ai-chat-input input::placeholder { color: rgba(255,255,255,0.3); }
+.ai-chat-send {
+  width: 44px; height: 44px;
+  background: linear-gradient(135deg, #8B5CF6, #6366F1);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 16px;
+  transition: var(--transition);
+}
+.ai-chat-send:hover { transform: scale(1.1); }
+
+@media (max-width: 768px) {
+  .ai-content { grid-template-columns: 1fr; gap: 40px; }
+}
+
+/* ========== SUBSCRIPTION SECTION ========== */
+.subscription {
+  background: var(--bg-cream);
+  position: relative;
+  overflow: hidden;
+}
+.sub-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+}
+.sub-visual {
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+.sub-box {
+  width: 320px;
+  padding: 40px;
+  background: var(--bg-white);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-xl);
+  text-align: center;
+  position: relative;
+}
+.sub-box::before {
+  content: '🎁';
+  position: absolute;
+  top: -20px; right: -20px;
+  font-size: 48px;
+  animation: float 3s ease-in-out infinite;
+}
+.sub-icon { font-size: 64px; margin-bottom: 20px; }
+.sub-box h3 { font-size: 20px; font-weight: 800; margin-bottom: 8px; }
+.sub-box p { font-size: 14px; color: var(--text-secondary); margin-bottom: 20px; }
+.sub-price-row { display: flex; justify-content: center; align-items: baseline; gap: 8px; margin-bottom: 24px; }
+.sub-price { font-size: 40px; font-weight: 900; color: var(--primary); }
+.sub-price-period { font-size: 14px; color: var(--text-light); }
+.sub-savings {
+  display: inline-block;
+  padding: 6px 14px;
+  background: rgba(34,197,94,0.1);
+  color: var(--success);
+  border-radius: 100px;
+  font-size: 13px;
+  font-weight: 700;
+}
+.sub-right {}
+.sub-benefits {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  margin-top: 32px;
+}
+.sub-benefit {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+.sub-benefit-icon {
+  width: 48px; height: 48px;
+  min-width: 48px;
+  background: var(--bg-white);
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  box-shadow: var(--shadow-sm);
+}
+.sub-benefit h4 { font-size: 15px; font-weight: 700; margin-bottom: 4px; }
+.sub-benefit p { font-size: 13px; color: var(--text-secondary); line-height: 1.6; }
+@media (max-width: 768px) {
+  .sub-content { grid-template-columns: 1fr; }
+}
+
+/* ========== REVIEWS / SOCIAL PROOF ========== */
+.reviews { background: var(--bg-white); }
+.reviews-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+.review-card {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 28px;
+  transition: var(--transition);
+}
+.review-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+.review-header { display: flex; align-items: center; gap: 14px; margin-bottom: 16px; }
+.review-avatar {
+  width: 46px; height: 46px;
+  background: var(--gradient-hero);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 700;
+  font-size: 16px;
+}
+.review-info h4 { font-size: 14px; font-weight: 700; }
+.review-info p { font-size: 12px; color: var(--text-light); }
+.review-stars { color: var(--accent); font-size: 14px; margin-bottom: 12px; letter-spacing: 2px; }
+.review-text { font-size: 14px; color: var(--text-secondary); line-height: 1.7; }
+.review-verified {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 12px;
+  font-size: 11px;
+  color: var(--primary);
+  font-weight: 600;
+}
+@media (max-width: 768px) {
+  .reviews-grid { grid-template-columns: 1fr; }
+}
+
+/* ========== GEO/SEO OPTIMIZED CONTENT ========== */
+.knowledge {
+  background: var(--bg);
+}
+.knowledge-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+.knowledge-card {
+  background: var(--bg-white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  transition: var(--transition);
+}
+.knowledge-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); }
+.knowledge-img {
+  width: 100%;
+  aspect-ratio: 16/9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 48px;
+  position: relative;
+}
+.knowledge-img.green { background: linear-gradient(135deg, #f0fdf4, #dcfce7); }
+.knowledge-img.blue { background: linear-gradient(135deg, #eff6ff, #dbeafe); }
+.knowledge-img.purple { background: linear-gradient(135deg, #faf5ff, #f3e8ff); }
+.knowledge-tag {
+  position: absolute;
+  top: 12px; left: 12px;
+  padding: 4px 10px;
+  background: rgba(0,0,0,0.6);
+  backdrop-filter: blur(4px);
+  color: white;
+  font-size: 11px;
+  font-weight: 600;
+  border-radius: 6px;
+}
+.knowledge-body { padding: 24px; }
+.knowledge-body h3 { font-size: 16px; font-weight: 700; margin-bottom: 8px; line-height: 1.4; }
+.knowledge-body p { font-size: 13px; color: var(--text-secondary); line-height: 1.7; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+.knowledge-meta { display: flex; align-items: center; gap: 16px; margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--border); }
+.knowledge-meta span { font-size: 12px; color: var(--text-light); }
+@media (max-width: 768px) {
+  .knowledge-grid { grid-template-columns: 1fr; }
+}
+
+/* ========== GLOBAL SHIPPING ========== */
+.shipping {
+  background: var(--bg-white);
+  position: relative;
+  overflow: hidden;
+}
+.shipping-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+.shipping-card {
+  text-align: center;
+  padding: 36px 24px;
+  background: var(--bg);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  transition: var(--transition);
+}
+.shipping-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-md); border-color: var(--primary); }
+.shipping-icon { font-size: 40px; margin-bottom: 16px; }
+.shipping-card h3 { font-size: 16px; font-weight: 700; margin-bottom: 8px; }
+.shipping-card p { font-size: 13px; color: var(--text-secondary); line-height: 1.6; }
+@media (max-width: 768px) {
+  .shipping-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* ========== FAQ (GEO Optimized) ========== */
+.faq { background: var(--bg); }
+.faq-list {
+  max-width: 780px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.faq-item {
+  background: var(--bg-white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  transition: var(--transition);
+}
+.faq-item:hover { border-color: var(--primary); }
+.faq-question {
+  width: 100%;
+  padding: 20px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text);
+  text-align: left;
+  transition: var(--transition);
+}
+.faq-question:hover { color: var(--primary); }
+.faq-toggle {
+  width: 28px; height: 28px;
+  background: var(--bg);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  color: var(--text-secondary);
+  transition: var(--transition);
+  flex-shrink: 0;
+}
+.faq-item.active .faq-toggle { background: var(--primary); color: white; transform: rotate(180deg); }
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease, padding 0.4s ease;
+}
+.faq-item.active .faq-answer { max-height: 300px; }
+.faq-answer-inner {
+  padding: 0 24px 20px;
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.8;
+}
+
+/* ========== NEWSLETTER / CTA ========== */
+.cta-section {
+  background: var(--gradient-dark);
+  position: relative;
+  overflow: hidden;
+}
+.cta-bg {
+  position: absolute;
+  inset: 0;
+  opacity: 0.1;
+  background:
+    radial-gradient(circle at 30% 50%, rgba(201,168,76,0.4) 0%, transparent 60%),
+    radial-gradient(circle at 70% 30%, rgba(10,104,71,0.4) 0%, transparent 50%);
+}
+.cta-inner {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  max-width: 640px;
+  margin: 0 auto;
+}
+.cta-inner h2 {
+  font-size: clamp(28px, 3.5vw, 40px);
+  font-weight: 800;
+  color: white;
+  margin-bottom: 16px;
+}
+.cta-inner p { font-size: 16px; color: rgba(255,255,255,0.6); margin-bottom: 36px; }
+.cta-form {
+  display: flex;
+  gap: 12px;
+  max-width: 480px;
+  margin: 0 auto;
+}
+.cta-form input {
+  flex: 1;
+  padding: 16px 24px;
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 100px;
+  background: rgba(255,255,255,0.05);
+  color: white;
+  font-size: 14px;
+  outline: none;
+}
+.cta-form input::placeholder { color: rgba(255,255,255,0.4); }
+.cta-form button {
+  padding: 16px 32px;
+  background: var(--gradient-gold);
+  color: var(--bg-dark);
+  font-size: 14px;
+  font-weight: 700;
+  border-radius: 100px;
+  transition: var(--transition);
+  white-space: nowrap;
+}
+.cta-form button:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(201,168,76,0.4); }
+.cta-trust { margin-top: 24px; font-size: 12px; color: rgba(255,255,255,0.4); }
+
+@media (max-width: 768px) {
+  .cta-form { flex-direction: column; }
+}
+
+/* ========== FOOTER ========== */
+.footer {
+  background: #060E09;
+  color: rgba(255,255,255,0.6);
+  padding: 80px 0 0;
+}
+.footer-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr 1.2fr;
+  gap: 48px;
+  margin-bottom: 60px;
+}
+.footer-brand .logo { color: white; margin-bottom: 16px; }
+.footer-brand p { font-size: 14px; line-height: 1.7; margin-bottom: 24px; }
+.footer-social { display: flex; gap: 12px; }
+.footer-social a {
+  width: 40px; height: 40px;
+  background: rgba(255,255,255,0.08);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  color: rgba(255,255,255,0.6);
+  transition: var(--transition);
+}
+.footer-social a:hover { background: var(--primary); color: white; }
+.footer-col h4 {
+  color: white;
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  letter-spacing: 0.5px;
+}
+.footer-col a {
+  display: block;
+  font-size: 13px;
+  color: rgba(255,255,255,0.5);
+  padding: 5px 0;
+  transition: var(--transition);
+}
+.footer-col a:hover { color: white; padding-left: 4px; }
+.footer-payments {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 16px;
+}
+.footer-payment {
+  padding: 6px 12px;
+  background: rgba(255,255,255,0.08);
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.6);
+}
+.footer-certs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+}
+.footer-cert {
+  padding: 4px 10px;
+  background: rgba(10,104,71,0.2);
+  border: 1px solid rgba(10,104,71,0.3);
+  border-radius: 4px;
+  font-size: 11px;
+  color: var(--primary-light);
+}
+.footer-bottom {
+  border-top: 1px solid rgba(255,255,255,0.06);
+  padding: 24px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+.footer-bottom p { font-size: 12px; }
+.footer-bottom-links { display: flex; gap: 24px; }
+.footer-bottom-links a { font-size: 12px; color: rgba(255,255,255,0.4); transition: var(--transition); }
+.footer-bottom-links a:hover { color: white; }
+@media (max-width: 768px) {
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+}
+
+/* ========== FLOATING AI CHAT BUTTON ========== */
+.ai-float-btn {
+  position: fixed;
+  bottom: 28px; right: 28px;
+  width: 64px; height: 64px;
+  background: linear-gradient(135deg, #8B5CF6, #6366F1);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 28px;
+  box-shadow: 0 8px 30px rgba(99,102,241,0.4);
+  z-index: 9999;
+  transition: var(--transition);
+  animation: chatBounce 3s ease-in-out infinite;
+}
+.ai-float-btn:hover { transform: scale(1.1); animation: none; }
+.ai-float-label {
+  position: absolute;
+  right: 76px;
+  white-space: nowrap;
+  padding: 8px 16px;
+  background: white;
+  color: var(--text);
+  font-size: 13px;
+  font-weight: 600;
+  border-radius: 10px;
+  box-shadow: var(--shadow-md);
+}
+.ai-float-label::after {
+  content: '';
+  position: absolute;
+  right: -6px; top: 50%;
+  transform: translateY(-50%);
+  border-left: 6px solid white;
+  border-top: 6px solid transparent;
+  border-bottom: 6px solid transparent;
+}
+
+/* ========== BACK TO TOP ========== */
+.back-to-top {
+  position: fixed;
+  bottom: 28px; left: 28px;
+  width: 44px; height: 44px;
+  background: var(--bg-white);
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text);
+  font-size: 18px;
+  box-shadow: var(--shadow-md);
+  z-index: 9999;
+  transition: var(--transition);
+  opacity: 0;
+  pointer-events: none;
+}
+.back-to-top.visible { opacity: 1; pointer-events: all; }
+.back-to-top:hover { background: var(--primary); color: white; border-color: var(--primary); }
+
+/* ========== SCROLL PROGRESS ========== */
+.scroll-progress {
+  position: fixed;
+  top: 0; left: 0;
+  height: 3px;
+  background: var(--gradient-hero);
+  z-index: 10000;
+  transition: width 0.1s linear;
+}
+</style>
+</head>
+<body>
+
+<!-- Scroll Progress Bar -->
+<div class="scroll-progress" id="scrollProgress"></div>
+
+<!-- Announcement Bar -->
+<div class="announcement-bar">
+  <span>🎉 新用户专享 · 首单立减 <span class="highlight">HK$80</span> · 全球包邮 · 输入优惠码 <span class="highlight">RONGWANG2026</span> · 限时72小时</span>
+</div>
+
+<!-- Header -->
+<header class="header" id="header">
+  <nav class="nav">
+    <a href="#" class="logo">
+      <div class="logo-icon">荣</div>
+      荣旺健康
+    </a>
+    <div class="nav-links">
+      <a href="#categories">全部产品</a>
+      <a href="#featured">热销爆品</a>
+      <a href="#subscription">订阅计划</a>
+      <a href="#knowledge">健康百科</a>
+      <a href="#faq">帮助中心</a>
+    </div>
+    <div class="nav-actions">
+      <input type="text" class="nav-search" placeholder="🔍 搜索保健品、症状、成分...">
+      <button class="lang-switch" id="langSwitch">EN / 中</button>
+      <button class="nav-icon-btn" title="我的账户">👤</button>
+      <button class="nav-icon-btn" title="购物车" id="cartBtn">
+        🛒
+        <span class="cart-count" id="cartCount">0</span>
+      </button>
+      <button class="mobile-menu-btn" id="mobileMenuBtn">☰</button>
+    </div>
+  </nav>
+</header>
+
+<!-- Hero Section -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-particles">
+    <div class="hero-particle"></div>
+    <div class="hero-particle"></div>
+    <div class="hero-particle"></div>
+    <div class="hero-particle"></div>
+    <div class="hero-particle"></div>
+    <div class="hero-particle"></div>
+  </div>
+  <div class="hero-content">
+    <div class="hero-text">
+      <div class="hero-badge">
+        <span class="dot"></span>
+        AI 智能推荐 · 千人千面
+      </div>
+      <h1>
+        全球精选<br>
+        <span class="gradient-text">科学营养</span><br>
+        香港直邮到家
+      </h1>
+      <p class="hero-subtitle">
+        荣旺健康甄选全球顶级保健品与OTC产品，AI智能匹配您的健康需求。正品保障、跨境直邮、极速达。超过50,000+家庭的健康之选。
+      </p>
+      <div class="hero-ctas">
+        <a href="#featured" class="btn-primary">立即选购 →</a>
+        <a href="#ai-section" class="btn-secondary">🤖 AI 健康顾问</a>
+      </div>
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <div class="hero-stat-number">50,000<span>+</span></div>
+          <div class="hero-stat-label">服务家庭</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-number">2,000<span>+</span></div>
+          <div class="hero-stat-label">精选单品</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-number">98.7<span>%</span></div>
+          <div class="hero-stat-label">好评率</div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-product-showcase">
+        <div class="hero-product-card">
+          <div class="hero-product-emoji">🫙</div>
+          <div class="hero-product-name">深海鱼油 Omega-3</div>
+          <div class="hero-product-price">HK$298</div>
+        </div>
+        <div class="hero-product-card">
+          <div class="hero-product-emoji">💊</div>
+          <div class="hero-product-name">辅酶Q10 200mg</div>
+          <div class="hero-product-price">HK$388</div>
+        </div>
+        <div class="hero-product-card">
+          <div class="hero-product-emoji">🍃</div>
+          <div class="hero-product-name">NMN 抗衰因子</div>
+          <div class="hero-product-price">HK$1,280</div>
+        </div>
+        <div class="hero-center-circle">
+          <span>🌿</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Trust Bar -->
+<div class="trust-bar">
+  <div class="trust-items">
+    <div class="trust-item"><div class="icon">✅</div> 100%正品保障</div>
+    <div class="trust-item"><div class="icon">🌍</div> 全球免费配送</div>
+    <div class="trust-item"><div class="icon">🔬</div> 第三方检测</div>
+    <div class="trust-item"><div class="icon">🔄</div> 30天无忧退换</div>
+    <div class="trust-item"><div class="icon">🔒</div> 安全加密支付</div>
+    <div class="trust-item"><div class="icon">🤖</div> AI智能客服24H</div>
+  </div>
+</div>
+
+<!-- Categories Section -->
+<section class="categories section" id="categories">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-tag">产品分类</div>
+      <h2 class="section-title">按需求精准选择</h2>
+      <p class="section-desc">覆盖全球六大健康品类，AI智能匹配最适合你的产品组合</p>
+    </div>
+    <div class="cat-grid">
+      <div class="cat-card" onclick="location.href='#'">
+        <div class="cat-icon">💪</div>
+        <div class="cat-name">免疫增强</div>
+        <div class="cat-count">320+ 产品</div>
+      </div>
+      <div class="cat-card" onclick="location.href='#'">
+        <div class="cat-icon">🧠</div>
+        <div class="cat-name">脑力提升</div>
+        <div class="cat-count">180+ 产品</div>
+      </div>
+      <div class="cat-card" onclick="location.href='#'">
+        <div class="cat-icon">❤️</div>
+        <div class="cat-name">心血管健康</div>
+        <div class="cat-count">260+ 产品</div>
+      </div>
+      <div class="cat-card" onclick="location.href='#'">
+        <div class="cat-icon">🦴</div>
+        <div class="cat-name">骨骼关节</div>
+        <div class="cat-count">210+ 产品</div>
+      </div>
+      <div class="cat-card" onclick="location.href='#'">
+        <div class="cat-icon">✨</div>
+        <div class="cat-name">美容抗衰</div>
+        <div class="cat-count">290+ 产品</div>
+      </div>
+      <div class="cat-card" onclick="location.href='#'">
+        <div class="cat-icon">😴</div>
+        <div class="cat-name">助眠减压</div>
+        <div class="cat-count">150+ 产品</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Featured Products -->
+<section class="featured section" id="featured">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-tag">精选产品</div>
+      <h2 class="section-title">全球热销 · 口碑之选</h2>
+      <p class="section-desc">来自澳洲、美国、日本、欧洲的顶级品牌，严选好物</p>
+    </div>
+    <div class="products-tabs">
+      <button class="tab-btn active">全部热销</button>
+      <button class="tab-btn">新品上市</button>
+      <button class="tab-btn">限时特惠</button>
+      <button class="tab-btn">AI 为你推荐</button>
+      <button class="tab-btn">订阅专享</button>
+    </div>
+    <div class="products-grid">
+      <!-- Product 1 -->
+      <div class="product-card">
+        <div class="product-badges">
+          <span class="badge badge-hot">🔥 爆款</span>
+          <span class="badge badge-ai">🤖 AI推荐</span>
+        </div>
+        <button class="product-wishlist">♡</button>
+        <div class="product-img">🫙</div>
+        <div class="product-info">
+          <div class="product-brand">Swisse · 澳洲</div>
+          <div class="product-name">深海鱼油 Omega-3 无腥味胶囊 1500mg × 200粒</div>
+          <div class="product-rating">
+            <span class="stars">★★★★★</span>
+            <span class="rating-count">4.9 (3,287评价)</span>
+          </div>
+          <div class="product-price-row">
+            <div>
+              <span class="product-price">HK$298</span>
+              <span class="product-price-original">HK$458</span>
+            </div>
+            <span class="product-per-unit">HK$1.49/粒</span>
+          </div>
+          <div class="product-actions">
+            <button class="btn-add-cart" onclick="addToCart()">🛒 加入购物车</button>
+            <button class="btn-subscribe" title="订阅享85折">📦 订阅</button>
+          </div>
+        </div>
+      </div>
+      <!-- Product 2 -->
+      <div class="product-card">
+        <div class="product-badges">
+          <span class="badge badge-new">✨ 新品</span>
+        </div>
+        <button class="product-wishlist">♡</button>
+        <div class="product-img" style="background: linear-gradient(135deg, #faf5ff, #f3e8ff);">💊</div>
+        <div class="product-info">
+          <div class="product-brand">Life Extension · 美国</div>
+          <div class="product-name">辅酶Q10 泛醇形式 200mg × 60粒 心脏能量</div>
+          <div class="product-rating">
+            <span class="stars">★★★★★</span>
+            <span class="rating-count">4.8 (2,156评价)</span>
+          </div>
+          <div class="product-price-row">
+            <div>
+              <span class="product-price">HK$388</span>
+              <span class="product-price-original">HK$520</span>
+            </div>
+            <span class="product-per-unit">HK$6.47/粒</span>
+          </div>
+          <div class="product-actions">
+            <button class="btn-add-cart" onclick="addToCart()">🛒 加入购物车</button>
+            <button class="btn-subscribe">📦 订阅</button>
+          </div>
+        </div>
+      </div>
+      <!-- Product 3 -->
+      <div class="product-card">
+        <div class="product-badges">
+          <span class="badge badge-sale">-35%</span>
+          <span class="badge badge-hot">🔥 月销5000+</span>
+        </div>
+        <button class="product-wishlist">♡</button>
+        <div class="product-img" style="background: linear-gradient(135deg, #fefce8, #fef9c3);">🍃</div>
+        <div class="product-info">
+          <div class="product-brand">AIDEVI · 美国</div>
+          <div class="product-name">NMN 18000 高纯度β-烟酰胺单核苷酸 抗衰因子</div>
+          <div class="product-rating">
+            <span class="stars">★★★★★</span>
+            <span class="rating-count">4.9 (5,823评价)</span>
+          </div>
+          <div class="product-price-row">
+            <div>
+              <span class="product-price">HK$1,280</span>
+              <span class="product-price-original">HK$1,980</span>
+            </div>
+            <span class="product-per-unit">HK$21.3/粒</span>
+          </div>
+          <div class="product-actions">
+            <button class="btn-add-cart" onclick="addToCart()">🛒 加入购物车</button>
+            <button class="btn-subscribe">📦 订阅</button>
+          </div>
+        </div>
+      </div>
+      <!-- Product 4 -->
+      <div class="product-card">
+        <div class="product-badges">
+          <span class="badge badge-ai">🤖 AI推荐</span>
+        </div>
+        <button class="product-wishlist">♡</button>
+        <div class="product-img" style="background: linear-gradient(135deg, #fdf2f8, #fce7f3);">🌸</div>
+        <div class="product-info">
+          <div class="product-brand">FANCL · 日本</div>
+          <div class="product-name">胶原蛋白果冻 HTC深层胶原 30日量 美容养颜</div>
+          <div class="product-rating">
+            <span class="stars">★★★★☆</span>
+            <span class="rating-count">4.7 (1,892评价)</span>
+          </div>
+          <div class="product-price-row">
+            <div>
+              <span class="product-price">HK$268</span>
+              <span class="product-price-original">HK$368</span>
+            </div>
+            <span class="product-per-unit">HK$8.93/条</span>
+          </div>
+          <div class="product-actions">
+            <button class="btn-add-cart" onclick="addToCart()">🛒 加入购物车</button>
+            <button class="btn-subscribe">📦 订阅</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AI Recommendation Section -->
+<section class="ai-section section" id="ai-section">
+  <div class="ai-bg-pattern"></div>
+  <div class="container">
+    <div class="ai-content">
+      <div class="ai-left">
+        <div class="ai-tag">🤖 AI POWERED</div>
+        <h2 class="ai-title">您的专属<span class="highlight">AI健康顾问</span></h2>
+        <p class="ai-desc">
+          基于前沿大语言模型，结合您的健康档案、饮食习惯和身体指标，为您智能推荐最适合的营养补充方案。已为超过50,000位用户提供个性化建议。
+        </p>
+        <div class="ai-features">
+          <div class="ai-feature">
+            <div class="ai-feature-icon">🎯</div>
+            <div class="ai-feature-text">
+              <h4>千人千面个性化推荐</h4>
+              <p>根据年龄、性别、健康目标、过敏史，AI精准匹配最优产品组合</p>
+            </div>
+          </div>
+          <div class="ai-feature">
+            <div class="ai-feature-icon">📊</div>
+            <div class="ai-feature-text">
+              <h4>成分交互分析</h4>
+              <p>智能检测营养素冲突与协同效应，避免重复补充或不良反应</p>
+            </div>
+          </div>
+          <div class="ai-feature">
+            <div class="ai-feature-icon">🔬</div>
+            <div class="ai-feature-text">
+              <h4>循证医学知识库</h4>
+              <p>基于30万+临床研究文献，提供有据可查的营养建议</p>
+            </div>
+          </div>
+          <div class="ai-feature">
+            <div class="ai-feature-icon">💬</div>
+            <div class="ai-feature-text">
+              <h4>24/7 全天候健康咨询</h4>
+              <p>中英双语实时对话，从选品到用法全程智能陪伴</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="ai-right">
+        <div class="ai-chat-window">
+          <div class="ai-chat-header">
+            <div class="ai-chat-avatar">🤖</div>
+            <div class="ai-chat-info">
+              <h4>荣旺 AI 健康顾问</h4>
+              <p>基于 Qwen3 · 知识更新至2026年</p>
+            </div>
+            <div class="ai-chat-status">
+              <span class="dot"></span>
+              <span>在线</span>
+            </div>
+          </div>
+          <div class="ai-chat-messages">
+            <div class="chat-msg bot">
+              <div class="chat-msg-avatar">🤖</div>
+              <div class="chat-msg-bubble">您好！我是您的AI健康顾问。请告诉我您的健康需求，我来为您推荐最适合的产品 😊</div>
+            </div>
+            <div class="chat-msg user">
+              <div class="chat-msg-avatar">👤</div>
+              <div class="chat-msg-bubble">我40岁，经常熬夜加班，最近感觉很疲劳，想增强免疫力</div>
+            </div>
+            <div class="chat-msg bot">
+              <div class="chat-msg-avatar">🤖</div>
+              <div class="chat-msg-bubble">了解您的情况！根据您的年龄和生活方式，我推荐以下方案：<br><br>1️⃣ <b>辅酶Q10</b> — 缓解疲劳、保护心脏<br>2️⃣ <b>维生素B族</b> — 改善熬夜后的代谢恢复<br>3️⃣ <b>灵芝孢子粉</b> — 辅助增强免疫<br><br>⚠️ 这三种成分无交互冲突，可以一起服用。</div>
+            </div>
+          </div>
+          <div class="ai-chat-reco">
+            <div class="ai-reco-img">💊</div>
+            <div class="ai-reco-info">
+              <h5>为您定制的组合套装</h5>
+              <p>辅酶Q10 + B族 + 灵芝 · 省¥260</p>
+            </div>
+            <div class="ai-reco-price">HK$698</div>
+          </div>
+          <div class="ai-chat-input">
+            <input type="text" placeholder="描述您的健康需求...">
+            <button class="ai-chat-send">→</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Subscription Section -->
+<section class="subscription section" id="subscription">
+  <div class="container">
+    <div class="sub-content">
+      <div class="sub-visual">
+        <div class="sub-box">
+          <div class="sub-icon">📦</div>
+          <h3>荣旺健康月度盒子</h3>
+          <p>AI为您定制的每月营养补充方案，自动配送到家</p>
+          <div class="sub-price-row">
+            <span class="sub-price">HK$399</span>
+            <span class="sub-price-period">/月</span>
+          </div>
+          <div class="sub-savings">省 15% · 随时可取消</div>
+        </div>
+      </div>
+      <div class="sub-right">
+        <div class="section-tag">复购无忧</div>
+        <h2 class="section-title">订阅制 · 让健康不断档</h2>
+        <p class="section-desc">加入荣旺订阅计划，享受专属折扣、自动补货、AI持续优化方案</p>
+        <div class="sub-benefits">
+          <div class="sub-benefit">
+            <div class="sub-benefit-icon">💰</div>
+            <div>
+              <h4>订阅立享85折</h4>
+              <p>所有订阅产品享受持续折扣，比单次购买节省15%以上</p>
+            </div>
+          </div>
+          <div class="sub-benefit">
+            <div class="sub-benefit-icon">🔄</div>
+            <div>
+              <h4>智能补货不断档</h4>
+              <p>AI根据您的用量自动计算补货时间，确保营养不中断</p>
+            </div>
+          </div>
+          <div class="sub-benefit">
+            <div class="sub-benefit-icon">📊</div>
+            <div>
+              <h4>AI持续优化方案</h4>
+              <p>每月根据您的反馈和最新研究，动态调整营养组合</p>
+            </div>
+          </div>
+          <div class="sub-benefit">
+            <div class="sub-benefit-icon">🎁</div>
+            <div>
+              <h4>会员专属权益</h4>
+              <p>优先体验新品、生日礼盒、专属客服通道、积分翻倍</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Reviews Section -->
+<section class="reviews section">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-tag">真实评价</div>
+      <h2 class="section-title">50,000+ 用户的真实反馈</h2>
+      <p class="section-desc">每一条评价都来自已验证的真实购买用户</p>
+    </div>
+    <div class="reviews-grid">
+      <div class="review-card">
+        <div class="review-header">
+          <div class="review-avatar">陈</div>
+          <div class="review-info">
+            <h4>陈女士</h4>
+            <p>广州 · 订阅6个月</p>
+          </div>
+        </div>
+        <div class="review-stars">★★★★★</div>
+        <div class="review-text">AI推荐的组合真的太精准了！之前自己买总是不知道选什么，现在根据我的体检报告推荐的方案，吃了3个月明显感觉精力好了很多。订阅自动发货也很方便。</div>
+        <div class="review-verified">✅ 已验证购买</div>
+      </div>
+      <div class="review-card">
+        <div class="review-header">
+          <div class="review-avatar">李</div>
+          <div class="review-info">
+            <h4>李先生</h4>
+            <p>香港 · 订阅12个月</p>
+          </div>
+        </div>
+        <div class="review-stars">★★★★★</div>
+        <div class="review-text">物流超快，香港隔天就到了。价格比iHerb还便宜，而且有中文AI客服随时可以问，不用自己研究成分表了。家里老人的保健品也全在这买。</div>
+        <div class="review-verified">✅ 已验证购买</div>
+      </div>
+      <div class="review-card">
+        <div class="review-header">
+          <div class="review-avatar">王</div>
+          <div class="review-info">
+            <h4>王女士</h4>
+            <p>上海 · 购买3次</p>
+          </div>
+        </div>
+        <div class="review-stars">★★★★★</div>
+        <div class="review-text">最打动我的是成分交互检测功能。之前不知道钙和铁不能一起吃，AI提醒我分开时间服用。这种专业程度在别的平台完全没见过。强烈推荐！</div>
+        <div class="review-verified">✅ 已验证购买</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Knowledge / GEO Content -->
+<section class="knowledge section" id="knowledge">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-tag">健康百科</div>
+      <h2 class="section-title">科学营养 · 权威解读</h2>
+      <p class="section-desc">基于循证医学的健康知识，帮助你做出更明智的营养选择</p>
+    </div>
+    <div class="knowledge-grid">
+      <div class="knowledge-card">
+        <div class="knowledge-img green">🔬</div>
+        <div class="knowledge-tag">成分解析</div>
+        <div class="knowledge-body">
+          <h3>2026年NMN最新研究：哈佛团队证实其对中老年人线粒体功能的改善</h3>
+          <p>β-烟酰胺单核苷酸(NMN)作为NAD+的前体物质，在最新的双盲临床试验中表现出显著的细胞能量代谢改善效果。本文详细解读最新研究数据与适用人群建议。</p>
+          <div class="knowledge-meta">
+            <span>📅 2026-03-28</span>
+            <span>👁 12,380 阅读</span>
+            <span>💬 328 讨论</span>
+          </div>
+        </div>
+      </div>
+      <div class="knowledge-card">
+        <div class="knowledge-img blue">💊</div>
+        <div class="knowledge-tag">选购指南</div>
+        <div class="knowledge-body">
+          <h3>辅酶Q10选购全攻略：泛醇vs泛醌，剂量选择与最佳服用时间</h3>
+          <p>市面上的CoQ10产品良莠不齐，本文从生物利用度、分子形式、原料产地三个维度，教你如何选择真正有效的辅酶Q10产品。</p>
+          <div class="knowledge-meta">
+            <span>📅 2026-03-25</span>
+            <span>👁 8,920 阅读</span>
+            <span>💬 215 讨论</span>
+          </div>
+        </div>
+      </div>
+      <div class="knowledge-card">
+        <div class="knowledge-img purple">🧬</div>
+        <div class="knowledge-tag">专家专栏</div>
+        <div class="knowledge-body">
+          <h3>肠道菌群与免疫力：益生菌的正确补充方式及常见误区</h3>
+          <p>70%的免疫细胞驻扎在肠道。选对益生菌菌株、保证活菌数量、注意存储条件，是益生菌真正发挥作用的三大关键因素。</p>
+          <div class="knowledge-meta">
+            <span>📅 2026-03-20</span>
+            <span>👁 6,540 阅读</span>
+            <span>💬 189 讨论</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Global Shipping -->
+<section class="shipping section" id="shipping">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-tag">全球配送</div>
+      <h2 class="section-title">香港仓直发 · 全球极速达</h2>
+      <p class="section-desc">自营保税仓 + 全球物流网络，为您提供最优的跨境购物体验</p>
+    </div>
+    <div class="shipping-grid">
+      <div class="shipping-card">
+        <div class="shipping-icon">🇭🇰</div>
+        <h3>香港本地</h3>
+        <p>顺丰次日达<br>满HK$200免运费</p>
+      </div>
+      <div class="shipping-card">
+        <div class="shipping-icon">🇨🇳</div>
+        <h3>中国大陆</h3>
+        <p>跨境直邮3-5天<br>满HK$500免运费</p>
+      </div>
+      <div class="shipping-card">
+        <div class="shipping-icon">🇸🇬</div>
+        <h3>东南亚</h3>
+        <p>空运5-7天达<br>满HK$800免运费</p>
+      </div>
+      <div class="shipping-card">
+        <div class="shipping-icon">🌏</div>
+        <h3>全球配送</h3>
+        <p>覆盖50+国家地区<br>满HK$1,200免运费</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ Section (GEO-optimized FAQPage schema) -->
+<section class="faq section" id="faq">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-tag">常见问题</div>
+      <h2 class="section-title">您可能想了解的</h2>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item active">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          荣旺健康的产品都是正品吗？如何保证？
+          <span class="faq-toggle">▼</span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">
+            荣旺健康所有产品100%来自品牌官方授权渠道或海外原产地直采。每批次产品均提供完整的进口报关单、检验检疫证明和第三方SGS检测报告。我们承诺：假一赔十。同时，每件产品都有唯一的防伪溯源码，扫码即可查看从生产到配送的全链路信息。
+          </div>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          AI健康顾问是如何为我推荐产品的？
+          <span class="faq-toggle">▼</span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">
+            我们的AI健康顾问基于先进的大语言模型，结合30万+篇循证医学文献和营养学研究。它会根据您的年龄、性别、健康目标、已有疾病史、过敏信息和当前用药情况，智能分析并推荐最适合的产品组合。同时会自动检测成分间的交互作用，确保安全性。所有AI建议仅供参考，不替代医生诊断。
+          </div>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          订阅计划可以随时修改或取消吗？
+          <span class="faq-toggle">▼</span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">
+            可以，完全灵活！您可以随时在"我的订阅"页面修改产品、调整配送频率、暂停或取消订阅，没有任何违约金或隐藏费用。修改将在下一个配送周期生效。我们的AI还会根据您的使用反馈，主动建议方案调整。
+          </div>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          跨境购物需要缴纳关税吗？
+          <span class="faq-toggle">▼</span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">
+            中国大陆地区：单次订单不超过人民币5,000元且年度累计不超过26,000元的，享受跨境电商综合税率（通常为9.1%），比一般贸易税率低很多。香港本地及海外地区视目的地海关政策而定。我们会在结算页面清晰展示预估税费，确保无隐藏成本。
+          </div>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          支持哪些支付方式？
+          <span class="faq-toggle">▼</span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">
+            我们支持全球主流支付方式：Visa/MasterCard信用卡、PayPal、Apple Pay、Google Pay、支付宝、微信支付、银联卡、FPS转数快（香港）。所有交易采用256位SSL加密和3D Secure验证，确保支付安全。
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA / Newsletter -->
+<section class="cta-section section">
+  <div class="cta-bg"></div>
+  <div class="container">
+    <div class="cta-inner">
+      <h2>开启您的科学营养之旅</h2>
+      <p>订阅荣旺健康资讯，获取专属优惠、最新研究解读和AI健康小贴士</p>
+      <div class="cta-form">
+        <input type="email" placeholder="请输入您的邮箱地址">
+        <button type="submit">免费订阅</button>
+      </div>
+      <p class="cta-trust">🔒 我们尊重您的隐私，绝不发送垃圾邮件。随时可一键退订。</p>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="#" class="logo">
+          <div class="logo-icon">荣</div>
+          荣旺健康
+        </a>
+        <p>香港荣旺健康科技有限公司<br>全球精选保健品与OTC产品跨境直购平台<br>AI驱动 · 科学营养 · 品质保障</p>
+        <div class="footer-social">
+          <a href="#" title="微信">💬</a>
+          <a href="#" title="微博">📱</a>
+          <a href="#" title="小红书">📕</a>
+          <a href="#" title="抖音">🎵</a>
+          <a href="#" title="Instagram">📷</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>产品分类</h4>
+        <a href="#">免疫增强</a>
+        <a href="#">脑力提升</a>
+        <a href="#">心血管健康</a>
+        <a href="#">骨骼关节</a>
+        <a href="#">美容抗衰</a>
+        <a href="#">助眠减压</a>
+        <a href="#">OTC药品</a>
+      </div>
+      <div class="footer-col">
+        <h4>关于荣旺</h4>
+        <a href="#">品牌故事</a>
+        <a href="#">品质保障</a>
+        <a href="#">供应链溯源</a>
+        <a href="#">检测报告</a>
+        <a href="#">加入我们</a>
+        <a href="#">媒体报道</a>
+      </div>
+      <div class="footer-col">
+        <h4>客户服务</h4>
+        <a href="#">帮助中心</a>
+        <a href="#">配送说明</a>
+        <a href="#">退换货政策</a>
+        <a href="#">订阅管理</a>
+        <a href="#">AI健康顾问</a>
+        <a href="#">联系我们</a>
+      </div>
+      <div class="footer-col">
+        <h4>安全支付</h4>
+        <div class="footer-payments">
+          <span class="footer-payment">💳 Visa</span>
+          <span class="footer-payment">💳 Master</span>
+          <span class="footer-payment">🅿️ PayPal</span>
+          <span class="footer-payment">🍎 Apple Pay</span>
+          <span class="footer-payment">支付宝</span>
+          <span class="footer-payment">微信支付</span>
+          <span class="footer-payment">🔗 银联</span>
+        </div>
+        <h4 style="margin-top: 20px;">资质认证</h4>
+        <div class="footer-certs">
+          <span class="footer-cert">SSL 256位加密</span>
+          <span class="footer-cert">ICP备案</span>
+          <span class="footer-cert">SGS认证</span>
+          <span class="footer-cert">GMP标准</span>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 香港荣旺健康科技有限公司 · 保留所有权利</p>
+      <div class="footer-bottom-links">
+        <a href="#">隐私政策</a>
+        <a href="#">服务条款</a>
+        <a href="#">Cookie政策</a>
+        <a href="#">营业执照</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- Floating AI Chat Button -->
+<button class="ai-float-btn" onclick="document.getElementById('ai-section').scrollIntoView({behavior:'smooth'})" title="AI健康顾问">
+  🤖
+  <div class="ai-float-label">AI为您推荐</div>
+</button>
+
+<!-- Back to Top -->
+<button class="back-to-top" id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<!-- SEO: FAQPage Schema (GEO Optimized) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "荣旺健康的产品都是正品吗？如何保证？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "荣旺健康所有产品100%来自品牌官方授权渠道或海外原产地直采。每批次产品均提供完整的进口报关单、检验检疫证明和第三方SGS检测报告。承诺假一赔十。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "AI健康顾问是如何为我推荐产品的？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "AI健康顾问基于先进的大语言模型，结合30万+篇循证医学文献。根据年龄、性别、健康目标、过敏信息和用药情况智能分析推荐，同时自动检测成分交互。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "跨境购物需要缴纳关税吗？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "中国大陆地区单次订单不超过人民币5,000元且年度累计不超过26,000元的，享受跨境电商综合税率（通常为9.1%）。结算页面会清晰展示预估税费。"
+      }
+    }
+  ]
+}
+</script>
+
+<!-- SEO: Organization Schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "荣旺健康",
+  "alternateName": "RongWang Health",
+  "url": "https://rongwanghealth.com",
+  "logo": "https://rongwanghealth.com/logo.png",
+  "description": "香港荣旺健康科技有限公司，全球精选保健品与OTC产品跨境直购平台，AI驱动个性化健康方案。",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Hong Kong",
+    "addressCountry": "HK"
+  },
+  "sameAs": [
+    "https://weibo.com/rongwanghealth",
+    "https://www.xiaohongshu.com/rongwanghealth"
+  ]
+}
+</script>
+
+<!-- JavaScript -->
+<script>
+// Cart functionality
+let cartItems = 0;
+function addToCart() {
+  cartItems++;
+  document.getElementById('cartCount').textContent = cartItems;
+  const btn = event.target;
+  btn.textContent = '✓ 已加入';
+  btn.style.background = '#22c55e';
+  setTimeout(() => {
+    btn.innerHTML = '🛒 加入购物车';
+    btn.style.background = '';
+  }, 1500);
+}
+
+// FAQ toggle
+function toggleFaq(el) {
+  const item = el.parentElement;
+  const wasActive = item.classList.contains('active');
+  document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('active'));
+  if (!wasActive) item.classList.add('active');
+}
+
+// Sticky header shadow
+window.addEventListener('scroll', () => {
+  const header = document.getElementById('header');
+  header.classList.toggle('scrolled', window.scrollY > 20);
+
+  // Back to top button
+  const btt = document.getElementById('backToTop');
+  btt.classList.toggle('visible', window.scrollY > 600);
+
+  // Scroll progress
+  const winScroll = document.documentElement.scrollTop;
+  const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+  const scrolled = (winScroll / height) * 100;
+  document.getElementById('scrollProgress').style.width = scrolled + '%';
+});
+
+// Tab switching
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  });
+});
+
+// Smooth scroll for nav links
+document.querySelectorAll('.nav-links a').forEach(link => {
+  link.addEventListener('click', e => {
+    const href = link.getAttribute('href');
+    if (href.startsWith('#')) {
+      e.preventDefault();
+      document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' });
+    }
+  });
+});
+
+// Intersection Observer for animations
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.style.animation = 'fadeInUp 0.8s ease-out forwards';
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.product-card, .cat-card, .review-card, .knowledge-card, .shipping-card').forEach(el => {
+  el.style.opacity = '0';
+  observer.observe(el);
+});
+
+// Language switch placeholder
+document.getElementById('langSwitch').addEventListener('click', function() {
+  this.textContent = this.textContent === 'EN / 中' ? '中 / EN' : 'EN / 中';
+});
+</script>
+
+</body>
+</html>

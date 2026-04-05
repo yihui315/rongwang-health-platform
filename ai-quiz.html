@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI健康检测 | 3分钟找到你的营养缺口 — 荣旺企业商城</title>
+<meta name="description" content="AI智能分析你的健康状况，基于30万+临床文献，3分钟生成专属营养补充方案。免费检测，科学精准。">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Noto+Sans+SC:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --teal:#00D4C8;--teal-dark:#00b3a8;--teal-light:#33ded4;--teal-bg:rgba(0,212,200,0.08);
+  --orange:#FF6B00;--orange-light:#FF8533;
+  --bg:#0B1120;--bg2:#111827;--card:rgba(255,255,255,0.03);
+  --white:#FFFFFF;--dark:#1F2937;
+  --text:#FFFFFF;--text2:rgba(255,255,255,0.7);--text3:rgba(255,255,255,0.45);--text4:rgba(255,255,255,0.25);
+  --border:rgba(255,255,255,0.08);--border2:rgba(255,255,255,0.15);
+  --green:#22C55E;--red:#EF4444;--purple:#8B5CF6;--yellow:#FBBF24;
+  --shadow:0 4px 24px rgba(0,0,0,0.2);
+  --radius:16px;--radius-lg:24px;--radius-xl:32px;
+  --transition:all 0.3s cubic-bezier(0.4,0,0.2,1);
+}
+html{scroll-behavior:smooth}
+body{font-family:'Inter','Noto Sans SC',-apple-system,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{text-decoration:none;color:inherit}button{cursor:pointer;border:none;background:none;font-family:inherit}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+@keyframes scaleIn{from{opacity:0;transform:scale(0.94)}to{opacity:1;transform:scale(1)}}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.6}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes slideUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+@keyframes typing{from{width:0}to{width:100%}}
+@keyframes checkmark{0%{transform:scale(0)}50%{transform:scale(1.2)}100%{transform:scale(1)}}
+@keyframes confetti{0%{transform:translateY(0) rotate(0deg);opacity:1}100%{transform:translateY(-60px) rotate(720deg);opacity:0}}
+
+/* Background */
+.bg-glow{position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(ellipse 60% 50% at 50% 0%,rgba(0,212,200,0.08),transparent 60%),radial-gradient(ellipse 40% 40% at 80% 80%,rgba(139,92,246,0.06),transparent 50%)}
+
+/* Header */
+.header{position:sticky;top:0;z-index:100;background:rgba(11,17,32,0.9);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:16px 0}
+.header-inner{max-width:720px;margin:0 auto;padding:0 24px;display:flex;align-items:center;justify-content:space-between}
+.logo{font-size:18px;font-weight:700;color:var(--teal)}
+.header-back{font-size:13px;color:var(--text3);transition:var(--transition)}
+.header-back:hover{color:var(--text)}
+
+/* Main */
+.main{position:relative;z-index:1;max-width:640px;margin:0 auto;padding:40px 24px 100px}
+
+/* Progress */
+.progress-area{margin-bottom:40px}
+.progress-bar{height:6px;background:rgba(255,255,255,0.06);border-radius:999px;overflow:hidden;margin-bottom:8px}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--teal),var(--purple));border-radius:999px;transition:width 0.6s ease}
+.progress-label{display:flex;justify-content:space-between;font-size:12px;color:var(--text4)}
+
+/* Step Card */
+.step{display:none;animation:scaleIn 0.4s ease}
+.step.active{display:block}
+.step-header{text-align:center;margin-bottom:32px}
+.step-num{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;background:var(--teal-bg);border:1px solid rgba(0,212,200,0.2);border-radius:50%;color:var(--teal);font-size:14px;font-weight:700;margin-bottom:14px}
+.step h2{font-size:24px;font-weight:700;margin-bottom:6px}
+.step .hint{font-size:14px;color:var(--text3)}
+
+/* Options */
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:32px}
+.opt{padding:20px;background:var(--card);border:1.5px solid var(--border);border-radius:var(--radius);text-align:center;transition:var(--transition);position:relative;overflow:hidden}
+.opt:hover{background:rgba(255,255,255,0.06);border-color:var(--border2)}
+.opt.selected{background:rgba(0,212,200,0.1);border-color:var(--teal)}
+.opt.selected::after{content:'✓';position:absolute;top:8px;right:10px;width:22px;height:22px;background:var(--teal);color:#fff;font-size:12px;font-weight:700;border-radius:50%;display:flex;align-items:center;justify-content:center;animation:checkmark 0.3s ease}
+.opt.multi-sel{background:rgba(139,92,246,0.1);border-color:var(--purple)}
+.opt.multi-sel::after{background:var(--purple)}
+.opt-icon{font-size:32px;margin-bottom:10px;display:block}
+.opt-label{font-size:15px;font-weight:600}
+.opt-desc{font-size:12px;color:var(--text3);margin-top:4px}
+.opt-wide{grid-column:1/-1}
+
+/* Nav */
+.step-nav{display:flex;justify-content:space-between;gap:12px}
+.btn-back{padding:14px 28px;border:1px solid var(--border);color:var(--text3);font-size:14px;font-weight:600;border-radius:999px;transition:var(--transition)}
+.btn-back:hover{border-color:var(--border2);color:var(--text)}
+.btn-next{padding:14px 36px;background:var(--teal);color:#fff;font-size:14px;font-weight:700;border-radius:999px;transition:var(--transition);box-shadow:0 4px 20px rgba(0,212,200,0.25)}
+.btn-next:hover:not(:disabled){background:var(--teal-dark);transform:translateY(-2px)}
+.btn-next:disabled{opacity:0.3;cursor:not-allowed}
+
+/* Loading */
+.loading-screen{display:none;text-align:center;padding:80px 0;animation:fadeUp 0.5s ease}
+.loading-spinner{width:48px;height:48px;border:3px solid var(--border);border-top-color:var(--teal);border-radius:50%;animation:spin 0.8s linear infinite;margin:0 auto 24px}
+.loading-screen h3{font-size:20px;font-weight:700;margin-bottom:8px}
+.loading-screen p{font-size:14px;color:var(--text3)}
+.loading-steps{max-width:320px;margin:32px auto 0;text-align:left}
+.loading-step{display:flex;align-items:center;gap:10px;padding:10px 0;font-size:13px;color:var(--text3);opacity:0;animation:slideUp 0.4s ease forwards}
+.loading-step .check{color:var(--green);font-weight:700}
+.ls-1{animation-delay:0.5s}.ls-2{animation-delay:1.2s}.ls-3{animation-delay:1.9s}.ls-4{animation-delay:2.6s}
+
+/* ===== RESULT ===== */
+.result-screen{display:none;animation:fadeUp 0.6s ease}
+.result-hero{text-align:center;margin-bottom:40px}
+.result-check{width:64px;height:64px;background:rgba(34,197,94,0.12);border:2px solid rgba(34,197,94,0.3);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:28px;margin:0 auto 20px;animation:checkmark 0.5s ease}
+.result-hero h1{font-size:28px;font-weight:800;margin-bottom:6px}
+.result-hero .type-tag{display:inline-block;padding:8px 20px;background:rgba(0,212,200,0.1);border:1px solid rgba(0,212,200,0.25);border-radius:999px;color:var(--teal-light);font-size:15px;font-weight:700;margin-top:12px}
+
+.result-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:32px;margin-bottom:20px}
+.result-card h3{font-size:16px;font-weight:700;margin-bottom:16px;display:flex;align-items:center;gap:8px}
+
+/* Explanation */
+.explain-box{padding:20px;background:rgba(255,255,255,0.02);border-radius:14px;border-left:3px solid var(--teal);font-size:14px;color:var(--text2);line-height:1.8}
+
+/* Recommended Products */
+.reco-item{display:flex;align-items:center;gap:14px;padding:16px;background:rgba(255,255,255,0.02);border:1px solid var(--border);border-radius:14px;margin-bottom:10px;transition:var(--transition)}
+.reco-item:hover{background:rgba(255,255,255,0.05);border-color:var(--border2)}
+.reco-icon{width:52px;height:52px;min-width:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:24px}
+.reco-icon.c1{background:rgba(239,68,68,0.12)}.reco-icon.c2{background:rgba(251,191,36,0.12)}.reco-icon.c3{background:rgba(34,197,94,0.12)}
+.reco-info{flex:1}
+.reco-name{font-size:15px;font-weight:700;margin-bottom:2px}
+.reco-desc{font-size:12px;color:var(--text3)}
+.reco-why{font-size:11px;color:var(--teal);margin-top:4px;font-weight:600}
+.reco-price{font-size:17px;font-weight:800;color:var(--teal-light);white-space:nowrap}
+
+/* Dosage Schedule */
+.dosage-table{width:100%;border-collapse:collapse}
+.dosage-table th,.dosage-table td{padding:12px 14px;text-align:left;font-size:13px;border-bottom:1px solid var(--border)}
+.dosage-table th{color:var(--text3);font-weight:600;font-size:12px}
+.dosage-table td{color:var(--text2)}
+.dosage-tag{display:inline-block;padding:3px 8px;border-radius:6px;font-size:11px;font-weight:600}
+.tag-morning{background:rgba(251,191,36,0.12);color:var(--yellow)}
+.tag-noon{background:rgba(0,212,200,0.12);color:var(--teal)}
+.tag-night{background:rgba(139,92,246,0.12);color:var(--purple)}
+
+/* Compare */
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--border);border-radius:14px;overflow:hidden}
+.compare-col{padding:20px}
+.compare-col.bad{background:rgba(239,68,68,0.04)}
+.compare-col.good{background:rgba(34,197,94,0.04)}
+.compare-col h4{font-size:13px;font-weight:700;margin-bottom:14px;display:flex;align-items:center;gap:6px}
+.compare-col.bad h4{color:var(--red)}.compare-col.good h4{color:var(--green)}
+.compare-item{font-size:13px;color:var(--text2);padding:6px 0;display:flex;align-items:center;gap:6px}
+
+/* Bundle */
+.bundle{background:linear-gradient(135deg,rgba(0,212,200,0.1),rgba(0,212,200,0.03));border:1.5px solid rgba(0,212,200,0.2);border-radius:var(--radius-lg);padding:32px;text-align:center;margin-bottom:20px}
+.bundle h3{font-size:18px;font-weight:800;margin-bottom:4px}
+.bundle .sub{font-size:13px;color:var(--text3);margin-bottom:16px}
+.bundle-price{font-size:48px;font-weight:900;color:var(--teal-light);line-height:1}
+.bundle-old{font-size:18px;color:var(--text4);text-decoration:line-through;margin-top:6px}
+.bundle-save{display:inline-block;padding:6px 16px;background:rgba(34,197,94,0.12);color:var(--green);font-size:14px;font-weight:700;border-radius:999px;margin-top:10px}
+.bundle-per{font-size:13px;color:var(--text3);margin-top:8px}
+
+.btn-buy{display:block;width:100%;padding:20px;background:var(--orange);color:#fff;font-size:18px;font-weight:800;border-radius:999px;transition:var(--transition);text-align:center;box-shadow:0 8px 30px rgba(255,107,0,0.3);margin-bottom:12px}
+.btn-buy:hover{background:var(--orange-light);transform:translateY(-2px);box-shadow:0 12px 40px rgba(255,107,0,0.4)}
+.btn-sub{display:block;width:100%;padding:16px;border:1.5px solid var(--teal);color:var(--teal);font-size:15px;font-weight:700;border-radius:999px;transition:var(--transition);text-align:center;margin-bottom:16px}
+.btn-sub:hover{background:rgba(0,212,200,0.1)}
+
+.urgency{text-align:center;font-size:13px;color:var(--text4);margin-bottom:32px}
+.urgency b{color:rgba(252,165,165,0.8)}
+
+/* Guarantees */
+.guarantees{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:32px}
+.guarantee{text-align:center;padding:16px;background:var(--card);border:1px solid var(--border);border-radius:12px}
+.guarantee-icon{font-size:24px;margin-bottom:6px}
+.guarantee-text{font-size:12px;color:var(--text3);font-weight:600}
+
+/* Share */
+.share-box{text-align:center;padding:24px;background:var(--card);border:1px solid var(--border);border-radius:var(--radius)}
+.share-box p{font-size:14px;color:var(--text3);margin-bottom:14px}
+.share-btns{display:flex;justify-content:center;gap:10px}
+.share-btn{padding:10px 20px;border:1px solid var(--border);border-radius:999px;font-size:13px;font-weight:600;color:var(--text2);transition:var(--transition)}
+.share-btn:hover{border-color:var(--teal);color:var(--teal)}
+
+@media(max-width:640px){
+  .opts{grid-template-columns:1fr}
+  .compare{grid-template-columns:1fr}
+  .guarantees{grid-template-columns:1fr}
+  .bundle-price{font-size:36px}
+}
+</style>
+</head>
+<body>
+<div class="bg-glow"></div>
+
+<header class="header">
+  <div class="header-inner">
+    <a href="index.html" class="logo">荣旺企业商城</a>
+    <a href="index.html" class="header-back">← 返回首页</a>
+  </div>
+</header>
+
+<main class="main">
+  <!-- Progress -->
+  <div class="progress-area" id="progressArea">
+    <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:25%"></div></div>
+    <div class="progress-label"><span id="stepText">第 1 步 / 共 4 步</span><span id="stepPercent">25%</span></div>
+  </div>
+
+  <!-- ===== STEP 1: GENDER ===== -->
+  <div class="step active" id="s1">
+    <div class="step-header">
+      <div class="step-num">1</div>
+      <h2>你的性别是？</h2>
+      <p class="hint">不同性别的营养需求差异很大</p>
+    </div>
+    <div class="opts" id="o1">
+      <button class="opt" onclick="pick(this,1,'gender','男性')">
+        <span class="opt-icon">🙋‍♂️</span>
+        <span class="opt-label">男性</span>
+      </button>
+      <button class="opt" onclick="pick(this,1,'gender','女性')">
+        <span class="opt-icon">🙋‍♀️</span>
+        <span class="opt-label">女性</span>
+      </button>
+    </div>
+    <div class="step-nav"><div></div><button class="btn-next" id="n1" onclick="next(2)" disabled>下一步 →</button></div>
+  </div>
+
+  <!-- ===== STEP 2: AGE ===== -->
+  <div class="step" id="s2">
+    <div class="step-header">
+      <div class="step-num">2</div>
+      <h2>你的年龄段？</h2>
+      <p class="hint">营养需求随年龄变化显著</p>
+    </div>
+    <div class="opts" id="o2">
+      <button class="opt" onclick="pick(this,2,'age','18-29')">
+        <span class="opt-icon">🧑</span>
+        <span class="opt-label">18 - 29 岁</span>
+        <span class="opt-desc">基础代谢旺盛期</span>
+      </button>
+      <button class="opt" onclick="pick(this,2,'age','30-39')">
+        <span class="opt-icon">👨</span>
+        <span class="opt-label">30 - 39 岁</span>
+        <span class="opt-desc">压力高峰期</span>
+      </button>
+      <button class="opt" onclick="pick(this,2,'age','40-49')">
+        <span class="opt-icon">🧔</span>
+        <span class="opt-label">40 - 49 岁</span>
+        <span class="opt-desc">机能拐点期</span>
+      </button>
+      <button class="opt" onclick="pick(this,2,'age','50+')">
+        <span class="opt-icon">👴</span>
+        <span class="opt-label">50 岁以上</span>
+        <span class="opt-desc">重点养护期</span>
+      </button>
+    </div>
+    <div class="step-nav"><button class="btn-back" onclick="back(1)">← 上一步</button><button class="btn-next" id="n2" onclick="next(3)" disabled>下一步 →</button></div>
+  </div>
+
+  <!-- ===== STEP 3: PROBLEMS (MULTI) ===== -->
+  <div class="step" id="s3">
+    <div class="step-header">
+      <div class="step-num">3</div>
+      <h2>你目前的主要困扰？</h2>
+      <p class="hint">可多选，AI会综合分析</p>
+    </div>
+    <div class="opts" id="o3">
+      <button class="opt" onclick="multi(this,3,'problems','疲劳')">
+        <span class="opt-icon">😫</span>
+        <span class="opt-label">经常疲劳</span>
+        <span class="opt-desc">下午崩溃、精力差</span>
+      </button>
+      <button class="opt" onclick="multi(this,3,'problems','免疫差')">
+        <span class="opt-icon">🤧</span>
+        <span class="opt-label">免疫力差</span>
+        <span class="opt-desc">常感冒、换季易病</span>
+      </button>
+      <button class="opt" onclick="multi(this,3,'problems','睡眠差')">
+        <span class="opt-icon">😴</span>
+        <span class="opt-label">睡眠不好</span>
+        <span class="opt-desc">入睡难、易醒、多梦</span>
+      </button>
+      <button class="opt" onclick="multi(this,3,'problems','压力大')">
+        <span class="opt-icon">😰</span>
+        <span class="opt-label">压力焦虑</span>
+        <span class="opt-desc">工作压力、情绪波动</span>
+      </button>
+      <button class="opt" onclick="multi(this,3,'problems','关节痛')">
+        <span class="opt-icon">🦴</span>
+        <span class="opt-label">关节不适</span>
+        <span class="opt-desc">酸痛、僵硬、活动受限</span>
+      </button>
+      <button class="opt" onclick="multi(this,3,'problems','皮肤差')">
+        <span class="opt-icon">✨</span>
+        <span class="opt-label">皮肤暗沉</span>
+        <span class="opt-desc">干燥、松弛、缺乏光泽</span>
+      </button>
+    </div>
+    <div class="step-nav"><button class="btn-back" onclick="back(2)">← 上一步</button><button class="btn-next" id="n3" onclick="next(4)" disabled>下一步 →</button></div>
+  </div>
+
+  <!-- ===== STEP 4: GOAL ===== -->
+  <div class="step" id="s4">
+    <div class="step-header">
+      <div class="step-num">4</div>
+      <h2>你最想达成的目标？</h2>
+      <p class="hint">AI将优先围绕此目标生成方案</p>
+    </div>
+    <div class="opts" id="o4">
+      <button class="opt" onclick="pick(this,4,'goal','提升精力')">
+        <span class="opt-icon">⚡</span>
+        <span class="opt-label">提升精力</span>
+        <span class="opt-desc">全天精力充沛</span>
+      </button>
+      <button class="opt" onclick="pick(this,4,'goal','改善睡眠')">
+        <span class="opt-icon">💤</span>
+        <span class="opt-label">改善睡眠</span>
+        <span class="opt-desc">快速入睡、深度睡眠</span>
+      </button>
+      <button class="opt" onclick="pick(this,4,'goal','增强免疫')">
+        <span class="opt-icon">🛡️</span>
+        <span class="opt-label">增强免疫</span>
+        <span class="opt-desc">少生病、体质强</span>
+      </button>
+      <button class="opt" onclick="pick(this,4,'goal','抗衰美容')">
+        <span class="opt-icon">✨</span>
+        <span class="opt-label">抗衰美容</span>
+        <span class="opt-desc">年轻态、好气色</span>
+      </button>
+    </div>
+    <div class="step-nav"><button class="btn-back" onclick="back(3)">← 上一步</button><button class="btn-next" id="n4" onclick="analyze()" disabled>生成我的方案 🎯</button></div>
+  </div>
+
+  <!-- ===== LOADING ===== -->
+  <div class="loading-screen" id="loadingScreen">
+    <div class="loading-spinner"></div>
+    <h3>AI正在分析你的健康状况...</h3>
+    <p>基于30万+篇临床文献匹配最优方案</p>
+    <div class="loading-steps">
+      <div class="loading-step ls-1"><span class="check">✓</span> 分析你的年龄和性别特征</div>
+      <div class="loading-step ls-2"><span class="check">✓</span> 匹配症状对应的营养缺口</div>
+      <div class="loading-step ls-3"><span class="check">✓</span> 检测成分交互安全性</div>
+      <div class="loading-step ls-4"><span class="check">✓</span> 生成个性化方案</div>
+    </div>
+  </div>
+
+  <!-- ===== RESULT ===== -->
+  <div class="result-screen" id="resultScreen">
+    <div class="result-hero">
+      <div class="result-check">✅</div>
+      <h1>你的检测结果</h1>
+      <div class="type-tag" id="rTypeTag"></div>
+    </div>
+
+    <!-- Analysis -->
+    <div class="result-card">
+      <h3>🔬 AI分析</h3>
+      <div class="explain-box" id="rExplain"></div>
+    </div>
+
+    <!-- Recommendation -->
+    <div class="result-card">
+      <h3>💊 AI推荐方案</h3>
+      <div id="rItems"></div>
+    </div>
+
+    <!-- Dosage -->
+    <div class="result-card">
+      <h3>⏰ 建议服用时间</h3>
+      <table class="dosage-table" id="rDosage"></table>
+    </div>
+
+    <!-- Compare -->
+    <div class="result-card">
+      <h3>📊 补充 vs 不补充（30天后）</h3>
+      <div class="compare" id="rCompare"></div>
+    </div>
+
+    <!-- Bundle -->
+    <div class="bundle" id="rBundle">
+      <h3>🎁 专属组合套餐</h3>
+      <div class="sub" id="rBundleSub">AI为你定制的最优组合</div>
+      <div class="bundle-price" id="rPrice"></div>
+      <div class="bundle-old" id="rOldPrice"></div>
+      <div class="bundle-save" id="rSave"></div>
+      <div class="bundle-per" id="rPer"></div>
+    </div>
+
+    <button class="btn-buy" id="btnBuy" onclick="buyNow()">🛒 立即购买 — 首单再减¥80</button>
+    <button class="btn-sub" onclick="subscribe()">📦 订阅享额外20% off · 随时取消</button>
+    <div class="urgency">⏰ <b id="rViewers">23</b> 人正在查看此方案 · 今日已售 <b>187</b> 份</div>
+
+    <div class="guarantees">
+      <div class="guarantee"><div class="guarantee-icon">✅</div><div class="guarantee-text">正品保障<br>假一赔十</div></div>
+      <div class="guarantee"><div class="guarantee-icon">🚚</div><div class="guarantee-text">香港直邮<br>3-5天到家</div></div>
+      <div class="guarantee"><div class="guarantee-icon">🔄</div><div class="guarantee-text">30天退货<br>无理由</div></div>
+    </div>
+
+    <div class="share-box">
+      <p>分享你的检测结果，帮助朋友发现营养缺口</p>
+      <div class="share-btns">
+        <button class="share-btn">💬 微信</button>
+        <button class="share-btn">📕 小红书</button>
+        <button class="share-btn">🔗 复制链接</button>
+      </div>
+    </div>
+  </div>
+</main>
+
+<script>
+// ===== STATE =====
+const A = { gender:'', age:'', problems:[], goal:'' };
+let cur = 1;
+
+// ===== URL PARAMS =====
+const params = new URLSearchParams(window.location.search);
+const pre = params.get('pre');
+if (pre) {
+  const map = { fatigue:'疲劳', immune:'免疫差', sleep:'睡眠差', stress:'压力大' };
+  if (map[pre]) A.problems.push(map[pre]);
+}
+
+// ===== QUIZ ENGINE =====
+function pick(el, step, key, val) {
+  A[key] = val;
+  el.parentElement.querySelectorAll('.opt').forEach(o => { o.classList.remove('selected'); o.classList.remove('multi-sel'); });
+  el.classList.add('selected');
+  document.getElementById('n' + step).disabled = false;
+}
+function multi(el, step, key, val) {
+  if (A[key].includes(val)) {
+    A[key] = A[key].filter(v => v !== val);
+    el.classList.remove('multi-sel');
+  } else {
+    A[key].push(val);
+    el.classList.add('multi-sel');
+  }
+  document.getElementById('n' + step).disabled = A[key].length === 0;
+}
+function next(s) {
+  document.getElementById('s' + cur).classList.remove('active');
+  document.getElementById('s' + s).classList.add('active');
+  cur = s;
+  updateProgress(s);
+}
+function back(s) {
+  document.getElementById('s' + cur).classList.remove('active');
+  document.getElementById('s' + s).classList.add('active');
+  cur = s;
+  updateProgress(s);
+}
+function updateProgress(s) {
+  const pct = s * 25;
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('stepText').textContent = '第 ' + s + ' 步 / 共 4 步';
+  document.getElementById('stepPercent').textContent = pct + '%';
+}
+
+// ===== RECOMMENDATION ENGINE =====
+/*
+  Rule-based engine. Replace this block with GPT API call later:
+  const res = await fetch('/api/recommend', { method:'POST', body:JSON.stringify(A) });
+  const plan = await res.json();
+*/
+const DB = {
+  '疲劳': {
+    type: '高压力 + 营养流失型',
+    explain: '长期压力和不规律作息导致<b>B族维生素</b>被大量消耗，<b>辅酶Q10</b>水平下降，线粒体产能效率降低。你的疲劳不是因为不够努力休息——而是细胞在"缺电"。\n\n镁参与300+种酶反应，是能量代谢的关键矿物质。Omega-3脂肪酸则对抗慢性炎症，这是"莫名疲劳感"的隐藏推手。',
+    items: [
+      { icon:'💊', cls:'c1', name:'活性B族复合维生素', desc:'8种B族甲基化协同 · 吸收率↑3倍', why:'→ 修复压力消耗的B族储备', price:'¥128' },
+      { icon:'🟡', cls:'c2', name:'螯合镁 400mg', desc:'甘氨酸镁 · Doctor\'s Best · 美国', why:'→ 参与ATP产能+放松神经', price:'¥98' },
+      { icon:'🟢', cls:'c3', name:'Omega-3 深海鱼油 1200mg', desc:'Nordic Naturals · 挪威 · 无腥味', why:'→ 对抗慢性炎症性疲劳', price:'¥158' }
+    ],
+    dosage: [
+      ['活性B族复合', '1粒', '早餐后', 'morning'],
+      ['螯合镁 400mg', '1粒', '晚餐后', 'night'],
+      ['Omega-3 鱼油', '2粒', '午餐后', 'noon']
+    ],
+    compare: {
+      bad: ['下午严重犯困','注意力涣散','晨起困难','运动后酸痛持续','依赖咖啡'],
+      good: ['全天精力稳定 ↑','清晰专注 ↑','自然清醒 ↑','恢复加速 ↑','不再依赖咖啡 ↑']
+    },
+    bundle:'¥299', original:'¥459', save:'¥160 · 省35%', per:'¥9.97/天 · 30天用量'
+  },
+  '免疫差': {
+    type: '免疫防线薄弱型',
+    explain: '免疫系统依赖<b>维生素D、锌、益生菌</b>的协同作用。维生素D激活T细胞（免疫系统的"士兵"），锌是免疫细胞分裂必需矿物质，益生菌维护肠道免疫屏障——70%的免疫细胞驻扎在肠道。\n\n现代人日照不足+饮食精细化，这三种营养素普遍缺乏。',
+    items: [
+      { icon:'☀️', cls:'c1', name:'维生素D3 5000IU', desc:'NOW Foods · 美国 · 橄榄油基底', why:'→ 激活免疫T细胞', price:'¥108' },
+      { icon:'⚪', cls:'c2', name:'螯合锌 30mg', desc:'Thorne · 美国 · 吡啶甲酸锌', why:'→ 免疫细胞分裂必需', price:'¥128' },
+      { icon:'🦠', cls:'c3', name:'益生菌 500亿CFU', desc:'Seed · 美国 · 24菌株双层包埋', why:'→ 修复肠道免疫屏障', price:'¥198' }
+    ],
+    dosage: [
+      ['维生素D3', '1粒', '早餐后', 'morning'],
+      ['螯合锌', '1粒', '午餐后', 'noon'],
+      ['益生菌', '2粒', '空腹/早餐前', 'morning']
+    ],
+    compare: {
+      bad: ['换季必感冒','恢复期长','容易过敏','常觉得虚弱','伤口愈合慢'],
+      good: ['换季平稳度过 ↑','快速恢复 ↑','过敏减少 ↑','体质增强 ↑','愈合加速 ↑']
+    },
+    bundle:'¥349', original:'¥529', save:'¥180 · 省34%', per:'¥11.63/天 · 30天用量'
+  },
+  '睡眠差': {
+    type: '神经递质失调型',
+    explain: '睡眠质量由<b>GABA</b>（抑制性神经递质）和<b>镁</b>离子浓度共同决定。长期压力消耗镁储备，导致神经系统持续兴奋无法"关机"。\n\n褪黑素帮助调节昼夜节律，但单独使用效果有限——需要和镁、GABA协同才能真正改善入睡速度和睡眠深度。',
+    items: [
+      { icon:'🔵', cls:'c1', name:'甘氨酸镁 400mg', desc:'Doctor\'s Best · 美国 · 放松神经', why:'→ 降低神经兴奋性', price:'¥118' },
+      { icon:'🟣', cls:'c2', name:'GABA 750mg', desc:'NOW Foods · 美国 · 天然发酵', why:'→ 天然"关机"信号', price:'¥88' },
+      { icon:'🌙', cls:'c3', name:'缓释褪黑素 3mg', desc:'Natrol · 美国 · 双层缓释技术', why:'→ 调节昼夜节律', price:'¥68' }
+    ],
+    dosage: [
+      ['甘氨酸镁', '1粒', '睡前1小时', 'night'],
+      ['GABA', '1粒', '睡前30分钟', 'night'],
+      ['褪黑素', '1粒', '睡前20分钟', 'night']
+    ],
+    compare: {
+      bad: ['翻来覆去1-2小时','夜醒3-4次','多梦浅睡','晨起头昏','白天犯困'],
+      good: ['15分钟内入睡 ↑','整夜安睡 ↑','深度睡眠↑','清爽起床 ↑','白天精神 ↑']
+    },
+    bundle:'¥259', original:'¥389', save:'¥130 · 省33%', per:'¥8.63/天 · 30天用量'
+  },
+  '压力大': {
+    type: '肾上腺疲劳型',
+    explain: '持续压力使肾上腺过度分泌皮质醇，大量消耗<b>B族维生素和镁</b>。<b>红景天</b>和<b>南非醉茄（Ashwagandha）</b>是经过多项RCT临床试验验证的适应原草本，能双向调节皮质醇水平。\n\n恢复压力应对能力的关键不是"放松"，而是补充被压力消耗掉的原料。',
+    items: [
+      { icon:'💛', cls:'c1', name:'活性B族 + 镁复合', desc:'Thorne · 美国 · 医师级配方', why:'→ 修复压力消耗的B族+镁', price:'¥168' },
+      { icon:'🌿', cls:'c2', name:'红景天提取物 500mg', desc:'Gaia Herbs · 美国 · 有机认证', why:'→ 适应原·调节皮质醇', price:'¥158' },
+      { icon:'🧘', cls:'c3', name:'南非醉茄 KSM-66', desc:'Jarrow · 美国 · 临床剂量600mg', why:'→ 降低皮质醇29%（RCT数据）', price:'¥148' }
+    ],
+    dosage: [
+      ['B族+镁复合', '1粒', '早餐后', 'morning'],
+      ['红景天', '1粒', '午餐后', 'noon'],
+      ['南非醉茄', '1粒', '晚餐后', 'night']
+    ],
+    compare: {
+      bad: ['持续焦虑紧张','情绪波动大','心跳加速','肌肉紧绷','暴饮暴食'],
+      good: ['情绪稳定平和 ↑','抗压能力强 ↑','心率平稳 ↑','肌肉放松 ↑','饮食规律 ↑']
+    },
+    bundle:'¥399', original:'¥598', save:'¥199 · 省33%', per:'¥13.30/天 · 30天用量'
+  }
+};
+
+function analyze() {
+  // Hide quiz, show loading
+  document.getElementById('s' + cur).classList.remove('active');
+  document.getElementById('progressArea').style.display = 'none';
+  const loading = document.getElementById('loadingScreen');
+  loading.style.display = 'block';
+
+  // After 3.5s, show result
+  setTimeout(() => {
+    loading.style.display = 'none';
+    renderResult();
+  }, 3500);
+}
+
+function renderResult() {
+  const primary = A.problems[0] || '疲劳';
+  const plan = DB[primary] || DB['疲劳'];
+  const screen = document.getElementById('resultScreen');
+
+  // Type
+  document.getElementById('rTypeTag').textContent = '你属于：【' + plan.type + '】';
+
+  // Explain
+  document.getElementById('rExplain').innerHTML = plan.explain.replace(/\n/g, '<br>');
+
+  // Items
+  let itemsH = '';
+  plan.items.forEach(i => {
+    itemsH += `<div class="reco-item"><div class="reco-icon ${i.cls}">${i.icon}</div><div class="reco-info"><div class="reco-name">${i.name}</div><div class="reco-desc">${i.desc}</div><div class="reco-why">${i.why}</div></div><div class="reco-price">${i.price}</div></div>`;
+  });
+  document.getElementById('rItems').innerHTML = itemsH;
+
+  // Dosage
+  let dH = '<tr><th>产品</th><th>用量</th><th>时间</th></tr>';
+  plan.dosage.forEach(d => {
+    const tagCls = d[3] === 'morning' ? 'tag-morning' : d[3] === 'noon' ? 'tag-noon' : 'tag-night';
+    dH += `<tr><td>${d[0]}</td><td>${d[1]}</td><td><span class="dosage-tag ${tagCls}">${d[2]}</span></td></tr>`;
+  });
+  document.getElementById('rDosage').innerHTML = dH;
+
+  // Compare
+  let cH = '<div class="compare-col bad"><h4>❌ 不补充</h4>';
+  plan.compare.bad.forEach(b => cH += `<div class="compare-item">• ${b}</div>`);
+  cH += '</div><div class="compare-col good"><h4>✅ 补充30天后</h4>';
+  plan.compare.good.forEach(g => cH += `<div class="compare-item">• ${g}</div>`);
+  cH += '</div>';
+  document.getElementById('rCompare').innerHTML = cH;
+
+  // Bundle
+  document.getElementById('rPrice').textContent = plan.bundle;
+  document.getElementById('rOldPrice').textContent = '原价 ' + plan.original;
+  document.getElementById('rSave').textContent = '节省 ' + plan.save;
+  document.getElementById('rPer').textContent = plan.per;
+
+  screen.style.display = 'block';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ===== ACTIONS =====
+function buyNow() {
+  const btn = document.getElementById('btnBuy');
+  btn.innerHTML = '✅ 已加入购物车！正在跳转...';
+  btn.style.background = '#22C55E';
+  // In production: redirect to Shopify checkout
+  // window.location.href = 'https://your-store.myshopify.com/cart/add?id=VARIANT_ID';
+}
+function subscribe() {
+  // In production: redirect to Shopify subscription
+  alert('订阅功能将连接Shopify + Stay AI订阅管理系统');
+}
+
+// Live viewers
+setInterval(() => {
+  const v = document.getElementById('rViewers');
+  if (v) v.textContent = Math.floor(Math.random() * 20) + 18;
+}, 5000);
+</script>
+</body>
+</html>

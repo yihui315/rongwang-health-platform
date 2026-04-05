@@ -1,0 +1,1120 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>荣旺健康 — 全站配图 Midjourney Prompt 指南</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+SC:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --black:#0A0A0B;--gray-900:#141416;--gray-800:#1E1E22;
+  --gray-700:#2A2A30;--gray-600:#3A3A42;--gray-500:#71717A;
+  --gray-400:#A1A1AA;--gray-300:#D4D4D8;--white:#F7F8F8;
+  --teal:#00D4C8;--teal-dark:#00b3a8;--orange:#FF6B00;
+  --purple:#8B5CF6;--green:#22C55E;--blue:#3B82F6;--rose:#F43F5E;
+  --surface-1:rgba(255,255,255,0.03);--surface-2:rgba(255,255,255,0.05);
+  --surface-3:rgba(255,255,255,0.08);
+  --border:rgba(255,255,255,0.08);--border-strong:rgba(255,255,255,0.14);
+}
+html{font-size:16px;scroll-behavior:smooth}
+body{
+  font-family:'Inter','Noto Sans SC',-apple-system,system-ui,sans-serif;
+  background:var(--black);color:var(--gray-400);line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal);text-decoration:none}
+a:hover{text-decoration:underline}
+
+/* Layout */
+.wrapper{max-width:1100px;margin:0 auto;padding:40px 24px 120px}
+
+/* Header */
+.page-header{text-align:center;padding:80px 0 60px;border-bottom:1px solid var(--border)}
+.page-header h1{font-size:clamp(32px,5vw,56px);font-weight:800;color:var(--white);letter-spacing:-1.5px;line-height:1.1;margin-bottom:16px}
+.page-header h1 em{font-style:normal;background:linear-gradient(135deg,var(--teal),var(--blue));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.page-header p{font-size:18px;color:var(--gray-500);max-width:640px;margin:0 auto;line-height:1.7}
+
+/* TOC */
+.toc{margin:48px 0;padding:28px 32px;background:var(--surface-1);border:1px solid var(--border);border-radius:16px}
+.toc h2{font-size:16px;font-weight:600;color:var(--white);margin-bottom:16px;letter-spacing:-0.3px}
+.toc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:8px}
+.toc a{display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:8px;font-size:14px;color:var(--gray-400);transition:all 150ms}
+.toc a:hover{background:var(--surface-2);color:var(--white);text-decoration:none}
+.toc a .num{width:28px;height:28px;border-radius:8px;background:var(--surface-2);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;color:var(--gray-500);flex-shrink:0}
+
+/* Section */
+.section{margin-top:64px}
+.section-head{display:flex;align-items:center;gap:14px;margin-bottom:8px}
+.section-num{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:var(--white);flex-shrink:0}
+.section-head h2{font-size:24px;font-weight:700;color:var(--white);letter-spacing:-0.5px}
+.section-desc{font-size:15px;color:var(--gray-500);margin-bottom:32px;margin-left:50px;max-width:700px}
+
+/* Card */
+.card{background:var(--surface-1);border:1px solid var(--border);border-radius:16px;margin-bottom:20px;overflow:hidden;transition:border-color 200ms}
+.card:hover{border-color:var(--border-strong)}
+.card-head{display:flex;align-items:center;justify-content:space-between;padding:20px 24px;border-bottom:1px solid var(--border);cursor:pointer}
+.card-title{display:flex;align-items:center;gap:12px}
+.card-title h3{font-size:16px;font-weight:600;color:var(--white);letter-spacing:-0.2px}
+.card-title .icon{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;background:var(--surface-2);border:1px solid var(--border)}
+.card-meta{display:flex;gap:8px}
+.tag{padding:3px 10px;border-radius:999px;font-size:11px;font-weight:600;letter-spacing:0.3px;text-transform:uppercase}
+.tag-hero{background:rgba(0,212,200,0.12);color:var(--teal)}
+.tag-product{background:rgba(139,92,246,0.12);color:var(--purple)}
+.tag-scene{background:rgba(255,107,0,0.12);color:var(--orange)}
+.tag-trust{background:rgba(59,130,246,0.12);color:var(--blue)}
+.tag-seo{background:rgba(34,197,94,0.12);color:var(--green)}
+.tag-lifestyle{background:rgba(244,63,94,0.12);color:var(--rose)}
+
+.card-body{padding:24px}
+.prompt-block{position:relative;margin-bottom:16px}
+.prompt-label{font-size:11px;font-weight:600;color:var(--gray-500);letter-spacing:0.5px;text-transform:uppercase;margin-bottom:6px}
+.prompt-box{
+  background:var(--gray-900);border:1px solid var(--border);border-radius:10px;
+  padding:16px 20px;font-family:'JetBrains Mono',monospace;font-size:13px;
+  color:var(--gray-300);line-height:1.7;word-break:break-word;
+  position:relative;
+}
+.prompt-box .highlight{color:var(--teal)}
+.prompt-box .param{color:var(--orange)}
+
+.copy-btn{
+  position:absolute;top:10px;right:10px;padding:5px 12px;
+  background:var(--surface-3);border:1px solid var(--border);border-radius:6px;
+  font-size:11px;font-weight:600;color:var(--gray-400);cursor:pointer;
+  transition:all 150ms;font-family:'Inter',sans-serif;
+}
+.copy-btn:hover{background:var(--teal);color:var(--black);border-color:var(--teal)}
+
+/* Use notes */
+.use-note{display:flex;gap:10px;padding:14px 16px;background:var(--surface-2);border-radius:10px;margin-top:12px;font-size:13px;line-height:1.6}
+.use-note .note-icon{flex-shrink:0;font-size:16px;margin-top:1px}
+
+/* Spec table */
+.spec-row{display:flex;gap:16px;flex-wrap:wrap;margin-top:12px}
+.spec-item{padding:8px 14px;background:var(--surface-2);border:1px solid var(--border);border-radius:8px;font-size:12px;color:var(--gray-400)}
+.spec-item strong{color:var(--white);font-weight:600}
+
+/* Style guide */
+.style-guide{margin-top:64px;padding:40px 32px;background:var(--surface-1);border:1px solid var(--border);border-radius:16px}
+.style-guide h2{font-size:22px;font-weight:700;color:var(--white);letter-spacing:-0.5px;margin-bottom:24px}
+.sg-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px}
+.sg-item{padding:20px;background:var(--surface-2);border:1px solid var(--border);border-radius:12px}
+.sg-item h4{font-size:14px;font-weight:600;color:var(--white);margin-bottom:8px}
+.sg-item p{font-size:13px;color:var(--gray-500);line-height:1.6}
+
+/* Color swatches */
+.swatches{display:flex;gap:8px;flex-wrap:wrap;margin:20px 0}
+.swatch{width:48px;height:48px;border-radius:10px;border:2px solid var(--border);position:relative}
+.swatch::after{content:attr(data-label);position:absolute;top:54px;left:50%;transform:translateX(-50%);font-size:10px;color:var(--gray-500);white-space:nowrap}
+
+/* Summary */
+.summary{margin-top:64px;padding:32px;background:linear-gradient(135deg,rgba(0,212,200,0.06),rgba(59,130,246,0.06));border:1px solid rgba(0,212,200,0.15);border-radius:16px}
+.summary h2{font-size:20px;font-weight:700;color:var(--white);margin-bottom:16px}
+.summary-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px}
+.summary-item{padding:16px;background:var(--surface-2);border-radius:10px;text-align:center}
+.summary-item .num{font-size:32px;font-weight:800;color:var(--teal)}
+.summary-item .label{font-size:13px;color:var(--gray-500);margin-top:4px}
+
+@media(max-width:768px){
+  .wrapper{padding:20px 16px 80px}
+  .page-header{padding:48px 0 40px}
+  .toc-grid{grid-template-columns:1fr}
+  .sg-grid{grid-template-columns:1fr}
+  .card-head{flex-direction:column;align-items:flex-start;gap:10px}
+  .spec-row{flex-direction:column}
+}
+</style>
+</head>
+<body>
+<div class="wrapper">
+
+<!-- ===================== HEADER ===================== -->
+<header class="page-header">
+  <h1>荣旺健康 · 全站<em>配图方案</em></h1>
+  <p>包含 30 张专业配图的 Midjourney V6.1 Prompt，覆盖首页、产品页、AI检测、SEO文章全场景。每张图均标注用途、尺寸、参数与使用位置。</p>
+</header>
+
+<!-- ===================== STYLE GUIDE ===================== -->
+<div class="style-guide">
+  <h2>🎨 全局视觉语言 · Style Guide</h2>
+  <div class="swatches">
+    <div class="swatch" style="background:#00D4C8" data-label="#00D4C8 Teal"></div>
+    <div class="swatch" style="background:#FF6B00" data-label="#FF6B00 Orange"></div>
+    <div class="swatch" style="background:#171717" data-label="#171717 Dark"></div>
+    <div class="swatch" style="background:#FAFAFA" data-label="#FAFAFA Light"></div>
+    <div class="swatch" style="background:#8B5CF6" data-label="#8B5CF6 Purple"></div>
+    <div class="swatch" style="background:#22C55E" data-label="#22C55E Green"></div>
+    <div class="swatch" style="background:#6366F1" data-label="#6366F1 Indigo"></div>
+  </div>
+  <div class="sg-grid">
+    <div class="sg-item">
+      <h4>摄影风格</h4>
+      <p>Clinical-premium — 融合医学专业感与生活方式美学。干净的纯色/渐变背景，柔和的漫射光，微妙的阴影。介于药品广告的严谨和DTC品牌的温暖之间。</p>
+    </div>
+    <div class="sg-item">
+      <h4>色温与光线</h4>
+      <p>偏冷的自然光为主基调（5600K-6500K），用暖色点缀（橙色CTA、琥珀色胶囊）。产品图使用3/4侧光+底部反射。人物场景使用逆光/窗光。</p>
+    </div>
+    <div class="sg-item">
+      <h4>构图原则</h4>
+      <p>留白大方（产品主体占画面40-60%），遵循三分法，产品始终清晰锐利。避免拥挤排版。背景简洁，可用渐变或虚化自然元素。</p>
+    </div>
+    <div class="sg-item">
+      <h4>人物方向</h4>
+      <p>亚洲面孔为主（25-45岁），健康活力但不夸张。避免欧美健身房风格，偏向都市白领/职业女性/年轻父母场景。表情自然不造作。</p>
+    </div>
+    <div class="sg-item">
+      <h4>Midjourney 通用参数</h4>
+      <p>所有 prompt 使用 <code>--v 6.1</code>，产品图 <code>--s 200-300</code>（精致），场景图 <code>--s 400-600</code>（自然美）。<code>--no text, logo, watermark, label</code> 固定后缀。</p>
+    </div>
+    <div class="sg-item">
+      <h4>输出格式</h4>
+      <p>Hero/Banner: <code>--ar 16:9</code> 或 <code>--ar 3:2</code>。产品图: <code>--ar 1:1</code> 或 <code>--ar 4:5</code>。Scene卡片: <code>--ar 4:3</code>。文章头图: <code>--ar 16:9</code>。</p>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== TOC ===================== -->
+<nav class="toc">
+  <h2>配图目录 · 30 Prompts</h2>
+  <div class="toc-grid">
+    <a href="#s1"><div class="num">1</div>首页 Hero — 品牌主视觉 (3张)</a>
+    <a href="#s2"><div class="num">2</div>场景卡片 — 四大健康痛点 (4张)</a>
+    <a href="#s3"><div class="num">3</div>产品组合 — 三大方案展示 (3张)</a>
+    <a href="#s4"><div class="num">4</div>产品单品 — 胶囊/片剂特写 (4张)</a>
+    <a href="#s5"><div class="num">5</div>信任背书 — 实验室/认证 (3张)</a>
+    <a href="#s6"><div class="num">6</div>生活方式 — 用户场景 (5张)</a>
+    <a href="#s7"><div class="num">7</div>AI检测页 — 深色系视觉 (3张)</a>
+    <a href="#s8"><div class="num">8</div>SEO文章头图 — 6大类别 (5张)</a>
+  </div>
+</nav>
+
+<!-- ===================== SECTION 1: HERO ===================== -->
+<section class="section" id="s1">
+  <div class="section-head">
+    <div class="section-num" style="background:linear-gradient(135deg,var(--teal),var(--blue))">1</div>
+    <h2>首页 Hero — 品牌主视觉</h2>
+  </div>
+  <p class="section-desc">用于 index-v2.html 首屏区域，需要建立品牌专业感和高级感。主视觉将替换当前的渐变色块+emoji占位。</p>
+
+  <!-- 1.1 -->
+  <div class="card">
+    <div class="card-head" onclick="this.parentElement.classList.toggle('open')">
+      <div class="card-title">
+        <div class="icon">🧴</div>
+        <h3>1.1 品牌产品全家福</h3>
+      </div>
+      <div class="card-meta"><span class="tag tag-hero">Hero</span></div>
+    </div>
+    <div class="card-body">
+      <div class="prompt-block">
+        <div class="prompt-label">Midjourney Prompt</div>
+        <div class="prompt-box">
+          <button class="copy-btn" onclick="copyPrompt(this)">Copy</button>
+          Premium health supplement product family shot, three elegant white cylindrical bottles with minimal teal accent labels arranged in a diagonal formation, surrounded by scattered translucent capsules and soft-gel pills in amber and clear colors, clean off-white gradient background transitioning from warm ivory to cool mint, studio photography with soft diffused overhead lighting and subtle reflection on surface, pharmaceutical grade aesthetic meets DTC beauty brand, shallow depth of field with front bottle sharp, color palette: white bottles with <span class="highlight">#00D4C8 teal</span> details and <span class="highlight">#FF6B00 amber</span> capsules, hyper-realistic product photography <span class="param">--ar 16:9 --s 250 --v 6.1 --no text, logo, watermark, label, brand name</span>
+        </div>
+      </div>
+      <div class="spec-row">
+        <div class="spec-item"><strong>尺寸</strong> 1920×1080</div>
+        <div class="spec-item"><strong>位置</strong> index-v2.html → .hero-visual</div>
+        <div class="spec-item"><strong>用途</strong> 首屏左侧/中央主视觉</div>
+      </div>
+      <div class="use-note">
+        <span class="note-icon">💡</span>
+        <span>生成后选最佳一张，用 Upscale (Subtle) 提升至 2048px+。可能需要 inpainting 移除 MJ 自动添加的文字。</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 1.2 -->
+  <div class="card">
+    <div class="card-head" onclick="this.parentElement.classList.toggle('open')">
+      <div class="card-title">
+        <div class="icon">🌿</div>
+        <h3>1.2 天然成分抽象背景</h3>
+      </div>
+      <div class="card-meta"><span class="tag tag-hero">Hero</span></div>
+    </div>
+    <div class="card-body">
+      <div class="prompt-block">
+        <div class="prompt-label">Midjourney Prompt</div>
+        <div class="prompt-box">
+          <button class="copy-btn" onclick="copyPrompt(this)">Copy</button>
+          Abstract botanical composition, floating transparent supplement capsules filled with visible green matcha powder and golden turmeric, intertwined with fresh mint leaves and ginger root slices, ethereal teal mist particles in background, soft volumetric lighting from upper right, ultra-clean white-to-pale-mint gradient background, macro photography style with extreme detail on capsule textures, dewdrops on leaves, scientific yet organic aesthetic <span class="param">--ar 16:9 --s 350 --v 6.1 --no text, logo, watermark, human, hand</span>
+        </div>
+      </div>
+      <div class="spec-row">
+        <div class="spec-item"><strong>尺寸</strong> 1920×1080</div>
+        <div class="spec-item"><strong>位置</strong> index-v2.html → Hero背景/装饰层</div>
+        <div class="spec-item"><strong>用途</strong> 可降低透明度作为hero区域底层背景纹理</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 1.3 -->
+  <div class="card">
+    <div class="card-head" onclick="this.parentElement.classList.toggle('open')">
+      <div class="card-title">
+        <div class="icon">📦</div>
+        <h3>1.3 Hong Kong 直邮包裹</h3>
+      </div>
+      <div class="card-meta"><span class="tag tag-hero">Hero</span><span class="tag tag-trust">Trust</span></div>
+    </div>
+    <div class="card-body">
+      <div class="prompt-block">
+        <div class="prompt-label">Midjourney Prompt</div>
+        <div class="prompt-box">
+          <button class="copy-btn" onclick="copyPrompt(this)">Copy</button>
+          Elegant unboxing scene of premium health supplements, a minimalist matte white box partially open revealing neatly arranged supplement bottles with teal caps inside custom foam insert, tissue paper with subtle pattern, small product guide card visible, soft natural window light casting gentle shadows, marble countertop surface, overhead 45-degree angle, premium DTC brand aesthetic similar to Ritual or AG1 packaging, warm and inviting <span class="param">--ar 3:2 --s 300 --v 6.1 --no text, logo, watermark, brand name, label</span>
+        </div>
+      </div>
+      <div class="spec-row">
+        <div class="spec-item"><strong>尺寸</strong> 1200×800</div>
+        <div class="spec-item"><strong>位置</strong> index-v2.html → trust bar 或 CTA区域</div>
+        <div class="spec-item"><strong>用途</strong> 展示直邮品质感，增强"香港直邮"信任</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== SECTION 2: SCENE CARDS ===================== -->
+<section class="section" id="s2">
+  <div class="section-head">
+    <div class="section-num" style="background:linear-gradient(135deg,var(--orange),var(--rose))">2</div>
+    <h2>场景卡片 — 四大健康痛点</h2>
+  </div>
+  <p class="section-desc">替换首页 scene-card 区域的emoji图标，用真实场景照片传递共情感。每张图需要体现具体的"痛点瞬间"。</p>
+
+  <!-- 2.1 疲劳 -->
+  <div class="card">
+    <div class="card-head" onclick="this.parentElement.classList.toggle('open')">
+      <div class="card-title">
+        <div class="icon">⚡</div>
+        <h3>2.1 疲劳场景 — "午后三点的你"</h3>
+      </div>
+      <div class="card-meta"><span class="tag tag-scene">Scene</span></div>
+    </div>
+    <div class="card-body">
+      <div class="prompt-block">
+        <div class="prompt-label">Midjourney Prompt</div>
+        <div class="prompt-box">
+          <button class="copy-btn" onclick="copyPrompt(this)">Copy</button>
+          Young Asian professional woman in her early 30s sitting at a modern minimalist desk, eyes slightly closed with hand on forehead, laptop open in front, warm afternoon sunlight streaming through large window creating golden highlights, soft bokeh office background, she wears a simple cream knit top, expression showing gentle tiredness not distress, color palette warm with desaturated tones, editorial lifestyle photography, Canon EOS R5 85mm f/1.8, shallow depth of field focusing on face and hand <span class="param">--ar 4:3 --s 450 --v 6.1 --no text, logo, watermark</span>
+        </div>
+      </div>
+      <div class="spec-row">
+        <div class="spec-item"><strong>尺寸</strong> 800×600</div>
+        <div class="spec-item"><strong>位置</strong> index-v2.html → scene-card[fatigue]</div>
+        <div class="spec-item"><strong>替换</strong> ⚡ emoji</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2.2 睡眠 -->
+  <div class="card">
+    <div class="card-head" onclick="this.parentElement.classList.toggle('open')">
+      <div class="card-title">
+        <div class="icon">🌙</div>
+        <h3>2.2 睡眠场景 — "凌晨两点还在数羊"</h3>
+      </div>
+      <div class="card-meta"><span class="tag tag-scene">Scene</span></div>
+    </div>
+    <div class="card-body">
+      <div class="prompt-block">
+        <div class="prompt-label">Midjourney Prompt</div>
+        <div class="prompt-box">
+          <button class="copy-btn" onclick="copyPrompt(this)">Copy</button>
+          Asian man in his mid-30s lying in bed at night with eyes open staring at ceiling, soft moonlight and blue-hour ambient light filtering through sheer curtains, bedroom interior with warm wood and white linen, phone face-down on nightstand showing 2:14 AM glow, serene yet restless mood, cool blue-indigo color palette with warm skin tones, intimate documentary style photography, shot from slightly above at pillow level, soft focus on background, sharp on face and hands resting on chest <span class="param">--ar 4:3 --s 500 --v 6.1 --no text, logo, watermark</span>
+        </div>
+      </div>
+      <div class="spec-row">
+        <div class="spec-item"><strong>尺寸</strong> 800×600</div>
+        <div class="spec-item"><strong>位置</strong> index-v2.html → scene-card[sleep]</div>
+        <div class="spec-item"><strong>替换</strong> 🌙 emoji</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2.3 免疫 -->
+  <div class="card">
+    <div class="card-head" onclick="this.parentElement.classList.toggle('open')">
+      <div class="card-title">
+        <div class="icon">🛡️</div>
+        <h3>2.3 免疫场景 — "又双叒感冒了"</h3>
+      </div>
+      <div class="card-meta"><span class="tag tag-scene">Scene</span></div>
+    </div>
+    <div class="card-body">
+      <div class="prompt-block">
+        <div class="prompt-label">Midjourney Prompt</div>
+        <div class="prompt-box">
+          <button class="copy-btn" onclick="copyPrompt(this)">Copy</button>
+          Young Asian woman wrapped in a soft oversized scarf at office desk, holding a warm mug with both hands, tissue box nearby, slightly red nose, coworkers blurred in background in an open-plan modern office, fluorescent overhead lighting mixed with natural daylight, muted cool tones with the warm amber of the mug as focal color accent, empathetic and relatable mood, editorial lifestyle photography, mid-range shot with shallow depth of field <span class="param">--ar 4:3 --s 450 --v 6.1 --no text, logo, watermark</span>
+        </div>
+      </div>
+      <div class="spec-row">
+        <div class="spec-item"><strong>尺寸</strong> 800×600</div>
+        <div class="spec-item"><strong>位置</strong> index-v2.html → scene-card[immune]</div>
+        <div class="spec-item"><strong>替换</strong> 🛡️ emoji</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2.4 压力 -->
+  <div class="card">
+    <div class="card-head" onclick="this.parentElement.classList.toggle('open')">
+      <div class="card-title">
+        <div class="icon">🧠</div>
+        <h3>2.4 压力场景 — "焦虑的深夜加班"</h3>
+      </div>
+      <div class="card-meta"><span class="tag tag-scene">Scene</span></div>
+    </div>
+    <div class="card-body">
+      <div class="prompt-block">
+        <div class="prompt-label">Midjourney Prompt</div>
+        <div class="prompt-box">
+          <button class="copy-btn" onclick="copyPrompt(this)">Copy</button>
+          Asian male professional in late 20s sitting on couch at home after work, still in wrinkled dress shirt with sleeves rolled up, leaning back with hand running through hair, laptop and coffee on the table, warm table lamp casting soft golden circle of light in otherwise dim room, cityscape visible through window at dusk, moody cinematic lighting, muted earth tones with warm amber highlights, conveying mental exhaustion and overwhelm, 35mm film photography aesthetic <span class="param">--ar 4:3 --s 500 --v 6.1 --no text, logo, watermark</span>
+        </div>
+      </div>
+      <div class="spec-row">
+        <div class="spec-item"><strong>尺寸</strong> 800×600</div>
+        <div class="spec-item"><strong>位置</strong> index-v2.html → scene-card[stress]</div>
+        <div class="spec-item"><strong>替换</strong> 🧠 emoji</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== SECTION 3: PRODUCT COMBOS ===================== -->
+<section class="section" id="s3">
+  <div class="section-head">
+    <div class="section-num" style="background:linear-gradient(135deg,var(--purple),#EC4899)">3</div>
+    <h2>产品组合 — 三大方案展示</h2>
+  </div>
+  <p class="section-desc">替换产品网格中的渐变色块占位。每张图展示一个方案的全部产品组合，带有色彩编码的背景与方案identity。</p>
+
+  <!-- 3.1 抗疲劳 -->
+  <div class="card">
+    <div class="card-head" onclick="this.parentElement.classList.toggle('open')">
+      <div class="card-title">
+        <div class="icon">🔋</div>
+        <h3>3.1 抗疲劳组合 — ¥299 Energy Bundle</h3>
+      </div>
+      <div class="card-meta"><span class="tag tag-product">Product</span></div>
+    </div>
+    <div class="card-body">
+      <div class="prompt-block">
+        <div class="prompt-label">Midjourney Prompt</div>
+        <div class="prompt-box">
+          <button class="copy-btn" onclick="copyPrompt(this)">Copy</button>
+          Three premium supplement bottles arranged in a triangular composition on a clean surface, left bottle with B-vitamins bright yellow capsules visible through clear section, center bottle with magnesium white tablets, right bottle with omega-3 amber softgels, warm peach-to-ivory gradient background (#FFF5EB to #FFECD0), soft shadow underneath each bottle, tiny scattered capsules between bottles as decoration, overhead diffused studio lighting, pharmaceutical product photography with DTC warmth, each bottle is sleek cylindrical white with distinct colored cap — yellow, white, amber <span class="param">--ar 4:5 --s 250 --v 6.1 --no text, logo, watermark, label, brand name</span>
+        </div>
+      </div>
+      <div class="spec-row">
+        <div class="spec-item"><strong>尺寸</strong> 640×800</div>
+        <div class="spec-item"><strong>位置</strong> index-v2.html → .pc-visual.fatigue</div>
+        <div class="spec-item"><strong>另用</strong> product-fatigue-v2.html → .pd-img</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3.2 安睡 -->
+  <div class="card">
+    <div class="card-head" onclick="this.parentElement.classList.toggle('open')">
+      <div class="card-title">
+        <div class="icon">💤</div>
+        <h3>3.2 深度安睡组合 — ¥259 Sleep Bundle</h3>
+      </div>
+      <div class="card-meta"><span class="tag tag-product">Product</span></div>
+    </div>
+    <div class="card-body">
+      <div class="prompt-block">
+        <div class="prompt-label">Midjourney Prompt</div>
+        <div class="prompt-box">
+          <button class="copy-btn" onclick="copyPrompt(this)">Copy</button>
+          Three elegant supplement bottles in a gentle arc arrangement, containing GABA white capsules, magnesium glycinate pale blue tablets, and melatonin tiny lavender pills, dreamy soft indigo-to-lavender gradient background (#EEF0FF to #E0E7FF), a small sprig of dried lavender laid beside the bottles, gentle moonlight-like cool illumination from above, subtle reflection on glossy surface below, pharmaceutical precision meets calming spa aesthetic, bottles are frosted white glass with lavender-tinted caps <span class="param">--ar 4:5 --s 300 --v 6.1 --no text, logo, watermark, label, brand name</span>
+        </div>
+      </div>
+      <div class="spec-row">
+        <div class="spec-item"><strong>尺寸</strong> 640×800</div>
+        <div class="spec-item"><strong>位置</strong> index-v2.html → .pc-visual.sleep</div>
+        <div class="spec-item"><strong>另用</strong> product-sleep.html → hero visual</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3.3 免疫 -->
+  <div class="card">
+    <div class="card-head" onclick="this.parentElement.classList.toggle('open')">
+      <div class="card-title">
+        <div class="icon">🛡️</div>
+        <h3>3.3 免疫增强组合 — ¥349 Immune Bundle</h3>
+      </div>
+      <div class="card-meta"><span class="tag tag-product">Product</span></div>
+    </div>
+    <div class="card-body">
+      <div class="prompt-block">
+        <div class="prompt-label">Midjourney Prompt</div>
+        <div class="prompt-box">
+          <button class="copy-btn" onclick="copyPrompt(this)">Copy</button>
+          Four supplement bottles in a staggered line formation, containing liposomal vitamin C orange softgels, zinc white tablets, vitamin D3 golden drops in clear bottle, elderberry dark purple capsules, fresh vibrant emerald-to-mint gradient background (#ECFDF5 to #D1FAE5), small fresh citrus slice and elderberries scattered decoratively, bright clean natural lighting with green-tinted reflections, energetic and vital mood, bottles are clean white with green-tinted caps, botanical meets clinical photography <span class="param">--ar 4:5 --s 250 --v 6.1 --no text, logo, watermark, label, brand name</span>
+        </div>
+      </div>
+      <div class="spec-row">
+        <div class="spec-item"><strong>尺寸</strong> 640×800</div>
+        <div class="spec-item"><strong>位置</strong> index-v2.html → .pc-visual.immune</div>
+        <div class="spec-item"><strong>另用</strong> product-immune.html → hero visual</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== SECTION 4: SINGLE PRODUCTS ===================== -->
+<section class="section" id="s4">
+  <div class="section-head">
+    <div class="section-num" style="background:linear-gradient(135deg,#F59E0B,var(--orange))">4</div>
+    <h2>产品单品 — 胶囊/片剂特写</h2>
+  </div>
+  <p class="section-desc">用于产品详情页和AI检测结果页的推荐列表。每张图聚焦单一产品的质感和成分可视化。</p>
+
+  <!-- 4.1 -->
+  <div class="card">
+    <div class="card-head" onclick="this.parentElement.classList.toggle('open')">
+      <div class="card-title">
+        <div class="icon">💛</div>
+        <h3>4.1 B族维生素 — 能量之源</h3>
+      </div>
+      <div class="card-meta"><span class="tag tag-product">Product</span></div>
+    </div>
+    <div class="card-body">
+      <div class="prompt-block">
+        <div class="prompt-label">Midjourney Prompt</div>
+        <div class="prompt-box">
+          <button class="copy-btn" onclick="copyPrompt(this)">Copy</button>
+          Single premium supplement bottle centered on frame, bright yellow capsules visible through a transparent strip on the bottle, one capsule split open showing golden powder spilling out artistically, clean warm white background with soft peach undertone, dramatic side lighting creating elegant shadow, a few whole grain kernels and nutritional yeast flakes scattered nearby as ingredient reference, macro product photography with extreme detail on capsule texture, pharmaceutical luxury aesthetic <span class="param">--ar 1:1 --s 200 --v 6.1 --no text, logo, watermark, label, hand</span>
+        </div>
+      </div>
+      <div class="spec-row">
+        <div class="spec-item"><strong>尺寸</strong> 600×600</div>
+        <div class="spec-item"><strong>位置</strong> 产品详情页 + AI结果推荐卡</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4.2 -->
+  <div class="card">
+    <div class="card-head" onclick="this.parentElement.classList.toggle('open')">
+      <div class="card-title">
+        <div class="icon">🔮</div>
+        <h3>4.2 螯合镁 — 深度放松</h3>
+      </div>
+      <div class="card-meta"><span class="tag tag-product">Product</span></div>
+    </div>
+    <div class="card-body">
+      <div class="prompt-block">
+        <div class="prompt-label">Midjourney Prompt</div>
+        <div class="prompt-box">
+          <button class="copy-btn" onclick="copyPrompt(this)">Copy</button>
+          Elegant supplement bottle with white tablets arranged in a gentle spiral pattern flowing out from the bottle opening, clean lavender-to-white gradient background, a small piece of raw magnesite mineral beside the bottle as ingredient reference, soft overhead lighting with subtle cool blue reflections, one tablet in mid-air as if floating, clinical precision meets modern beauty brand aesthetic, the bottle is matte white with a silver cap, extreme product detail <span class="param">--ar 1:1 --s 200 --v 6.1 --no text, logo, watermark, label, hand</span>
+        </div>
+      </div>
+      <div class="spec-row">
+        <div class="spec-item"><strong>尺寸</strong> 600×600</div>
+        <div class="spec-item"><strong>位置</strong> 产品详情页 + AI结果推荐卡</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4.3 -->
+  <div class="card">
+    <div class="card-head" onclick="this.parentElement.classList.toggle('open')">
+      <div class="card-title">
+        <div class="icon">🐟</div>
+        <h3>4.3 Omega-3 — 深海鱼油</h3>
+      </div>
+      <div class="card-meta"><span class="tag tag-product">Product</span></div>
+    </div>
+    <div class="card-body">
+      <div class="prompt-block">
+        <div class="prompt-label">Midjourney Prompt</div>
+        <div class="prompt-box">
+          <button class="copy-btn" onclick="copyPrompt(this)">Copy</button>
+          Premium omega-3 fish oil softgel capsules, translucent amber-gold color, a cluster of 5-6 capsules on a smooth white surface with one capsule elevated showing light passing through it creating a warm golden glow, tiny water droplets on capsule surface suggesting purity and freshness, cool ocean-blue-to-white gradient background, a small sprig of micro-algae as decoration, hyper-realistic macro photography with bokeh, pharmaceutical quality meets natural supplement aesthetic <span class="param">--ar 1:1 --s 250 --v 6.1 --no text, logo, watermark, label, hand</span>
+        </div>
+      </div>
+      <div class="spec-row">
+        <div class="spec-item"><strong>尺寸</strong> 600×600</div>
+        <div class="spec-item"><strong>位置</strong> 产品详情页 + AI结果推荐卡</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4.4 -->
+  <div class="card">
+    <div class="card-head" onclick="this.parentElement.classList.toggle('open')">
+      <div class="card-title">
+        <div class="icon">🍊</div>
+        <h3>4.4 脂质体维C — 高吸收率</h3>
+      </div>
+      <div class="card-meta"><span class="tag tag-product">Product</span></div>
+    </div>
+    <div class="card-body">
+      <div class="prompt-block">
+        <div class="prompt-label">Midjourney Prompt</div>
+        <div class="prompt-box">
+          <button class="copy-btn" onclick="copyPrompt(this)">Copy</button>
+          Liposomal vitamin C supplement, bright orange softgel capsules in a clear glass bottle, artistic explosion of orange slices and citrus zest particles floating around the bottle, vibrant orange-to-cream gradient background, dynamic energy composition with capsules mid-scatter, each capsule has a visible orange liquid fill, fresh green citrus leaf accent, bright studio flash photography with high contrast, energetic and vital mood, extreme detail on citrus texture and capsule translucency <span class="param">--ar 1:1 --s 300 --v 6.1 --no text, logo, watermark, label, hand</span>
+        </div>
+      </div>
+      <div class="spec-row">
+        <div class="spec-item"><strong>尺寸</strong> 600×600</div>
+        <div class="spec-item"><strong>位置</strong> 产品详情页 + AI结果推荐卡</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== SECTION 5: TRUST ===================== -->
+<section class="section" id="s5">
+  <div class="section-head">
+    <div class="section-num" style="background:linear-gradient(135deg,var(--blue),#06B6D4)">5</div>
+    <h2>信任背书 — 实验室/认证</h2>
+  </div>
+  <p class="section-desc">用于首页信任区域和产品详情页的"为什么选择我们"板块。需要传递科学严谨感和专业背书。</p>
+
+  <!-- 5.1 -->
+  <div class="card">
+    <div class="card-head" onclick="this.parentElement.classList.toggle('open')">
+      <div class="card-title">
+        <div class="icon">🔬</div>
+        <h3>5.1 GMP实验室环境</h3>
+      </div>
+      <div class="card-meta"><span class="tag tag-trust">Trust</span></div>
+    </div>
+    <div class="card-body">
+      <div class="prompt-block">
+        <div class="prompt-label">Midjourney Prompt</div>
+        <div class="prompt-box">
+          <button class="copy-btn" onclick="copyPrompt(this)">Copy</button>
+          Modern pharmaceutical GMP laboratory interior, Asian female scientist in white lab coat examining a supplement capsule under bright LED panel lights, stainless steel equipment and glass beakers in background, clean room with white walls and blue accent lighting, crisp and sterile atmosphere, the scientist holds a clear capsule up to the light with precision tweezers, sharp focus on hands and capsule with soft bokeh on lab equipment, corporate photography style, cool white and teal color temperature, conveying trust and scientific rigor <span class="param">--ar 16:9 --s 350 --v 6.1 --no text, logo, watermark</span>
+        </div>
+      </div>
+      <div class="spec-row">
+        <div class="spec-item"><strong>尺寸</strong> 1200×675</div>
+        <div class="spec-item"><strong>位置</strong> index-v2.html → 信任/认证区域</div>
+        <div class="spec-item"><strong>另用</strong> product-*-v2.html → 证据板块</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5.2 -->
+  <div class="card">
+    <div class="card-head" onclick="this.parentElement.classList.toggle('open')">
+      <div class="card-title">
+        <div class="icon">📊</div>
+        <h3>5.2 质检报告特写</h3>
+      </div>
+      <div class="card-meta"><span class="tag tag-trust">Trust</span></div>
+    </div>
+    <div class="card-body">
+      <div class="prompt-block">
+        <div class="prompt-label">Midjourney Prompt</div>
+        <div class="prompt-box">
+          <button class="copy-btn" onclick="copyPrompt(this)">Copy</button>
+          Close-up of quality assurance documentation on a clean desk, official-looking lab report papers with charts and data tables, a supplement bottle placed on top of the papers, red certification stamp visible on the document, reading glasses resting nearby, warm natural light from a window, shallow depth of field with sharp focus on the certification stamp area, conveying regulatory compliance and transparency, muted warm tones, professional corporate still life photography <span class="param">--ar 3:2 --s 200 --v 6.1 --no text, logo, watermark, readable text</span>
+        </div>
+      </div>
+      <div class="spec-row">
+        <div class="spec-item"><strong>尺寸</strong> 900×600</div>
+        <div class="spec-item"><strong>位置</strong> 产品详情页 → 认证证据区</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5.3 -->
+  <div class="card">
+    <div class="card-head" onclick="this.parentElement.classList.toggle('open')">
+      <div class="card-title">
+        <div class="icon">🏭</div>
+        <h3>5.3 现代化生产线</h3>
+      </div>
+      <div class="card-meta"><span class="tag tag-trust">Trust</span></div>
+    </div>
+    <div class="card-body">
+      <div class="prompt-block">
+        <div class="prompt-label">Midjourney Prompt</div>
+        <div class="prompt-box">
+          <button class="copy-btn" onclick="copyPrompt(this)">Copy</button>
+          Modern pharmaceutical production line in a clean room facility, capsule filling machine with thousands of amber softgels moving along a stainless steel conveyor belt, LED strip lighting creating cool blue reflections on metal surfaces, two workers in full clean room suits and hairnets monitoring screens in background, wide angle architecture photography, dramatic vanishing point perspective down the production line, industrial yet pristine aesthetic, cool blue and silver color palette <span class="param">--ar 16:9 --s 300 --v 6.1 --no text, logo, watermark</span>
+        </div>
+      </div>
+      <div class="spec-row">
+        <div class="spec-item"><strong>尺寸</strong> 1200×675</div>
+        <div class="spec-item"><strong>位置</strong> index-v2.html → 品牌故事 / 关于我们</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== SECTION 6: LIFESTYLE ===================== -->
+<section class="section" id="s6">
+  <div class="section-head">
+    <div class="section-num" style="background:linear-gradient(135deg,var(--green),#10B981)">6</div>
+    <h2>生活方式 — 用户场景</h2>
+  </div>
+  <p class="section-desc">展示"服用后"的理想生活状态，用于testimonials区域、文章配图和社交媒体素材。传达品牌承诺的"结果"。</p>
+
+  <!-- 6.1 -->
+  <div class="card">
+    <div class="card-head" onclick="this.parentElement.classList.toggle('open')">
+      <div class="card-title">
+        <div class="icon">☀️</div>
+        <h3>6.1 清晨活力 — 能量充沛的一天</h3>
+      </div>
+      <div class="card-meta"><span class="tag tag-lifestyle">Lifestyle</span></div>
+    </div>
+    <div class="card-body">
+      <div class="prompt-block">
+        <div class="prompt-label">Midjourney Prompt</div>
+        <div class="prompt-box">
+          <button class="copy-btn" onclick="copyPrompt(this)">Copy</button>
+          Asian woman in her early 30s stretching with arms raised by a large window in a bright modern apartment, morning golden hour light illuminating her face and white tank top, she has a genuine smile of refreshed energy, a glass of water and supplement bottle visible on the kitchen counter in background, minimalist Scandinavian interior with plants, warm golden and white color palette, lifestyle editorial photography, natural and aspirational but not staged, Canon 35mm wide angle, warm film grain <span class="param">--ar 3:2 --s 500 --v 6.1 --no text, logo, watermark</span>
+        </div>
+      </div>
+      <div class="spec-row">
+        <div class="spec-item"><strong>尺寸</strong> 900×600</div>
+        <div class="spec-item"><strong>位置</strong> index-v2.html → testimonial区域背景</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6.2 -->
+  <div class="card">
+    <div class="card-head" onclick="this.parentElement.classList.toggle('open')">
+      <div class="card-title">
+        <div class="icon">😴</div>
+        <h3>6.2 安稳入睡 — 优质睡眠</h3>
+      </div>
+      <div class="card-meta"><span class="tag tag-lifestyle">Lifestyle</span></div>
+    </div>
+    <div class="card-body">
+      <div class="prompt-block">
+        <div class="prompt-label">Midjourney Prompt</div>
+        <div class="prompt-box">
+          <button class="copy-btn" onclick="copyPrompt(this)">Copy</button>
+          Peaceful Asian woman sleeping deeply in a luxurious bed with white linen sheets, soft lavender-tinted moonlight from window, serene expression with slight smile, one hand resting near a small elegant supplement bottle on the bedside table, bedroom filled with calm energy, indoor plant casting soft shadows, cool indigo and lavender color palette with warm skin tones, intimate and calming atmosphere, editorial bedroom photography, soft focus dreamy quality <span class="param">--ar 3:2 --s 500 --v 6.1 --no text, logo, watermark</span>
+        </div>
+      </div>
+      <div class="spec-row">
+        <div class="spec-item"><strong>尺寸</strong> 900×600</div>
+        <div class="spec-item"><strong>位置</strong> product-sleep → 生活方式板块</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6.3 -->
+  <div class="card">
+    <div class="card-head" onclick="this.parentElement.classList.toggle('open')">
+      <div class="card-title">
+        <div class="icon">🏃</div>
+        <h3>6.3 户外运动 — 免疫力守护</h3>
+      </div>
+      <div class="card-meta"><span class="tag tag-lifestyle">Lifestyle</span></div>
+    </div>
+    <div class="card-body">
+      <div class="prompt-block">
+        <div class="prompt-label">Midjourney Prompt</div>
+        <div class="prompt-box">
+          <button class="copy-btn" onclick="copyPrompt(this)">Copy</button>
+          Young Asian couple jogging together in a city park during autumn morning, vibrant green trees and golden leaves, both wearing minimal athletic wear, healthy glowing skin, they share a natural laugh mid-stride, soft backlit sunlight creating rim lighting on their silhouettes, path stretching into soft bokeh background, energetic and vital mood, warm earth tones with green accents, lifestyle sports photography, dynamic but not intense, relatable everyday fitness <span class="param">--ar 3:2 --s 450 --v 6.1 --no text, logo, watermark</span>
+        </div>
+      </div>
+      <div class="spec-row">
+        <div class="spec-item"><strong>尺寸</strong> 900×600</div>
+        <div class="spec-item"><strong>位置</strong> product-immune → 生活方式板块</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6.4 -->
+  <div class="card">
+    <div class="card-head" onclick="this.parentElement.classList.toggle('open')">
+      <div class="card-title">
+        <div class="icon">👨‍💻</div>
+        <h3>6.4 高效办公 — 专注工作</h3>
+      </div>
+      <div class="card-meta"><span class="tag tag-lifestyle">Lifestyle</span></div>
+    </div>
+    <div class="card-body">
+      <div class="prompt-block">
+        <div class="prompt-label">Midjourney Prompt</div>
+        <div class="prompt-box">
+          <button class="copy-btn" onclick="copyPrompt(this)">Copy</button>
+          Asian man in his 30s working confidently at a standing desk in a modern home office, wearing a crisp light blue shirt, focused expression with slight smile, large monitor showing colorful analytics dashboard (blurred), a glass of water and small supplement bottle on the desk, floor-to-ceiling window with city skyline view, clean minimal interior with a potted plant, bright and productive atmosphere, warm natural daylight, corporate lifestyle photography, 50mm lens shallow depth of field <span class="param">--ar 3:2 --s 400 --v 6.1 --no text, logo, watermark, readable screen content</span>
+        </div>
+      </div>
+      <div class="spec-row">
+        <div class="spec-item"><strong>尺寸</strong> 900×600</div>
+        <div class="spec-item"><strong>位置</strong> product-fatigue → 生活方式板块</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6.5 -->
+  <div class="card">
+    <div class="card-head" onclick="this.parentElement.classList.toggle('open')">
+      <div class="card-title">
+        <div class="icon">🧘</div>
+        <h3>6.5 身心平衡 — 减压冥想</h3>
+      </div>
+      <div class="card-meta"><span class="tag tag-lifestyle">Lifestyle</span></div>
+    </div>
+    <div class="card-body">
+      <div class="prompt-block">
+        <div class="prompt-label">Midjourney Prompt</div>
+        <div class="prompt-box">
+          <button class="copy-btn" onclick="copyPrompt(this)">Copy</button>
+          Asian woman in her late 20s practicing meditation on a yoga mat in a bright minimalist living room, cross-legged position with hands on knees, eyes closed with peaceful expression, morning light creating a warm halo effect around her, a cup of herbal tea and supplement bottle visible on a low wooden side table, indoor plants and neutral earth tone decor, serene zen atmosphere, warm golden and sage green color palette, editorial wellness photography, slightly elevated angle <span class="param">--ar 3:2 --s 500 --v 6.1 --no text, logo, watermark</span>
+        </div>
+      </div>
+      <div class="spec-row">
+        <div class="spec-item"><strong>尺寸</strong> 900×600</div>
+        <div class="spec-item"><strong>位置</strong> 减压方案页 + 文章配图</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== SECTION 7: AI QUIZ DARK ===================== -->
+<section class="section" id="s7">
+  <div class="section-head">
+    <div class="section-num" style="background:linear-gradient(135deg,#6366F1,var(--purple))">7</div>
+    <h2>AI检测页 — 深色系视觉</h2>
+  </div>
+  <p class="section-desc">AI quiz采用Linear深色设计系统，配图需要匹配暗色调。用于检测结果页和中间loading动画。</p>
+
+  <!-- 7.1 -->
+  <div class="card">
+    <div class="card-head" onclick="this.parentElement.classList.toggle('open')">
+      <div class="card-title">
+        <div class="icon">🧬</div>
+        <h3>7.1 AI分析视觉 — 数据粒子</h3>
+      </div>
+      <div class="card-meta"><span class="tag tag-hero">Dark UI</span></div>
+    </div>
+    <div class="card-body">
+      <div class="prompt-block">
+        <div class="prompt-label">Midjourney Prompt</div>
+        <div class="prompt-box">
+          <button class="copy-btn" onclick="copyPrompt(this)">Copy</button>
+          Abstract visualization of AI health analysis, glowing teal data particles forming a human body silhouette outline against a pure black background, streams of flowing data points connecting to key body areas — brain, heart, gut, muscles, DNA double helix strand integrated into the design, subtle grid lines in the background at very low opacity, particle effects and light trails in teal (#00D4C8) and subtle purple (#8B5CF6) accents, futuristic medical technology aesthetic, clean and minimal, inspired by Linear and Stripe dark mode UI illustrations <span class="param">--ar 16:9 --s 600 --v 6.1 --no text, logo, watermark, face details</span>
+        </div>
+      </div>
+      <div class="spec-row">
+        <div class="spec-item"><strong>尺寸</strong> 1200×675</div>
+        <div class="spec-item"><strong>位置</strong> ai-quiz-v2.html → loading / result 背景</div>
+        <div class="spec-item"><strong>注意</strong> 需与#0A0A0B黑色背景融合</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 7.2 -->
+  <div class="card">
+    <div class="card-head" onclick="this.parentElement.classList.toggle('open')">
+      <div class="card-title">
+        <div class="icon">💊</div>
+        <h3>7.2 深色产品展示 — Dark Mode Hero</h3>
+      </div>
+      <div class="card-meta"><span class="tag tag-product">Dark UI</span></div>
+    </div>
+    <div class="card-body">
+      <div class="prompt-block">
+        <div class="prompt-label">Midjourney Prompt</div>
+        <div class="prompt-box">
+          <button class="copy-btn" onclick="copyPrompt(this)">Copy</button>
+          Premium supplement bottles floating in a dark void, three white bottles with subtle teal glow rim lighting emerging from pure black background, scattered translucent capsules catching light at various angles, subtle teal light rays emanating from behind the bottles, volumetric fog at the bottom, dramatic chiaroscuro lighting with single light source from upper left, high contrast pharmaceutical product photography on black, luxury dark mode aesthetic similar to Apple product shots on black, extremely detailed reflections and highlights <span class="param">--ar 16:9 --s 350 --v 6.1 --no text, logo, watermark, label</span>
+        </div>
+      </div>
+      <div class="spec-row">
+        <div class="spec-item"><strong>尺寸</strong> 1200×675</div>
+        <div class="spec-item"><strong>位置</strong> ai-quiz-v2.html → result page产品展示</div>
+        <div class="spec-item"><strong>另用</strong> index-v2.html → dark quiz嵌入区</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 7.3 -->
+  <div class="card">
+    <div class="card-head" onclick="this.parentElement.classList.toggle('open')">
+      <div class="card-title">
+        <div class="icon">🫀</div>
+        <h3>7.3 营养分子可视化</h3>
+      </div>
+      <div class="card-meta"><span class="tag tag-hero">Dark UI</span></div>
+    </div>
+    <div class="card-body">
+      <div class="prompt-block">
+        <div class="prompt-label">Midjourney Prompt</div>
+        <div class="prompt-box">
+          <button class="copy-btn" onclick="copyPrompt(this)">Copy</button>
+          Artistic 3D visualization of vitamin and mineral molecules, glowing translucent molecular structures floating in dark space, vitamin B complex as a golden crystalline form, magnesium as silvery metallic clusters, omega-3 as amber liquid spheres, connected by thin luminescent bonds in teal color, abstract chemistry meets digital art, dark background (#0A0A0B) with subtle depth fog, each molecule emits a soft characteristic glow, inspired by scientific visualization software rendered in Octane, clean and elegant not cluttered <span class="param">--ar 1:1 --s 500 --v 6.1 --no text, logo, watermark, human</span>
+        </div>
+      </div>
+      <div class="spec-row">
+        <div class="spec-item"><strong>尺寸</strong> 800×800</div>
+        <div class="spec-item"><strong>位置</strong> ai-quiz-v2.html → loading动画背景</div>
+        <div class="spec-item"><strong>用法</strong> 降低opacity(0.3)作为背景纹理</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== SECTION 8: SEO ARTICLES ===================== -->
+<section class="section" id="s8">
+  <div class="section-head">
+    <div class="section-num" style="background:linear-gradient(135deg,var(--green),#059669)">8</div>
+    <h2>SEO文章头图 — 6大类别</h2>
+  </div>
+  <p class="section-desc">SEO文章生成器的配图模板。每个类别1张代表图，供该类别下所有文章复用。风格统一，通过色彩区分类别。</p>
+
+  <!-- 8.1 -->
+  <div class="card">
+    <div class="card-head" onclick="this.parentElement.classList.toggle('open')">
+      <div class="card-title">
+        <div class="icon">⚡</div>
+        <h3>8.1 疲劳类文章 — 能量恢复</h3>
+      </div>
+      <div class="card-meta"><span class="tag tag-seo">SEO</span></div>
+    </div>
+    <div class="card-body">
+      <div class="prompt-block">
+        <div class="prompt-label">Midjourney Prompt</div>
+        <div class="prompt-box">
+          <button class="copy-btn" onclick="copyPrompt(this)">Copy</button>
+          Blog header image for health article about fighting fatigue, split composition — left side shows wilting plant and dim lighting representing exhaustion, right side shows vibrant green plant with bright morning light representing recovery, warm orange and amber supplement capsules arranged as a bridge between the two halves, editorial illustration style with clean minimal aesthetic, soft pastel color transitions, the image tells a before-and-after story without words, warm peach and teal color accents <span class="param">--ar 16:9 --s 400 --v 6.1 --no text, logo, watermark, human, face</span>
+        </div>
+      </div>
+      <div class="spec-row">
+        <div class="spec-item"><strong>尺寸</strong> 1200×675</div>
+        <div class="spec-item"><strong>位置</strong> articles/ → 疲劳类文章 (10篇)</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 8.2 -->
+  <div class="card">
+    <div class="card-head" onclick="this.parentElement.classList.toggle('open')">
+      <div class="card-title">
+        <div class="icon">🌙</div>
+        <h3>8.2 睡眠类文章 — 深度睡眠</h3>
+      </div>
+      <div class="card-meta"><span class="tag tag-seo">SEO</span></div>
+    </div>
+    <div class="card-body">
+      <div class="prompt-block">
+        <div class="prompt-label">Midjourney Prompt</div>
+        <div class="prompt-box">
+          <button class="copy-btn" onclick="copyPrompt(this)">Copy</button>
+          Blog header image for health article about sleep improvement, a crescent moon made of tiny lavender supplement pills floating above a calm cloud bed, soft indigo-to-dark-purple gradient sky background, a few stars as small white supplement tablets, dreamy and calming surreal composition, clean vector-like editorial illustration quality with photorealistic supplement details, soft diffused glow around the moon formation, #6366F1 indigo and #E0E7FF lavender color palette <span class="param">--ar 16:9 --s 450 --v 6.1 --no text, logo, watermark, human</span>
+        </div>
+      </div>
+      <div class="spec-row">
+        <div class="spec-item"><strong>尺寸</strong> 1200×675</div>
+        <div class="spec-item"><strong>位置</strong> articles/ → 睡眠类文章 (5篇)</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 8.3 -->
+  <div class="card">
+    <div class="card-head" onclick="this.parentElement.classList.toggle('open')">
+      <div class="card-title">
+        <div class="icon">🛡️</div>
+        <h3>8.3 免疫类文章 — 防护屏障</h3>
+      </div>
+      <div class="card-meta"><span class="tag tag-seo">SEO</span></div>
+    </div>
+    <div class="card-body">
+      <div class="prompt-block">
+        <div class="prompt-label">Midjourney Prompt</div>
+        <div class="prompt-box">
+          <button class="copy-btn" onclick="copyPrompt(this)">Copy</button>
+          Blog header image for health article about immune system support, a transparent shield made of citrus fruit slices and green supplement capsules protecting a small indoor plant, fresh oranges, lemons, and elderberries arranged around the base, bright emerald green and orange color palette against a clean white background, editorial food-meets-science photography, overhead angle, fresh and vital energy, natural daylight, vibrant colors with clinical cleanliness <span class="param">--ar 16:9 --s 400 --v 6.1 --no text, logo, watermark, human</span>
+        </div>
+      </div>
+      <div class="spec-row">
+        <div class="spec-item"><strong>尺寸</strong> 1200×675</div>
+        <div class="spec-item"><strong>位置</strong> articles/ → 免疫类文章 (5篇)</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 8.4 -->
+  <div class="card">
+    <div class="card-head" onclick="this.parentElement.classList.toggle('open')">
+      <div class="card-title">
+        <div class="icon">🧠</div>
+        <h3>8.4 压力/肠道通用类文章</h3>
+      </div>
+      <div class="card-meta"><span class="tag tag-seo">SEO</span></div>
+    </div>
+    <div class="card-body">
+      <div class="prompt-block">
+        <div class="prompt-label">Midjourney Prompt</div>
+        <div class="prompt-box">
+          <button class="copy-btn" onclick="copyPrompt(this)">Copy</button>
+          Blog header image for wellness article, a balanced zen composition of natural health elements — a smooth stone stack, a bowl of colorful supplement capsules (amber, white, green, purple), fresh herbs (rosemary, chamomile), all arranged on a light wood surface, soft morning window light creating gentle shadows, calming sage green and warm neutral color palette, minimal negative space, editorial food and wellness photography, peaceful and trustworthy mood <span class="param">--ar 16:9 --s 400 --v 6.1 --no text, logo, watermark, human</span>
+        </div>
+      </div>
+      <div class="spec-row">
+        <div class="spec-item"><strong>尺寸</strong> 1200×675</div>
+        <div class="spec-item"><strong>位置</strong> articles/ → 压力/肠道/通用文章 (6篇)</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 8.5 -->
+  <div class="card">
+    <div class="card-head" onclick="this.parentElement.classList.toggle('open')">
+      <div class="card-title">
+        <div class="icon">📚</div>
+        <h3>8.5 文章索引页 — 知识库封面</h3>
+      </div>
+      <div class="card-meta"><span class="tag tag-seo">SEO</span></div>
+    </div>
+    <div class="card-body">
+      <div class="prompt-block">
+        <div class="prompt-label">Midjourney Prompt</div>
+        <div class="prompt-box">
+          <button class="copy-btn" onclick="copyPrompt(this)">Copy</button>
+          Flat lay knowledge composition, an open modern tablet showing a health article surrounded by real supplement bottles, fresh fruits (oranges, blueberries), a stethoscope, reading glasses, and a small potted succulent, all arranged on a clean white marble surface, overhead bird's eye view, editorial styled product photography, teal and warm amber accent colors, represents a health knowledge library, bright and inviting, ultra clean and organized <span class="param">--ar 16:9 --s 350 --v 6.1 --no text, logo, watermark, readable screen content</span>
+        </div>
+      </div>
+      <div class="spec-row">
+        <div class="spec-item"><strong>尺寸</strong> 1200×675</div>
+        <div class="spec-item"><strong>位置</strong> articles/index.html → hero</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== SUMMARY ===================== -->
+<div class="summary">
+  <h2>配图清单总览</h2>
+  <div class="summary-grid">
+    <div class="summary-item">
+      <div class="num">30</div>
+      <div class="label">张专业配图</div>
+    </div>
+    <div class="summary-item">
+      <div class="num">8</div>
+      <div class="label">个场景类别</div>
+    </div>
+    <div class="summary-item">
+      <div class="num">4</div>
+      <div class="label">种宽高比</div>
+    </div>
+    <div class="summary-item">
+      <div class="num">V6.1</div>
+      <div class="label">Midjourney 版本</div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== WORKFLOW GUIDE ===================== -->
+<div class="style-guide" style="margin-top:48px">
+  <h2>🔄 生成工作流程</h2>
+  <div class="sg-grid">
+    <div class="sg-item">
+      <h4>Step 1: 批量生成</h4>
+      <p>按分类顺序逐个复制 prompt 到 Midjourney。建议使用 <code>/imagine</code> 命令，一次生成4张变体。每个 prompt 预计生成时间 30-60s。</p>
+    </div>
+    <div class="sg-item">
+      <h4>Step 2: 选图 + Upscale</h4>
+      <p>从4张变体中选择最佳构图，点击 U1-U4 进行 Upscale。产品图选 <code>Upscale (Subtle)</code> 保持细节，场景图可选 <code>Upscale (Creative)</code>。</p>
+    </div>
+    <div class="sg-item">
+      <h4>Step 3: 后处理</h4>
+      <p>MJ 可能自动添加文字/logo，需在 Photoshop 或 Canva 中移除。产品图建议用 <code>Remove.bg</code> 去背后放在网站渐变背景上。</p>
+    </div>
+    <div class="sg-item">
+      <h4>Step 4: 命名 + 部署</h4>
+      <p>按 <code>类型-编号.webp</code> 命名（如 <code>hero-01.webp</code>、<code>scene-fatigue.webp</code>）。转换为 WebP 格式压缩到 200KB 以下。上传到 <code>/images/</code> 目录。</p>
+    </div>
+    <div class="sg-item">
+      <h4>Step 5: 变体调优</h4>
+      <p>如某张图效果不理想，可用 <code>--seed</code> 锁定好的构图再调整描述词。或使用 <code>/blend</code> 混合两张接近的变体。也可用 <code>Vary (Subtle/Strong)</code>。</p>
+    </div>
+    <div class="sg-item">
+      <h4>Step 6: 代码集成</h4>
+      <p>将图片放入站点后，告诉我，我会将所有 V2 页面中的 emoji 占位符和渐变色块替换为真实图片，并添加 <code>loading="lazy"</code> 和响应式 srcset。</p>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== NAMING CONVENTION ===================== -->
+<div class="style-guide" style="margin-top:48px">
+  <h2>📁 文件命名规范</h2>
+  <div class="sg-grid">
+    <div class="sg-item">
+      <h4>Hero 类</h4>
+      <p><code>hero-product-family.webp</code><br><code>hero-botanical-bg.webp</code><br><code>hero-unboxing.webp</code></p>
+    </div>
+    <div class="sg-item">
+      <h4>Scene 类</h4>
+      <p><code>scene-fatigue.webp</code><br><code>scene-sleep.webp</code><br><code>scene-immune.webp</code><br><code>scene-stress.webp</code></p>
+    </div>
+    <div class="sg-item">
+      <h4>Product 类</h4>
+      <p><code>bundle-fatigue.webp</code><br><code>bundle-sleep.webp</code><br><code>bundle-immune.webp</code><br><code>product-vitb.webp</code><br><code>product-mag.webp</code><br><code>product-omega3.webp</code><br><code>product-vitc.webp</code></p>
+    </div>
+    <div class="sg-item">
+      <h4>Trust 类</h4>
+      <p><code>trust-lab.webp</code><br><code>trust-report.webp</code><br><code>trust-factory.webp</code></p>
+    </div>
+    <div class="sg-item">
+      <h4>Lifestyle 类</h4>
+      <p><code>life-morning.webp</code><br><code>life-sleep.webp</code><br><code>life-outdoor.webp</code><br><code>life-office.webp</code><br><code>life-zen.webp</code></p>
+    </div>
+    <div class="sg-item">
+      <h4>Dark UI 类</h4>
+      <p><code>dark-ai-particles.webp</code><br><code>dark-product-hero.webp</code><br><code>dark-molecules.webp</code></p>
+    </div>
+    <div class="sg-item">
+      <h4>Article 类</h4>
+      <p><code>article-fatigue.webp</code><br><code>article-sleep.webp</code><br><code>article-immune.webp</code><br><code>article-wellness.webp</code><br><code>article-index.webp</code></p>
+    </div>
+  </div>
+</div>
+
+</div><!-- /wrapper -->
+
+<script>
+function copyPrompt(btn){
+  const box = btn.parentElement;
+  // Get text content, excluding the button text
+  let text = '';
+  box.childNodes.forEach(node => {
+    if(node !== btn && node.nodeType !== 8){
+      text += node.textContent;
+    }
+  });
+  text = text.trim().replace(/\s+/g,' ');
+  navigator.clipboard.writeText(text).then(()=>{
+    btn.textContent = 'Copied!';
+    btn.style.background = 'var(--teal)';
+    btn.style.color = 'var(--black)';
+    btn.style.borderColor = 'var(--teal)';
+    setTimeout(()=>{
+      btn.textContent = 'Copy';
+      btn.style.background = '';
+      btn.style.color = '';
+      btn.style.borderColor = '';
+    }, 2000);
+  });
+}
+</script>
+</body>
+</html>

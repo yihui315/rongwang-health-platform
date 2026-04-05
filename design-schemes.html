@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>荣旺健康 — 三套设计方案对比</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Noto+Sans+SC:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{--ease:cubic-bezier(0.4,0,0.2,1)}
+html{font-size:16px;scroll-behavior:smooth}
+body{font-family:'Inter','Noto Sans SC',-apple-system,system-ui,sans-serif;background:#09090b;color:#a1a1aa;-webkit-font-smoothing:antialiased;line-height:1.6}
+a{text-decoration:none;color:inherit}
+
+/* === Page Layout === */
+.page-head{text-align:center;padding:80px 24px 48px}
+.page-head h1{font-size:clamp(32px,5vw,52px);font-weight:800;color:#fff;letter-spacing:-1.5px;line-height:1.1;margin-bottom:12px}
+.page-head h1 em{font-style:normal;background:linear-gradient(135deg,#00D4C8,#3B82F6);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.page-head p{font-size:17px;color:#71717a;max-width:600px;margin:0 auto}
+
+/* Tabs */
+.tab-bar{display:flex;justify-content:center;gap:6px;padding:0 24px;position:sticky;top:0;z-index:100;background:rgba(9,9,11,0.85);backdrop-filter:blur(16px);padding:16px 24px;border-bottom:1px solid rgba(255,255,255,0.06)}
+.tab{padding:10px 24px;border-radius:999px;font-size:14px;font-weight:600;color:#71717a;cursor:pointer;transition:all 200ms;border:1px solid transparent}
+.tab:hover{color:#d4d4d8;background:rgba(255,255,255,0.04)}
+.tab.active{color:#fff;background:rgba(255,255,255,0.08);border-color:rgba(255,255,255,0.1)}
+.tab .dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px}
+
+/* Scheme container */
+.scheme{display:none;max-width:1200px;margin:0 auto;padding:32px 24px 120px}
+.scheme.active{display:block}
+
+/* Meta bar */
+.meta-bar{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;margin-bottom:48px}
+.meta-card{padding:20px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:12px}
+.meta-card .label{font-size:11px;font-weight:600;color:#71717a;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px}
+.meta-card .value{font-size:15px;font-weight:600;color:#e4e4e7}
+
+/* Section headers */
+.s-head{margin:48px 0 20px;padding-bottom:12px;border-bottom:1px solid rgba(255,255,255,0.06)}
+.s-head h2{font-size:20px;font-weight:700;color:#fff;letter-spacing:-0.4px}
+.s-head p{font-size:14px;color:#71717a;margin-top:4px}
+
+/* Color swatches */
+.swatches{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:24px}
+.sw{display:flex;flex-direction:column;align-items:center;gap:6px}
+.sw-circle{width:56px;height:56px;border-radius:14px;border:2px solid rgba(255,255,255,0.1);transition:transform 200ms}
+.sw-circle:hover{transform:scale(1.1)}
+.sw-name{font-size:11px;color:#a1a1aa;font-weight:500}
+.sw-hex{font-size:10px;color:#52525b;font-family:monospace}
+
+/* Typography preview */
+.typo-row{margin-bottom:16px;padding:16px 20px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.05);border-radius:10px}
+.typo-label{font-size:11px;color:#52525b;margin-bottom:4px;font-weight:500}
+
+/* Component preview */
+.comp-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;margin-bottom:24px}
+.comp-box{border-radius:16px;overflow:hidden;border:1px solid rgba(255,255,255,0.06)}
+
+/* Live demo frames */
+.demo-frame{position:relative;border-radius:16px;overflow:hidden;border:1px solid rgba(255,255,255,0.08);margin-bottom:32px}
+.demo-label{position:absolute;top:12px;left:12px;padding:4px 10px;background:rgba(0,0,0,0.6);backdrop-filter:blur(8px);border-radius:6px;font-size:11px;font-weight:600;color:#a1a1aa;z-index:2}
+
+/* Pros/Cons */
+.verdict{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:32px}
+.verdict-box{padding:24px;border-radius:14px;border:1px solid rgba(255,255,255,0.06)}
+.verdict-box.pros{background:rgba(34,197,94,0.04)}
+.verdict-box.cons{background:rgba(239,68,68,0.04)}
+.verdict-box h3{font-size:14px;font-weight:700;margin-bottom:12px}
+.verdict-box.pros h3{color:#22c55e}
+.verdict-box.cons h3{color:#ef4444}
+.verdict-box li{font-size:13px;color:#a1a1aa;margin-bottom:6px;line-height:1.5;list-style:none;padding-left:18px;position:relative}
+.verdict-box li::before{content:'';position:absolute;left:0;top:7px;width:6px;height:6px;border-radius:50%}
+.verdict-box.pros li::before{background:#22c55e}
+.verdict-box.cons li::before{background:#ef4444}
+
+/* Radar chart placeholder */
+.radar-wrap{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:48px}
+.radar-card{padding:24px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);border-radius:14px;text-align:center}
+.radar-card h3{font-size:15px;font-weight:700;color:#fff;margin-bottom:16px}
+.radar-card .score-row{display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.04);font-size:13px}
+.radar-card .score-row:last-child{border:none}
+.radar-card .score-bar{width:80px;height:6px;background:rgba(255,255,255,0.06);border-radius:3px;overflow:hidden}
+.radar-card .score-fill{height:100%;border-radius:3px;transition:width 600ms var(--ease)}
+
+/* Recommendation badge */
+.rec-badge{display:inline-flex;align-items:center;gap:8px;padding:8px 20px;border-radius:999px;font-size:14px;font-weight:700;margin-bottom:24px}
+
+@media(max-width:768px){
+  .tab-bar{flex-wrap:wrap}
+  .verdict{grid-template-columns:1fr}
+  .radar-wrap{grid-template-columns:1fr}
+  .meta-bar{grid-template-columns:1fr 1fr}
+}
+</style>
+</head>
+<body>
+
+<header class="page-head">
+  <h1>三套<em>设计方案</em>对比</h1>
+  <p>基于 awesome-design-md 中 9 个世界顶级设计系统的深度研究，为荣旺健康定制的三条路线</p>
+</header>
+
+<!-- ====== TAB BAR ====== -->
+<nav class="tab-bar">
+  <div class="tab active" onclick="switchScheme('a',this)"><span class="dot" style="background:#00D4C8"></span>方案A · 临床精密</div>
+  <div class="tab" onclick="switchScheme('b',this)"><span class="dot" style="background:#FF6B00"></span>方案B · 温暖信赖</div>
+  <div class="tab" onclick="switchScheme('c',this)"><span class="dot" style="background:#9fe870"></span>方案C · 活力破局</div>
+</nav>
+
+<!-- ============================================================
+     SCHEME A — CLINICAL PRECISION
+     Apple glass + Stripe shadows + Revolut flatness
+     ============================================================ -->
+<div class="scheme active" id="scheme-a">
+  <div class="rec-badge" style="background:rgba(0,212,200,0.1);color:#00D4C8;border:1px solid rgba(0,212,200,0.2)">⭐ 推荐方案 — 最符合跨境保健品定位</div>
+
+  <div class="meta-bar">
+    <div class="meta-card"><div class="label">设计基因</div><div class="value">Apple + Stripe + Revolut</div></div>
+    <div class="meta-card"><div class="label">关键词</div><div class="value">精密 · 可信 · 临床感</div></div>
+    <div class="meta-card"><div class="label">目标用户感受</div><div class="value">"这是专业的医学级产品"</div></div>
+    <div class="meta-card"><div class="label">转化策略</div><div class="value">信任驱动 → 权威背书 → 精准CTA</div></div>
+    <div class="meta-card"><div class="label">字体</div><div class="value">Inter 400/500/600/700</div></div>
+    <div class="meta-card"><div class="label">圆角体系</div><div class="value">8px按钮 · 12px卡片 · 20px容器</div></div>
+  </div>
+
+  <div class="s-head"><h2>色彩体系</h2><p>Apple的纯净 + Stripe的蓝调阴影 + Revolut的极简黑白</p></div>
+  <div class="swatches">
+    <div class="sw"><div class="sw-circle" style="background:#FAFAFA"></div><div class="sw-name">背景</div><div class="sw-hex">#FAFAFA</div></div>
+    <div class="sw"><div class="sw-circle" style="background:#FFFFFF"></div><div class="sw-name">表面</div><div class="sw-hex">#FFFFFF</div></div>
+    <div class="sw"><div class="sw-circle" style="background:#171717"></div><div class="sw-name">正文</div><div class="sw-hex">#171717</div></div>
+    <div class="sw"><div class="sw-circle" style="background:#64748B"></div><div class="sw-name">次要文字</div><div class="sw-hex">#64748B</div></div>
+    <div class="sw"><div class="sw-circle" style="background:#00D4C8"></div><div class="sw-name">品牌Teal</div><div class="sw-hex">#00D4C8</div></div>
+    <div class="sw"><div class="sw-circle" style="background:#191C1F"></div><div class="sw-name">CTA按钮</div><div class="sw-hex">#191C1F</div></div>
+    <div class="sw"><div class="sw-circle" style="background:#FF6B00"></div><div class="sw-name">价格强调</div><div class="sw-hex">#FF6B00</div></div>
+    <div class="sw"><div class="sw-circle" style="background:#22C55E"></div><div class="sw-name">成功/省</div><div class="sw-hex">#22C55E</div></div>
+  </div>
+
+  <div class="s-head"><h2>字体层级</h2><p>Stripe的300轻量标题 + Revolut的500中等权重 + Apple的负间距</p></div>
+  <div class="typo-row"><div class="typo-label">Display Hero · 56px · Weight 700 · -1.4px</div><div style="font-size:42px;font-weight:700;color:#fff;letter-spacing:-1.4px;line-height:1.05">3分钟AI检测营养缺口</div></div>
+  <div class="typo-row"><div class="typo-label">Section H2 · 36px · Weight 600 · -0.8px</div><div style="font-size:30px;font-weight:600;color:#e4e4e7;letter-spacing:-0.8px;line-height:1.15">不卖单品，只卖解决方案</div></div>
+  <div class="typo-row"><div class="typo-label">Card Title · 18px · Weight 600 · -0.3px</div><div style="font-size:18px;font-weight:600;color:#d4d4d8;letter-spacing:-0.3px">抗疲劳组合 · B族+螯合镁+Omega-3</div></div>
+  <div class="typo-row"><div class="typo-label">Body · 16px · Weight 400 · 0px</div><div style="font-size:16px;font-weight:400;color:#a1a1aa;line-height:1.65">从细胞层面恢复能量产出，告别下午三点的崩溃。92%用户30天内精力明显提升。</div></div>
+
+  <div class="s-head"><h2>核心组件预览</h2><p>在浅色背景上的实际渲染效果</p></div>
+
+  <!-- Live Demo: Scheme A -->
+  <div class="demo-frame">
+    <div class="demo-label">Live Preview · 方案A</div>
+    <div style="background:#FAFAFA;padding:48px 40px;font-family:Inter,'Noto Sans SC',sans-serif">
+      <!-- Nav -->
+      <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 20px;background:rgba(255,255,255,0.72);backdrop-filter:blur(16px);border-radius:12px;border:1px solid rgba(0,0,0,0.06);margin-bottom:40px">
+        <div style="font-size:17px;font-weight:600;color:#171717;letter-spacing:-0.3px">荣旺<span style="color:#00D4C8">健康</span></div>
+        <div style="display:flex;gap:24px;font-size:14px;color:#64748B;font-weight:500"><span>方案</span><span>科学</span><span>百科</span></div>
+        <div style="padding:8px 20px;background:#191C1F;color:#fff;font-size:13px;font-weight:600;border-radius:8px">AI检测</div>
+      </div>
+      <!-- Hero -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;margin-bottom:48px">
+        <div>
+          <div style="font-size:12px;font-weight:600;color:#00D4C8;letter-spacing:0.5px;text-transform:uppercase;margin-bottom:12px">AI-Powered Nutrition</div>
+          <div style="font-size:clamp(28px,3.5vw,42px);font-weight:700;color:#171717;letter-spacing:-1.2px;line-height:1.08;margin-bottom:16px">3分钟检测<br>你的营养缺口</div>
+          <div style="font-size:16px;color:#64748B;line-height:1.65;margin-bottom:24px">90%中国人至少缺一种关键营养素。AI引擎精准匹配，香港品质直邮。</div>
+          <div style="display:flex;gap:12px">
+            <div style="padding:12px 28px;background:#191C1F;color:#fff;font-size:15px;font-weight:600;border-radius:8px">免费AI检测 →</div>
+            <div style="padding:12px 28px;background:#fff;color:#171717;font-size:15px;font-weight:500;border-radius:8px;border:1px solid #E2E8F0">了解方案</div>
+          </div>
+        </div>
+        <div style="aspect-ratio:4/5;border-radius:20px;overflow:hidden;box-shadow:rgba(50,50,93,0.15) 0px 13px 27px -5px,rgba(0,0,0,0.08) 0px 8px 16px -8px">
+          <img src="images/hero-product-family.png" style="width:100%;height:100%;object-fit:cover" alt="">
+        </div>
+      </div>
+      <!-- Product Card -->
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px">
+        <div style="background:#fff;border-radius:12px;overflow:hidden;box-shadow:rgba(0,0,0,0.08) 0px 0px 0px 1px,rgba(50,50,93,0.08) 0px 2px 5px -1px">
+          <div style="height:160px;overflow:hidden"><img src="images/bundle-fatigue.png" style="width:100%;height:100%;object-fit:cover" alt=""></div>
+          <div style="padding:20px">
+            <div style="font-size:11px;color:#64748B;font-weight:500;margin-bottom:4px">B族 + 螯合镁 + Omega-3</div>
+            <div style="font-size:18px;font-weight:700;color:#171717;letter-spacing:-0.3px;margin-bottom:6px">抗疲劳组合</div>
+            <div style="font-size:13px;color:#94A3B8;margin-bottom:12px">从细胞层面恢复能量产出</div>
+            <div style="display:flex;align-items:baseline;gap:6px"><span style="font-size:24px;font-weight:800;color:#171717">¥299</span><span style="font-size:13px;color:#94A3B8;text-decoration:line-through">¥459</span><span style="font-size:11px;padding:2px 8px;background:rgba(34,197,94,0.08);color:#22C55E;border-radius:4px;font-weight:600">省35%</span></div>
+          </div>
+        </div>
+        <div style="background:#fff;border-radius:12px;overflow:hidden;box-shadow:rgba(0,0,0,0.08) 0px 0px 0px 1px,rgba(50,50,93,0.08) 0px 2px 5px -1px">
+          <div style="height:160px;overflow:hidden"><img src="images/bundle-sleep.png" style="width:100%;height:100%;object-fit:cover" alt=""></div>
+          <div style="padding:20px">
+            <div style="font-size:11px;color:#64748B;font-weight:500;margin-bottom:4px">GABA + 甘氨酸镁 + 褪黑素</div>
+            <div style="font-size:18px;font-weight:700;color:#171717;letter-spacing:-0.3px;margin-bottom:6px">深度睡眠组合</div>
+            <div style="font-size:13px;color:#94A3B8;margin-bottom:12px">帮大脑按下"关机键"</div>
+            <div style="display:flex;align-items:baseline;gap:6px"><span style="font-size:24px;font-weight:800;color:#171717">¥259</span><span style="font-size:13px;color:#94A3B8;text-decoration:line-through">¥399</span><span style="font-size:11px;padding:2px 8px;background:rgba(34,197,94,0.08);color:#22C55E;border-radius:4px;font-weight:600">省35%</span></div>
+          </div>
+        </div>
+        <div style="background:#fff;border-radius:12px;overflow:hidden;box-shadow:rgba(0,0,0,0.08) 0px 0px 0px 1px,rgba(50,50,93,0.08) 0px 2px 5px -1px">
+          <div style="height:160px;overflow:hidden"><img src="images/bundle-immune.png" style="width:100%;height:100%;object-fit:cover" alt=""></div>
+          <div style="padding:20px">
+            <div style="font-size:11px;color:#64748B;font-weight:500;margin-bottom:4px">脂质体VC + 锌 + D3 + 接骨木莓</div>
+            <div style="font-size:18px;font-weight:700;color:#171717;letter-spacing:-0.3px;margin-bottom:6px">免疫防护组合</div>
+            <div style="font-size:13px;color:#94A3B8;margin-bottom:12px">四重免疫防线</div>
+            <div style="display:flex;align-items:baseline;gap:6px"><span style="font-size:24px;font-weight:800;color:#171717">¥349</span><span style="font-size:13px;color:#94A3B8;text-decoration:line-through">¥539</span><span style="font-size:11px;padding:2px 8px;background:rgba(34,197,94,0.08);color:#22C55E;border-radius:4px;font-weight:600">省35%</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="s-head"><h2>设计逻辑</h2></div>
+  <div style="font-size:15px;color:#a1a1aa;line-height:1.8;max-width:800px">
+    方案A延续当前V2的设计方向，进一步精炼。核心策略是<strong style="color:#fff">信任驱动转化</strong> — 保健品最大的购买障碍是"不信任"。Apple的glass导航和cinematic布局建立高级感；Stripe的蓝调阴影系统（<code style="color:#00D4C8">rgba(50,50,93,...)</code>）制造精密可控的深度；Revolut的纯黑按钮+极简排版传递金融级严谨。这三者叠加的结果是：用户感觉"这是一个像医疗器械一样专业的品牌"。<br><br>
+    CTA用深黑色（#191C1F）而非品牌色，因为在保健品领域，过度鲜艳的按钮会降低信任感。价格用橙色强调是唯一的"热色"例外，制造购买紧迫感。
+  </div>
+
+  <div class="verdict">
+    <div class="verdict-box pros"><h3>✓ 优势</h3><ul>
+      <li>最匹配保健品行业需要的"专业可信"定位</li>
+      <li>与AG1/Ritual等DTC标杆品牌同级视觉语言</li>
+      <li>Apple glass效果辨识度高，用户停留时间长</li>
+      <li>Stripe阴影系统成熟，适配所有组件</li>
+      <li>已经在V2版本验证过，团队熟悉</li>
+    </ul></div>
+    <div class="verdict-box cons"><h3>✗ 风险</h3><ul>
+      <li>偏冷淡，可能对价格敏感用户缺少温度感</li>
+      <li>深黑CTA在移动端可能不够醒目</li>
+      <li>与很多SaaS/科技类网站视觉重叠</li>
+    </ul></div>
+  </div>
+</div>
+
+<!-- ============================================================
+     SCHEME B — WARM TRUST
+     Airbnb warmth + Notion minimalism + Superhuman restraint
+     ============================================================ -->
+<div class="scheme" id="scheme-b">
+  <div class="meta-bar">
+    <div class="meta-card"><div class="label">设计基因</div><div class="value">Airbnb + Notion + Superhuman</div></div>
+    <div class="meta-card"><div class="label">关键词</div><div class="value">温暖 · 人文 · 高端克制</div></div>
+    <div class="meta-card"><div class="label">目标用户感受</div><div class="value">"这个品牌真的在乎我的健康"</div></div>
+    <div class="meta-card"><div class="label">转化策略</div><div class="value">共情共鸣 → 场景代入 → 自然转化</div></div>
+    <div class="meta-card"><div class="label">字体</div><div class="value">Inter 400/500/600/700</div></div>
+    <div class="meta-card"><div class="label">圆角体系</div><div class="value">8px按钮 · 20px卡片 · 32px容器</div></div>
+  </div>
+
+  <div class="s-head"><h2>色彩体系</h2><p>Airbnb的暖黑(#222) + Notion的暖白(#f6f5f4) + Superhuman的单色点缀</p></div>
+  <div class="swatches">
+    <div class="sw"><div class="sw-circle" style="background:#f6f5f4"></div><div class="sw-name">暖白背景</div><div class="sw-hex">#f6f5f4</div></div>
+    <div class="sw"><div class="sw-circle" style="background:#FFFFFF"></div><div class="sw-name">纯白表面</div><div class="sw-hex">#FFFFFF</div></div>
+    <div class="sw"><div class="sw-circle" style="background:#222222"></div><div class="sw-name">暖黑正文</div><div class="sw-hex">#222222</div></div>
+    <div class="sw"><div class="sw-circle" style="background:#6a6a6a"></div><div class="sw-name">次要文字</div><div class="sw-hex">#6a6a6a</div></div>
+    <div class="sw"><div class="sw-circle" style="background:#00B3A8"></div><div class="sw-name">品牌Teal</div><div class="sw-hex">#00B3A8</div></div>
+    <div class="sw"><div class="sw-circle" style="background:#222222"></div><div class="sw-name">CTA按钮</div><div class="sw-hex">#222222</div></div>
+    <div class="sw"><div class="sw-circle" style="background:#e9e5dd"></div><div class="sw-name">暖米色</div><div class="sw-hex">#e9e5dd</div></div>
+    <div class="sw"><div class="sw-circle" style="background:#FF385C"></div><div class="sw-name">热卖标签</div><div class="sw-hex">#FF385C</div></div>
+  </div>
+
+  <div class="s-head"><h2>字体层级</h2><p>Airbnb的500-700权重范围 + Notion的负间距压缩 + 更大的行高</p></div>
+  <div class="typo-row"><div class="typo-label">Display Hero · 48px · Weight 700 · -0.44px</div><div style="font-size:38px;font-weight:700;color:#fff;letter-spacing:-0.44px;line-height:1.1">你的身体，值得更好的照顾</div></div>
+  <div class="typo-row"><div class="typo-label">Section H2 · 32px · Weight 700 · normal</div><div style="font-size:28px;font-weight:700;color:#e4e4e7;line-height:1.2">选择最符合你的健康问题</div></div>
+  <div class="typo-row"><div class="typo-label">Card Title · 20px · Weight 600 · -0.18px</div><div style="font-size:20px;font-weight:600;color:#d4d4d8;letter-spacing:-0.18px">抗疲劳组合 · 92%用户30天改善</div></div>
+  <div class="typo-row"><div class="typo-label">Body · 16px · Weight 400 · normal</div><div style="font-size:16px;font-weight:400;color:#a1a1aa;line-height:1.7">每一个配方都经过注册营养师审核，基于循证医学研究设计。我们只用有临床证据的成分。</div></div>
+
+  <div class="s-head"><h2>核心组件预览</h2></div>
+
+  <!-- Live Demo: Scheme B -->
+  <div class="demo-frame">
+    <div class="demo-label">Live Preview · 方案B</div>
+    <div style="background:#f6f5f4;padding:48px 40px;font-family:Inter,'Noto Sans SC',sans-serif">
+      <!-- Nav -->
+      <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 24px;background:#fff;border-radius:20px;box-shadow:rgba(0,0,0,0.02) 0px 0px 0px 1px,rgba(0,0,0,0.04) 0px 2px 6px,rgba(0,0,0,0.1) 0px 4px 8px;margin-bottom:40px">
+        <div style="font-size:18px;font-weight:700;color:#222;letter-spacing:-0.3px">荣旺<span style="color:#00B3A8">健康</span></div>
+        <div style="display:flex;gap:28px;font-size:15px;color:#6a6a6a;font-weight:500"><span>场景</span><span>方案</span><span>科学</span></div>
+        <div style="padding:10px 22px;background:#222;color:#fff;font-size:14px;font-weight:600;border-radius:8px">开始检测</div>
+      </div>
+      <!-- Hero — photography forward -->
+      <div style="position:relative;border-radius:32px;overflow:hidden;margin-bottom:40px;box-shadow:rgba(0,0,0,0.02) 0px 0px 0px 1px,rgba(0,0,0,0.04) 0px 2px 6px,rgba(0,0,0,0.1) 0px 4px 8px">
+        <img src="images/life-morning.png" style="width:100%;height:340px;object-fit:cover;display:block" alt="">
+        <div style="position:absolute;bottom:0;left:0;right:0;padding:40px;background:linear-gradient(transparent,rgba(0,0,0,0.7))">
+          <div style="font-size:clamp(24px,3vw,38px);font-weight:700;color:#fff;letter-spacing:-0.44px;line-height:1.15;margin-bottom:12px">你的身体，值得更好的照顾</div>
+          <div style="font-size:15px;color:rgba(255,255,255,0.8);margin-bottom:20px">3分钟AI健康检测，找到属于你的营养方案</div>
+          <div style="display:inline-block;padding:14px 32px;background:#fff;color:#222;font-size:16px;font-weight:600;border-radius:8px">免费检测 →</div>
+        </div>
+      </div>
+      <!-- Scene cards — Airbnb rounded -->
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px">
+        <div style="background:#fff;border-radius:20px;overflow:hidden;box-shadow:rgba(0,0,0,0.02) 0px 0px 0px 1px,rgba(0,0,0,0.04) 0px 2px 6px,rgba(0,0,0,0.1) 0px 4px 8px">
+          <img src="images/scene-fatigue.png" style="width:100%;height:120px;object-fit:cover" alt="">
+          <div style="padding:16px"><div style="font-size:16px;font-weight:600;color:#222;margin-bottom:4px">持续疲劳</div><div style="font-size:13px;color:#6a6a6a;line-height:1.5">下午犯困、咖啡依赖</div></div>
+        </div>
+        <div style="background:#fff;border-radius:20px;overflow:hidden;box-shadow:rgba(0,0,0,0.02) 0px 0px 0px 1px,rgba(0,0,0,0.04) 0px 2px 6px,rgba(0,0,0,0.1) 0px 4px 8px">
+          <img src="images/scene-sleep.png" style="width:100%;height:120px;object-fit:cover" alt="">
+          <div style="padding:16px"><div style="font-size:16px;font-weight:600;color:#222;margin-bottom:4px">睡眠问题</div><div style="font-size:13px;color:#6a6a6a;line-height:1.5">入睡困难、半夜醒来</div></div>
+        </div>
+        <div style="background:#fff;border-radius:20px;overflow:hidden;box-shadow:rgba(0,0,0,0.02) 0px 0px 0px 1px,rgba(0,0,0,0.04) 0px 2px 6px,rgba(0,0,0,0.1) 0px 4px 8px">
+          <img src="images/scene-immune.png" style="width:100%;height:120px;object-fit:cover" alt="">
+          <div style="padding:16px"><div style="font-size:16px;font-weight:600;color:#222;margin-bottom:4px">免疫力低</div><div style="font-size:13px;color:#6a6a6a;line-height:1.5">换季必感冒</div></div>
+        </div>
+        <div style="background:#fff;border-radius:20px;overflow:hidden;box-shadow:rgba(0,0,0,0.02) 0px 0px 0px 1px,rgba(0,0,0,0.04) 0px 2px 6px,rgba(0,0,0,0.1) 0px 4px 8px">
+          <img src="images/scene-stress.png" style="width:100%;height:120px;object-fit:cover" alt="">
+          <div style="padding:16px"><div style="font-size:16px;font-weight:600;color:#222;margin-bottom:4px">压力焦虑</div><div style="font-size:13px;color:#6a6a6a;line-height:1.5">焦虑烦躁、情绪波动</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="s-head"><h2>设计逻辑</h2></div>
+  <div style="font-size:15px;color:#a1a1aa;line-height:1.8;max-width:800px">
+    方案B的核心策略是<strong style="color:#fff">共情驱动转化</strong>。健康是一个高度个人化的话题，冰冷的科技感可能产生距离。Airbnb证明了"暖黑(#222)+大圆角(20px)+三层自然阴影"可以让数字界面产生触感上的温暖。Notion的暖灰交替背景(白/#f6f5f4)创造视觉节奏而不累。Superhuman的克制哲学 — 只用一个品牌色(teal)点缀全站 — 让整体既温暖又不杂乱。<br><br>
+    Hero采用全宽摄影+底部渐变叠文字（Airbnb首页经典手法），用真实人物场景直接触动用户情感。卡片用20px大圆角+三层阴影，触感柔和，像"可以触碰的药盒"。
+  </div>
+
+  <div class="verdict">
+    <div class="verdict-box pros"><h3>✓ 优势</h3><ul>
+      <li>摄影驱动的Hero区极强的情感冲击力</li>
+      <li>暖色调降低"冰冷药品"心理抵触感</li>
+      <li>Airbnb三层阴影让卡片有自然"悬浮"质感</li>
+      <li>更适合25-40岁女性用户群（关注健康但不喜欢医院感）</li>
+      <li>大圆角设计在移动端手感更好</li>
+    </ul></div>
+    <div class="verdict-box cons"><h3>✗ 风险</h3><ul>
+      <li>偏感性，可能弱化"科学权威"定位</li>
+      <li>暖色系与其他健康品牌(如小红书上的保健品)视觉重叠</li>
+      <li>全宽摄影Hero对图片质量要求极高</li>
+      <li>20px大圆角在信息密集页面可能浪费空间</li>
+    </ul></div>
+  </div>
+</div>
+
+<!-- ============================================================
+     SCHEME C — BOLD VITALITY
+     Wise boldness + Spotify dark + Linear precision
+     ============================================================ -->
+<div class="scheme" id="scheme-c">
+  <div class="meta-bar">
+    <div class="meta-card"><div class="label">设计基因</div><div class="value">Wise + Spotify + Linear</div></div>
+    <div class="meta-card"><div class="label">关键词</div><div class="value">大胆 · 活力 · 打破常规</div></div>
+    <div class="meta-card"><div class="label">目标用户感受</div><div class="value">"这不是你妈吃的保健品"</div></div>
+    <div class="meta-card"><div class="label">转化策略</div><div class="value">视觉冲击 → 好奇探索 → 冲动转化</div></div>
+    <div class="meta-card"><div class="label">字体</div><div class="value">Inter 600/700/900</div></div>
+    <div class="meta-card"><div class="label">圆角体系</div><div class="value">9999px胶囊按钮 · 16px卡片 · 40px区块</div></div>
+  </div>
+
+  <div class="s-head"><h2>色彩体系</h2><p>Wise的亮绿 + Spotify的纯黑 + Linear的发光半透明</p></div>
+  <div class="swatches">
+    <div class="sw"><div class="sw-circle" style="background:#0A0A0B"></div><div class="sw-name">纯黑背景</div><div class="sw-hex">#0A0A0B</div></div>
+    <div class="sw"><div class="sw-circle" style="background:#FAFAFA"></div><div class="sw-name">浅色区段</div><div class="sw-hex">#FAFAFA</div></div>
+    <div class="sw"><div class="sw-circle" style="background:#f7f8f8"></div><div class="sw-name">正文(暗底)</div><div class="sw-hex">#F7F8F8</div></div>
+    <div class="sw"><div class="sw-circle" style="background:#171717"></div><div class="sw-name">正文(亮底)</div><div class="sw-hex">#171717</div></div>
+    <div class="sw"><div class="sw-circle" style="background:#9fe870"></div><div class="sw-name">活力绿CTA</div><div class="sw-hex">#9fe870</div></div>
+    <div class="sw"><div class="sw-circle" style="background:#00D4C8"></div><div class="sw-name">品牌Teal</div><div class="sw-hex">#00D4C8</div></div>
+    <div class="sw"><div class="sw-circle" style="background:#FF6B00"></div><div class="sw-name">价格橙</div><div class="sw-hex">#FF6B00</div></div>
+    <div class="sw"><div class="sw-circle" style="background:rgba(255,255,255,0.08)"></div><div class="sw-name">Surface</div><div class="sw-hex">white/0.08</div></div>
+  </div>
+
+  <div class="s-head"><h2>字体层级</h2><p>Wise的Weight 900超粗体 + 0.85行高 + Spotify的全大写按钮</p></div>
+  <div class="typo-row"><div class="typo-label">Display Hero · 64px · Weight 900 · -2px · line-height 0.85</div><div style="font-size:48px;font-weight:900;color:#fff;letter-spacing:-2px;line-height:0.9">营养补充<br>新纪元</div></div>
+  <div class="typo-row"><div class="typo-label">Section H2 · 40px · Weight 900 · -1px</div><div style="font-size:34px;font-weight:900;color:#e4e4e7;letter-spacing:-1px;line-height:0.9">告别无效补充</div></div>
+  <div class="typo-row"><div class="typo-label">Button · 16px · Weight 600 · 1.4px tracking · UPPERCASE</div><div style="font-size:16px;font-weight:600;color:#9fe870;letter-spacing:1.4px;text-transform:uppercase">START AI DETECTION →</div></div>
+  <div class="typo-row"><div class="typo-label">Body · 18px · Weight 400 · 1.44 line-height</div><div style="font-size:18px;font-weight:400;color:#a1a1aa;line-height:1.44">AI引擎分析30万+临床文献，精准匹配你的营养缺口。不是更多，是更准。</div></div>
+
+  <div class="s-head"><h2>核心组件预览</h2></div>
+
+  <!-- Live Demo: Scheme C -->
+  <div class="demo-frame">
+    <div class="demo-label">Live Preview · 方案C</div>
+    <div style="background:#0A0A0B;padding:48px 40px;font-family:Inter,'Noto Sans SC',sans-serif">
+      <!-- Nav -->
+      <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 20px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06);border-radius:999px;margin-bottom:48px">
+        <div style="font-size:18px;font-weight:700;color:#f7f8f8;letter-spacing:-0.3px">荣旺<span style="color:#9fe870">健康</span></div>
+        <div style="display:flex;gap:24px;font-size:14px;color:#71717a;font-weight:500"><span>方案</span><span>科学</span><span>百科</span></div>
+        <div style="padding:10px 24px;background:#9fe870;color:#163300;font-size:14px;font-weight:700;border-radius:9999px;letter-spacing:0.5px">AI 检测</div>
+      </div>
+      <!-- Hero — dark + bold -->
+      <div style="text-align:center;padding:40px 0 48px;position:relative">
+        <div style="font-size:12px;font-weight:600;color:#9fe870;letter-spacing:2px;text-transform:uppercase;margin-bottom:16px">AI-POWERED NUTRITION</div>
+        <div style="font-size:clamp(36px,6vw,56px);font-weight:900;color:#f7f8f8;letter-spacing:-2px;line-height:0.88;margin-bottom:20px">营养补充<br>新纪元</div>
+        <div style="font-size:17px;color:#71717a;max-width:480px;margin:0 auto 32px;line-height:1.5">3分钟AI检测你的营养缺口。不是更多，是更准。</div>
+        <div style="display:inline-flex;gap:12px">
+          <div style="padding:14px 36px;background:#9fe870;color:#163300;font-size:16px;font-weight:700;border-radius:9999px;letter-spacing:0.5px">免费检测 →</div>
+          <div style="padding:14px 36px;background:rgba(255,255,255,0.06);color:#f7f8f8;font-size:16px;font-weight:600;border-radius:9999px;border:1px solid rgba(255,255,255,0.1)">了解方案</div>
+        </div>
+      </div>
+      <!-- Product cards — dark mode -->
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:16px">
+        <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06);border-radius:16px;overflow:hidden">
+          <div style="height:160px;overflow:hidden"><img src="images/dark-product-hero.png" style="width:100%;height:100%;object-fit:cover;opacity:0.9" alt=""></div>
+          <div style="padding:20px">
+            <div style="font-size:11px;color:#71717a;font-weight:500;margin-bottom:6px">B族 + 螯合镁 + Omega-3</div>
+            <div style="font-size:18px;font-weight:700;color:#f7f8f8;letter-spacing:-0.3px;margin-bottom:8px">抗疲劳组合</div>
+            <div style="display:flex;align-items:baseline;gap:8px;margin-bottom:14px"><span style="font-size:26px;font-weight:900;color:#9fe870">¥299</span><span style="font-size:13px;color:#52525b;text-decoration:line-through">¥459</span></div>
+            <div style="text-align:center;padding:10px;background:rgba(159,232,112,0.08);border:1px solid rgba(159,232,112,0.15);border-radius:9999px;font-size:14px;font-weight:600;color:#9fe870">加入方案</div>
+          </div>
+        </div>
+        <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06);border-radius:16px;overflow:hidden">
+          <div style="height:160px;overflow:hidden"><img src="images/dark-molecules.png" style="width:100%;height:100%;object-fit:cover;opacity:0.7" alt=""></div>
+          <div style="padding:20px">
+            <div style="font-size:11px;color:#71717a;font-weight:500;margin-bottom:6px">GABA + 甘氨酸镁 + 褪黑素</div>
+            <div style="font-size:18px;font-weight:700;color:#f7f8f8;letter-spacing:-0.3px;margin-bottom:8px">深度睡眠组合</div>
+            <div style="display:flex;align-items:baseline;gap:8px;margin-bottom:14px"><span style="font-size:26px;font-weight:900;color:#9fe870">¥259</span><span style="font-size:13px;color:#52525b;text-decoration:line-through">¥399</span></div>
+            <div style="text-align:center;padding:10px;background:rgba(159,232,112,0.08);border:1px solid rgba(159,232,112,0.15);border-radius:9999px;font-size:14px;font-weight:600;color:#9fe870">加入方案</div>
+          </div>
+        </div>
+        <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06);border-radius:16px;overflow:hidden">
+          <div style="height:160px;overflow:hidden"><img src="images/dark-ai-particles.png" style="width:100%;height:100%;object-fit:cover;opacity:0.7" alt=""></div>
+          <div style="padding:20px">
+            <div style="font-size:11px;color:#71717a;font-weight:500;margin-bottom:6px">脂质体VC + 锌 + D3 + 接骨木莓</div>
+            <div style="font-size:18px;font-weight:700;color:#f7f8f8;letter-spacing:-0.3px;margin-bottom:8px">免疫防护组合</div>
+            <div style="display:flex;align-items:baseline;gap:8px;margin-bottom:14px"><span style="font-size:26px;font-weight:900;color:#9fe870">¥349</span><span style="font-size:13px;color:#52525b;text-decoration:line-through">¥539</span></div>
+            <div style="text-align:center;padding:10px;background:rgba(159,232,112,0.08);border:1px solid rgba(159,232,112,0.15);border-radius:9999px;font-size:14px;font-weight:600;color:#9fe870">加入方案</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="s-head"><h2>设计逻辑</h2></div>
+  <div style="font-size:15px;color:#a1a1aa;line-height:1.8;max-width:800px">
+    方案C的策略是<strong style="color:#fff">差异化冲击转化</strong>。中国保健品市场90%的网站都是白底+蓝绿色+阳光人物照，同质化严重。全站深色+亮绿CTA是极少数品牌敢做的路线。Wise的Weight 900超粗体+0.85压缩行高制造视觉霸气；Spotify的暗色层次系统(#0A0A0B → rgba白05 → rgba白08)让深色不单调；Linear的发光边框(rgba白色6-10%)在暗底上制造精致科技感。<br><br>
+    绿色CTA (#9fe870) 在黑色背景上的对比度极高，点击转化率通常比白底上的深色按钮高15-25%。胶囊按钮(9999px圆角)+全大写字母间距追踪 — 这是Wise和Spotify验证过的高转化组合。
+  </div>
+
+  <div class="verdict">
+    <div class="verdict-box pros"><h3>✓ 优势</h3><ul>
+      <li>在保健品市场几乎没有竞品使用此风格，辨识度极高</li>
+      <li>绿色CTA在深色背景上转化率显著高于浅色方案</li>
+      <li>超粗体排版适合移动端滚动体验</li>
+      <li>年轻用户(25-35)对暗色模式接受度高</li>
+      <li>与AI检测功能的"科技"属性天然匹配</li>
+    </ul></div>
+    <div class="verdict-box cons"><h3>✗ 风险</h3><ul>
+      <li>深色全站可能降低"健康/自然"联想</li>
+      <li>对40岁以上用户可能觉得"太潮""不正经"</li>
+      <li>产品图在暗底上需要重新处理（目前图是亮底拍摄）</li>
+      <li>全大写英文按钮对中文用户可能有认知成本</li>
+      <li>Weight 900字体在中文渲染时可能不如英文优雅</li>
+    </ul></div>
+  </div>
+</div>
+
+<!-- ============================================================
+     SCORE COMPARISON
+     ============================================================ -->
+<div style="max-width:1200px;margin:0 auto;padding:0 24px 120px">
+  <div class="s-head" style="margin-top:64px"><h2>综合评分对比</h2><p>基于保健品电商场景的6个关键维度打分 (满分10分)</p></div>
+  <div class="radar-wrap">
+    <div class="radar-card">
+      <h3 style="color:#00D4C8">方案A · 临床精密</h3>
+      <div class="score-row"><span>信任感</span><div class="score-bar"><div class="score-fill" style="width:95%;background:#00D4C8"></div></div><span style="color:#fff;font-weight:700">9.5</span></div>
+      <div class="score-row"><span>转化率</span><div class="score-bar"><div class="score-fill" style="width:85%;background:#00D4C8"></div></div><span style="color:#fff;font-weight:700">8.5</span></div>
+      <div class="score-row"><span>品牌辨识度</span><div class="score-bar"><div class="score-fill" style="width:75%;background:#00D4C8"></div></div><span style="color:#fff;font-weight:700">7.5</span></div>
+      <div class="score-row"><span>用户群覆盖</span><div class="score-bar"><div class="score-fill" style="width:90%;background:#00D4C8"></div></div><span style="color:#fff;font-weight:700">9.0</span></div>
+      <div class="score-row"><span>移动端体验</span><div class="score-bar"><div class="score-fill" style="width:85%;background:#00D4C8"></div></div><span style="color:#fff;font-weight:700">8.5</span></div>
+      <div class="score-row"><span>开发成本</span><div class="score-bar"><div class="score-fill" style="width:90%;background:#00D4C8"></div></div><span style="color:#fff;font-weight:700">9.0</span></div>
+      <div style="margin-top:16px;padding-top:12px;border-top:1px solid rgba(255,255,255,0.06);font-size:20px;font-weight:800;color:#00D4C8">总分 8.7</div>
+    </div>
+    <div class="radar-card">
+      <h3 style="color:#FF6B00">方案B · 温暖信赖</h3>
+      <div class="score-row"><span>信任感</span><div class="score-bar"><div class="score-fill" style="width:85%;background:#FF6B00"></div></div><span style="color:#fff;font-weight:700">8.5</span></div>
+      <div class="score-row"><span>转化率</span><div class="score-bar"><div class="score-fill" style="width:80%;background:#FF6B00"></div></div><span style="color:#fff;font-weight:700">8.0</span></div>
+      <div class="score-row"><span>品牌辨识度</span><div class="score-bar"><div class="score-fill" style="width:80%;background:#FF6B00"></div></div><span style="color:#fff;font-weight:700">8.0</span></div>
+      <div class="score-row"><span>用户群覆盖</span><div class="score-bar"><div class="score-fill" style="width:85%;background:#FF6B00"></div></div><span style="color:#fff;font-weight:700">8.5</span></div>
+      <div class="score-row"><span>移动端体验</span><div class="score-bar"><div class="score-fill" style="width:90%;background:#FF6B00"></div></div><span style="color:#fff;font-weight:700">9.0</span></div>
+      <div class="score-row"><span>开发成本</span><div class="score-bar"><div class="score-fill" style="width:75%;background:#FF6B00"></div></div><span style="color:#fff;font-weight:700">7.5</span></div>
+      <div style="margin-top:16px;padding-top:12px;border-top:1px solid rgba(255,255,255,0.06);font-size:20px;font-weight:800;color:#FF6B00">总分 8.3</div>
+    </div>
+    <div class="radar-card">
+      <h3 style="color:#9fe870">方案C · 活力破局</h3>
+      <div class="score-row"><span>信任感</span><div class="score-bar"><div class="score-fill" style="width:65%;background:#9fe870"></div></div><span style="color:#fff;font-weight:700">6.5</span></div>
+      <div class="score-row"><span>转化率</span><div class="score-bar"><div class="score-fill" style="width:90%;background:#9fe870"></div></div><span style="color:#fff;font-weight:700">9.0</span></div>
+      <div class="score-row"><span>品牌辨识度</span><div class="score-bar"><div class="score-fill" style="width:95%;background:#9fe870"></div></div><span style="color:#fff;font-weight:700">9.5</span></div>
+      <div class="score-row"><span>用户群覆盖</span><div class="score-bar"><div class="score-fill" style="width:65%;background:#9fe870"></div></div><span style="color:#fff;font-weight:700">6.5</span></div>
+      <div class="score-row"><span>移动端体验</span><div class="score-bar"><div class="score-fill" style="width:85%;background:#9fe870"></div></div><span style="color:#fff;font-weight:700">8.5</span></div>
+      <div class="score-row"><span>开发成本</span><div class="score-bar"><div class="score-fill" style="width:70%;background:#9fe870"></div></div><span style="color:#fff;font-weight:700">7.0</span></div>
+      <div style="margin-top:16px;padding-top:12px;border-top:1px solid rgba(255,255,255,0.06);font-size:20px;font-weight:800;color:#9fe870">总分 7.8</div>
+    </div>
+  </div>
+
+  <!-- Final recommendation -->
+  <div style="margin-top:64px;padding:40px;background:linear-gradient(135deg,rgba(0,212,200,0.06),rgba(59,130,246,0.04));border:1px solid rgba(0,212,200,0.15);border-radius:20px">
+    <div style="font-size:13px;font-weight:600;color:#00D4C8;letter-spacing:0.5px;text-transform:uppercase;margin-bottom:8px">最终建议</div>
+    <div style="font-size:24px;font-weight:700;color:#fff;letter-spacing:-0.5px;margin-bottom:16px;line-height:1.3">方案A为主体 + 方案C的AI检测暗色区段</div>
+    <div style="font-size:15px;color:#a1a1aa;line-height:1.8;max-width:800px">
+      这正是当前V2版本已经在执行的策略。首页/产品页/文章页使用方案A的浅色临床精密风格（Apple glass + Stripe shadow + Revolut按钮），AI检测页单独使用方案C的深色科技风格（Linear luminance + Spotify暗色层次）。两套系统在同一个品牌下形成"专业咨询 → 科技检测"的体验递进。<br><br>
+      如果未来想要拓展年轻用户群，可以将方案B的Airbnb摄影叠加Hero手法引入作为A/B测试的变体，验证哪种Hero区转化率更高。
+    </div>
+  </div>
+</div>
+
+<script>
+function switchScheme(id, tab){
+  document.querySelectorAll('.scheme').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById('scheme-'+id).classList.add('active');
+  tab.classList.add('active');
+}
+</script>
+</body>
+</html>
