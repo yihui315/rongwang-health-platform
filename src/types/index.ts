@@ -8,3 +8,12 @@ export interface Plan {
   ingredients: string[];
   price: number;
 }
+
+export type ExperimentalStatus = "beta" | "alpha" | "preview";
+
+export interface ExperimentalFeature {
+  id: string;
+  name: string;
+  description: string;
+  status: ExperimentalStatus;
+}
