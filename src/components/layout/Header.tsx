@@ -2,23 +2,35 @@ import Link from "next/link";
 
 export default function Header() {
   return (
-    <header className="sticky top-0 z-50 border-b border-slate-200 bg-white/95 backdrop-blur">
+    <header className="sticky top-0 z-50 bg-white/98 shadow-sm backdrop-blur-lg">
       <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-6">
-        <Link href="/" className="text-xl font-bold text-teal">
-          荣旺健康
-        </Link>
+        <div className="flex items-center gap-4">
+          <Link href="/" className="text-2xl font-bold text-teal">
+            荣旺健康
+          </Link>
+          <span className="hidden border-l-2 border-slate-200 pl-4 text-sm text-slate-500 lg:inline">
+            香港直邮 · AI营养方案
+          </span>
+        </div>
 
-        <nav className="hidden gap-8 md:flex text-sm text-slate-600">
-          <Link href="/quiz">AI检测</Link>
-          <Link href="/plans/fatigue">方案中心</Link>
-          <Link href="/articles">健康百科</Link>
-          <Link href="/family">家庭健康</Link>
-          <Link href="/subscription">订阅计划</Link>
+        <nav className="hidden gap-8 text-sm font-medium text-slate-600 md:flex">
+          <Link href="#scenes" className="transition hover:text-teal">
+            健康方案
+          </Link>
+          <Link href="/quiz" className="transition hover:text-teal">
+            AI检测
+          </Link>
+          <Link href="#plans" className="transition hover:text-teal">
+            热门产品
+          </Link>
+          <Link href="/articles" className="transition hover:text-teal">
+            健康百科
+          </Link>
         </nav>
 
         <Link
           href="/quiz"
-          className="rounded-full bg-orange px-5 py-3 text-sm font-semibold text-white"
+          className="rounded-full bg-orange px-5 py-3 text-sm font-semibold text-white shadow-lg shadow-orange/30 transition hover:-translate-y-0.5 hover:bg-orange-light hover:shadow-xl"
         >
           立即AI检测
         </Link>

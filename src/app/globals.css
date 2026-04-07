@@ -5,14 +5,22 @@
 :root {
   --teal: #00D4C8;
   --teal-dark: #00b3a8;
+  --teal-light: #33ded4;
+  --teal-bg: #E0F8F5;
   --orange: #FF6B00;
   --orange-light: #FF8533;
   --bg: #F8FAFC;
   --white: #FFFFFF;
+  --dark: #1F2937;
+  --dark2: #111827;
   --text: #1F2937;
   --text2: #4B5563;
   --text3: #64748B;
+  --text4: #94A3B8;
   --border: #E2E8F0;
+  --red: #EF4444;
+  --green: #22C55E;
+  --purple: #8B5CF6;
 }
 
 html {
@@ -34,4 +42,32 @@ a {
 
 button {
   cursor: pointer;
+}
+
+/* Animations */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.04); }
+}
+
+.animate-fade-up {
+  animation: fadeUp 0.6s ease-out forwards;
+}
+
+.animate-float {
+  animation: float 4s ease-in-out infinite;
+}
+
+.animate-pulse-slow {
+  animation: pulse 3s infinite;
 }

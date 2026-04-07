@@ -1,30 +1,60 @@
 import Link from "next/link";
 
 const scenes = [
-  { title: "持续疲劳", desc: "下午犯困、咖啡依赖", href: "/quiz?pre=fatigue" },
-  { title: "睡眠不好", desc: "入睡困难、夜里醒来", href: "/quiz?pre=sleep" },
-  { title: "免疫力低", desc: "换季容易感冒", href: "/quiz?pre=immune" },
-  { title: "压力焦虑", desc: "长期紧绷、情绪波动", href: "/quiz?pre=stress" }
+  {
+    title: "每天下午崩溃",
+    desc: "抗疲劳方案",
+    icon: "⚡️",
+    href: "/quiz?pre=fatigue",
+    bg: "bg-orange-50"
+  },
+  {
+    title: "经常感冒",
+    desc: "免疫增强方案",
+    icon: "🛡",
+    href: "/quiz?pre=immune",
+    bg: "bg-teal-bg"
+  },
+  {
+    title: "睡不醒 / 焦虑",
+    desc: "睡眠改善方案",
+    icon: "🌙",
+    href: "/quiz?pre=sleep",
+    bg: "bg-purple-50"
+  },
+  {
+    title: "压力大",
+    desc: "综合压力缓解方案",
+    icon: "😣",
+    href: "/quiz?pre=stress",
+    bg: "bg-red-50"
+  }
 ];
 
 export default function SceneGrid() {
   return (
-    <section className="mx-auto max-w-7xl px-6 py-20">
-      <div className="mb-10 text-center">
-        <h2 className="text-3xl font-bold">你最关心哪种健康问题？</h2>
-        <p className="mt-3 text-slate-500">选择最符合你的状态，AI 会优先帮你分析</p>
+    <section id="scenes" className="mx-auto max-w-7xl px-6 py-24">
+      <div className="mb-14 text-center">
+        <h2 className="text-3xl font-bold md:text-4xl">
+          选你的主要困扰
+          <br />
+          一键生成专属方案
+        </h2>
       </div>
 
-      <div className="grid gap-6 md:grid-cols-4">
+      <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-4">
         {scenes.map((scene) => (
           <Link
             key={scene.title}
             href={scene.href}
-            className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-lg"
+            className={`group rounded-3xl ${scene.bg} border-2 border-transparent p-8 text-center transition hover:-translate-y-2 hover:border-teal hover:shadow-xl`}
           >
-            <div className="text-lg font-semibold">{scene.title}</div>
+            <span className="mb-5 block text-5xl">{scene.icon}</span>
+            <div className="text-xl font-bold">{scene.title}</div>
             <div className="mt-2 text-sm text-slate-500">{scene.desc}</div>
-            <div className="mt-6 text-sm font-semibold text-teal">开始检测 →</div>
+            <span className="mt-5 inline-block rounded-full bg-black/5 px-5 py-2 text-sm font-semibold transition group-hover:bg-teal group-hover:text-white">
+              开始检测 →
+            </span>
           </Link>
         ))}
       </div>
