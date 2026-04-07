@@ -26,17 +26,22 @@ export default function ExperimentalPage() {
   const [hydrated, setHydrated] = useState(false);
 
   useEffect(() => {
-    setEnabled(isExperimentalEnabled());
+    const sync = () => setEnabled(isExperimentalEnabled());
+    sync();
     setHydrated(true);
+    window.addEventListener("experimental-change", sync);
+    window.addEventListener("storage", sync);
+    return () => {
+      window.removeEventListener("experimental-change", sync);
+      window.removeEventListener("storage", sync);
+    };
   }, []);
 
   const toggle = () => {
     if (enabled) {
       disableExperimental();
-      setEnabled(false);
     } else {
       enableExperimental();
-      setEnabled(true);
     }
   };
 

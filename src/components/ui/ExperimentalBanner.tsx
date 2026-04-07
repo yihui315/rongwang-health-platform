@@ -24,10 +24,7 @@ export default function ExperimentalBanner() {
       <span className="inline-block h-2 w-2 rounded-full bg-orange animate-pulse" />
       <span>🧪 实验模式已开启 — 部分功能为内测版本，可能不稳定</span>
       <button
-        onClick={() => {
-          disableExperimental();
-          setEnabled(false);
-        }}
+        onClick={() => disableExperimental()}
         className="ml-2 underline hover:no-underline text-xs"
       >
         关闭
