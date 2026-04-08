@@ -35,3 +35,19 @@ a {
 button {
   cursor: pointer;
 }
+
+/* ── AI 客服聊天窗口动画 ── */
+.chat-widget-enter {
+  animation: chatSlideUp 0.3s ease-out;
+}
+
+@keyframes chatSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
