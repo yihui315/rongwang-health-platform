@@ -51,3 +51,82 @@ button {
     transform: translateY(0) scale(1);
   }
 }
+
+/* ── 专业健康咨询页面主题 ── */
+.consultation-page {
+  background: linear-gradient(180deg, #f0fdf9 0%, #f8fafc 100%);
+}
+
+.consultation-header {
+  background: linear-gradient(135deg, #0d9488 0%, #00D4C8 50%, #0ea5e9 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.consultation-header::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  right: -10%;
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+  border-radius: 50%;
+}
+
+.consultation-header::after {
+  content: "";
+  position: absolute;
+  bottom: -30%;
+  left: -5%;
+  width: 200px;
+  height: 200px;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.08) 0%, transparent 70%);
+  border-radius: 50%;
+}
+
+.consultation-chat-header {
+  background: linear-gradient(135deg, #0d9488 0%, #00D4C8 100%);
+}
+
+.consultation-avatar {
+  background: linear-gradient(135deg, #00D4C8 0%, #0d9488 100%);
+}
+
+.consultation-option-btn {
+  @apply rounded-full border border-teal/30 bg-teal-bg px-3 py-1.5 text-xs text-teal-dark transition-all hover:bg-teal hover:text-white hover:shadow-sm active:scale-95;
+}
+
+/* ── 知识库页面 ── */
+.knowledge-header {
+  background: linear-gradient(135deg, #0d9488 0%, #00D4C8 50%, #06b6d4 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.knowledge-header::before {
+  content: "";
+  position: absolute;
+  top: -30%;
+  right: -5%;
+  width: 250px;
+  height: 250px;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.12) 0%, transparent 70%);
+  border-radius: 50%;
+}
+
+.knowledge-card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.knowledge-card:hover {
+  transform: translateY(-2px);
+}
+
+/* ── 文本截断工具类 ── */
+.line-clamp-4 {
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}

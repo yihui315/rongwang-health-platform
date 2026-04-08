@@ -11,6 +11,7 @@ export default function Header() {
         <nav className="hidden gap-8 md:flex text-sm text-slate-600">
           <Link href="/quiz">AI检测</Link>
           <Link href="/ai-service">AI客服</Link>
+          <Link href="/knowledge">知识库</Link>
           <Link href="/plans/fatigue">方案中心</Link>
           <Link href="/articles">健康百科</Link>
           <Link href="/family">家庭健康</Link>

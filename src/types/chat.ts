@@ -15,12 +15,22 @@ export interface QuickReply {
   message: string;
 }
 
+/** 健康知识分类 */
+export type KnowledgeCategory =
+  | "supplement"
+  | "symptom"
+  | "lifestyle"
+  | "product"
+  | "tcm"
+  | "demographic"
+  | "organ-system";
+
 /** 健康知识条目 */
 export interface HealthKnowledge {
   /** 条目唯一标识 */
   id: string;
   /** 分类 */
-  category: "supplement" | "symptom" | "lifestyle" | "product";
+  category: KnowledgeCategory;
   /** 关键词列表（用于匹配用户输入） */
   keywords: string[];
   /** 标题 */
@@ -29,9 +39,48 @@ export interface HealthKnowledge {
   content: string;
 }
 
+/** 知识分类元数据 */
+export interface KnowledgeCategoryMeta {
+  id: KnowledgeCategory;
+  label: string;
+  icon: string;
+  description: string;
+}
+
+// ── 问询流程类型 ──────────────────────────────────────
+
+/** 咨询阶段 */
+export type ConsultationPhase =
+  | "welcome"
+  | "basic-info"
+  | "symptoms"
+  | "lifestyle"
+  | "assessment"
+  | "recommendation";
+
+/** 用户基本信息 */
+export interface UserProfile {
+  ageRange?: string;
+  gender?: string;
+  mainConcerns?: string[];
+  sleepQuality?: string;
+  exerciseLevel?: string;
+  dietHabits?: string;
+  stressLevel?: string;
+  medicalHistory?: string;
+}
+
+/** 咨询状态 */
+export interface ConsultationState {
+  phase: ConsultationPhase;
+  profile: UserProfile;
+  completedSteps: ConsultationPhase[];
+}
+
 /** 聊天会话状态 */
 export interface ChatSession {
   messages: ChatMessage[];
   isLoading: boolean;
   isOpen: boolean;
+  consultation: ConsultationState;
 }
