@@ -5,8 +5,9 @@
  * 1. 基本信息收集（年龄、性别）
  * 2. 主诉症状（主要健康关注点）
  * 3. 生活方式评估（睡眠、运动、饮食、压力）
- * 4. 综合评估（基于收集的信息生成分析）
- * 5. 个性化推荐（产品方案 + 生活方式建议）
+ * 4. 风险与病史补充（慢病、用药、过敏）
+ * 5. 综合评估（基于收集的信息生成分析）
+ * 6. 个性化推荐（产品方案 + 生活方式建议）
  */
 
 import type { ConsultationPhase, UserProfile } from "@/types/chat";
@@ -46,6 +47,12 @@ export const consultationPhases: PhaseConfig[] = [
     description: "了解您的日常习惯",
   },
   {
+    id: "history",
+    label: "病史补充",
+    icon: "🧾",
+    description: "了解慢病史、用药和注意事项",
+  },
+  {
     id: "assessment",
     label: "综合评估",
     icon: "📊",
@@ -69,6 +76,8 @@ export const phaseMessages: Record<ConsultationPhase, string> = {
     "🩺 了解了！接下来请告诉我，您目前最关心的健康问题是什么？\n（可以选择多个）",
   lifestyle:
     "🏃 感谢分享！为了更全面地了解您的情况，请告诉我：\n\n**您的睡眠质量如何？**",
+  history:
+    "🧾 最后再补充一下：您目前是否有慢性病、长期用药或需要特别注意的健康史？",
   assessment:
     "📊 感谢您耐心地完成了所有问题！让我根据您提供的信息进行综合分析...",
   recommendation:
@@ -88,6 +97,40 @@ export const symptomToProductMap: Record<string, string[]> = {
   digestive: ["plan-family"],
   brain: ["plan-antiaging"],
 };
+
+export const concernLabels: Record<string, string> = {
+  sleep: "睡眠问题",
+  fatigue: "疲劳乏力",
+  immune: "免疫力低",
+  stress: "压力焦虑",
+  bone: "骨骼关节",
+  cardio: "心血管",
+  eye: "眼睛干涩",
+  digestive: "消化不适",
+  "anti-aging": "抗衰老",
+  brain: "记忆力下降",
+};
+
+export const lifestyleLabels = {
+  sleepQuality: {
+    good: "睡眠良好",
+    fair: "偶尔失眠",
+    poor: "经常失眠",
+    "very-poor": "严重失眠",
+  },
+  exerciseLevel: {
+    sedentary: "久坐少动",
+    light: "偶尔运动",
+    moderate: "规律运动",
+    active: "高频运动",
+  },
+  stressLevel: {
+    low: "压力较小",
+    medium: "压力一般",
+    high: "压力较大",
+    "very-high": "压力很大",
+  },
+} as const;
 
 /**
  * 根据用户画像生成综合评估文本
@@ -110,18 +153,6 @@ export function generateAssessment(profile: UserProfile): string {
 
   // 主要关注点
   if (profile.mainConcerns && profile.mainConcerns.length > 0) {
-    const concernLabels: Record<string, string> = {
-      sleep: "睡眠问题",
-      fatigue: "疲劳乏力",
-      immune: "免疫力低",
-      stress: "压力焦虑",
-      bone: "骨骼关节",
-      cardio: "心血管",
-      eye: "眼睛干涩",
-      digestive: "消化不适",
-      "anti-aging": "抗衰老",
-      brain: "记忆力下降",
-    };
     const labels = profile.mainConcerns
       .map((c) => concernLabels[c] || c)
       .join("、");
@@ -168,6 +199,16 @@ export function generateAssessment(profile: UserProfile): string {
     };
     parts.push(
       `🔹 **压力水平**：${stressAdvice[profile.stressLevel] || "需进一步了解"}`
+    );
+  }
+
+  if (profile.medicalHistory) {
+    parts.push(`🔹 **病史补充**：${profile.medicalHistory}`);
+  }
+
+  if (profile.redFlags && profile.redFlags.length > 0) {
+    parts.push(
+      `🚨 **风险提示**：检测到${profile.redFlags.join("、")}相关描述，建议优先线下就医或急诊评估。`
     );
   }
 
@@ -267,4 +308,44 @@ export function generateRecommendation(profile: UserProfile): string {
   );
 
   return parts.join("\n");
+}
+
+export function buildProfileSummary(profile: UserProfile): string[] {
+  const items: string[] = [];
+
+  if (profile.ageRange) {
+    items.push(`年龄段：${profile.ageRange}岁`);
+  }
+
+  if (profile.gender) {
+    items.push(`性别：${profile.gender === "male" ? "男性" : profile.gender === "female" ? "女性" : profile.gender}`);
+  }
+
+  if (profile.mainConcerns?.length) {
+    items.push(
+      `关注重点：${profile.mainConcerns.map((item) => concernLabels[item] || item).join("、")}`
+    );
+  }
+
+  if (profile.sleepQuality) {
+    items.push(`睡眠：${lifestyleLabels.sleepQuality[profile.sleepQuality as keyof typeof lifestyleLabels.sleepQuality] || profile.sleepQuality}`);
+  }
+
+  if (profile.exerciseLevel) {
+    items.push(`运动：${lifestyleLabels.exerciseLevel[profile.exerciseLevel as keyof typeof lifestyleLabels.exerciseLevel] || profile.exerciseLevel}`);
+  }
+
+  if (profile.stressLevel) {
+    items.push(`压力：${lifestyleLabels.stressLevel[profile.stressLevel as keyof typeof lifestyleLabels.stressLevel] || profile.stressLevel}`);
+  }
+
+  if (profile.medicalHistory) {
+    items.push(`病史/注意事项：${profile.medicalHistory}`);
+  }
+
+  if (profile.redFlags?.length) {
+    items.push(`风险提醒：${profile.redFlags.join("、")}`);
+  }
+
+  return items;
 }

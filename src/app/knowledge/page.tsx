@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import type { KnowledgeCategory } from "@/types/chat";
 import {
@@ -18,6 +18,20 @@ export default function KnowledgePage() {
   const [activeCategory, setActiveCategory] = useState<
     KnowledgeCategory | "all"
   >("all");
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const category = params.get("category") as KnowledgeCategory | null;
+    const query = params.get("q");
+
+    if (query) {
+      setSearchQuery(query);
+    }
+
+    if (category && knowledgeCategories.some((item) => item.id === category)) {
+      setActiveCategory(category);
+    }
+  }, []);
 
   const filteredItems = useMemo(() => {
     // 如果有搜索词，优先使用搜索

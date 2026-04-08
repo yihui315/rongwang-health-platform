@@ -125,6 +125,13 @@ export const consultationQuestions = {
     { label: "😰 压力较大", value: "high" },
     { label: "😫 压力很大", value: "very-high" },
   ],
+  history: [
+    { label: "无明显慢病/长期用药", value: "none" },
+    { label: "有高血压/血糖/血脂问题", value: "chronic" },
+    { label: "有过敏或肠胃敏感", value: "allergy" },
+    { label: "正在长期服药", value: "medication" },
+    { label: "近期体检有异常指标", value: "checkup" },
+  ],
 };
 
 // ── 健康知识库 ────────────────────────────────────────

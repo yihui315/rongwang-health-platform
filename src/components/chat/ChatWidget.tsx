@@ -213,18 +213,29 @@ export default function ChatWidget() {
               </div>
             )}
 
-            {/* 快捷回复 */}
-            {showQuickReplies && !isLoading && (
-              <div className="mt-2 flex flex-wrap gap-2">
-                {quickReplies.map((qr) => (
-                  <button
-                    key={qr.label}
-                    onClick={() => handleQuickReply(qr.message)}
-                    className="rounded-full border border-teal/30 bg-teal-bg px-3 py-1.5 text-xs text-teal-dark transition-colors hover:bg-teal hover:text-white"
-                  >
-                    {qr.label}
-                  </button>
-                ))}
+             {/* 快捷回复 */}
+             {showQuickReplies && !isLoading && (
+              <div className="mt-2">
+                <a
+                  href="/ai-service"
+                  className="mb-3 block rounded-xl bg-gradient-to-r from-teal to-teal-dark px-4 py-3 text-center text-sm font-semibold text-white shadow-md transition-shadow hover:shadow-lg"
+                >
+                  🩺 开始完整健康评估
+                </a>
+                <div className="flex flex-wrap gap-2">
+                  {quickReplies.map((qr) => (
+                    <button
+                      key={qr.label}
+                      onClick={() => handleQuickReply(qr.message)}
+                      className="rounded-full border border-teal/30 bg-teal-bg px-3 py-1.5 text-xs text-teal-dark transition-colors hover:bg-teal hover:text-white"
+                    >
+                      {qr.label}
+                    </button>
+                  ))}
+                </div>
+                <div className="mt-3 rounded-xl border border-red-100 bg-red-50 px-3 py-2 text-[11px] leading-relaxed text-red-600">
+                  若出现胸痛、呼吸困难、意识异常等急症，请优先立即就医。
+                </div>
               </div>
             )}
 

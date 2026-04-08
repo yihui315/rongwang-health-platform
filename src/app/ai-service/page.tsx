@@ -7,7 +7,7 @@ import {
   consultationQuestions,
   knowledgeCategories,
 } from "@/data/health-knowledge";
-import { consultationPhases } from "@/data/consultation-flow";
+import { buildProfileSummary, consultationPhases } from "@/data/consultation-flow";
 import {
   WELCOME_MESSAGE,
   generateMessageId,
@@ -35,6 +35,7 @@ export default function AIServicePage() {
   );
   const [showConsultationOptions, setShowConsultationOptions] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const profileSummary = buildProfileSummary(consultation.profile);
 
   const scrollToBottom = useCallback(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -68,6 +69,14 @@ export default function AIServicePage() {
       timestamp: Date.now(),
     };
     setMessages((prev) => [...prev, aiMsg]);
+  }
+
+  function restartConsultation() {
+    setMessages([WELCOME_MESSAGE]);
+    setIsLoading(false);
+    setShowQuickReplies(true);
+    setShowConsultationOptions(false);
+    setConsultation(createInitialConsultation());
   }
 
   /** 发送消息（支持自由对话 + 结构化流程） */
@@ -266,6 +275,22 @@ export default function AIServicePage() {
       }
     }
 
+    if (phase === "history") {
+      return (
+        <div className="mt-3 flex flex-wrap gap-2">
+          {consultationQuestions.history.map((opt) => (
+            <button
+              key={opt.value}
+              onClick={() => handleConsultationOption(opt.label)}
+              className="consultation-option-btn"
+            >
+              {opt.label}
+            </button>
+          ))}
+        </div>
+      );
+    }
+
     return null;
   }
 
@@ -331,6 +356,45 @@ export default function AIServicePage() {
                   );
                 })}
               </div>
+            </div>
+          )}
+
+          {profileSummary.length > 0 && (
+            <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+              <div className="mb-3 flex items-center justify-between">
+                <h3 className="text-sm font-bold text-slate-800">
+                  🧾 本次问询摘要
+                </h3>
+                <button
+                  onClick={restartConsultation}
+                  className="text-xs font-medium text-teal hover:text-teal-dark"
+                >
+                  重新开始
+                </button>
+              </div>
+              <div className="space-y-2 text-xs text-slate-600">
+                {profileSummary.map((item) => (
+                  <div
+                    key={item}
+                    className="rounded-xl bg-slate-50 px-3 py-2 leading-relaxed"
+                  >
+                    {item}
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {(consultation.profile.redFlags?.length ?? 0) > 0 && (
+            <div className="rounded-2xl border border-red-200 bg-red-50 p-5 shadow-sm">
+              <h3 className="mb-2 text-sm font-bold text-red-700">
+                🚨 风险分流提醒
+              </h3>
+              <p className="text-xs leading-relaxed text-red-600">
+                已检测到
+                {consultation.profile.redFlags?.join("、")}
+                相关描述，建议优先线下医疗评估，当前页面将暂停套餐推荐优先级。
+              </p>
             </div>
           )}
 
@@ -460,14 +524,24 @@ export default function AIServicePage() {
               </span>
               <span className="text-xs text-white/70">· 小旺为您服务</span>
             </div>
-            {!showConsultationOptions && (
-              <button
-                onClick={startConsultation}
-                className="rounded-full bg-white/20 px-4 py-1.5 text-xs font-medium text-white backdrop-blur transition-colors hover:bg-white/30"
-              >
-                🩺 开始健康咨询
-              </button>
-            )}
+            <div className="flex items-center gap-2">
+              {showConsultationOptions && (
+                <button
+                  onClick={restartConsultation}
+                  className="rounded-full bg-white/15 px-4 py-1.5 text-xs font-medium text-white backdrop-blur transition-colors hover:bg-white/25"
+                >
+                  重新问询
+                </button>
+              )}
+              {!showConsultationOptions && (
+                <button
+                  onClick={startConsultation}
+                  className="rounded-full bg-white/20 px-4 py-1.5 text-xs font-medium text-white backdrop-blur transition-colors hover:bg-white/30"
+                >
+                  🩺 开始健康咨询
+                </button>
+              )}
+            </div>
           </div>
 
           {/* 消息区域 */}
@@ -520,6 +594,9 @@ export default function AIServicePage() {
                       {qr.label}
                     </button>
                   ))}
+                </div>
+                <div className="mt-3 rounded-xl border border-red-100 bg-red-50 px-3 py-2 text-xs text-red-600">
+                  若存在胸痛、呼吸困难、意识异常等急症，请优先立即就医。
                 </div>
               </div>
             )}

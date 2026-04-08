@@ -8,7 +8,7 @@
  * - 合规过滤敏感医疗声明
  */
 
-import type { ChatMessage, ConsultationState, UserProfile } from "@/types/chat";
+import type { ChatMessage, ConsultationState } from "@/types/chat";
 import { searchKnowledge } from "@/data/health-knowledge";
 import { hasRiskWords } from "@/lib/compliance";
 import { askBrain } from "@/lib/ai-brain";
@@ -16,6 +16,7 @@ import {
   phaseMessages,
   generateAssessment,
   generateRecommendation,
+  buildProfileSummary,
 } from "@/data/consultation-flow";
 
 // ── 系统提示词 ────────────────────────────────────────
@@ -49,6 +50,15 @@ const SYSTEM_PROMPT = `你是「荣旺健康」的专业AI健康顾问，名叫"
 你可以基于以下知识库内容来增强你的回答：
 {{KNOWLEDGE_CONTEXT}}`;
 
+const RED_FLAG_RULES = [
+  { label: "胸痛", keywords: ["胸痛", "胸闷加重", "压榨性胸痛"] },
+  { label: "呼吸困难", keywords: ["呼吸困难", "喘不上气", "气短明显"] },
+  { label: "卒中预警", keywords: ["口齿不清", "单侧无力", "突然说话困难"] },
+  { label: "持续高热", keywords: ["高烧不退", "持续高烧", "39度以上"] },
+  { label: "出血风险", keywords: ["呕血", "黑便", "便血", "大出血"] },
+  { label: "意识异常", keywords: ["昏迷", "抽搐", "意识不清"] },
+] as const;
+
 // ── 欢迎消息 ──────────────────────────────────────────
 
 /** 欢迎消息 */
@@ -74,6 +84,18 @@ export function createInitialConsultation(): ConsultationState {
     profile: {},
     completedSteps: [],
   };
+}
+
+export function detectRedFlags(input: string): string[] {
+  const normalized = input.toLowerCase();
+
+  return RED_FLAG_RULES.filter((rule) =>
+    rule.keywords.some((keyword) => normalized.includes(keyword.toLowerCase()))
+  ).map((rule) => rule.label);
+}
+
+export function buildUrgentGuidance(redFlags: string[]): string {
+  return `🚨 检测到与${redFlags.join("、")}相关的高风险描述。\n\n建议先暂停线上营养推荐，尽快前往急诊或线下医疗机构评估；若症状正在加重，请立即呼叫当地急救电话。\n\n我也可以继续帮您整理目前症状和已知病史，方便就医时说明。`;
 }
 
 // ── 知识库集成 ────────────────────────────────────────
@@ -132,6 +154,20 @@ export function processConsultationStep(
   state: ConsultationState
 ): { response: string; newState: ConsultationState } {
   const newState = { ...state, profile: { ...state.profile } };
+  const redFlags = detectRedFlags(userMessage);
+
+  if (redFlags.length > 0) {
+    const existingFlags = newState.profile.redFlags ?? [];
+    newState.profile.redFlags = Array.from(
+      new Set([...existingFlags, ...redFlags])
+    );
+    newState.phase = "recommendation";
+
+    return {
+      response: buildUrgentGuidance(newState.profile.redFlags),
+      newState,
+    };
+  }
 
   switch (state.phase) {
     case "welcome": {
@@ -163,8 +199,7 @@ export function processConsultationStep(
 
       // 询问性别
       return {
-        response:
-          "收到！请问您的性别是？",
+        response: "收到！请问您的性别是？",
         newState: { ...newState, phase: "basic-info" }, // 保持在basic-info收集性别
       };
     }
@@ -275,23 +310,13 @@ export function processConsultationStep(
         );
         newState.profile.stressLevel = matched ? matched[1] : "medium";
 
-        // 所有信息收集完毕，进入评估阶段
-        newState.phase = "assessment";
-        newState.completedSteps = [...state.completedSteps, "lifestyle"];
-
-        const assessment = generateAssessment(newState.profile);
-        const recommendation = generateRecommendation(newState.profile);
-
-        newState.phase = "recommendation";
-        newState.completedSteps = [
-          ...newState.completedSteps,
-          "assessment",
-          "recommendation",
-        ];
-
         return {
-          response: `${assessment}\n\n---\n\n${recommendation}`,
-          newState,
+          response: phaseMessages.history,
+          newState: {
+            ...newState,
+            phase: "history",
+            completedSteps: [...state.completedSteps, "lifestyle"],
+          },
         };
       }
 
@@ -299,6 +324,54 @@ export function processConsultationStep(
       newState.phase = "assessment";
       return {
         response: phaseMessages["assessment"],
+        newState,
+      };
+    }
+
+    case "history": {
+      const normalized = userMessage.trim();
+      const historyText =
+        normalized === "无明显慢病/长期用药"
+          ? "暂未反馈明确慢病或长期用药。"
+          : normalized === "有高血压/血糖/血脂问题"
+            ? "有慢病代谢相关风险，需要结合血压、血糖、血脂情况谨慎推荐。"
+            : normalized === "有过敏或肠胃敏感"
+              ? "存在过敏或肠胃敏感，建议选择温和配方并关注成分表。"
+              : normalized === "正在长期服药"
+                ? "正在长期服药，补充剂需要避开潜在相互作用，建议先咨询医生或药师。"
+                : normalized === "近期体检有异常指标"
+                  ? "近期体检存在异常指标，建议结合具体数值做更谨慎的营养方案。"
+                  : normalized;
+
+      newState.profile.medicalHistory = historyText;
+      newState.phase = "assessment";
+      newState.completedSteps = [...state.completedSteps, "history"];
+
+      const assessment = generateAssessment(newState.profile);
+      const summary = buildProfileSummary(newState.profile)
+        .map((item) => `• ${item}`)
+        .join("\n");
+
+      newState.phase = "recommendation";
+      newState.completedSteps = [
+        ...newState.completedSteps,
+        "assessment",
+        "recommendation",
+      ];
+
+      if ((newState.profile.redFlags?.length ?? 0) > 0) {
+        return {
+          response: `${assessment}\n\n---\n\n🧾 **本次问询摘要**\n${summary}\n\n---\n\n${buildUrgentGuidance(
+            newState.profile.redFlags ?? []
+          )}`,
+          newState,
+        };
+      }
+
+      const recommendation = generateRecommendation(newState.profile);
+
+      return {
+        response: `${assessment}\n\n---\n\n🧾 **本次问询摘要**\n${summary}\n\n---\n\n${recommendation}`,
         newState,
       };
     }
@@ -322,6 +395,17 @@ export function processGenderStep(
   state: ConsultationState
 ): { response: string; newState: ConsultationState } {
   const newState = { ...state, profile: { ...state.profile } };
+  const redFlags = detectRedFlags(userMessage);
+
+  if (redFlags.length > 0) {
+    newState.profile.redFlags = redFlags;
+    newState.phase = "recommendation";
+
+    return {
+      response: buildUrgentGuidance(redFlags),
+      newState,
+    };
+  }
 
   const genderMap: Record<string, string> = {
     男: "male",
@@ -350,6 +434,12 @@ export async function getAIResponse(
   userMessage: string,
   history: ChatMessage[]
 ): Promise<string> {
+  const redFlags = detectRedFlags(userMessage);
+
+  if (redFlags.length > 0) {
+    return buildUrgentGuidance(redFlags);
+  }
+
   const systemPrompt = buildSystemPrompt(userMessage);
   const conversationContext = buildConversationContext(history);
 
@@ -378,6 +468,12 @@ export async function getAIResponse(
  * 本地知识库回复（降级方案）
  */
 export function getLocalResponse(userMessage: string): string {
+  const redFlags = detectRedFlags(userMessage);
+
+  if (redFlags.length > 0) {
+    return buildUrgentGuidance(redFlags);
+  }
+
   const matches = searchKnowledge(userMessage);
 
   if (matches.length === 0) {

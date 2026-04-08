@@ -55,6 +55,7 @@ export type ConsultationPhase =
   | "basic-info"
   | "symptoms"
   | "lifestyle"
+  | "history"
   | "assessment"
   | "recommendation";
 
@@ -68,6 +69,8 @@ export interface UserProfile {
   dietHabits?: string;
   stressLevel?: string;
   medicalHistory?: string;
+  medications?: string;
+  redFlags?: string[];
 }
 
 /** 咨询状态 */
