@@ -1,0 +1,19 @@
+# 荣旺健康 - 本地开发配置
+# 所有流量通过 :80 端口
+
+:80 {
+	# GEOFlow 后台 — 路径前缀 /geo_admin
+	handle /geo_admin/* {
+		reverse_proxy geoflow:18080
+	}
+
+	# GEOFlow API
+	handle /api/v1/* {
+		reverse_proxy geoflow:18080
+	}
+
+	# 其余流量 → Next.js 前台
+	handle {
+		reverse_proxy nextjs:3000
+	}
+}

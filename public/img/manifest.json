@@ -1,0 +1,17 @@
+{
+  "generated": "2026-04-07T12:56:14.116Z",
+  "model": "image-01",
+  "total": 1,
+  "ok": 0,
+  "fail": 1,
+  "images": {},
+  "failures": [
+    {
+      "id": "prod-bcomplex",
+      "group": "products",
+      "ok": false,
+      "elapsed": 6010,
+      "error": "invalid api key"
+    }
+  ]
+}

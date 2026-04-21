@@ -1,11 +1,60 @@
+/**
+ * 荣旺健康 · 产品矩阵方案
+ *
+ * 三大核心矩阵 + 四大基础场景
+ * 品牌：MISORILIFE (MSR) — 现代生物科技 | 彭寿堂 — 百年传承
+ */
+
 export const plans = [
+  /* ========== 三大核心爆款矩阵 ========== */
+  {
+    slug: "liver",
+    name: "商务护肝组合",
+    type: "应酬与熬夜护肝型",
+    description: "适合经常应酬、加班熬夜、饮酒频繁的商务精英",
+    ingredients: ["MSR释酒片", "灵芝孢子油", "牛樟芝胶囊"],
+    price: 1466,
+    matrix: "商务精英",
+    icon: "🍷",
+    gradient: "from-amber-500 to-orange-600",
+    highlight: "复购率极高 · 商务刚需",
+  },
+  {
+    slug: "beauty",
+    name: "内调抗衰组合",
+    type: "内调抗衰与身材管理型",
+    description: "适合追求由内而外美丽、关注代谢与抗衰的都市女性",
+    ingredients: ["MSR AKK益生菌", "东阿贡胶", "NAD+焕白片"],
+    price: 1768,
+    matrix: "都市女性",
+    icon: "✨",
+    gradient: "from-pink-500 to-rose-600",
+    highlight: "社交裂变强 · 话题性爆款",
+  },
+  {
+    slug: "cardio",
+    name: "心脑调理组合",
+    type: "心脑血管与三高调理型",
+    description: "适合关注心脑血管、血糖血脂管理的中老年人群，送礼佳品",
+    ingredients: ["补益桑黄丸", "金钗石斛胶囊", "NMN经典系列"],
+    price: 2296,
+    matrix: "银发养生",
+    icon: "🫀",
+    gradient: "from-red-500 to-rose-700",
+    highlight: "客单价高 · 送礼首选",
+  },
+  /* ========== 四大基础场景 (通用引流) ========== */
   {
     slug: "fatigue",
     name: "抗疲劳组合",
     type: "高压力 + 营养流失型",
     description: "适合长期忙碌、精力容易透支的人群",
     ingredients: ["活性B族", "螯合镁", "Omega-3"],
-    price: 299
+    price: 299,
+    matrix: "通用OTC",
+    icon: "⚡",
+    gradient: "from-teal-400 to-emerald-600",
+    highlight: "信任建立 · 引流款",
   },
   {
     slug: "sleep",
@@ -13,7 +62,11 @@ export const plans = [
     type: "神经兴奋型失眠",
     description: "适合入睡困难、浅睡、夜醒频繁的人群",
     ingredients: ["GABA", "镁", "褪黑素"],
-    price: 259
+    price: 259,
+    matrix: "通用OTC",
+    icon: "🌙",
+    gradient: "from-indigo-400 to-purple-600",
+    highlight: "大众需求 · 复购稳定",
   },
   {
     slug: "immune",
@@ -21,7 +74,11 @@ export const plans = [
     type: "免疫防线薄弱型",
     description: "适合换季易感冒、身体防御力偏弱的人群",
     ingredients: ["维C", "锌", "维D3", "接骨木莓"],
-    price: 349
+    price: 349,
+    matrix: "通用OTC",
+    icon: "🛡️",
+    gradient: "from-blue-400 to-cyan-600",
+    highlight: "换季刚需 · 搜索量高",
   },
   {
     slug: "stress",
@@ -29,6 +86,10 @@ export const plans = [
     type: "HPA轴过度激活型",
     description: "适合长期紧绷、焦虑、状态不稳定的人群",
     ingredients: ["B族", "镁", "适应原草本"],
-    price: 399
-  }
+    price: 399,
+    matrix: "通用OTC",
+    icon: "🧘",
+    gradient: "from-violet-400 to-purple-600",
+    highlight: "职场人群 · 心理健康",
+  },
 ];

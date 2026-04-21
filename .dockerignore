@@ -1,0 +1,12 @@
+node_modules
+.next
+.git
+.gitignore
+*.md
+docker-compose.yml
+Caddyfile
+geoflow
+geoflow-config
+.env
+.env.local
+.env.*.local

@@ -1,0 +1,1918 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>荣旺健康跨境电商平台 - 完整项目规划</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-dark: #0a0a0b;
+            --bg-card: #1a1a1b;
+            --bg-hover: #2a2a2b;
+            --text-primary: #f5f5f5;
+            --text-secondary: #b0b0b0;
+            --accent-teal: #00D4C8;
+            --accent-orange: #FF6B00;
+            --accent-blue: #0066FF;
+            --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+            --shadow-md: 0 4px 12px rgba(0, 212, 200, 0.1);
+            --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.4);
+            --border-radius-sm: 6px;
+            --border-radius-md: 8px;
+            --border-radius-lg: 12px;
+            --border-radius-xl: 16px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans SC', 'Source Han Sans SC', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* ============ Header ============ */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(10, 10, 11, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0, 212, 200, 0.1);
+            padding: 1rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: var(--shadow-md);
+        }
+
+        .header-brand {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .header-brand span {
+            color: var(--accent-teal);
+        }
+
+        .header-nav {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: var(--transition);
+            font-size: 0.95rem;
+        }
+
+        .nav-link:hover {
+            color: var(--accent-teal);
+        }
+
+        .theme-toggle {
+            background: var(--bg-card);
+            border: 1px solid rgba(0, 212, 200, 0.2);
+            color: var(--accent-teal);
+            padding: 0.5rem 1rem;
+            border-radius: var(--border-radius-md);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .theme-toggle:hover {
+            background: var(--bg-hover);
+        }
+
+        /* ============ Hero Section ============ */
+        .hero {
+            padding: 6rem 2rem;
+            text-align: center;
+            background: linear-gradient(135deg, rgba(0, 212, 200, 0.05) 0%, rgba(0, 102, 255, 0.05) 100%);
+            border-bottom: 1px solid rgba(0, 212, 200, 0.1);
+        }
+
+        .hero h1 {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--accent-teal) 0%, var(--accent-blue) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-meta {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            max-width: 800px;
+            margin: 3rem auto 0;
+        }
+
+        .meta-item {
+            padding: 1.5rem;
+            background: var(--bg-card);
+            border: 1px solid rgba(0, 212, 200, 0.2);
+            border-radius: var(--border-radius-lg);
+        }
+
+        .meta-label {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.5rem;
+        }
+
+        .meta-value {
+            font-size: 1.1rem;
+            color: var(--accent-teal);
+            font-weight: 600;
+        }
+
+        /* ============ Container ============ */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* ============ Section ============ */
+        section {
+            padding: 4rem 2rem;
+            border-bottom: 1px solid rgba(0, 212, 200, 0.05);
+        }
+
+        section h2 {
+            font-size: 2.2rem;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        section h2::before {
+            content: '';
+            display: inline-block;
+            width: 4px;
+            height: 32px;
+            background: var(--accent-teal);
+            border-radius: var(--border-radius-sm);
+        }
+
+        /* ============ Collapsible Sections ============ */
+        .accordion {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .accordion-item {
+            background: var(--bg-card);
+            border: 1px solid rgba(0, 212, 200, 0.2);
+            border-radius: var(--border-radius-lg);
+            overflow: hidden;
+            transition: var(--transition);
+        }
+
+        .accordion-item:hover {
+            border-color: rgba(0, 212, 200, 0.4);
+            box-shadow: var(--shadow-md);
+        }
+
+        .accordion-header {
+            padding: 1.5rem;
+            background: var(--bg-card);
+            border: none;
+            color: var(--text-primary);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            font-size: 1.1rem;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .accordion-header:hover {
+            background: var(--bg-hover);
+        }
+
+        .accordion-icon {
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent-teal);
+            transition: var(--transition);
+        }
+
+        .accordion-item.active .accordion-icon {
+            transform: rotate(180deg);
+        }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+            background: rgba(0, 212, 200, 0.02);
+        }
+
+        .accordion-item.active .accordion-content {
+            max-height: 2000px;
+            transition: max-height 0.4s ease-in;
+        }
+
+        .accordion-body {
+            padding: 2rem;
+            line-height: 1.8;
+        }
+
+        /* ============ Timeline ============ */
+        .timeline {
+            position: relative;
+            padding: 2rem 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 15px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(180deg, var(--accent-teal) 0%, var(--accent-blue) 100%);
+        }
+
+        .timeline-item {
+            margin-bottom: 2rem;
+            margin-left: 60px;
+            position: relative;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: -43px;
+            top: 0;
+            width: 28px;
+            height: 28px;
+            background: var(--accent-teal);
+            border: 3px solid var(--bg-dark);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--bg-dark);
+            font-weight: 700;
+            font-size: 0.75rem;
+        }
+
+        .timeline-item.completed .timeline-dot {
+            background: var(--accent-teal);
+        }
+
+        .timeline-item.in-progress .timeline-dot {
+            background: var(--accent-orange);
+            box-shadow: 0 0 20px rgba(255, 107, 0, 0.5);
+        }
+
+        .timeline-item.pending .timeline-dot {
+            background: var(--text-secondary);
+        }
+
+        .timeline-card {
+            background: var(--bg-card);
+            border: 1px solid rgba(0, 212, 200, 0.2);
+            border-radius: var(--border-radius-lg);
+            padding: 1.5rem;
+            transition: var(--transition);
+        }
+
+        .timeline-card:hover {
+            border-color: var(--accent-teal);
+            box-shadow: var(--shadow-md);
+        }
+
+        .timeline-card h4 {
+            color: var(--accent-teal);
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .timeline-card p {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+        }
+
+        /* ============ Grid Layouts ============ */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .card {
+            background: var(--bg-card);
+            border: 1px solid rgba(0, 212, 200, 0.2);
+            border-radius: var(--border-radius-lg);
+            padding: 2rem;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent-teal), var(--accent-blue));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: var(--transition);
+        }
+
+        .card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .card:hover {
+            border-color: var(--accent-teal);
+            box-shadow: var(--shadow-md);
+            transform: translateY(-4px);
+        }
+
+        .card h3 {
+            color: var(--accent-teal);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .card p {
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        /* ============ Code Block ============ */
+        .code-block {
+            background: #0f0f10;
+            border: 1px solid rgba(0, 212, 200, 0.15);
+            border-radius: var(--border-radius-lg);
+            padding: 1.5rem;
+            overflow-x: auto;
+            margin: 2rem 0;
+            font-family: 'Monaco', 'Courier New', monospace;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        .code-block code {
+            color: var(--accent-teal);
+        }
+
+        /* ============ Architecture Diagram ============ */
+        .architecture {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .arch-layer {
+            background: var(--bg-card);
+            border: 2px solid rgba(0, 212, 200, 0.3);
+            border-radius: var(--border-radius-lg);
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .arch-layer h4 {
+            color: var(--accent-teal);
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .arch-layer ul {
+            list-style: none;
+        }
+
+        .arch-layer li {
+            padding: 0.5rem;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            border-left: 2px solid rgba(0, 212, 200, 0.3);
+            padding-left: 1rem;
+            margin: 0.5rem 0;
+            text-align: left;
+        }
+
+        /* ============ Database Schema ============ */
+        .schema-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2rem 0;
+            background: var(--bg-card);
+            border-radius: var(--border-radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+        }
+
+        .schema-table thead {
+            background: rgba(0, 212, 200, 0.1);
+            border-bottom: 2px solid rgba(0, 212, 200, 0.2);
+        }
+
+        .schema-table th {
+            padding: 1.5rem;
+            text-align: left;
+            color: var(--accent-teal);
+            font-weight: 600;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .schema-table td {
+            padding: 1.2rem 1.5rem;
+            border-bottom: 1px solid rgba(0, 212, 200, 0.1);
+            color: var(--text-secondary);
+        }
+
+        .schema-table tbody tr:hover {
+            background: rgba(0, 212, 200, 0.05);
+        }
+
+        /* ============ Tags ============ */
+        .tag {
+            display: inline-block;
+            background: rgba(0, 212, 200, 0.1);
+            color: var(--accent-teal);
+            padding: 0.4rem 0.8rem;
+            border-radius: var(--border-radius-sm);
+            font-size: 0.85rem;
+            margin: 0.3rem;
+            border: 1px solid rgba(0, 212, 200, 0.2);
+        }
+
+        .tag.orange {
+            background: rgba(255, 107, 0, 0.1);
+            color: var(--accent-orange);
+            border-color: rgba(255, 107, 0, 0.2);
+        }
+
+        .tag.blue {
+            background: rgba(0, 102, 255, 0.1);
+            color: var(--accent-blue);
+            border-color: rgba(0, 102, 255, 0.2);
+        }
+
+        /* ============ Progress Bar ============ */
+        .progress-section {
+            margin: 2rem 0;
+        }
+
+        .progress-item {
+            margin-bottom: 2rem;
+        }
+
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: rgba(0, 212, 200, 0.1);
+            border-radius: 4px;
+            overflow: hidden;
+            border: 1px solid rgba(0, 212, 200, 0.2);
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent-teal), var(--accent-blue));
+            border-radius: 4px;
+            transition: var(--transition);
+        }
+
+        /* ============ Footer ============ */
+        footer {
+            padding: 3rem 2rem;
+            background: rgba(0, 212, 200, 0.02);
+            border-top: 1px solid rgba(0, 212, 200, 0.1);
+            text-align: center;
+            color: var(--text-secondary);
+        }
+
+        footer p {
+            margin: 0.5rem 0;
+        }
+
+        .footer-link {
+            color: var(--accent-teal);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-link:hover {
+            color: var(--accent-orange);
+        }
+
+        /* ============ Responsive ============ */
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .header-nav {
+                width: 100%;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .hero {
+                padding: 3rem 1rem;
+            }
+
+            section {
+                padding: 2rem 1rem;
+            }
+
+            .timeline::before {
+                left: 8px;
+            }
+
+            .timeline-item {
+                margin-left: 50px;
+            }
+
+            .timeline-dot {
+                left: -34px;
+                width: 24px;
+                height: 24px;
+                font-size: 0.7rem;
+            }
+
+            .architecture {
+                grid-template-columns: 1fr;
+            }
+
+            .schema-table th,
+            .schema-table td {
+                padding: 1rem;
+                font-size: 0.85rem;
+            }
+        }
+
+        /* ============ Animations ============ */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .card {
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        /* ============ Utility ============ */
+        .text-center {
+            text-align: center;
+        }
+
+        .mt-4 {
+            margin-top: 2rem;
+        }
+
+        .mb-2 {
+            margin-bottom: 1rem;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.3rem 0.6rem;
+            background: rgba(0, 212, 200, 0.2);
+            color: var(--accent-teal);
+            border-radius: var(--border-radius-sm);
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .badge.phase1 {
+            background: rgba(0, 212, 200, 0.2);
+            color: var(--accent-teal);
+        }
+
+        .badge.phase2 {
+            background: rgba(0, 102, 255, 0.2);
+            color: var(--accent-blue);
+        }
+
+        .badge.phase3 {
+            background: rgba(255, 107, 0, 0.2);
+            color: var(--accent-orange);
+        }
+
+        .highlight {
+            color: var(--accent-teal);
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-brand">
+            🏥 <span>荣旺健康</span> 跨境电商平台
+        </div>
+        <nav class="header-nav">
+            <a href="#overview" class="nav-link">概览</a>
+            <a href="#architecture" class="nav-link">架构</a>
+            <a href="#phases" class="nav-link">阶段</a>
+            <a href="#tech" class="nav-link">技术栈</a>
+            <a href="#deployment" class="nav-link">部署</a>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>荣旺健康 × 一辉智能体</h1>
+        <p>AI驱动的跨境保健品电商平台 | Next.js 14 + 多AI编排系统</p>
+        <div class="hero-meta">
+            <div class="meta-item">
+                <div class="meta-label">项目周期</div>
+                <div class="meta-value">12周</div>
+            </div>
+            <div class="meta-item">
+                <div class="meta-label">技术框架</div>
+                <div class="meta-value">Next.js 14</div>
+            </div>
+            <div class="meta-item">
+                <div class="meta-label">AI编排</div>
+                <div class="meta-value">一辉智能体</div>
+            </div>
+            <div class="meta-item">
+                <div class="meta-label">GitHub</div>
+                <div class="meta-value">yihui315</div>
+            </div>
+        </div>
+    </section>
+
+    <div class="container">
+        <!-- Project Overview -->
+        <section id="overview">
+            <h2>项目概览</h2>
+
+            <div class="grid-2">
+                <div class="card">
+                    <h3>🏢 公司</h3>
+                    <p>香港荣旺健康科技有限公司</p>
+                    <p style="color: var(--text-secondary); margin-top: 1rem; font-size: 0.9rem;">专注于跨境健康补充品电商，服务全球客户</p>
+                </div>
+                <div class="card">
+                    <h3>📱 产品定位</h3>
+                    <p>一站式AI健康评估 + 个性化推荐 + 优质保健品供应链</p>
+                    <p style="color: var(--text-secondary); margin-top: 1rem; font-size: 0.9rem;">对标AG1、Ritual、iHerb商业模式</p>
+                </div>
+                <div class="card">
+                    <h3>🎯 核心竞争力</h3>
+                    <p><span class="highlight">一次点击健康评估</span>、<span class="highlight">AI个性化推荐</span>、<span class="highlight">跨境物流</span></p>
+                    <p style="color: var(--text-secondary); margin-top: 1rem; font-size: 0.9rem;">完整的用户体验和供应链闭环</p>
+                </div>
+                <div class="card">
+                    <h3>🌍 目标市场</h3>
+                    <p>港澳、东南亚、欧美、中国大陆</p>
+                    <p style="color: var(--text-secondary); margin-top: 1rem; font-size: 0.9rem;">多语言、多货币、本地化运营</p>
+                </div>
+            </div>
+
+            <h3 style="margin-top: 3rem; margin-bottom: 1rem;">主要合作伙伴</h3>
+            <div class="grid-3">
+                <div style="text-align: center; padding: 1.5rem;">
+                    <span class="tag orange">Claude CEO</span>
+                    <p style="margin-top: 1rem; color: var(--text-secondary); font-size: 0.9rem;">项目管理、决策支持</p>
+                </div>
+                <div style="text-align: center; padding: 1.5rem;">
+                    <span class="tag">MiniMax</span>
+                    <p style="margin-top: 1rem; color: var(--text-secondary); font-size: 0.9rem;">中文内容生成、文案优化</p>
+                </div>
+                <div style="text-align: center; padding: 1.5rem;">
+                    <span class="tag blue">Qwen3</span>
+                    <p style="margin-top: 1rem; color: var(--text-secondary); font-size: 0.9rem;">数据分析、业务建议</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Architecture -->
+        <section id="architecture">
+            <h2>系统架构</h2>
+
+            <div style="margin: 2rem 0; padding: 1.5rem; background: rgba(0, 212, 200, 0.05); border-left: 4px solid var(--accent-teal); border-radius: var(--border-radius-lg);">
+                <p><strong>架构设计：</strong>三层架构 + AI编排层</p>
+                <p style="color: var(--text-secondary); margin-top: 0.5rem; font-size: 0.95rem;">前端高交互体验 → 后端RESTful API → 数据库持久化 + 一辉智能体内容生成</p>
+            </div>
+
+            <div class="architecture">
+                <div class="arch-layer">
+                    <h4>🎨 前端层</h4>
+                    <ul>
+                        <li>Next.js 14 App Router</li>
+                        <li>Server/Client Components</li>
+                        <li>SSR/SSG for SEO</li>
+                        <li>Tailwind CSS</li>
+                        <li>React Query</li>
+                        <li>Zustand State</li>
+                    </ul>
+                </div>
+                <div class="arch-layer">
+                    <h4>🔌 后端API层</h4>
+                    <ul>
+                        <li>Next.js API Routes (Phase 1)</li>
+                        <li>NestJS (Phase 2迁移)</li>
+                        <li>TypeScript端到端</li>
+                        <li>Prisma ORM</li>
+                        <li>Redis缓存</li>
+                        <li>一辉智能体 MCP</li>
+                    </ul>
+                </div>
+                <div class="arch-layer">
+                    <h4>💾 数据存储层</h4>
+                    <ul>
+                        <li>PostgreSQL主数据库</li>
+                        <li>Redis缓存层</li>
+                        <li>S3/CDN图片存储</li>
+                        <li>Supabase实时API</li>
+                        <li>Elasticsearch搜索</li>
+                        <li>MongoDB文章库</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3 style="margin-top: 3rem; margin-bottom: 1.5rem;">🤖 一辉智能体 (Yihui Agent System)</h3>
+            <div style="background: rgba(0, 102, 255, 0.05); border: 1px solid rgba(0, 102, 255, 0.2); border-radius: var(--border-radius-lg); padding: 2rem;">
+                <p style="margin-bottom: 1rem;">多AI编排系统，实现内容生成、分析决策的自动化：</p>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-top: 1.5rem;">
+                    <div style="padding: 1rem; background: var(--bg-card); border-radius: var(--border-radius-md);">
+                        <div style="color: var(--accent-blue); font-weight: 600; margin-bottom: 0.5rem;">Claude CEO</div>
+                        <p style="color: var(--text-secondary); font-size: 0.9rem;">项目决策、周期规划、风险评估</p>
+                    </div>
+                    <div style="padding: 1rem; background: var(--bg-card); border-radius: var(--border-radius-md);">
+                        <div style="color: var(--accent-teal); font-weight: 600; margin-bottom: 0.5rem;">MiniMax Copilot</div>
+                        <p style="color: var(--text-secondary); font-size: 0.9rem;">中文文案、SEO文章自动生成、用户交互</p>
+                    </div>
+                    <div style="padding: 1rem; background: var(--bg-card); border-radius: var(--border-radius-md);">
+                        <div style="color: var(--accent-orange); font-weight: 600; margin-bottom: 0.5rem;">Qwen3 Agent</div>
+                        <p style="color: var(--text-secondary); font-size: 0.9rem;">数据分析、推荐算法、业务优化建议</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Directory Structure -->
+        <section>
+            <h2>项目目录结构</h2>
+
+            <div class="code-block">
+<pre>rongwang-health-platform/
+├── src/
+│   ├── app/                          # Next.js App Router
+│   │   ├── page.tsx                  # 首页 (Homepage)
+│   │   ├── layout.tsx                # 根布局 + Nav/Footer
+│   │   ├── globals.css               # 全局样式
+│   │   ├── products/
+│   │   │   ├── page.tsx              # 产品列表
+│   │   │   └── [slug]/
+│   │   │       └── page.tsx          # 产品详情页
+│   │   ├── ai-quiz/
+│   │   │   ├── page.tsx              # AI健康问诊首页
+│   │   │   └── results/
+│   │   │       └── page.tsx          # 问诊结果页
+│   │   ├── cart/
+│   │   │   └── page.tsx              # 购物车
+│   │   ├── checkout/
+│   │   │   └── page.tsx              # 结算页面
+│   │   ├── articles/
+│   │   │   └── [slug]/
+│   │   │       └── page.tsx          # SEO文章页
+│   │   └── api/                      # API Routes
+│   │       ├── products/route.ts
+│   │       ├── cart/route.ts
+│   │       ├── ai-quiz/route.ts
+│   │       ├── orders/route.ts
+│   │       ├── articles/route.ts
+│   │       └── search/route.ts
+│   ├── components/
+│   │   ├── layout/
+│   │   │   ├── Header.tsx
+│   │   │   ├── Footer.tsx
+│   │   │   └── Navigation.tsx
+│   │   ├── home/
+│   │   │   ├── Hero.tsx
+│   │   │   ├── HealthScenarios.tsx
+│   │   │   ├── ProductGrid.tsx
+│   │   │   ├── QuizCTA.tsx
+│   │   │   ├── ArticleGrid.tsx
+│   │   │   └── TrustBar.tsx
+│   │   ├── product/
+│   │   │   ├── ProductCard.tsx
+│   │   │   ├── IngredientList.tsx
+│   │   │   ├── DosageGuide.tsx
+│   │   │   ├── AddToCart.tsx
+│   │   │   └── Reviews.tsx
+│   │   ├── quiz/
+│   │   │   ├── QuizContainer.tsx
+│   │   │   ├── QuizStep.tsx
+│   │   │   ├── QuizProgress.tsx
+│   │   │   └── RecommendationResult.tsx
+│   │   ├── cart/
+│   │   │   ├── CartItem.tsx
+│   │   │   ├── CartSummary.tsx
+│   │   │   ├── CheckoutForm.tsx
+│   │   │   └── OrderTracking.tsx
+│   │   └── ui/
+│   │       ├── Button.tsx
+│   │       ├── Card.tsx
+│   │       ├── Badge.tsx
+│   │       ├── Input.tsx
+│   │       ├── Modal.tsx
+│   │       ├── Tabs.tsx
+│   │       └── Loader.tsx
+│   ├── lib/
+│   │   ├── db.ts                     # Prisma client
+│   │   ├── api-client.ts
+│   │   ├── products.ts               # 产品数据/查询
+│   │   ├── cart.ts                   # 购物车逻辑
+│   │   ├── ai-quiz.ts                # 问诊逻辑 + 推荐引擎
+│   │   ├── orders.ts                 # 订单处理
+│   │   ├── auth.ts                   # 认证 (Phase 2)
+│   │   └── utils.ts
+│   ├── hooks/
+│   │   ├── useCart.ts
+│   │   ├── useQuiz.ts
+│   │   ├── useProducts.ts
+│   │   └── useAuth.ts
+│   └── types/
+│       └── index.ts                  # TypeScript 接口定义
+├── prisma/
+│   ├── schema.prisma                 # 数据库schema
+│   └── migrations/
+├── public/
+│   ├── images/
+│   ├── icons/
+│   └── favicon.ico
+├── tests/
+│   ├── unit/
+│   └── integration/
+├── .env.example
+├── .github/workflows/                # CI/CD
+├── next.config.js
+├── tailwind.config.js
+├── tsconfig.json
+├── package.json
+└── README.md</pre>
+            </div>
+        </section>
+
+        <!-- Phases -->
+        <section id="phases">
+            <h2>项目阶段规划</h2>
+
+            <!-- Phase 1 -->
+            <div class="accordion-item active" style="margin-bottom: 2rem;">
+                <button class="accordion-header">
+                    <span>
+                        <span class="badge phase1">第一阶段</span>
+                        <span style="margin-left: 1rem;">MVP核心功能 (第1-4周)</span>
+                    </span>
+                    <span class="accordion-icon">▼</span>
+                </button>
+                <div class="accordion-content">
+                    <div class="accordion-body">
+                        <h4 style="color: var(--accent-teal); margin-bottom: 1.5rem;">核心任务 (4周)</h4>
+
+                        <div class="timeline">
+                            <div class="timeline-item completed">
+                                <div class="timeline-dot">✓</div>
+                                <div class="timeline-card">
+                                    <h4>第1周：项目基础设施搭建</h4>
+                                    <p>初始化Next.js项目 + TypeScript + Tailwind CSS</p>
+                                    <div style="margin-top: 1rem;">
+                                        <span class="tag">Next.js 14</span>
+                                        <span class="tag">GitHub</span>
+                                        <span class="tag">Vercel部署</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="timeline-item in-progress">
+                                <div class="timeline-dot">◉</div>
+                                <div class="timeline-card">
+                                    <h4>第2周：首页 + 产品系统</h4>
+                                    <p>构建完整的首页和产品详情页面</p>
+                                    <ul style="margin-top: 1rem; margin-left: 1rem; color: var(--text-secondary);">
+                                        <li><span class="highlight">首页 (Homepage)</span>：Hero Section + 健康场景卡片 (4个) + 产品组合卡片 (3个) + 问诊入口CTA + SEO文章网格 + 信任栏</li>
+                                        <li><span class="highlight">产品详情页</span>：3个产品组合 (抗疲劳/助眠/免疫力) + 成分拆解 + 用法用量 + 信任信号 + 加购按钮</li>
+                                        <li>产品数据库 + Prisma schema</li>
+                                        <li>静态产品图片和SEO优化</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="timeline-item pending">
+                                <div class="timeline-dot">3</div>
+                                <div class="timeline-card">
+                                    <h4>第3周：AI问诊系统 + 购物车</h4>
+                                    <p>实现核心AI交互和购物流程</p>
+                                    <ul style="margin-top: 1rem; margin-left: 1rem; color: var(--text-secondary);">
+                                        <li><span class="highlight">AI健康问诊</span>：多步表单 (6个问题) + 动画过渡 + 问诊引擎 + 个性化推荐</li>
+                                        <li>推荐算法：基于用户回答 → 产品匹配 (规则基础 + AI增强)</li>
+                                        <li><span class="highlight">购物车</span>：添加/删除商品 + 数量控制 + 订单汇总 + 结算表单</li>
+                                        <li>后端API Routes (products, cart, quiz)</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="timeline-item pending">
+                                <div class="timeline-dot">4</div>
+                                <div class="timeline-card">
+                                    <h4>第4周：SEO系统 + 打磨优化</h4>
+                                    <p>完成SEO文章系统和全站优化</p>
+                                    <ul style="margin-top: 1rem; margin-left: 1rem; color: var(--text-secondary);">
+                                        <li><span class="highlight">SEO文章系统</span>：动态文章页 (从Markdown/数据库) + Meta标签 + 结构化数据 (JSON-LD)</li>
+                                        <li>一辉智能体首次集成：MiniMax生成文案 + Claude优化SEO</li>
+                                        <li>性能优化：图片CDN + 缓存策略 + Core Web Vitals</li>
+                                        <li>全页面测试和用户反馈迭代</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <h4 style="color: var(--accent-teal); margin-top: 2rem; margin-bottom: 1rem;">Phase 1 可交付物</h4>
+                        <div class="progress-section">
+                            <div class="progress-item">
+                                <div class="progress-label">
+                                    <span>功能完成度</span>
+                                    <span>100%</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 100%;"></div>
+                                </div>
+                            </div>
+                            <div class="progress-item">
+                                <div class="progress-label">
+                                    <span>性能优化</span>
+                                    <span>85%</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 85%;"></div>
+                                </div>
+                            </div>
+                            <div class="progress-item">
+                                <div class="progress-label">
+                                    <span>测试覆盖</span>
+                                    <span>70%</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 70%;"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="background: rgba(0, 212, 200, 0.05); border-left: 4px solid var(--accent-teal); padding: 1.5rem; border-radius: var(--border-radius-md); margin-top: 1.5rem;">
+                            <p><strong>MVP完成后：</strong></p>
+                            <p style="color: var(--text-secondary); margin-top: 0.5rem;">✓ 基础功能完整 ✓ 可上线运营 ✓ 已建立AI编排基础 ✓ 准备用户反馈收集</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Phase 2 -->
+            <div class="accordion-item" style="margin-bottom: 2rem;">
+                <button class="accordion-header">
+                    <span>
+                        <span class="badge phase2">第二阶段</span>
+                        <span style="margin-left: 1rem;">增长功能 (第5-8周)</span>
+                    </span>
+                    <span class="accordion-icon">▼</span>
+                </button>
+                <div class="accordion-content">
+                    <div class="accordion-body">
+                        <h4 style="color: var(--accent-teal); margin-bottom: 1.5rem;">核心功能</h4>
+                        <ul style="margin-left: 1.5rem; color: var(--text-secondary); line-height: 2;">
+                            <li><span class="highlight">用户账户系统</span> - 注册/登录 (邮箱+社交登录OAuth)</li>
+                            <li><span class="highlight">订单管理仪表盘</span> - 订单历史、追踪、发票</li>
+                            <li><span class="highlight">支付集成</span> - Stripe (国际) + 支付宝/微信 (中国)</li>
+                            <li><span class="highlight">一辉智能体深度集成</span> - SEO文章自动生成管道 (MiniMax写作 → Claude审核 → Qwen数据)</li>
+                            <li><span class="highlight">分析仪表盘</span> - Umami访问追踪 + 产品热度分析</li>
+                            <li><span class="highlight">后端架构升级</span> - 迁移至NestJS + GraphQL API</li>
+                            <li><span class="highlight">推荐系统优化</span> - 协同过滤 + 用户行为分析</li>
+                        </ul>
+
+                        <div style="background: rgba(0, 102, 255, 0.05); border-left: 4px solid var(--accent-blue); padding: 1.5rem; border-radius: var(--border-radius-md); margin-top: 2rem;">
+                            <p><strong>一辉智能体关键集成点：</strong></p>
+                            <p style="color: var(--text-secondary); margin-top: 0.5rem; font-size: 0.95rem;">
+                                自动化SEO文章发布流程 → MiniMax生成初稿 (中文优化) → Claude进行SEO优化和事实检查 → Qwen3分析热门话题和关键词趋势 → 自动发布到站点
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Phase 3 -->
+            <div class="accordion-item">
+                <button class="accordion-header">
+                    <span>
+                        <span class="badge phase3">第三阶段</span>
+                        <span style="margin-left: 1rem;">规模化 (第9-12周)</span>
+                    </span>
+                    <span class="accordion-icon">▼</span>
+                </button>
+                <div class="accordion-content">
+                    <div class="accordion-body">
+                        <h4 style="color: var(--accent-teal); margin-bottom: 1.5rem;">长期愿景</h4>
+                        <ul style="margin-left: 1.5rem; color: var(--text-secondary); line-height: 2;">
+                            <li><span class="highlight">家庭健康管理</span> - 多用户档案 (家庭成员) + 健康历史追踪</li>
+                            <li><span class="highlight">订阅制服务</span> - 月度健康盒子 (个性化商品组合)</li>
+                            <li><span class="highlight">KOL/联盟系统</span> - 达人分销、佣金结算</li>
+                            <li><span class="highlight">国际化</span> - 支持EN/ZH-CN/ZH-TW + 本地化运营</li>
+                            <li><span class="highlight">移动应用</span> - React Native跨平台 App</li>
+                            <li><span class="highlight">社区生态</span> - 健康博客、用户评测、社群互动</li>
+                            <li><span class="highlight">企业版</span> - B2B健康福利平台</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Core Pages Detail -->
+        <section>
+            <h2>MVP核心页面详解 (Phase 1)</h2>
+
+            <div class="accordion">
+                <div class="accordion-item active">
+                    <button class="accordion-header">
+                        <span>🏠 首页 (Homepage)</span>
+                        <span class="accordion-icon">▼</span>
+                    </button>
+                    <div class="accordion-content">
+                        <div class="accordion-body">
+                            <h4 style="color: var(--accent-teal); margin-bottom: 1rem;">页面结构</h4>
+                            <ol style="margin-left: 1.5rem; color: var(--text-secondary); line-height: 2;">
+                                <li><strong>Hero Section</strong> - 产品家族配图 + 核心价值主张 + CTA (开始问诊)</li>
+                                <li><strong>健康场景卡片 (4个)</strong> - 抗疲劳、助眠、免疫力、美肤 + 场景描述 + 快速购买</li>
+                                <li><strong>产品组合卡片 (3个)</strong> - 精选套餐展示 + 价格对比 + 添加购物车</li>
+                                <li><strong>AI问诊入口CTA</strong> - 一键健康评估的价值说服 + 大按钮</li>
+                                <li><strong>SEO文章网格</strong> - 最新热点文章 (6-12篇) + 搜索功能</li>
+                                <li><strong>信任栏</strong> - 获奖、认证、用户评价、媒体报道</li>
+                            </ol>
+                            <div style="margin-top: 1.5rem; padding: 1rem; background: var(--bg-card); border-radius: var(--border-radius-md);">
+                                <p style="color: var(--text-secondary); font-size: 0.9rem;">
+                                    <strong>关键优化：</strong>
+                                    Meta标签(标题/描述) → Open Graph(社交分享) → JSON-LD结构化数据 → 图片自适应(WebP) → 核心Web生命值指标优化
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <button class="accordion-header">
+                        <span>📦 产品详情页 (Product Detail)</span>
+                        <span class="accordion-icon">▼</span>
+                    </button>
+                    <div class="accordion-content">
+                        <div class="accordion-body">
+                            <h4 style="color: var(--accent-teal); margin-bottom: 1rem;">展示的3个产品组合</h4>
+                            <div class="grid-2" style="margin: 1.5rem 0;">
+                                <div style="padding: 1.5rem; background: var(--bg-card); border-radius: var(--border-radius-lg);">
+                                    <h5 style="color: var(--accent-teal); margin-bottom: 0.5rem;">💪 抗疲劳套装</h4>
+                                    <p style="color: var(--text-secondary); font-size: 0.9rem;">能量补充 + 恢复营养</p>
+                                </div>
+                                <div style="padding: 1.5rem; background: var(--bg-card); border-radius: var(--border-radius-lg);">
+                                    <h5 style="color: var(--accent-teal); margin-bottom: 0.5rem;">😴 助眠套装</h4>
+                                    <p style="color: var(--text-secondary); font-size: 0.9rem;">深层放松 + 优质睡眠</p>
+                                </div>
+                                <div style="padding: 1.5rem; background: var(--bg-card); border-radius: var(--border-radius-lg);">
+                                    <h5 style="color: var(--accent-teal); margin-bottom: 0.5rem;">🛡️ 免疫力套装</h4>
+                                    <p style="color: var(--text-secondary); font-size: 0.9rem;">抵抗力提升 + 全年守护</p>
+                                </div>
+                            </div>
+
+                            <h4 style="color: var(--accent-teal); margin-top: 2rem; margin-bottom: 1rem;">页面布局</h4>
+                            <ul style="margin-left: 1.5rem; color: var(--text-secondary); line-height: 2;">
+                                <li>产品大图 (支持放大 + 多角度)</li>
+                                <li>成分拆解表 (营养成分+含量+推荐摄入量)</li>
+                                <li>用法用量指南 (图文版)</li>
+                                <li>客户评价 (带真实头像和评分)</li>
+                                <li>信任信号 (认证、专利、媒体报道)</li>
+                                <li>价格展示 + 限时优惠</li>
+                                <li>加购按钮 + 数量选择</li>
+                                <li>相关产品推荐</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <button class="accordion-header">
+                        <span>🧠 AI健康问诊 (AI Health Quiz)</span>
+                        <span class="accordion-icon">▼</span>
+                    </button>
+                    <div class="accordion-content">
+                        <div class="accordion-body">
+                            <h4 style="color: var(--accent-teal); margin-bottom: 1rem;">问诊流程</h4>
+                            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin: 1.5rem 0;">
+                                <div style="text-align: center; padding: 1rem; background: var(--bg-card); border-radius: var(--border-radius-md);">
+                                    <div style="color: var(--accent-teal); font-size: 2rem; margin-bottom: 0.5rem;">1</div>
+                                    <p style="color: var(--text-secondary); font-size: 0.9rem;">用户输入基本信息</p>
+                                </div>
+                                <div style="text-align: center; padding: 1rem; background: var(--bg-card); border-radius: var(--border-radius-md);">
+                                    <div style="color: var(--accent-teal); font-size: 2rem; margin-bottom: 0.5rem;">2</div>
+                                    <p style="color: var(--text-secondary); font-size: 0.9rem;">回答6个关键问题</p>
+                                </div>
+                                <div style="text-align: center; padding: 1rem; background: var(--bg-card); border-radius: var(--border-radius-md);">
+                                    <div style="color: var(--accent-teal); font-size: 2rem; margin-bottom: 0.5rem;">3</div>
+                                    <p style="color: var(--text-secondary); font-size: 0.9rem;">获得AI推荐方案</p>
+                                </div>
+                            </div>
+
+                            <h4 style="color: var(--accent-teal); margin-top: 2rem; margin-bottom: 1rem;">6个问题示例</h4>
+                            <ol style="margin-left: 1.5rem; color: var(--text-secondary); line-height: 2;">
+                                <li>您目前的主要健康困扰是？(单选)</li>
+                                <li>持续多久了？(选项：<1月, 1-3月, 3-6月, 6月+)</li>
+                                <li>您是否有其他相关症状？(多选)</li>
+                                <li>日常生活方式怎样？(睡眠/运动/饮食)</li>
+                                <li>是否有过敏或禁忌成分？(多选)</li>
+                                <li>预算范围？(价格档位)</li>
+                            </ol>
+
+                            <h4 style="color: var(--accent-teal); margin-top: 2rem; margin-bottom: 1rem;">推荐引擎</h4>
+                            <div style="padding: 1.5rem; background: rgba(0, 212, 200, 0.05); border-left: 4px solid var(--accent-teal); border-radius: var(--border-radius-md);">
+                                <p style="color: var(--text-secondary);">
+                                    <strong>阶段1 (MVP)：规则基础</strong><br>
+                                    根据症状 → 匹配产品组合 → 优先级排序<br><br>
+                                    <strong>阶段2+ (AI增强)：</strong><br>
+                                    一辉智能体 + Qwen3数据分析 → 协同过滤推荐 → 个性化优化
+                                </p>
+                            </div>
+
+                            <h4 style="color: var(--accent-teal); margin-top: 2rem; margin-bottom: 1rem;">结果页展示</h4>
+                            <ul style="margin-left: 1.5rem; color: var(--text-secondary); line-height: 2;">
+                                <li>个性化健康评估报告</li>
+                                <li>推荐产品组合 (Top 3)</li>
+                                <li>产品套装预览 + 快速购买</li>
+                                <li>生活建议和补充提示</li>
+                                <li>留下邮箱可获取详细报告</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <button class="accordion-header">
+                        <span>🛒 购物车与结算 (Cart & Checkout)</span>
+                        <span class="accordion-icon">▼</span>
+                    </button>
+                    <div class="accordion-content">
+                        <div class="accordion-body">
+                            <h4 style="color: var(--accent-teal); margin-bottom: 1rem;">购物车功能</h4>
+                            <ul style="margin-left: 1.5rem; color: var(--text-secondary); line-height: 2;">
+                                <li>添加/删除商品</li>
+                                <li>实时数量调整</li>
+                                <li>库存检查</li>
+                                <li>优惠券应用</li>
+                                <li>订单汇总 (小计/税/运费/总计)</li>
+                                <li>推荐补充商品</li>
+                            </ul>
+
+                            <h4 style="color: var(--accent-teal); margin-top: 2rem; margin-bottom: 1rem;">结算表单 (Phase 1)</h4>
+                            <div style="padding: 1.5rem; background: var(--bg-card); border-radius: var(--border-radius-md); margin: 1rem 0;">
+                                <p style="color: var(--text-secondary);">注：Phase 1暂无实际支付，仅收集订单信息用于人工处理</p>
+                            </div>
+                            <ul style="margin-left: 1.5rem; color: var(--text-secondary); line-height: 2;">
+                                <li>收货人姓名</li>
+                                <li>电话号码</li>
+                                <li>收货地址 (国家/城市/详细地址)</li>
+                                <li>备注 (可选)</li>
+                                <li>订单确认和邮箱通知</li>
+                            </ul>
+
+                            <h4 style="color: var(--accent-teal); margin-top: 2rem; margin-bottom: 1rem;">Phase 2: 支付集成</h4>
+                            <div class="grid-2" style="margin: 1rem 0;">
+                                <div style="padding: 1rem; background: var(--bg-card); border-radius: var(--border-radius-md);">
+                                    <p style="color: var(--accent-teal); font-weight: 600;">国际支付</p>
+                                    <p style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 0.5rem;">Stripe + PayPal</p>
+                                </div>
+                                <div style="padding: 1rem; background: var(--bg-card); border-radius: var(--border-radius-md);">
+                                    <p style="color: var(--accent-teal); font-weight: 600;">中国支付</p>
+                                    <p style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 0.5rem;">支付宝 + 微信支付</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <button class="accordion-header">
+                        <span>📰 SEO文章系统 (Article Pages)</span>
+                        <span class="accordion-icon">▼</span>
+                    </button>
+                    <div class="accordion-content">
+                        <div class="accordion-body">
+                            <h4 style="color: var(--accent-teal); margin-bottom: 1rem;">内容源</h4>
+                            <ul style="margin-left: 1.5rem; color: var(--text-secondary); line-height: 2;">
+                                <li>Markdown文件 (版本控制友好)</li>
+                                <li>数据库内容管理系统 (Phase 2+)</li>
+                                <li>一辉智能体自动生成 (MiniMax写作 + Claude审核)</li>
+                            </ul>
+
+                            <h4 style="color: var(--accent-teal); margin-top: 2rem; margin-bottom: 1rem;">页面内容</h4>
+                            <ul style="margin-left: 1.5rem; color: var(--text-secondary); line-height: 2;">
+                                <li>标题和副标题</li>
+                                <li>作者和发布日期</li>
+                                <li>目录 (自动生成)</li>
+                                <li>正文内容 (支持Markdown格式)</li>
+                                <li>相关产品推荐卡片</li>
+                                <li>相关文章链接</li>
+                            </ul>
+
+                            <h4 style="color: var(--accent-teal); margin-top: 2rem; margin-bottom: 1rem;">SEO优化</h4>
+                            <div class="grid-2" style="margin: 1rem 0;">
+                                <div style="padding: 1rem; background: var(--bg-card); border-radius: var(--border-radius-md);">
+                                    <p style="color: var(--accent-teal); font-weight: 600;">Meta标签</p>
+                                    <p style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 0.5rem;">Title + Description + Keywords</p>
+                                </div>
+                                <div style="padding: 1rem; background: var(--bg-card); border-radius: var(--border-radius-md);">
+                                    <p style="color: var(--accent-teal); font-weight: 600;">结构化数据</p>
+                                    <p style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 0.5rem;">JSON-LD Schema标记</p>
+                                </div>
+                            </div>
+
+                            <h4 style="color: var(--accent-teal); margin-top: 2rem; margin-bottom: 1rem;">一辉智能体集成</h4>
+                            <div style="padding: 1.5rem; background: rgba(0, 102, 255, 0.05); border-left: 4px solid var(--accent-blue); border-radius: var(--border-radius-md);">
+                                <p style="color: var(--text-secondary); font-size: 0.95rem;">
+                                    自动化内容创作流程：<br>
+                                    ① Claude提出热门话题 → ② MiniMax生成中文内容 → ③ Claude进行SEO优化 → ④ Qwen3分析关键词 → ⑤ 自动发布
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tech Stack -->
+        <section id="tech">
+            <h2>技术栈详解</h2>
+
+            <h3 style="color: var(--accent-teal); margin: 2rem 0 1rem;">前端技术</h3>
+            <div class="grid-2">
+                <div class="card">
+                    <h3>Next.js 14</h3>
+                    <p>App Router + SSR/SSG + 内置API Routes</p>
+                    <p style="color: var(--text-secondary); margin-top: 1rem; font-size: 0.9rem;">✓ 最新版本 ✓ 性能优化 ✓ 开发体验一流</p>
+                </div>
+                <div class="card">
+                    <h3>TypeScript</h3>
+                    <p>端到端类型安全，减少运行时错误</p>
+                    <p style="color: var(--text-secondary); margin-top: 1rem; font-size: 0.9rem;">✓ 严格模式 ✓ 接口定义 ✓ 代码自动补全</p>
+                </div>
+                <div class="card">
+                    <h3>Tailwind CSS</h3>
+                    <p>原子化CSS框架，快速UI构建</p>
+                    <p style="color: var(--text-secondary); margin-top: 1rem; font-size: 0.9rem;">✓ 设计系统 ✓ 暗色模式 ✓ 响应式设计</p>
+                </div>
+                <div class="card">
+                    <h3>React Query</h3>
+                    <p>高效的数据获取和缓存库</p>
+                    <p style="color: var(--text-secondary); margin-top: 1rem; font-size: 0.9rem;">✓ 自动刷新 ✓ 后台同步 ✓ 离线支持</p>
+                </div>
+                <div class="card">
+                    <h3>Zustand</h3>
+                    <p>轻量级状态管理方案</p>
+                    <p style="color: var(--text-secondary); margin-top: 1rem; font-size: 0.9rem;">✓ 简洁API ✓ 小包体积 ✓ 持久化存储</p>
+                </div>
+                <div class="card">
+                    <h3>Framer Motion</h3>
+                    <p>强大的React动画库</p>
+                    <p style="color: var(--text-secondary); margin-top: 1rem; font-size: 0.9rem;">✓ 问诊流程动画 ✓ 页面过渡 ✓ 交互优化</p>
+                </div>
+            </div>
+
+            <h3 style="color: var(--accent-teal); margin: 3rem 0 1rem;">后端技术</h3>
+            <div class="grid-2">
+                <div class="card">
+                    <h3>Next.js API Routes (Phase 1)</h3>
+                    <p>快速开发，无需独立后端服务</p>
+                    <p style="color: var(--text-secondary); margin-top: 1rem; font-size: 0.9rem;">✓ 无服务器函数 ✓ 快速迭代 ✓ 易于部署</p>
+                </div>
+                <div class="card">
+                    <h3>NestJS (Phase 2)</h3>
+                    <p>企业级框架，微服务架构支持</p>
+                    <p style="color: var(--text-secondary); margin-top: 1rem; font-size: 0.9rem;">✓ 模块化 ✓ 中间件 ✓ 依赖注入</p>
+                </div>
+                <div class="card">
+                    <h3>Prisma ORM</h3>
+                    <p>现代化的数据库ORM</p>
+                    <p style="color: var(--text-secondary); margin-top: 1rem; font-size: 0.9rem;">✓ 类型安全 ✓ 自动迁移 ✓ Seed数据</p>
+                </div>
+                <div class="card">
+                    <h3>PostgreSQL</h3>
+                    <p>强大的关系型数据库</p>
+                    <p style="color: var(--text-secondary); margin-top: 1rem; font-size: 0.9rem;">✓ ACID事务 ✓ JSON支持 ✓ 可靠性</p>
+                </div>
+                <div class="card">
+                    <h3>Redis</h3>
+                    <p>高性能缓存和会话存储</p>
+                    <p style="color: var(--text-secondary); margin-top: 1rem; font-size: 0.9rem;">✓ 实时缓存 ✓ Session管理 ✓ 速率限制</p>
+                </div>
+                <div class="card">
+                    <h3>一辉智能体 MCP</h3>
+                    <p>多AI编排系统，自动化内容生成</p>
+                    <p style="color: var(--text-secondary); margin-top: 1rem; font-size: 0.9rem;">✓ Claude + MiniMax + Qwen3 ✓ 流程自动化</p>
+                </div>
+            </div>
+
+            <h3 style="color: var(--accent-teal); margin: 3rem 0 1rem;">基础设施和工具</h3>
+            <div class="grid-3">
+                <div style="padding: 1.5rem; background: var(--bg-card); border-radius: var(--border-radius-lg);">
+                    <p style="color: var(--accent-teal); font-weight: 600;">部署</p>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 0.5rem;">Vercel + GitHub</p>
+                </div>
+                <div style="padding: 1.5rem; background: var(--bg-card); border-radius: var(--border-radius-lg);">
+                    <p style="color: var(--accent-teal); font-weight: 600;">数据库</p>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 0.5rem;">Supabase / Railway</p>
+                </div>
+                <div style="padding: 1.5rem; background: var(--bg-card); border-radius: var(--border-radius-lg);">
+                    <p style="color: var(--accent-teal); font-weight: 600;">CDN</p>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 0.5rem;">Cloudflare</p>
+                </div>
+                <div style="padding: 1.5rem; background: var(--bg-card); border-radius: var(--border-radius-lg);">
+                    <p style="color: var(--accent-teal); font-weight: 600;">CI/CD</p>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 0.5rem;">GitHub Actions</p>
+                </div>
+                <div style="padding: 1.5rem; background: var(--bg-card); border-radius: var(--border-radius-lg);">
+                    <p style="color: var(--accent-teal); font-weight: 600;">分析</p>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 0.5rem;">Umami</p>
+                </div>
+                <div style="padding: 1.5rem; background: var(--bg-card); border-radius: var(--border-radius-lg);">
+                    <p style="color: var(--accent-teal); font-weight: 600;">监控</p>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 0.5rem;">Sentry</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Database Schema -->
+        <section>
+            <h2>数据库Schema (Prisma)</h2>
+
+            <table class="schema-table">
+                <thead>
+                    <tr>
+                        <th>表名</th>
+                        <th>字段</th>
+                        <th>描述</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Product</strong></td>
+                        <td>id, name, slug, category, price, ingredients, description, images, createdAt</td>
+                        <td>单个产品信息</td>
+                    </tr>
+                    <tr>
+                        <td><strong>ProductBundle</strong></td>
+                        <td>id, name, slug, products[], price, savings, description</td>
+                        <td>产品组合 (套餐)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>CartItem</strong></td>
+                        <td>id, sessionId, productId, bundleId, quantity, createdAt</td>
+                        <td>购物车项目</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Order</strong></td>
+                        <td>id, name, phone, address, country, items[], total, status, createdAt, updatedAt</td>
+                        <td>订单记录 (人工处理)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Article</strong></td>
+                        <td>id, title, slug, content, category, metaDesc, keywords, publishedAt, author</td>
+                        <td>SEO文章</td>
+                    </tr>
+                    <tr>
+                        <td><strong>QuizResult</strong></td>
+                        <td>id, sessionId, answers{}, recommendationIds[], score, createdAt</td>
+                        <td>问诊结果</td>
+                    </tr>
+                    <tr>
+                        <td><strong>User</strong></td>
+                        <td>id, email, password, profile{}, createdAt (Phase 2)</td>
+                        <td>用户账户 (Phase 2)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Review</strong></td>
+                        <td>id, productId, userId, rating, comment, createdAt (Phase 2)</td>
+                        <td>产品评价 (Phase 2)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Design System -->
+        <section>
+            <h2>设计系统</h2>
+
+            <h3 style="color: var(--accent-teal); margin: 2rem 0 1rem;">色彩系统</h3>
+            <div class="grid-2" style="margin: 1.5rem 0;">
+                <div style="padding: 1.5rem; background: #FAFAFA; color: #171717; border-radius: var(--border-radius-lg);">
+                    <p style="font-weight: 600; margin-bottom: 0.5rem;">#FAFAFA</p>
+                    <p style="font-size: 0.9rem;">背景浅色</p>
+                </div>
+                <div style="padding: 1.5rem; background: #171717; color: #FAFAFA; border-radius: var(--border-radius-lg);">
+                    <p style="font-weight: 600; margin-bottom: 0.5rem;">#171717</p>
+                    <p style="font-size: 0.9rem;">文字深色</p>
+                </div>
+                <div style="padding: 1.5rem; background: rgba(0, 212, 200, 0.2); border: 2px solid #00D4C8; border-radius: var(--border-radius-lg);">
+                    <p style="font-weight: 600; margin-bottom: 0.5rem; color: #00D4C8;">#00D4C8</p>
+                    <p style="font-size: 0.9rem; color: var(--text-secondary);">主色 (Teal) - UI元素、强调</p>
+                </div>
+                <div style="padding: 1.5rem; background: rgba(255, 107, 0, 0.2); border: 2px solid #FF6B00; border-radius: var(--border-radius-lg);">
+                    <p style="font-weight: 600; margin-bottom: 0.5rem; color: #FF6B00;">#FF6B00</p>
+                    <p style="font-size: 0.9rem; color: var(--text-secondary);">CTA色 (Orange) - 行动按钮</p>
+                </div>
+            </div>
+
+            <h3 style="color: var(--accent-teal); margin: 2rem 0 1rem;">圆角和间距</h3>
+            <div class="grid-3" style="margin: 1.5rem 0;">
+                <div style="padding: 1rem; text-align: center;">
+                    <div style="width: 60px; height: 60px; background: var(--accent-teal); border-radius: 6px; margin: 0 auto 0.5rem;"></div>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem;">6px (sm)</p>
+                </div>
+                <div style="padding: 1rem; text-align: center;">
+                    <div style="width: 60px; height: 60px; background: var(--accent-teal); border-radius: 8px; margin: 0 auto 0.5rem;"></div>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem;">8px (md)</p>
+                </div>
+                <div style="padding: 1rem; text-align: center;">
+                    <div style="width: 60px; height: 60px; background: var(--accent-teal); border-radius: 12px; margin: 0 auto 0.5rem;"></div>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem;">12px (lg)</p>
+                </div>
+            </div>
+
+            <h3 style="color: var(--accent-teal); margin: 2rem 0 1rem;">排版</h3>
+            <ul style="margin-left: 1.5rem; color: var(--text-secondary); line-height: 2;">
+                <li><strong>字体</strong> - Inter (英文) + 'Noto Sans SC' (中文)</li>
+                <li><strong>标题 (H1)</strong> - 3.5rem, 700 bold, 品牌色</li>
+                <li><strong>标题 (H2)</strong> - 2.2rem, 700 bold, 左侧竖线</li>
+                <li><strong>标题 (H3)</strong> - 1.3rem, 600, Teal色</li>
+                <li><strong>正文</strong> - 1rem, 行高1.6, #f5f5f5</li>
+                <li><strong>辅助文本</strong> - 0.9rem, #b0b0b0</li>
+            </ul>
+
+            <h3 style="color: var(--accent-teal); margin: 2rem 0 1rem;">阴影</h3>
+            <div class="grid-3" style="margin: 1.5rem 0;">
+                <div style="padding: 1.5rem; background: var(--bg-card); box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3); border-radius: var(--border-radius-lg); text-align: center;">
+                    <p style="color: var(--text-secondary); font-size: 0.9rem;">Small</p>
+                </div>
+                <div style="padding: 1.5rem; background: var(--bg-card); box-shadow: 0 4px 12px rgba(0, 212, 200, 0.1); border-radius: var(--border-radius-lg); text-align: center;">
+                    <p style="color: var(--text-secondary); font-size: 0.9rem;">Medium</p>
+                </div>
+                <div style="padding: 1.5rem; background: var(--bg-card); box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4); border-radius: var(--border-radius-lg); text-align: center;">
+                    <p style="color: var(--text-secondary); font-size: 0.9rem;">Large</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Deployment -->
+        <section id="deployment">
+            <h2>部署和成本</h2>
+
+            <h3 style="color: var(--accent-teal); margin: 2rem 0 1rem;">部署架构</h3>
+            <div class="grid-2" style="margin: 1.5rem 0;">
+                <div class="card">
+                    <h3>前端 + API</h3>
+                    <p>Vercel (Next.js原生支持)</p>
+                    <ul style="margin-top: 1rem; margin-left: 1.5rem; color: var(--text-secondary); font-size: 0.9rem; line-height: 1.8;">
+                        <li>自动部署 (GitHub提交)</li>
+                        <li>全球CDN</li>
+                        <li>自动SSL</li>
+                        <li>功能分支预览</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3>数据库</h3>
+                    <p>Supabase (PostgreSQL) 或 Railway</p>
+                    <ul style="margin-top: 1rem; margin-left: 1.5rem; color: var(--text-secondary); font-size: 0.9rem; line-height: 1.8;">
+                        <li>自动备份</li>
+                        <li>实时API</li>
+                        <li>向量搜索 (pgvector)</li>
+                        <li>监控和告警</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3>CDN</h3>
+                    <p>Cloudflare (全球加速)</p>
+                    <ul style="margin-top: 1rem; margin-left: 1.5rem; color: var(--text-secondary); font-size: 0.9rem; line-height: 1.8;">
+                        <li>DDoS防护</li>
+                        <li>中国边缘节点</li>
+                        <li>缓存管理</li>
+                        <li>WAF规则</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3>CI/CD</h3>
+                    <p>GitHub Actions</p>
+                    <ul style="margin-top: 1rem; margin-left: 1.5rem; color: var(--text-secondary); font-size: 0.9rem; line-height: 1.8;">
+                        <li>单元测试</li>
+                        <li>构建检查</li>
+                        <li>自动部署</li>
+                        <li>监控集成</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3 style="color: var(--accent-teal); margin: 2rem 0 1rem;">成本估计 (Phase 1)</h3>
+            <table class="schema-table">
+                <thead>
+                    <tr>
+                        <th>服务</th>
+                        <th>方案</th>
+                        <th>费用</th>
+                        <th>备注</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Vercel</strong></td>
+                        <td>Pro Plan</td>
+                        <td>$20/月</td>
+                        <td>无服务器函数、构建时间、边缘存储</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Supabase</strong></td>
+                        <td>Free → Pro (when scaling)</td>
+                        <td>免费 - $25/月</td>
+                        <td>PostgreSQL + 实时API + 存储空间</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Cloudflare</strong></td>
+                        <td>Free Plan</td>
+                        <td>免费</td>
+                        <td>CDN + DNS + 基础DDoS防护</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Redis (缓存)</strong></td>
+                        <td>Upstash (按需)</td>
+                        <td>$0-5/月</td>
+                        <td>免费额度内足够MVP</td>
+                    </tr>
+                    <tr>
+                        <td><strong>域名</strong></td>
+                        <td>.com / .cn</td>
+                        <td>$15/年</td>
+                        <td>域名注册</td>
+                    </tr>
+                    <tr>
+                        <td><strong>开发工具</strong></td>
+                        <td>GitHub + VS Code</td>
+                        <td>免费</td>
+                        <td>全部开源/免费工具</td>
+                    </tr>
+                    <tr>
+                        <td style="background: rgba(0, 212, 200, 0.1);"><strong>总计</strong></td>
+                        <td style="background: rgba(0, 212, 200, 0.1);"></td>
+                        <td style="background: rgba(0, 212, 200, 0.1);"><strong>$20-45/月</strong></td>
+                        <td style="background: rgba(0, 212, 200, 0.1);"><em>非常低廉的MVP成本</em></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3 style="color: var(--accent-teal); margin: 2rem 0 1rem;">扩展阶段成本 (Phase 2+)</h3>
+            <div style="padding: 1.5rem; background: rgba(255, 107, 0, 0.05); border-left: 4px solid var(--accent-orange); border-radius: var(--border-radius-lg);">
+                <p style="color: var(--text-secondary); margin-bottom: 0.5rem;">
+                    <strong>随着用户增长，预计额外成本：</strong>
+                </p>
+                <ul style="margin-left: 1.5rem; color: var(--text-secondary); line-height: 2;">
+                    <li>Vercel: 函数调用和带宽 (+$50-200/月)</li>
+                    <li>Supabase Pro: 更多存储和复本 (+$25/月)</li>
+                    <li>支付网关 (Stripe/支付宝): 2-3% 交易费率</li>
+                    <li>电子邮件服务 (SendGrid/Resend): $10-50/月</li>
+                    <li>分析和监控 (Sentry): $20-50/月</li>
+                    <li><strong>预计Phase 2月成本：$150-400</strong></li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- AI Integration Points -->
+        <section>
+            <h2>一辉智能体集成点</h2>
+
+            <div style="padding: 2rem; background: linear-gradient(135deg, rgba(0, 212, 200, 0.05), rgba(0, 102, 255, 0.05)); border: 1px solid rgba(0, 212, 200, 0.2); border-radius: var(--border-radius-lg); margin-bottom: 2rem;">
+                <h3 style="color: var(--accent-teal); margin-bottom: 1rem;">🤖 多AI编排宗旨</h3>
+                <p style="color: var(--text-secondary); line-height: 1.8;">
+                    利用各个AI模型的优势，构建自动化的内容生成、分析决策、项目管理系统。<br>
+                    <strong>目标：</strong> 降低人工成本，提高运营效率，加速产品迭代。
+                </p>
+            </div>
+
+            <div class="accordion">
+                <div class="accordion-item active">
+                    <button class="accordion-header">
+                        <span>📝 AI Health Quiz (问诊引擎)</span>
+                        <span class="accordion-icon">▼</span>
+                    </button>
+                    <div class="accordion-content">
+                        <div class="accordion-body">
+                            <h4 style="color: var(--accent-teal); margin-bottom: 1rem;">集成方式</h4>
+                            <ul style="margin-left: 1.5rem; color: var(--text-secondary); line-height: 2;">
+                                <li><strong>Phase 1 (MVP)：规则基础推荐</strong> - 根据用户回答进行关键字匹配和产品排序</li>
+                                <li><strong>Phase 2+：AI增强推荐</strong> - 使用Qwen3分析用户答案的语义，提供更智能的推荐</li>
+                            </ul>
+
+                            <h4 style="color: var(--accent-teal); margin-top: 1.5rem; margin-bottom: 1rem;">实现细节</h4>
+                            <div style="padding: 1.5rem; background: var(--bg-card); border-radius: var(--border-radius-md); margin: 1rem 0;">
+                                <p style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.8;">
+                                    前端收集用户6个问题的回答 →<br>
+                                    发送至后端 `/api/ai-quiz` →<br>
+                                    使用规则引擎进行基础匹配 →<br>
+                                    (可选) 调用Qwen3 API进行深层分析 →<br>
+                                    返回推荐产品列表 (Top 3) →<br>
+                                    保存问诊结果供后续分析
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <button class="accordion-header">
+                        <span>📰 SEO内容自动生成</span>
+                        <span class="accordion-icon">▼</span>
+                    </button>
+                    <div class="accordion-content">
+                        <div class="accordion-body">
+                            <h4 style="color: var(--accent-teal); margin-bottom: 1rem;">一辉智能体三阶段流程</h4>
+                            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; margin: 1.5rem 0;">
+                                <div style="padding: 1.5rem; background: rgba(0, 212, 200, 0.1); border: 1px solid rgba(0, 212, 200, 0.2); border-radius: var(--border-radius-lg);">
+                                    <div style="color: var(--accent-teal); font-weight: 600; margin-bottom: 0.5rem;">1. MiniMax写作</div>
+                                    <p style="color: var(--text-secondary); font-size: 0.9rem;">生成初稿，中文优化，符合品牌语调</p>
+                                </div>
+                                <div style="padding: 1.5rem; background: rgba(0, 102, 255, 0.1); border: 1px solid rgba(0, 102, 255, 0.2); border-radius: var(--border-radius-lg);">
+                                    <div style="color: var(--accent-blue); font-weight: 600; margin-bottom: 0.5rem;">2. Claude审核</div>
+                                    <p style="color: var(--text-secondary); font-size: 0.9rem;">SEO优化，事实检查，医学准确性验证</p>
+                                </div>
+                                <div style="padding: 1.5rem; background: rgba(255, 107, 0, 0.1); border: 1px solid rgba(255, 107, 0, 0.2); border-radius: var(--border-radius-lg);">
+                                    <div style="color: var(--accent-orange); font-weight: 600; margin-bottom: 0.5rem;">3. Qwen3分析</div>
+                                    <p style="color: var(--text-secondary); font-size: 0.9rem;">关键词分析，热度评分，发布时机建议</p>
+                                </div>
+                            </div>
+
+                            <h4 style="color: var(--accent-teal); margin-top: 1.5rem; margin-bottom: 1rem;">工作流示意</h4>
+                            <div class="code-block">
+<pre>触发器：每周一次 (可配置)
+↓
+Claude CEO: "这周用户热点话题？"
+↓
+Qwen3: 分析搜索趋势 → 建议话题列表
+↓
+MiniMax: 生成5篇文章初稿 (中文优化)
+↓
+Claude: 逐篇SEO优化 + 事实检查
+↓
+自动发布到网站 + 社交媒体
+↓
+Umami跟踪转化效果
+↓
+下周迭代优化</pre>
+                            </div>
+
+                            <h4 style="color: var(--accent-teal); margin-top: 1.5rem; margin-bottom: 1rem;">预期效果</h4>
+                            <ul style="margin-left: 1.5rem; color: var(--text-secondary); line-height: 2;">
+                                <li>✓ 每周自动生成5-10篇高质量SEO文章</li>
+                                <li>✓ 无需人工编写初稿，大幅降低运营成本</li>
+                                <li>✓ 更好的SEO排名和自然流量</li>
+                                <li>✓ 内容更新频率提升，用户粘性增加</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <button class="accordion-header">
+                        <span>🎯 产品描述自动生成</span>
+                        <span class="accordion-icon">▼</span>
+                    </button>
+                    <div class="accordion-content">
+                        <div class="accordion-body">
+                            <h4 style="color: var(--accent-teal); margin-bottom: 1rem;">应用场景</h4>
+                            <ul style="margin-left: 1.5rem; color: var(--text-secondary); line-height: 2;">
+                                <li>新产品上线：快速生成英文/中文产品描述</li>
+                                <li>成分优化：MiniMax生成优化的描述，强调新特性</li>
+                                <li>多渠道发布：自动调整文案适配不同平台 (官网/Amazon/eBay)</li>
+                                <li>A/B测试：生成多个版本的产品描述，对比转化率</li>
+                            </ul>
+
+                            <h4 style="color: var(--accent-teal); margin-top: 1.5rem; margin-bottom: 1rem;">实现流程</h4>
+                            <div style="padding: 1.5rem; background: var(--bg-card); border-radius: var(--border-radius-md); margin: 1rem 0;">
+                                <p style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.8;">
+                                    输入：产品基础信息 (成分、功效、目标人群) →<br>
+                                    MiniMax: 生成3个版本的中文描述 →<br>
+                                    Claude: 评估SEO友好度，选择最优版本 →<br>
+                                    自动翻译成英文/其他语言 →<br>
+                                    发布到产品详情页
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <button class="accordion-header">
+                        <span>📊 竞争对手分析</span>
+                        <span class="accordion-icon">▼</span>
+                    </button>
+                    <div class="accordion-content">
+                        <div class="accordion-body">
+                            <h4 style="color: var(--accent-teal); margin-bottom: 1rem;">自动化分析体系</h4>
+                            <ul style="margin-left: 1.5rem; color: var(--text-secondary); line-height: 2;">
+                                <li>定期爬取竞争对手 (AG1、Ritual、iHerb) 网站数据</li>
+                                <li>Qwen3分析价格趋势、产品创新、营销策略</li>
+                                <li>生成周报告，为产品/营销团队提供决策支持</li>
+                                <li>自动更新内部竞对数据库</li>
+                            </ul>
+
+                            <h4 style="color: var(--accent-teal); margin-top: 1.5rem; margin-bottom: 1rem;">周期报告示例</h4>
+                            <div style="padding: 1.5rem; background: rgba(0, 212, 200, 0.05); border-left: 4px solid var(--accent-teal); border-radius: var(--border-radius-md);">
+                                <p style="color: var(--text-secondary); font-size: 0.9rem;">
+                                    <strong>上周竞对分析：</strong><br>
+                                    • AG1价格下降10%，营销投入增加<br>
+                                    • Ritual推出新产品线 (针对老年人)<br>
+                                    • iHerb中国市场扩张，本土化运营加强<br>
+                                    <strong>建议：</strong> 加强家庭健康管理功能，锁定年轻家长用户群
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <button class="accordion-header">
+                        <span>📈 项目管理和决策支持</span>
+                        <span class="accordion-icon">▼</span>
+                    </button>
+                    <div class="accordion-content">
+                        <div class="accordion-body">
+                            <h4 style="color: var(--accent-teal); margin-bottom: 1rem;">Claude CEO的角色</h4>
+                            <ul style="margin-left: 1.5rem; color: var(--text-secondary); line-height: 2;">
+                                <li>📅 <strong>周期规划</strong> - 根据进度和用户反馈调整下周计划</li>
+                                <li>⚠️ <strong>风险评估</strong> - 识别技术瓶颈和运营风险</li>
+                                <li>💡 <strong>产品决策</strong> - 建议功能优先级和产品方向</li>
+                                <li>📊 <strong>KPI分析</strong> - 追踪成长指标和优化建议</li>
+                                <li>🤝 <strong>团队协调</strong> - 技术/产品/运营团队的优先级同步</li>
+                            </ul>
+
+                            <h4 style="color: var(--accent-teal); margin-top: 1.5rem; margin-bottom: 1rem;">示例：每周决策会</h4>
+                            <div style="padding: 1.5rem; background: rgba(0, 102, 255, 0.05); border-left: 4px solid var(--accent-blue); border-radius: var(--border-radius-md);">
+                                <p style="color: var(--text-secondary); font-size: 0.9rem;">
+                                    <strong>周一早上自动生成的周报告：</strong><br>
+                                    • 上周开发完成度：85%<br>
+                                    • 用户反馈热点：支付方式、配送时间<br>
+                                    • 竞对动态：3条重要信息<br>
+                                    • 本周建议重点：完成支付集成，改进配送体验<br>
+                                    → 团队讨论 + 确认本周OKR
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Next Steps -->
+        <section>
+            <h2>后续行动</h2>
+
+            <div class="grid-2">
+                <div class="card">
+                    <h3>✓ 已完成</h3>
+                    <ul style="margin-left: 1.5rem; margin-top: 1rem; color: var(--text-secondary); line-height: 2;">
+                        <li>项目规划和时间表</li>
+                        <li>技术架构设计</li>
+                        <li>数据库Schema定义</li>
+                        <li>设计系统基础</li>
+                        <li>成本估算</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3>➜ 即将开始</h3>
+                    <ul style="margin-left: 1.5rem; margin-top: 1rem; color: var(--text-secondary); line-height: 2;">
+                        <li>初始化GitHub仓库</li>
+                        <li>配置开发环境</li>
+                        <li>设计细节讨论</li>
+                        <li>团队角色分工</li>
+                        <li>Phase 1任务分解</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div style="padding: 2rem; background: linear-gradient(135deg, rgba(0, 212, 200, 0.05), rgba(0, 102, 255, 0.05)); border: 1px solid rgba(0, 212, 200, 0.2); border-radius: var(--border-radius-lg); margin-top: 2rem; text-align: center;">
+                <h3 style="color: var(--accent-teal); margin-bottom: 1rem;">🚀 准备好了？</h3>
+                <p style="color: var(--text-secondary); margin-bottom: 1.5rem;">
+                    这份规划为荣旺健康平台的成功奠定了基础。一辉智能体系统将进一步加速开发和运营效率。
+                </p>
+                <p style="color: var(--text-secondary); font-size: 0.95rem;">
+                    <strong>GitHub：</strong> <a href="https://github.com/yihui315/rongwang-health-platform" style="color: var(--accent-teal); text-decoration: none;">https://github.com/yihui315/rongwang-health-platform</a>
+                </p>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p><strong>荣旺健康跨境电商平台</strong> - 完整项目规划文档</p>
+        <p>由一辉智能体系统支持 | Claude + MiniMax + Qwen3</p>
+        <p style="margin-top: 1.5rem; font-size: 0.85rem;">
+            📄 文档版本：1.0 | 最后更新：2026年4月5日<br>
+            版权所有 © 香港荣旺健康科技有限公司
+        </p>
+    </footer>
+
+    <!-- Accordion Script -->
+    <script>
+        document.querySelectorAll('.accordion-header').forEach(header => {
+            header.addEventListener('click', () => {
+                const item = header.closest('.accordion-item');
+                const isActive = item.classList.contains('active');
+
+                // Close all other items in the same accordion
+                const accordion = header.closest('.accordion');
+                if (accordion) {
+                    accordion.querySelectorAll('.accordion-item').forEach(i => {
+                        i.classList.remove('active');
+                    });
+                }
+
+                // Toggle current item
+                if (!isActive) {
+                    item.classList.add('active');
+                }
+            });
+        });
+
+        // Smooth scroll for nav links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                if (href !== '#') {
+                    e.preventDefault();
+                    const element = document.querySelector(href);
+                    if (element) {
+                        element.scrollIntoView({ behavior: 'smooth' });
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>

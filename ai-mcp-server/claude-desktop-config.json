@@ -4,11 +4,13 @@
       "command": "node",
       "args": ["C:\\Users\\Administrator\\Documents\\Claude\\Projects\\香港荣旺\\ai-mcp-server\\server.js"],
       "env": {
-        "MINIMAX_API_KEY": "在这里填入你的MiniMax API Key",
-        "MINIMAX_GROUP_ID": "在这里填入你的MiniMax Group ID",
-        "MINIMAX_MODEL": "MiniMax-Text-01",
+        "PACKY_ANTHROPIC_KEY": "sk-dnsdWYpatElvehzAfTnoa9ozlutDnE2N4jraOaL1kz2Kv0Ag",
+        "PACKY_ANTHROPIC_URL": "https://www.packyapi.com",
+        "PACKY_OPENAI_KEY": "sk-y9iFJOq9R2Ckgg35zwZhFf1VuPYf7LDwHIGyvOUctyKhSLqi",
+        "PACKY_OPENAI_URL": "https://www.packyapi.com",
+        "MINIMAX_API_KEY": "sk-cp-C4B4oR_fh4KonIV2XZWvyTqn3XPLCQ10g2ZvCbTtSUtLpBN-6taqx991a-1aO2T_FQQLNXctdD_f7m2B8vRo2WXFbBuwcYro9mDmSCtDG4H2Jad4YUOPZow",
+        "MINIMAX_MODEL": "MiniMax-M2.7",
         "COPILOT_API_URL": "http://localhost:4141",
-        "COPILOT_MODEL": "gpt-4o",
         "OLLAMA_BASE_URL": "http://localhost:11434",
         "OLLAMA_MODEL": "qwen3-coder:30b"
       }

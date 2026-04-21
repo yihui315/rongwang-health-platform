@@ -1,0 +1,111 @@
+{
+  "_meta": {
+    "brand": "香港荣旺健康",
+    "style_anchor": "AG1 / Ritual / Apple Health 风格 — 极简、明亮、临床感、emerald + cream + cyan 主色",
+    "negative": "no text, no logo, no watermark, no busy clutter, no fake product labels, no anatomical errors, no extra fingers",
+    "model": "image-01",
+    "created": "2026-04-07"
+  },
+
+  "hero": [
+    {
+      "id": "hero-bg-1",
+      "purpose": "首页 Hero 主背景 — 大尺寸",
+      "aspect_ratio": "16:9",
+      "prompt": "Premium minimalist health and wellness lifestyle photography. A polished glass desk in soft morning light with three amber translucent supplement bottles, fresh sliced citrus, eucalyptus leaves, and a sleek smartphone showing a clean health dashboard interface. Soft cream background with subtle emerald and warm gold tones. Shallow depth of field, ultra-sharp 8K product photography, Apple-store aesthetic, natural rim lighting from the upper left, hyperrealistic, editorial wellness magazine style."
+    },
+    {
+      "id": "hero-portrait-1",
+      "purpose": "Hero 备选 — 人物特写",
+      "aspect_ratio": "3:4",
+      "prompt": "Confident East Asian woman in her early thirties wearing soft cream knit sweater, holding a delicate amber supplement bottle in golden morning light by a large window. Calm contemplative expression, glowing healthy skin, no makeup look. Out-of-focus minimalist Scandinavian living room behind her with green plants. Editorial wellness photography, Ritual brand aesthetic, soft natural light, warm color grading, hyperrealistic, 8K."
+    }
+  ],
+
+  "scene_cards": [
+    {
+      "id": "scene-fatigue",
+      "purpose": "抗疲劳方案卡片背景",
+      "aspect_ratio": "4:3",
+      "prompt": "Top-down flat lay of a wellness morning ritual on warm oak wood: a cup of black coffee, a clear glass of water, an open daily planner, a small amber bottle of B-complex supplements with capsules spilling slightly, and a single fresh orange. Warm natural sunlight casting soft shadows. Cozy productive energy, muted earth tones, magazine-quality lifestyle photography, hyperrealistic, 8K, no text."
+    },
+    {
+      "id": "scene-sleep",
+      "purpose": "深度睡眠方案卡片背景",
+      "aspect_ratio": "4:3",
+      "prompt": "Serene bedside still life at twilight: crisp white linen pillow and folded throw blanket, a small ceramic mug of chamomile tea steaming gently, a vintage analog clock showing 10:30 PM, and a frosted glass jar of magnesium glycinate softgels. Cool moonlight blue and lavender tones, soft glow from a tiny brass lamp, peaceful nighttime atmosphere, hyperrealistic editorial photography, 8K."
+    },
+    {
+      "id": "scene-immune",
+      "purpose": "免疫防护方案卡片背景",
+      "aspect_ratio": "4:3",
+      "prompt": "Vibrant overhead arrangement on a clean white marble surface: fresh oranges sliced in half, elderberries, ginger root, raw garlic, a glass jar of vitamin C powder, and small clear capsules of zinc. Bright daylight, fresh and clinical, splashes of vivid orange and deep purple against pure white, hyperrealistic food and wellness photography, 8K, no text."
+    },
+    {
+      "id": "scene-stress",
+      "purpose": "压力缓解方案卡片背景",
+      "aspect_ratio": "4:3",
+      "prompt": "Calm meditation corner with a beige linen yoga mat, a small smooth river stone, a single white orchid in a stoneware vase, a bundle of sage, and a delicate bottle of ashwagandha capsules. Soft golden hour light streaming in from the side, warm neutrals and dusty pink tones, mindful spa atmosphere, hyperrealistic editorial photography, 8K."
+    }
+  ],
+
+  "products": [
+    {
+      "id": "prod-bcomplex",
+      "purpose": "活性 B 族产品图",
+      "aspect_ratio": "1:1",
+      "prompt": "Premium amber glass supplement bottle, label-free, on a clean cream backdrop with soft directional studio lighting. Three golden-yellow capsules arranged in front of the bottle. Subtle reflection on the surface, minimal shadows, Apple-store product photography, hyperrealistic, 8K, no text or labels."
+    },
+    {
+      "id": "prod-magnesium",
+      "purpose": "甘氨酸镁产品图",
+      "aspect_ratio": "1:1",
+      "prompt": "Frosted clear glass supplement bottle with brushed silver cap, label-free, on a soft lavender-blue gradient background. Two pearl-white round softgel capsules in front. Cool calming studio lighting from above, minimal product photography, hyperrealistic, 8K, no text."
+    },
+    {
+      "id": "prod-ashwagandha",
+      "purpose": "南非醉茄产品图",
+      "aspect_ratio": "1:1",
+      "prompt": "Tall apothecary-style amber bottle with a brown twist cap, label-free, on a warm beige linen surface. A small wooden bowl beside it containing a few earthy brown capsules and a sprig of dried herb. Warm afternoon light, herbal apothecary aesthetic, hyperrealistic product photography, 8K, no text."
+    }
+  ],
+
+  "trust_logos": [
+    {
+      "id": "cert-strip",
+      "purpose": "认证条 — 6 个圆形徽章背景",
+      "aspect_ratio": "16:9",
+      "prompt": "Six elegant abstract circular badge motifs in a horizontal row on pure white background, each badge a different soft color (emerald, teal, gold, silver, sage, navy). Minimalist line-art icons inside each circle suggesting protection, certification, leaf, microscope, shield, and globe. Clean editorial design, vector-illustration aesthetic, no text, no readable letters, 8K."
+    }
+  ],
+
+  "testimonials": [
+    {
+      "id": "avatar-lin",
+      "purpose": "证言 1 头像 — 投行女性",
+      "aspect_ratio": "1:1",
+      "prompt": "Professional portrait of a confident East Asian woman in her late twenties with shoulder-length straight black hair, wearing a charcoal blazer over a cream silk blouse, soft natural smile, looking directly at camera. Clean blurred modern Hong Kong office background. Warm professional lighting, LinkedIn portrait style, hyperrealistic, 8K."
+    },
+    {
+      "id": "avatar-chen",
+      "purpose": "证言 2 头像 — 软件工程师男性",
+      "aspect_ratio": "1:1",
+      "prompt": "Friendly East Asian man in his early thirties wearing a relaxed gray t-shirt and round glasses, slight smile, looking at camera. Clean minimalist home office background with bookshelf softly out of focus. Warm natural daylight from the window, candid lifestyle portrait, hyperrealistic, 8K."
+    },
+    {
+      "id": "avatar-huang",
+      "purpose": "证言 3 头像 — 全职妈妈",
+      "aspect_ratio": "1:1",
+      "prompt": "Warm radiant East Asian woman in her mid-thirties with soft wavy hair tied loosely, wearing a beige knit cardigan, gentle confident smile. Bright airy kitchen with white cabinets blurred behind her. Natural soft morning light, lifestyle portrait photography, hyperrealistic, 8K."
+    }
+  ],
+
+  "lifestyle": [
+    {
+      "id": "lifestyle-family",
+      "purpose": "家庭健康场景 — 用于 Family Section",
+      "aspect_ratio": "16:9",
+      "prompt": "Warm modern Hong Kong family kitchen scene at breakfast: a mother, father, and one child of East Asian descent gathered around a white marble island with fresh fruit, a glass pitcher of water, and a small tray of supplement packets. Bright natural morning light streaming in from a large window. Genuine candid moment, soft smiles, hyperrealistic editorial photography, warm color grading, 8K, no text."
+    }
+  ]
+}

@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>香港荣旺健康科技 · AI 驱动的个性化营养方案</title>
+<meta name="description" content="香港荣旺健康科技 — 用 AI 为你定制每日营养方案。覆盖抗疲劳、深度睡眠、免疫防护、压力缓解四大场景，全部 NSF/GMP 认证原料，正品溯源直邮香港。" />
+<meta name="keywords" content="跨境保健品,香港保健品,AI营养方案,辅酶Q10,镁甘氨酸,NMN,GABA,Ashwagandha,荣旺健康" />
+<meta property="og:title" content="香港荣旺健康科技 · AI 驱动的个性化营养方案" />
+<meta property="og:description" content="不再盲买保健品 — 让 AI 根据你的体质、生活方式、检测数据，每月推送一份真正适合你的方案。" />
+<meta property="og:type" content="website" />
+<meta property="og:locale" content="zh_HK" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        fontFamily: {
+          sans: ['"Noto Sans SC"', 'Inter', 'system-ui', 'sans-serif'],
+        },
+        colors: {
+          brand: {
+            50: '#f0fdf4',
+            100: '#dcfce7',
+            500: '#10b981',
+            600: '#059669',
+            700: '#047857',
+            900: '#064e3b',
+          },
+          ink: {
+            900: '#0a0e1a',
+            800: '#111827',
+            700: '#1f2937',
+            500: '#6b7280',
+            300: '#d1d5db',
+          },
+        },
+        animation: {
+          'fade-up': 'fadeUp 0.8s ease-out',
+          'pulse-slow': 'pulse 3s ease-in-out infinite',
+          'float': 'float 6s ease-in-out infinite',
+        },
+        keyframes: {
+          fadeUp: { '0%': { opacity: 0, transform: 'translateY(20px)' }, '100%': { opacity: 1, transform: 'translateY(0)' } },
+          float: { '0%, 100%': { transform: 'translateY(0px)' }, '50%': { transform: 'translateY(-12px)' } },
+        },
+      },
+    },
+  };
+</script>
+<style>
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Noto Sans SC', 'Inter', system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+  .glass { backdrop-filter: blur(20px); background: rgba(255,255,255,0.7); border: 1px solid rgba(255,255,255,0.5); }
+  .gradient-text {
+    background: linear-gradient(135deg, #047857 0%, #10b981 50%, #06b6d4 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.5;
+    pointer-events: none;
+  }
+  .card-hover { transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+  .card-hover:hover { transform: translateY(-6px); box-shadow: 0 24px 60px -20px rgba(16,185,129,0.25); }
+  .btn-primary {
+    background: linear-gradient(135deg, #059669 0%, #047857 100%);
+    box-shadow: 0 10px 30px -10px rgba(5,150,105,0.5);
+    transition: all 0.3s ease;
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 16px 40px -10px rgba(5,150,105,0.6); }
+  .scroll-fade { opacity: 0; transform: translateY(30px); transition: all 0.8s ease-out; }
+  .scroll-fade.in { opacity: 1; transform: translateY(0); }
+</style>
+</head>
+<body class="bg-white text-ink-900">
+
+<!-- ========== Top Banner ========== -->
+<div class="bg-gradient-to-r from-brand-700 via-brand-600 to-emerald-500 text-white text-center text-sm py-2 px-4">
+  🚚 香港直邮 · 满 HK$500 免运费 · NSF / GMP / FDA 三重认证 · <a href="#quiz" class="underline font-semibold">3 分钟 AI 体质测试 →</a>
+</div>
+
+<!-- ========== Header ========== -->
+<header class="sticky top-0 z-50 glass">
+  <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+    <a href="#" class="flex items-center gap-2">
+      <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-brand-600 to-emerald-400 flex items-center justify-center text-white font-black text-lg shadow-lg">荣</div>
+      <div>
+        <div class="font-black text-lg leading-none">香港荣旺健康</div>
+        <div class="text-xs text-ink-500 mt-0.5">RongWang Health · AI Powered</div>
+      </div>
+    </a>
+    <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-ink-700">
+      <a href="#plans" class="hover:text-brand-600">健康方案</a>
+      <a href="#products" class="hover:text-brand-600">明星单品</a>
+      <a href="#science" class="hover:text-brand-600">科学依据</a>
+      <a href="#testimonials" class="hover:text-brand-600">用户评价</a>
+      <a href="#faq" class="hover:text-brand-600">常见问题</a>
+    </nav>
+    <a href="#quiz" class="btn-primary text-white font-semibold px-5 py-2.5 rounded-full text-sm">免费 AI 测试</a>
+  </div>
+</header>
+
+<!-- ========== Hero ========== -->
+<section class="relative overflow-hidden pt-20 pb-32">
+  <div class="blob bg-brand-300 w-96 h-96 -top-20 -left-20"></div>
+  <div class="blob bg-cyan-200 w-[500px] h-[500px] top-40 -right-20"></div>
+  <div class="blob bg-emerald-200 w-80 h-80 bottom-0 left-1/3"></div>
+
+  <div class="relative max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-12 items-center">
+    <div class="animate-fade-up">
+      <div class="inline-flex items-center gap-2 bg-brand-50 border border-brand-100 text-brand-700 px-4 py-2 rounded-full text-sm font-semibold mb-6">
+        <span class="w-2 h-2 bg-brand-500 rounded-full animate-pulse-slow"></span>
+        全自动 AI 营养引擎 · 已服务 12,847+ 香港家庭
+      </div>
+      <h1 class="text-5xl md:text-6xl lg:text-7xl font-black leading-[1.1] tracking-tight mb-6">
+        别再盲买了。<br>
+        让 <span class="gradient-text">AI 看懂</span><br>
+        你的身体。
+      </h1>
+      <p class="text-lg md:text-xl text-ink-500 mb-8 leading-relaxed max-w-xl">
+        荣旺 AI 营养引擎 · 综合你的年龄、性别、症状、睡眠、饮食与压力数据，每月为你推送一份真正"为你"设计的健康方案。
+      </p>
+      <div class="flex flex-wrap gap-4 mb-10">
+        <a href="#quiz" class="btn-primary text-white font-bold px-8 py-4 rounded-full text-base inline-flex items-center gap-2">
+          开始 AI 体质测试
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+        </a>
+        <a href="#plans" class="bg-white border-2 border-ink-300 text-ink-800 font-bold px-8 py-4 rounded-full text-base hover:border-brand-500 hover:text-brand-600 transition">
+          浏览方案
+        </a>
+      </div>
+      <div class="flex flex-wrap items-center gap-6 text-sm text-ink-500">
+        <div class="flex items-center gap-2"><span class="text-brand-600 font-bold">★ 4.9</span> · 2,341 真实评价</div>
+        <div class="flex items-center gap-2">🚚 香港直邮</div>
+        <div class="flex items-center gap-2">↻ 30 天无忧退换</div>
+      </div>
+    </div>
+
+    <!-- Hero Card / Dashboard Mockup -->
+    <div class="relative animate-float">
+      <div class="absolute -inset-4 bg-gradient-to-br from-brand-300/40 to-cyan-300/40 rounded-3xl blur-2xl"></div>
+      <div class="relative glass rounded-3xl p-8 shadow-2xl">
+        <div class="flex items-center justify-between mb-6">
+          <div>
+            <div class="text-xs text-ink-500 font-medium">你的健康仪表盘</div>
+            <div class="text-lg font-bold mt-1">陈先生 · 34 岁</div>
+          </div>
+          <div class="w-12 h-12 rounded-full bg-gradient-to-br from-brand-600 to-emerald-400 flex items-center justify-center text-white font-bold">陈</div>
+        </div>
+        <div class="space-y-4 mb-6">
+          <div>
+            <div class="flex justify-between text-xs font-medium mb-1.5"><span>能量水平</span><span class="text-brand-600">82 / 100</span></div>
+            <div class="h-2 bg-ink-300/40 rounded-full overflow-hidden"><div class="h-full bg-gradient-to-r from-brand-500 to-emerald-400 rounded-full" style="width:82%"></div></div>
+          </div>
+          <div>
+            <div class="flex justify-between text-xs font-medium mb-1.5"><span>睡眠质量</span><span class="text-cyan-600">76 / 100</span></div>
+            <div class="h-2 bg-ink-300/40 rounded-full overflow-hidden"><div class="h-full bg-gradient-to-r from-cyan-500 to-blue-400 rounded-full" style="width:76%"></div></div>
+          </div>
+          <div>
+            <div class="flex justify-between text-xs font-medium mb-1.5"><span>压力指数</span><span class="text-amber-600">38 / 100</span></div>
+            <div class="h-2 bg-ink-300/40 rounded-full overflow-hidden"><div class="h-full bg-gradient-to-r from-amber-500 to-orange-400 rounded-full" style="width:38%"></div></div>
+          </div>
+          <div>
+            <div class="flex justify-between text-xs font-medium mb-1.5"><span>免疫力</span><span class="text-emerald-600">88 / 100</span></div>
+            <div class="h-2 bg-ink-300/40 rounded-full overflow-hidden"><div class="h-full bg-gradient-to-r from-emerald-500 to-teal-400 rounded-full" style="width:88%"></div></div>
+          </div>
+        </div>
+        <div class="bg-brand-50 rounded-2xl p-4 border border-brand-100">
+          <div class="flex items-start gap-3">
+            <div class="w-8 h-8 rounded-lg bg-brand-600 text-white flex items-center justify-center text-sm font-bold flex-shrink-0">AI</div>
+            <div>
+              <div class="text-sm font-bold text-ink-800">本月建议</div>
+              <div class="text-xs text-ink-700 mt-1 leading-relaxed">检测到睡眠周期不稳定，建议加入「甘氨酸镁 + GABA」组合，睡前 30 分钟服用。</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== Trust Strip ========== -->
+<section class="border-y border-ink-300/30 bg-ink-900/[0.02] py-10">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="text-center text-xs uppercase tracking-widest text-ink-500 font-bold mb-6">国际级原料认证 · 全程冷链直邮</div>
+    <div class="flex flex-wrap justify-center items-center gap-x-12 gap-y-6 text-ink-700">
+      <div class="flex items-center gap-2 font-bold"><span class="text-2xl">🛡️</span> NSF Certified</div>
+      <div class="flex items-center gap-2 font-bold"><span class="text-2xl">⚙️</span> cGMP</div>
+      <div class="flex items-center gap-2 font-bold"><span class="text-2xl">🇺🇸</span> FDA Registered</div>
+      <div class="flex items-center gap-2 font-bold"><span class="text-2xl">🇭🇰</span> 香港 GMP</div>
+      <div class="flex items-center gap-2 font-bold"><span class="text-2xl">🌿</span> Non-GMO</div>
+      <div class="flex items-center gap-2 font-bold"><span class="text-2xl">🔬</span> 第三方检测</div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== Plans ========== -->
+<section id="plans" class="py-24 max-w-7xl mx-auto px-6">
+  <div class="text-center mb-14 scroll-fade">
+    <div class="inline-block text-brand-600 font-bold text-sm tracking-widest uppercase mb-3">健康方案 · Plans</div>
+    <h2 class="text-4xl md:text-5xl font-black mb-4">不是单品，是<span class="gradient-text">完整解决方案</span></h2>
+    <p class="text-ink-500 text-lg max-w-2xl mx-auto">基于真实健康问题类型设计的组合，每个方案都经过临床营养师审核</p>
+  </div>
+  <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+    <!-- Fatigue -->
+    <div class="card-hover bg-gradient-to-br from-orange-50 to-red-50 rounded-3xl p-7 border border-orange-100 scroll-fade">
+      <div class="text-5xl mb-4">⚡</div>
+      <div class="text-xs font-bold text-orange-600 uppercase tracking-wider mb-2">高压 + 营养流失型</div>
+      <h3 class="text-2xl font-black mb-2">抗疲劳组合</h3>
+      <p class="text-ink-500 text-sm mb-5 leading-relaxed">适合长期忙碌、精力容易透支、咖啡续命的人群</p>
+      <div class="flex flex-wrap gap-1.5 mb-5">
+        <span class="text-xs bg-white/80 text-ink-700 px-2.5 py-1 rounded-full font-medium">活性 B 族</span>
+        <span class="text-xs bg-white/80 text-ink-700 px-2.5 py-1 rounded-full font-medium">辅酶 Q10</span>
+        <span class="text-xs bg-white/80 text-ink-700 px-2.5 py-1 rounded-full font-medium">Omega-3</span>
+        <span class="text-xs bg-white/80 text-ink-700 px-2.5 py-1 rounded-full font-medium">红景天</span>
+      </div>
+      <div class="flex items-end justify-between">
+        <div><span class="text-xs text-ink-500">月套装</span><div class="text-2xl font-black text-orange-600">HK$299</div></div>
+        <a href="#quiz" class="text-sm font-bold text-orange-600 hover:underline">查看 →</a>
+      </div>
+    </div>
+    <!-- Sleep -->
+    <div class="card-hover bg-gradient-to-br from-indigo-50 to-purple-50 rounded-3xl p-7 border border-indigo-100 scroll-fade">
+      <div class="text-5xl mb-4">🌙</div>
+      <div class="text-xs font-bold text-indigo-600 uppercase tracking-wider mb-2">神经兴奋型失眠</div>
+      <h3 class="text-2xl font-black mb-2">深度睡眠组合</h3>
+      <p class="text-ink-500 text-sm mb-5 leading-relaxed">适合入睡困难、浅睡多梦、夜醒频繁的人群</p>
+      <div class="flex flex-wrap gap-1.5 mb-5">
+        <span class="text-xs bg-white/80 text-ink-700 px-2.5 py-1 rounded-full font-medium">PharmaGABA</span>
+        <span class="text-xs bg-white/80 text-ink-700 px-2.5 py-1 rounded-full font-medium">甘氨酸镁</span>
+        <span class="text-xs bg-white/80 text-ink-700 px-2.5 py-1 rounded-full font-medium">缓释褪黑素</span>
+      </div>
+      <div class="flex items-end justify-between">
+        <div><span class="text-xs text-ink-500">月套装</span><div class="text-2xl font-black text-indigo-600">HK$259</div></div>
+        <a href="#quiz" class="text-sm font-bold text-indigo-600 hover:underline">查看 →</a>
+      </div>
+    </div>
+    <!-- Immune -->
+    <div class="card-hover bg-gradient-to-br from-emerald-50 to-teal-50 rounded-3xl p-7 border border-emerald-100 scroll-fade">
+      <div class="text-5xl mb-4">🛡️</div>
+      <div class="text-xs font-bold text-emerald-600 uppercase tracking-wider mb-2">免疫防线薄弱型</div>
+      <h3 class="text-2xl font-black mb-2">免疫防护组合</h3>
+      <p class="text-ink-500 text-sm mb-5 leading-relaxed">适合换季易感冒、身体防御力偏弱的人群</p>
+      <div class="flex flex-wrap gap-1.5 mb-5">
+        <span class="text-xs bg-white/80 text-ink-700 px-2.5 py-1 rounded-full font-medium">脂质体维 C</span>
+        <span class="text-xs bg-white/80 text-ink-700 px-2.5 py-1 rounded-full font-medium">吡啶甲酸锌</span>
+        <span class="text-xs bg-white/80 text-ink-700 px-2.5 py-1 rounded-full font-medium">D3 + K2</span>
+        <span class="text-xs bg-white/80 text-ink-700 px-2.5 py-1 rounded-full font-medium">接骨木莓</span>
+      </div>
+      <div class="flex items-end justify-between">
+        <div><span class="text-xs text-ink-500">月套装</span><div class="text-2xl font-black text-emerald-600">HK$349</div></div>
+        <a href="#quiz" class="text-sm font-bold text-emerald-600 hover:underline">查看 →</a>
+      </div>
+    </div>
+    <!-- Stress -->
+    <div class="card-hover bg-gradient-to-br from-rose-50 to-pink-50 rounded-3xl p-7 border border-rose-100 scroll-fade">
+      <div class="text-5xl mb-4">🧘</div>
+      <div class="text-xs font-bold text-rose-600 uppercase tracking-wider mb-2">HPA 轴过度激活型</div>
+      <h3 class="text-2xl font-black mb-2">压力缓解组合</h3>
+      <p class="text-ink-500 text-sm mb-5 leading-relaxed">适合长期紧绷、焦虑、状态不稳定的人群</p>
+      <div class="flex flex-wrap gap-1.5 mb-5">
+        <span class="text-xs bg-white/80 text-ink-700 px-2.5 py-1 rounded-full font-medium">KSM-66 醉茄</span>
+        <span class="text-xs bg-white/80 text-ink-700 px-2.5 py-1 rounded-full font-medium">B 族</span>
+        <span class="text-xs bg-white/80 text-ink-700 px-2.5 py-1 rounded-full font-medium">L-茶氨酸</span>
+      </div>
+      <div class="flex items-end justify-between">
+        <div><span class="text-xs text-ink-500">月套装</span><div class="text-2xl font-black text-rose-600">HK$399</div></div>
+        <a href="#quiz" class="text-sm font-bold text-rose-600 hover:underline">查看 →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== How It Works ========== -->
+<section id="science" class="py-24 bg-gradient-to-br from-ink-900 via-slate-900 to-ink-800 text-white relative overflow-hidden">
+  <div class="blob bg-brand-500 w-[500px] h-[500px] -top-40 -left-40 opacity-20"></div>
+  <div class="blob bg-cyan-500 w-[500px] h-[500px] -bottom-40 -right-40 opacity-20"></div>
+  <div class="relative max-w-7xl mx-auto px-6">
+    <div class="text-center mb-16 scroll-fade">
+      <div class="inline-block text-brand-500 font-bold text-sm tracking-widest uppercase mb-3">How It Works</div>
+      <h2 class="text-4xl md:text-5xl font-black mb-4">4 步开启你的<span class="gradient-text">个性化健康路径</span></h2>
+    </div>
+    <div class="grid md:grid-cols-4 gap-8">
+      <div class="scroll-fade">
+        <div class="text-6xl font-black gradient-text mb-3">01</div>
+        <h3 class="text-xl font-bold mb-2">3 分钟体质测试</h3>
+        <p class="text-ink-300 text-sm leading-relaxed">回答 20 个关于睡眠、饮食、压力的问题，AI 即刻识别你的健康类型</p>
+      </div>
+      <div class="scroll-fade">
+        <div class="text-6xl font-black gradient-text mb-3">02</div>
+        <h3 class="text-xl font-bold mb-2">AI 生成方案</h3>
+        <p class="text-ink-300 text-sm leading-relaxed">一辉智能体综合 12,000+ 临床数据，为你匹配最佳成分组合</p>
+      </div>
+      <div class="scroll-fade">
+        <div class="text-6xl font-black gradient-text mb-3">03</div>
+        <h3 class="text-xl font-bold mb-2">月度直邮</h3>
+        <p class="text-ink-300 text-sm leading-relaxed">每月一份独立小袋包装，直接送到你家门口，无需动脑</p>
+      </div>
+      <div class="scroll-fade">
+        <div class="text-6xl font-black gradient-text mb-3">04</div>
+        <h3 class="text-xl font-bold mb-2">动态调整</h3>
+        <p class="text-ink-300 text-sm leading-relaxed">每月反馈一次状态，AI 持续优化你的方案，让效果不断升级</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== Featured Products ========== -->
+<section id="products" class="py-24 max-w-7xl mx-auto px-6">
+  <div class="text-center mb-14 scroll-fade">
+    <div class="inline-block text-brand-600 font-bold text-sm tracking-widest uppercase mb-3">明星单品 · Best Sellers</div>
+    <h2 class="text-4xl md:text-5xl font-black mb-4">9,000+ 用户复购的<span class="gradient-text">明星配方</span></h2>
+  </div>
+  <div class="grid md:grid-cols-3 gap-6">
+    <!-- Product 1 -->
+    <div class="card-hover bg-white rounded-3xl border border-ink-300/40 overflow-hidden scroll-fade">
+      <div class="aspect-square bg-gradient-to-br from-amber-100 to-orange-100 flex items-center justify-center text-8xl">⚡</div>
+      <div class="p-6">
+        <div class="text-xs text-brand-600 font-bold mb-1">荣旺 · Vital</div>
+        <h3 class="text-lg font-black mb-1">活性 B 族维生素</h3>
+        <p class="text-sm text-ink-500 mb-4">甲基化活性形式，直接参与能量代谢</p>
+        <div class="flex items-end justify-between">
+          <div>
+            <span class="text-xs text-ink-500 line-through">HK$168</span>
+            <div class="text-2xl font-black text-brand-600">HK$138</div>
+          </div>
+          <button class="bg-ink-900 text-white text-sm font-bold px-4 py-2 rounded-full hover:bg-brand-700 transition">加入</button>
+        </div>
+      </div>
+    </div>
+    <!-- Product 2 -->
+    <div class="card-hover bg-white rounded-3xl border border-ink-300/40 overflow-hidden scroll-fade">
+      <div class="aspect-square bg-gradient-to-br from-indigo-100 to-purple-100 flex items-center justify-center text-8xl">🌙</div>
+      <div class="p-6">
+        <div class="text-xs text-brand-600 font-bold mb-1">荣旺 · Sleep</div>
+        <h3 class="text-lg font-black mb-1">甘氨酸镁深睡配方</h3>
+        <p class="text-sm text-ink-500 mb-4">最温和的镁形式 · 不腹泻</p>
+        <div class="flex items-end justify-between">
+          <div>
+            <span class="text-xs text-ink-500 line-through">HK$158</span>
+            <div class="text-2xl font-black text-brand-600">HK$128</div>
+          </div>
+          <button class="bg-ink-900 text-white text-sm font-bold px-4 py-2 rounded-full hover:bg-brand-700 transition">加入</button>
+        </div>
+      </div>
+    </div>
+    <!-- Product 3 -->
+    <div class="card-hover bg-white rounded-3xl border border-ink-300/40 overflow-hidden scroll-fade">
+      <div class="aspect-square bg-gradient-to-br from-rose-100 to-pink-100 flex items-center justify-center text-8xl">🧘</div>
+      <div class="p-6">
+        <div class="text-xs text-brand-600 font-bold mb-1">荣旺 · Calm</div>
+        <h3 class="text-lg font-black mb-1">KSM-66 南非醉茄</h3>
+        <p class="text-sm text-ink-500 mb-4">全球最具研究的适应原提取物</p>
+        <div class="flex items-end justify-between">
+          <div>
+            <span class="text-xs text-ink-500 line-through">HK$228</span>
+            <div class="text-2xl font-black text-brand-600">HK$188</div>
+          </div>
+          <button class="bg-ink-900 text-white text-sm font-bold px-4 py-2 rounded-full hover:bg-brand-700 transition">加入</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="text-center mt-10">
+    <a href="#" class="inline-flex items-center gap-2 text-brand-600 font-bold hover:gap-3 transition-all">查看全部 24 款 SKU →</a>
+  </div>
+</section>
+
+<!-- ========== Testimonials ========== -->
+<section id="testimonials" class="py-24 bg-gradient-to-b from-brand-50/30 to-white">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="text-center mb-14 scroll-fade">
+      <div class="inline-block text-brand-600 font-bold text-sm tracking-widest uppercase mb-3">用户评价 · Reviews</div>
+      <h2 class="text-4xl md:text-5xl font-black mb-4">2,341 条 <span class="gradient-text">真实评价</span></h2>
+      <div class="flex justify-center items-center gap-2 mt-4">
+        <div class="text-amber-400 text-2xl">★★★★★</div>
+        <div class="font-black text-2xl">4.9</div>
+        <div class="text-ink-500">/ 5.0</div>
+      </div>
+    </div>
+    <div class="grid md:grid-cols-3 gap-6">
+      <div class="card-hover bg-white rounded-3xl p-7 shadow-sm border border-ink-300/30 scroll-fade">
+        <div class="text-amber-400 text-lg mb-3">★★★★★</div>
+        <p class="text-ink-700 leading-relaxed mb-5">"做投行常年熬夜，试过一堆 B 族都没感觉，荣旺的活性 B 族服用第三周明显感觉下午不再撞墙。AI 推荐很准。"</p>
+        <div class="flex items-center gap-3 pt-4 border-t border-ink-300/30">
+          <div class="w-10 h-10 rounded-full bg-gradient-to-br from-orange-400 to-red-400 text-white flex items-center justify-center font-bold">林</div>
+          <div>
+            <div class="font-bold text-sm">林小姐 · 投行分析师</div>
+            <div class="text-xs text-ink-500">香港中环 · 已订阅 4 个月</div>
+          </div>
+        </div>
+      </div>
+      <div class="card-hover bg-white rounded-3xl p-7 shadow-sm border border-ink-300/30 scroll-fade">
+        <div class="text-amber-400 text-lg mb-3">★★★★★</div>
+        <p class="text-ink-700 leading-relaxed mb-5">"长期失眠，试过褪黑素副作用很大。AI 帮我换成 GABA + 甘氨酸镁组合，第二周开始凌晨不再醒了，整个人状态完全不一样。"</p>
+        <div class="flex items-center gap-3 pt-4 border-t border-ink-300/30">
+          <div class="w-10 h-10 rounded-full bg-gradient-to-br from-indigo-400 to-purple-400 text-white flex items-center justify-center font-bold">陈</div>
+          <div>
+            <div class="font-bold text-sm">陈先生 · 软件工程师</div>
+            <div class="text-xs text-ink-500">深圳南山 · 已订阅 6 个月</div>
+          </div>
+        </div>
+      </div>
+      <div class="card-hover bg-white rounded-3xl p-7 shadow-sm border border-ink-300/30 scroll-fade">
+        <div class="text-amber-400 text-lg mb-3">★★★★★</div>
+        <p class="text-ink-700 leading-relaxed mb-5">"每月不用自己再研究买什么，包装清楚每天小袋分好。这才是真正的「无脑健康管理」。复购了三次。"</p>
+        <div class="flex items-center gap-3 pt-4 border-t border-ink-300/30">
+          <div class="w-10 h-10 rounded-full bg-gradient-to-br from-emerald-400 to-teal-400 text-white flex items-center justify-center font-bold">黄</div>
+          <div>
+            <div class="font-bold text-sm">黄女士 · 全职妈妈</div>
+            <div class="text-xs text-ink-500">香港九龙 · 已订阅 8 个月</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== Quiz CTA ========== -->
+<section id="quiz" class="py-24 max-w-5xl mx-auto px-6">
+  <div class="relative bg-gradient-to-br from-brand-700 via-brand-600 to-emerald-500 rounded-[2.5rem] p-12 md:p-16 text-white text-center overflow-hidden shadow-2xl">
+    <div class="blob bg-white w-96 h-96 -top-20 -left-20 opacity-10"></div>
+    <div class="blob bg-cyan-300 w-96 h-96 -bottom-20 -right-20 opacity-20"></div>
+    <div class="relative">
+      <div class="inline-flex items-center gap-2 bg-white/20 backdrop-blur px-4 py-2 rounded-full text-sm font-semibold mb-6">
+        ⏱️ 3 分钟 · 完全免费 · 即时出报告
+      </div>
+      <h2 class="text-4xl md:text-6xl font-black mb-6 leading-tight">现在开始你的<br>专属健康路径</h2>
+      <p class="text-lg md:text-xl text-white/90 mb-10 max-w-2xl mx-auto">回答 20 个简单问题，AI 立即生成你的体质报告 + 推荐方案</p>
+      <a href="#" class="inline-flex items-center gap-2 bg-white text-brand-700 font-black text-lg px-10 py-5 rounded-full hover:scale-105 transition shadow-2xl">
+        免费开始测试
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+      </a>
+      <div class="mt-8 text-sm text-white/80">已有 12,847+ 用户完成测试 · 平均匹配准确率 94%</div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== FAQ ========== -->
+<section id="faq" class="py-24 max-w-4xl mx-auto px-6">
+  <div class="text-center mb-12 scroll-fade">
+    <div class="inline-block text-brand-600 font-bold text-sm tracking-widest uppercase mb-3">FAQ</div>
+    <h2 class="text-4xl md:text-5xl font-black">常见问题</h2>
+  </div>
+  <div class="space-y-4">
+    <details class="group bg-white border border-ink-300/40 rounded-2xl p-6 cursor-pointer hover:border-brand-500 transition">
+      <summary class="flex justify-between items-center font-bold text-lg list-none">AI 体质测试靠谱吗？<span class="text-brand-600 text-2xl group-open:rotate-45 transition">+</span></summary>
+      <p class="mt-4 text-ink-700 leading-relaxed">荣旺 AI 综合年龄、性别、症状、睡眠、饮食与压力数据进行分析，参考 12,000+ 临床营养案例。它是营养建议工具，不替代医生诊断 — 但作为日常营养方向的参考非常精准。</p>
+    </details>
+    <details class="group bg-white border border-ink-300/40 rounded-2xl p-6 cursor-pointer hover:border-brand-500 transition">
+      <summary class="flex justify-between items-center font-bold text-lg list-none">产品都是正品吗？<span class="text-brand-600 text-2xl group-open:rotate-45 transition">+</span></summary>
+      <p class="mt-4 text-ink-700 leading-relaxed">所有原料均通过 NSF / cGMP / FDA 认证，每批次提供第三方检测报告，并支持来源与批次追踪 — 扫描包装二维码即可查询。</p>
+    </details>
+    <details class="group bg-white border border-ink-300/40 rounded-2xl p-6 cursor-pointer hover:border-brand-500 transition">
+      <summary class="flex justify-between items-center font-bold text-lg list-none">月度订阅可以随时取消吗？<span class="text-brand-600 text-2xl group-open:rotate-45 transition">+</span></summary>
+      <p class="mt-4 text-ink-700 leading-relaxed">是的。订阅完全无锁定期，可随时在仪表盘暂停或取消，未发货的订单全额退款，已发货支持 30 天无忧退换。</p>
+    </details>
+    <details class="group bg-white border border-ink-300/40 rounded-2xl p-6 cursor-pointer hover:border-brand-500 transition">
+      <summary class="flex justify-between items-center font-bold text-lg list-none">配送范围与时效？<span class="text-brand-600 text-2xl group-open:rotate-45 transition">+</span></summary>
+      <p class="mt-4 text-ink-700 leading-relaxed">香港全境 1-2 个工作日送达，澳门 / 内地大陆 3-5 个工作日，全程冷链直邮。满 HK$500 免运费。</p>
+    </details>
+    <details class="group bg-white border border-ink-300/40 rounded-2xl p-6 cursor-pointer hover:border-brand-500 transition">
+      <summary class="flex justify-between items-center font-bold text-lg list-none">孕期或在服药可以使用吗？<span class="text-brand-600 text-2xl group-open:rotate-45 transition">+</span></summary>
+      <p class="mt-4 text-ink-700 leading-relaxed">孕期、哺乳期与正在服用处方药的用户，请先咨询医生再使用。我们的 AI 会在测试时引导你进入「医师审核流程」。</p>
+    </details>
+  </div>
+</section>
+
+<!-- ========== Newsletter ========== -->
+<section class="py-20 bg-ink-900 text-white">
+  <div class="max-w-3xl mx-auto px-6 text-center">
+    <h2 class="text-3xl md:text-4xl font-black mb-3">订阅健康周报</h2>
+    <p class="text-ink-300 mb-8">每周一封，AI 精选营养科普 + 独家会员价</p>
+    <form class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+      <input type="email" placeholder="your@email.com" class="flex-1 px-5 py-3.5 rounded-full bg-white/10 border border-white/20 text-white placeholder-white/50 focus:outline-none focus:border-brand-500" />
+      <button type="button" class="btn-primary text-white font-bold px-7 py-3.5 rounded-full">订阅</button>
+    </form>
+    <div class="mt-4 text-xs text-ink-500">订阅即同意我们的隐私政策，可随时退订</div>
+  </div>
+</section>
+
+<!-- ========== Footer ========== -->
+<footer class="bg-ink-900 text-ink-300 py-14 border-t border-white/10">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="grid md:grid-cols-4 gap-8 mb-10">
+      <div>
+        <div class="flex items-center gap-2 mb-4">
+          <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-brand-600 to-emerald-400 flex items-center justify-center text-white font-black">荣</div>
+          <div class="font-black text-white">香港荣旺健康</div>
+        </div>
+        <p class="text-sm leading-relaxed">AI 驱动的跨境保健品商城,让每个家庭都拥有专属营养师。</p>
+      </div>
+      <div>
+        <div class="font-bold text-white mb-3 text-sm">产品</div>
+        <ul class="space-y-2 text-sm">
+          <li><a href="#plans" class="hover:text-white">健康方案</a></li>
+          <li><a href="#products" class="hover:text-white">明星单品</a></li>
+          <li><a href="#quiz" class="hover:text-white">AI 体质测试</a></li>
+          <li><a href="#" class="hover:text-white">月度订阅</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="font-bold text-white mb-3 text-sm">关于</div>
+        <ul class="space-y-2 text-sm">
+          <li><a href="#science" class="hover:text-white">科学依据</a></li>
+          <li><a href="#" class="hover:text-white">原料溯源</a></li>
+          <li><a href="#" class="hover:text-white">认证资质</a></li>
+          <li><a href="#" class="hover:text-white">联系我们</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="font-bold text-white mb-3 text-sm">服务</div>
+        <ul class="space-y-2 text-sm">
+          <li><a href="#faq" class="hover:text-white">常见问题</a></li>
+          <li><a href="#" class="hover:text-white">配送说明</a></li>
+          <li><a href="#" class="hover:text-white">退换货政策</a></li>
+          <li><a href="#" class="hover:text-white">隐私声明</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-ink-500">
+      <div>© 2026 香港荣旺健康科技有限公司 RongWang Health Technology Ltd. 保留所有权利。</div>
+      <div>本网站内容仅作健康信息参考,不替代专业医疗建议。</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Scroll-fade animation
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((e) => { if (e.isIntersecting) e.target.classList.add('in'); });
+  }, { threshold: 0.15 });
+  document.querySelectorAll('.scroll-fade').forEach((el) => observer.observe(el));
+</script>
+
+</body>
+</html>

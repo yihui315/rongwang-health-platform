@@ -45,3 +45,22 @@ venv/
 # misc
 coverage
 *.tgz
+
+# sensitive / temp PHP scripts
+setup*.php
+create_articles.php
+create_tasks.php
+reset_pw.php
+test_api.php
+*.sql
+
+# GEOFlow data
+geoflow/data/
+
+# build info
+tsconfig.tsbuildinfo
+output/
+ai-mcp-server/nul
+
+# chanpinlu (product catalog source)
+chanpinlu/
