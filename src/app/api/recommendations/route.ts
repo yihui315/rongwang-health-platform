@@ -1,51 +1,45 @@
-import { NextRequest, NextResponse } from 'next/server';
-import { PlanSlug } from '@/types';
-import { askBrain } from '@/lib/ai-brain';
+import { NextResponse } from "next/server";
+import { products } from "@/data/products";
 
-interface RecommendationBody {
-  currentPlan?: PlanSlug;
-  goals?: string[];
-  age?: number;
-  gender?: 'male' | 'female' | 'other';
-}
-
-const planCatalog: Record<PlanSlug, { name: string; pair: PlanSlug[] }> = {
-  fatigue: { name: '抗疲劳方案', pair: ['sleep', 'stress'] },
-  sleep: { name: '深度睡眠方案', pair: ['stress', 'fatigue'] },
-  immune: { name: '免疫防护方案', pair: ['fatigue', 'stress'] },
-  stress: { name: '压力舒缓方案', pair: ['sleep', 'immune'] },
-  liver: { name: '商务护肝方案', pair: ['fatigue', 'immune'] },
-  beauty: { name: '内调抗衰方案', pair: ['immune', 'sleep'] },
-  cardio: { name: '心脑调理方案', pair: ['immune', 'fatigue'] },
-};
-
-export async function POST(request: NextRequest) {
+/**
+ * AI 推荐 API
+ * 根据用户健康问卷结果推荐产品
+ */
+export async function POST(request: Request) {
   try {
-    const body = (await request.json()) as RecommendationBody;
-    const base: PlanSlug = body.currentPlan ?? 'fatigue';
-    const complementary = planCatalog[base]?.pair ?? ['sleep', 'immune'];
+    const body = await request.json();
+    const { concerns = [], age, gender } = body;
 
-    const recommended = [base, ...complementary].slice(0, 3);
+    // 根据健康关注点匹配产品
+    const planMap: Record<string, string[]> = {
+      fatigue: ['liver', 'fatigue'],
+      sleep: ['sleep'],
+      immune: ['immune'],
+      stress: ['stress'],
+      beauty: ['beauty'],
+      gut: ['gut'],
+    };
 
-    const prompt = `用户当前方案：${planCatalog[base].name}。请用不超过60字说明为什么搭配${complementary
-      .map((s) => planCatalog[s].name)
-      .join('、')}更有效，语气专业温暖。`;
+    const matchedPlans = concerns.flatMap(
+      (c: string) => planMap[c] || []
+    );
 
-    const { content, success } = await askBrain(prompt, { maxTokens: 200 });
+    const recommended = products.filter((p) =>
+      p.plans.some((plan) => matchedPlans.includes(plan))
+    );
 
-    const reason = success && content?.trim()
-      ? content.trim()
-      : `${planCatalog[base].name}与${complementary
-          .map((s) => planCatalog[s].name)
-          .join('、')}在能量、神经、免疫系统协同作用，叠加使用可放大效果。`;
+    // 按 tier 排序：hero > profit > traffic
+    const tierOrder = { hero: 0, profit: 1, traffic: 2 };
+    recommended.sort(
+      (a, b) => tierOrder[a.tier] - tierOrder[b.tier]
+    );
 
     return NextResponse.json({
-      recommended,
-      reason,
-      catalog: recommended.map((slug) => ({ slug, name: planCatalog[slug].name })),
+      products: recommended.slice(0, 6),
+      total: recommended.length,
     });
   } catch (error) {
-    console.error('recommendations error:', error);
-    return NextResponse.json({ error: 'failed' }, { status: 500 });
+    console.error("recommendations error:", error);
+    return NextResponse.json({ error: "failed" }, { status: 500 });
   }
 }

@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import NewsletterSignup from '@/components/marketing/NewsletterSignup';
 
 const footerLinks = {
   solutions: [
@@ -120,7 +121,12 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Newsletter mini — placed in last column on large screens */}
+          {/* Newsletter */}
+          <div className="md:col-span-2 lg:col-span-2">
+            <NewsletterSignup variant="footer" />
+          </div>
+
+          {/* Copyright */}
           <div className="md:col-span-6 lg:col-span-12">
             <div className="border-t border-slate-100 pt-8 mt-4 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
               <p className="text-[13px] text-slate-400">
