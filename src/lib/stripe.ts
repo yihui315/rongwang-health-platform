@@ -6,11 +6,15 @@
 import Stripe from 'stripe';
 
 // Server-side Stripe instance
-export const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || '', {
-  // @ts-expect-error — Stripe SDK version mismatch
-  apiVersion: '2024-12-18.acacia',
-  typescript: true,
-});
+// Build-safe: use placeholder to avoid "Neither apiKey nor config.authenticator" error
+export const stripe = new Stripe(
+  process.env.STRIPE_SECRET_KEY || 'sk_build_placeholder_never_use_in_production',
+  {
+    // @ts-expect-error — Stripe SDK version mismatch
+    apiVersion: '2024-12-18.acacia',
+    typescript: true,
+  }
+);
 
 // Client-side Stripe loader (lazy)
 let stripePromise: Promise<import('@stripe/stripe-js').Stripe | null> | null = null;

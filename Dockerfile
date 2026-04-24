@@ -5,7 +5,7 @@ FROM base AS deps
 RUN apk add --no-cache libc6-compat
 WORKDIR /app
 COPY package.json package-lock.json* ./
-RUN npm config set registry https://registry.npmmirror.com && npm ci --omit=dev
+RUN npm config set registry https://registry.npmmirror.com && npm install
 
 # Rebuild the source code only when needed
 FROM base AS builder
