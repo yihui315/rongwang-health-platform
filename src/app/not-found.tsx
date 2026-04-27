@@ -17,7 +17,7 @@ export default function NotFound() {
             返回首页
           </Link>
           <Link
-            href="/quiz"
+            href="/ai-consult"
             className="rounded-full border border-slate-300 px-6 py-3 font-semibold text-slate-700 hover:bg-slate-50 transition"
           >
             开始AI检测

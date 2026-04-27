@@ -9,7 +9,7 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import { stripe, PLAN_PRICES } from '@/lib/stripe';
-import { products } from '@/data/products';
+import { getProductBySlug } from '@/lib/data/products';
 
 interface CheckoutItem {
   type: 'plan' | 'product';
@@ -67,7 +67,7 @@ export async function POST(req: NextRequest) {
           quantity: 1,
         });
       } else {
-        const product = products.find((p) => p.slug === item.slug);
+        const product = await getProductBySlug(item.slug);
         if (!product) {
           return NextResponse.json(
             { error: `未知产品: ${item.slug}` },

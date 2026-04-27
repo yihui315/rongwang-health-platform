@@ -1,23 +1,25 @@
-import Link from 'next/link';
+import Link from "next/link";
+import NewsletterSignup from "@/components/marketing/NewsletterSignup";
 
 const footerLinks = {
   solutions: [
-    { href: '/plans/fatigue', label: '抗疲劳组合' },
-    { href: '/plans/sleep', label: '深度睡眠组合' },
-    { href: '/plans/immune', label: '免疫防护组合' },
-    { href: '/plans/stress', label: '压力缓解组合' },
+    { href: "/solutions/fatigue", label: "疲劳恢复方案" },
+    { href: "/solutions/sleep", label: "睡眠支持方案" },
+    { href: "/solutions/immune", label: "免疫支持方案" },
+    { href: "/solutions/female-health", label: "女性健康支持方案" },
+    { href: "/solutions/male-health", label: "男性健康支持方案" },
   ],
   resources: [
-    { href: '/quiz', label: 'AI 健康检测' },
-    { href: '/articles', label: '健康百科' },
-    { href: '/products', label: '全部商品' },
-    { href: '/subscription', label: '订阅计划' },
+    { href: "/ai-consult", label: "AI 健康评估" },
+    { href: "/articles", label: "健康百科" },
+    { href: "/products", label: "全部商品" },
+    { href: "/subscription", label: "订阅计划" },
   ],
   support: [
-    { href: '/shipping', label: '配送与退货' },
-    { href: '/privacy', label: '隐私政策' },
-    { href: '/terms', label: '服务条款' },
-    { href: '/family', label: '家庭健康' },
+    { href: "/shipping", label: "配送与退货" },
+    { href: "/privacy", label: "隐私政策" },
+    { href: "/terms", label: "服务条款" },
+    { href: "/family", label: "家庭健康" },
   ],
 };
 
@@ -25,27 +27,24 @@ export default function Footer() {
   return (
     <footer className="border-t border-slate-100 bg-white">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        {/* Main grid */}
         <div className="grid gap-12 py-16 md:grid-cols-6 lg:grid-cols-12">
-          {/* Brand column */}
           <div className="md:col-span-3 lg:col-span-4">
             <Link href="/" className="inline-flex items-center gap-2.5">
-              <span className="inline-flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-teal-600 to-teal-500 text-white text-sm font-black shadow-sm">
+              <span className="inline-flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-teal-600 to-teal-500 text-sm font-black text-white shadow-sm">
                 荣
               </span>
-              <span className="text-lg font-bold text-slate-900 tracking-tight">荣旺健康</span>
+              <span className="text-lg font-bold tracking-tight text-slate-900">荣旺健康</span>
             </Link>
-            <p className="mt-4 text-[15px] leading-relaxed text-slate-500 max-w-xs">
-              AI 驱动的个性化营养方案平台。为您和家人的健康保驾护航，香港保税仓直邮。
+            <p className="mt-4 max-w-xs text-[15px] leading-relaxed text-slate-500">
+              AI 驱动的个性化健康评估与营养支持平台。先评估，再看方案，再决定是否进入购买入口。
             </p>
 
-            {/* Social */}
             <div className="mt-6 flex items-center gap-2.5">
               <a
                 href="https://wa.me/85212345678"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-slate-100 text-slate-500 hover:bg-green-50 hover:text-green-600 transition-all"
+                className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-slate-100 text-slate-500 transition-all hover:bg-green-50 hover:text-green-600"
                 aria-label="WhatsApp"
               >
                 <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 24 24">
@@ -54,7 +53,7 @@ export default function Footer() {
               </a>
               <a
                 href="mailto:support@rongwang.health"
-                className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-slate-100 text-slate-500 hover:bg-teal-50 hover:text-teal-600 transition-all"
+                className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-slate-100 text-slate-500 transition-all hover:bg-teal-50 hover:text-teal-600"
                 aria-label="Email"
               >
                 <svg className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
@@ -65,7 +64,7 @@ export default function Footer() {
                 href="https://www.instagram.com/rongwang.health"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-slate-100 text-slate-500 hover:bg-pink-50 hover:text-pink-600 transition-all"
+                className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-slate-100 text-slate-500 transition-all hover:bg-pink-50 hover:text-pink-600"
                 aria-label="Instagram"
               >
                 <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 24 24">
@@ -75,14 +74,13 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Link columns */}
           <div className="md:col-span-1 lg:col-span-2">
-            <h4 className="text-[13px] font-semibold text-slate-900 uppercase tracking-wider mb-4">健康方案</h4>
+            <h4 className="mb-4 text-[13px] font-semibold uppercase tracking-wider text-slate-900">健康方案</h4>
             <ul className="space-y-2.5">
-              {footerLinks.solutions.map((l) => (
-                <li key={l.href}>
-                  <Link href={l.href} className="text-[14px] text-slate-500 hover:text-slate-900 transition-colors">
-                    {l.label}
+              {footerLinks.solutions.map((link) => (
+                <li key={link.href}>
+                  <Link href={link.href} className="text-[14px] text-slate-500 transition-colors hover:text-slate-900">
+                    {link.label}
                   </Link>
                 </li>
               ))}
@@ -90,12 +88,12 @@ export default function Footer() {
           </div>
 
           <div className="md:col-span-1 lg:col-span-2">
-            <h4 className="text-[13px] font-semibold text-slate-900 uppercase tracking-wider mb-4">了解更多</h4>
+            <h4 className="mb-4 text-[13px] font-semibold uppercase tracking-wider text-slate-900">了解更多</h4>
             <ul className="space-y-2.5">
-              {footerLinks.resources.map((l) => (
-                <li key={l.href}>
-                  <Link href={l.href} className="text-[14px] text-slate-500 hover:text-slate-900 transition-colors">
-                    {l.label}
+              {footerLinks.resources.map((link) => (
+                <li key={link.href}>
+                  <Link href={link.href} className="text-[14px] text-slate-500 transition-colors hover:text-slate-900">
+                    {link.label}
                   </Link>
                 </li>
               ))}
@@ -103,31 +101,34 @@ export default function Footer() {
           </div>
 
           <div className="md:col-span-1 lg:col-span-2">
-            <h4 className="text-[13px] font-semibold text-slate-900 uppercase tracking-wider mb-4">服务支持</h4>
+            <h4 className="mb-4 text-[13px] font-semibold uppercase tracking-wider text-slate-900">服务支持</h4>
             <ul className="space-y-2.5">
-              {footerLinks.support.map((l) => (
-                <li key={l.href}>
-                  <Link href={l.href} className="text-[14px] text-slate-500 hover:text-slate-900 transition-colors">
-                    {l.label}
+              {footerLinks.support.map((link) => (
+                <li key={link.href}>
+                  <Link href={link.href} className="text-[14px] text-slate-500 transition-colors hover:text-slate-900">
+                    {link.label}
                   </Link>
                 </li>
               ))}
               <li>
-                <a href="mailto:support@rongwang.health" className="text-[14px] text-slate-500 hover:text-slate-900 transition-colors">
+                <a href="mailto:support@rongwang.health" className="text-[14px] text-slate-500 transition-colors hover:text-slate-900">
                   support@rongwang.health
                 </a>
               </li>
             </ul>
           </div>
 
-          {/* Newsletter mini — placed in last column on large screens */}
+          <div className="md:col-span-2 lg:col-span-2">
+            <NewsletterSignup variant="footer" />
+          </div>
+
           <div className="md:col-span-6 lg:col-span-12">
-            <div className="border-t border-slate-100 pt-8 mt-4 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+            <div className="mt-4 flex flex-col gap-4 border-t border-slate-100 pt-8 md:flex-row md:items-center md:justify-between">
               <p className="text-[13px] text-slate-400">
-                &copy; 2026 香港榮旺健康科技有限公司. All rights reserved.
+                &copy; 2026 香港荣旺健康科技有限公司. All rights reserved.
               </p>
-              <p className="text-[12px] text-slate-400 max-w-md md:text-right">
-                膳食补充剂不能替代药物治疗。本网站内容仅供参考，不构成医疗建议。如有疑问请咨询医生。
+              <p className="max-w-md text-[12px] text-slate-400 md:text-right">
+                膳食补充剂不能替代药物治疗。本网站内容仅供健康教育和一般参考，不构成医学诊断、治疗建议或处方。
               </p>
             </div>
           </div>

@@ -5,26 +5,58 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "test": "node --import tsx --test \"tests/**/*.test.ts\"",
+    "test:unit": "node --import tsx --test \"tests/unit/*.test.ts\"",
+    "mojibake:scan": "node scripts/mojibake-scan.mjs --strict",
+    "env:check": "node scripts/env-readiness.mjs",
+    "env:check:production": "node scripts/env-readiness.mjs --production",
+    "env:check:selfhost": "node scripts/env-readiness.mjs --production --rw-env-file=.env.production",
+    "env:probe": "node scripts/env-readiness.mjs",
+    "env:bootstrap:production": "node scripts/bootstrap-production-env.mjs",
+    "smoke": "node scripts/smoke.mjs",
+    "acceptance": "node scripts/acceptance.mjs",
+    "seed:verify": "tsx scripts/verify-product-seed.ts",
+    "verify": "npm run mojibake:scan && npm run test && npm run prisma:validate && npm run seed:verify && npm run lint && npm run audit:prod && npm run build && npm run smoke && npm run acceptance",
+    "postinstall": "prisma generate",
     "start": "next start",
-    "lint": "next lint",
-    "scaffold": "node scripts/scaffold.mjs"
+    "typecheck": "tsc --noEmit",
+    "lint": "npm run typecheck",
+    "audit:prod": "npm audit --omit=dev --registry=https://registry.npmjs.org",
+    "scaffold": "node scripts/scaffold.mjs",
+    "prisma:generate": "prisma generate",
+    "prisma:validate": "node scripts/prisma-validate.mjs",
+    "prisma:migrate:dev": "prisma migrate dev",
+    "prisma:migrate:deploy": "prisma migrate deploy",
+    "db:deploy": "prisma migrate deploy",
+    "prisma:seed": "tsx prisma/seed.ts",
+    "db:seed": "tsx prisma/seed.ts",
+    "env:bootstrap": "node scripts/bootstrap-local-env.mjs",
+    "docker:build": "docker compose -f docker-compose.prod.yml build",
+    "docker:up": "docker compose -f docker-compose.prod.yml --env-file .env.production up -d",
+    "docker:down": "docker compose -f docker-compose.prod.yml --env-file .env.production down"
   },
   "dependencies": {
-    "@stripe/stripe-js": "^9.1.0",
+    "@prisma/client": "^6.8.2",
     "@supabase/ssr": "^0.5.0",
     "@supabase/supabase-js": "^2.45.0",
-    "next": "^15.0.0",
+    "next": "^15.5.15",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "stripe": "^22.0.1"
+    "stripe": "^22.0.1",
+    "zod": "^4.3.6"
   },
   "devDependencies": {
     "@types/node": "^22.0.0",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
     "autoprefixer": "^10.4.0",
-    "postcss": "^8.4.0",
+    "postcss": "^8.5.12",
+    "prisma": "^6.8.2",
     "tailwindcss": "^3.4.0",
-    "typescript": "^5.6.0"
+    "tsx": "^4.19.3",
+    "typescript": "^5.0.0"
+  },
+  "overrides": {
+    "postcss": "$postcss"
   }
 }

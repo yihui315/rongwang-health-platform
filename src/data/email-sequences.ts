@@ -239,7 +239,7 @@ export const emailSequences: Record<string, EmailSequence> = {
 我们为你准备了一份 **免费的状态重评**，只需要 3 分钟。
 
 AI 会基于你的新答案，重新给出适配你当下的方案。`,
-        cta: { text: '开始免费重评', href: '/quiz' },
+        cta: { text: '开始免费重评', href: '/ai-consult' },
         tag: 'winback_d0',
       },
       {

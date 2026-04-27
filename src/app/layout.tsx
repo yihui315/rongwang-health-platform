@@ -1,17 +1,12 @@
 import './globals.css';
 import type { Metadata, Viewport } from 'next';
-import { Inter } from 'next/font/google';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import Analytics from '@/components/layout/Analytics';
+import ChatWidget from '@/components/marketing/ChatWidget';
+import ExitIntentPopup from '@/components/marketing/ExitIntentPopup';
 import { CartProvider } from '@/lib/cart-context';
 import { generateOrganizationJsonLd } from '@/lib/seo';
-
-const inter = Inter({
-  subsets: ['latin'],
-  display: 'swap',
-  variable: '--font-inter',
-});
 
 export const metadata: Metadata = {
   title: {
@@ -72,7 +67,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="zh-CN" className={inter.variable}>
+    <html lang="zh-CN">
       <head>
         <script
           type="application/ld+json"
@@ -87,6 +82,8 @@ export default function RootLayout({
           <Header />
           {children}
           <Footer />
+          <ChatWidget />
+          <ExitIntentPopup />
         </CartProvider>
       </body>
     </html>

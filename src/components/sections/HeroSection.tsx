@@ -46,7 +46,7 @@ export default function HeroSection() {
 
             <div className="mt-10 flex flex-wrap gap-3 animate-fade-up" style={{ animationDelay: '240ms' }}>
               <Link
-                href="/quiz"
+                href="/ai-consult"
                 className="group inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-teal-600 to-teal-500 px-8 py-4 text-[15px] font-semibold text-white transition-all hover:-translate-y-0.5"
                 style={{ boxShadow: '0 4px 16px rgba(13,148,136,0.3), 0 1px 3px rgba(0,0,0,0.08)' }}
               >
@@ -56,7 +56,7 @@ export default function HeroSection() {
                 </svg>
               </Link>
               <Link
-                href="/plans/fatigue"
+                href="/solutions/fatigue"
                 className="inline-flex items-center rounded-full border border-slate-200 bg-white/80 backdrop-blur-sm px-8 py-4 text-[15px] font-semibold text-slate-600 transition-all hover:bg-white hover:border-slate-300 hover:text-slate-900 hover:shadow-sm"
               >
                 了解健康方案

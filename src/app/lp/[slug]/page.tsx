@@ -58,7 +58,7 @@ export default async function LandingPage({ params }: Props) {
           <p className="mt-5 text-lg text-slate-600 max-w-2xl mx-auto">{c.hero.subtitle}</p>
           <div className="mt-8 flex flex-wrap gap-4 justify-center">
             <Link
-              href="/quiz"
+              href="/ai-consult"
               className="rounded-full bg-gradient-to-r from-teal-600 to-teal-500 text-white px-8 py-4 font-semibold shadow-xl shadow-teal-500/30 hover:-translate-y-0.5 transition"
             >
               {c.hero.ctaPrimary} →
@@ -163,7 +163,7 @@ export default async function LandingPage({ params }: Props) {
           <h2 className="text-4xl font-bold">{c.finalCta.title}</h2>
           <p className="mt-4 text-slate-300">{c.finalCta.subtitle}</p>
           <Link
-            href="/quiz"
+            href="/ai-consult"
             className="mt-8 inline-block rounded-full bg-gradient-to-r from-teal-500 to-emerald-500 text-white px-10 py-4 font-semibold shadow-2xl shadow-teal-500/30 hover:-translate-y-0.5 transition"
           >
             {c.finalCta.buttonText} →
