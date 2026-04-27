@@ -128,7 +128,7 @@ export default function FamilyPage() {
           <p className="text-teal-100 mb-8">添加家庭成员,为每个人量身定制健康方案</p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
-              href="/quiz"
+              href="/ai-consult"
               className="rounded-full bg-white text-teal-600 px-8 py-4 font-semibold hover:bg-teal-50 transition"
             >
               开始AI测验

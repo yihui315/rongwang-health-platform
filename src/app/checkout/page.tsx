@@ -28,7 +28,7 @@ export default function CheckoutPage() {
           <h1 className="text-3xl font-bold text-slate-900 mb-2">购物车为空</h1>
           <p className="text-slate-600 mb-8">请先添加商品到购物车</p>
           <Link
-            href="/plans/fatigue"
+            href="/ai-consult"
             className="inline-block rounded-lg bg-orange px-8 py-3 font-semibold text-white hover:bg-orange/90 transition-colors"
           >
             返回方案中心
@@ -91,7 +91,7 @@ export default function CheckoutPage() {
                 返回首页
               </Link>
               <Link
-                href="/plans/fatigue"
+                href="/products"
                 className="block rounded-lg border border-slate-300 px-6 py-3 font-semibold text-slate-700 hover:bg-slate-50 transition-colors"
               >
                 继续购物

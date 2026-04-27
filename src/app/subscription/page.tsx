@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { plans } from '@/data/plans';
+import { getAiConsultHrefForValue, getSolutionHrefForValue } from '@/lib/health/consult-entry';
 
 const subscriptionTiers = [
   {
@@ -113,7 +114,7 @@ export default function SubscriptionPage() {
                 </ul>
 
                 <Link
-                  href="/quiz"
+                  href="/ai-consult"
                   className={`block w-full text-center py-3 rounded-full font-semibold transition ${
                     tier.highlight
                       ? 'bg-white text-teal-600 hover:bg-teal-50'
@@ -137,7 +138,7 @@ export default function SubscriptionPage() {
             {plans.map((plan) => (
               <Link
                 key={plan.slug}
-                href={`/plans/${plan.slug}`}
+                href={getSolutionHrefForValue(plan.slug) ?? getAiConsultHrefForValue(plan.slug)}
                 className="rounded-xl border border-slate-200 bg-white p-6 hover:shadow-lg transition group"
               >
                 <h3 className="text-lg font-bold text-slate-900 mb-1 group-hover:text-teal-600">
@@ -185,7 +186,7 @@ export default function SubscriptionPage() {
           <h2 className="text-3xl font-bold mb-4">不确定选哪个方案?</h2>
           <p className="text-teal-100 mb-8">3分钟AI健康测验,为你量身定制最适合的订阅方案</p>
           <Link
-            href="/quiz"
+            href="/ai-consult"
             className="inline-block rounded-full bg-white text-teal-600 px-8 py-4 font-semibold hover:bg-teal-50 transition"
           >
             开始AI测验 →

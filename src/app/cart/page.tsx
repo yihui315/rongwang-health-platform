@@ -30,7 +30,7 @@ export default function CartPage() {
           <h1 className="text-3xl font-bold text-slate-900 mb-2">购物车为空</h1>
           <p className="text-slate-600 mb-8">快去选择适合你的健康方案吧</p>
           <Link
-            href="/plans/fatigue"
+            href="/ai-consult"
             className="inline-block rounded-lg bg-orange px-8 py-3 font-semibold text-white hover:bg-orange/90 transition-colors"
           >
             去逛逛
@@ -157,7 +157,7 @@ export default function CartPage() {
               </Link>
 
               <Link
-                href="/plans/fatigue"
+                href="/products"
                 className="mt-3 block w-full rounded-lg border border-slate-300 px-4 py-3 text-center font-semibold text-slate-700 hover:bg-slate-50 transition-colors"
               >
                 继续购物

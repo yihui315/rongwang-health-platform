@@ -6,6 +6,7 @@ import { getArticleBySlugWithFallback, getArticlesWithFallback } from '@/lib/cms
 import { generateArticleJsonLd, generateArticleMetadata } from '@/lib/seo';
 import AddToCartButton from '@/components/ui/AddToCartButton';
 import { plans } from '@/data/plans';
+import { getAiConsultHrefForValue, getSolutionHrefForValue } from '@/lib/health/consult-entry';
 import type { PlanSlug } from '@/types';
 
 type PageProps = {
@@ -47,6 +48,8 @@ export default async function ArticleDetailPage({ params }: PageProps) {
   const relatedPlan = article.relatedPlan
     ? plans.find((p) => p.slug === article.relatedPlan)
     : null;
+  const relatedPlanConsultHref = relatedPlan ? getAiConsultHrefForValue(relatedPlan.slug) : '/ai-consult';
+  const relatedPlanSolutionHref = relatedPlan ? getSolutionHrefForValue(relatedPlan.slug) : null;
 
   // JSON-LD 结构化数据
   const jsonLd = generateArticleJsonLd(article);
@@ -169,12 +172,24 @@ export default async function ArticleDetailPage({ params }: PageProps) {
               </div>
               <div className="flex flex-col items-start md:items-end gap-3 shrink-0">
                 <span className="text-3xl font-bold">¥{relatedPlan.price}/月</span>
+                <Link
+                  href={relatedPlanConsultHref}
+                  className="inline-flex items-center rounded-full bg-white px-5 py-2.5 text-sm font-semibold text-teal-700 transition hover:bg-teal-50"
+                >
+                  先做 AI 评估
+                </Link>
+                {relatedPlanSolutionHref ? (
+                  <Link href={relatedPlanSolutionHref} className="text-sm text-teal-100 hover:text-white">
+                    查看问题方案 →
+                  </Link>
+                ) : null}
                 <AddToCartButton
                   slug={relatedPlan.slug as PlanSlug}
                   name={relatedPlan.name}
                   price={relatedPlan.price}
+                  className="border border-white/30 bg-white/10 text-white hover:bg-white/20"
                 />
-                <Link href={`/plans/${relatedPlan.slug}`} className="text-sm text-teal-100 hover:text-white">
+                <Link href={relatedPlanSolutionHref ?? relatedPlanConsultHref} className="text-sm text-teal-100 hover:text-white">
                   查看详情 →
                 </Link>
               </div>
@@ -188,7 +203,7 @@ export default async function ArticleDetailPage({ params }: PageProps) {
             <h3 className="text-2xl font-bold mb-3">想了解适合你的方案？</h3>
             <p className="text-teal-100 mb-6">3分钟AI测验，获得个性化健康建议</p>
             <Link
-              href="/quiz"
+              href="/ai-consult"
               className="inline-block rounded-full bg-white text-teal-600 px-6 py-3 font-semibold hover:bg-teal-50 transition"
             >
               开始测验 →

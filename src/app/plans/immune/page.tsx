@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import AddToCartButton from '@/components/ui/AddToCartButton';
+import { getAiConsultHrefForValue, getSolutionHrefForValue } from '@/lib/health/consult-entry';
 
 const plan = {
   slug: 'immune' as const,
@@ -28,6 +29,9 @@ const plan = {
 };
 
 export default function ImmunePlanPage() {
+  const consultHref = getAiConsultHrefForValue(plan.slug);
+  const solutionHref = getSolutionHrefForValue(plan.slug);
+
   return (
     <main className="min-h-screen bg-slate-50">
       <section className="bg-gradient-hero px-6 py-16">
@@ -35,6 +39,12 @@ export default function ImmunePlanPage() {
           <Link href="/" className="text-sm text-teal hover:underline mb-4 inline-block">
             ← 返回首页
           </Link>
+          <div className="mb-6 rounded-2xl border border-amber-200 bg-amber-50 px-5 py-5">
+            <p className="text-sm font-semibold text-amber-900">旧组合参考页</p>
+            <p className="mt-2 text-sm leading-7 text-amber-800">
+              旧组合仍然保留，但免疫支持方向现在优先通过 AI 评估判断风险和支持级别，再进入购买入口。
+            </p>
+          </div>
           <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-8">
             <div className="flex-1">
               <span className="badge-teal mb-4">
@@ -46,7 +56,23 @@ export default function ImmunePlanPage() {
                 <span className="text-4xl font-bold text-orange">¥{plan.price}</span>
                 <span className="text-slate-500">/月</span>
               </div>
-              <AddToCartButton slug={plan.slug} name={plan.name} price={plan.price} className="btn-primary" />
+              <div className="rounded-2xl border border-teal-200 bg-teal-50 px-5 py-5">
+                <p className="text-sm font-semibold text-teal-800">建议先完成 AI 评估</p>
+                <p className="mt-2 text-sm leading-7 text-teal-700">
+                  先看作息、恢复速度和风险分层，再决定是否继续使用旧防护组合，会比直接按商品选购更稳妥。
+                </p>
+                <div className="mt-5 flex flex-wrap gap-3">
+                  <Link href={consultHref} className="btn-primary">
+                    先做 AI 评估
+                  </Link>
+                  <Link
+                    href={solutionHref ?? consultHref}
+                    className="btn-secondary"
+                  >
+                    {solutionHref ? '查看对应方案页' : '前往 AI 评估主入口'}
+                  </Link>
+                </div>
+              </div>
             </div>
             <div className="w-full md:w-64 h-48 rounded-2xl overflow-hidden shadow-lg">
               <Image src="/images/plans/immune.jpg" alt={plan.name} width={400} height={300} className="rounded-2xl object-cover w-full h-full" />
@@ -112,10 +138,23 @@ export default function ImmunePlanPage() {
       </section>
 
       <section className="px-6 py-16">
-        <div className="mx-auto max-w-4xl text-center">
-          <h2 className="text-2xl font-bold text-slate-900 mb-4">提前防护，不给病毒机会</h2>
-          <p className="text-slate-600 mb-8">四重免疫防线，从内到外筑起保护屏障</p>
-          <AddToCartButton slug={plan.slug} name={plan.name} price={plan.price} className="btn-primary text-lg px-10 py-4" />
+        <div className="mx-auto max-w-4xl rounded-3xl border border-slate-200 bg-white px-8 py-10 text-center">
+          <span className="badge-slate">兼容购买入口</span>
+          <h2 className="mt-4 text-2xl font-bold text-slate-900 mb-4">如果你已经完成评估，也可以继续使用旧入口</h2>
+          <p className="text-slate-600 mb-8">
+            旧购买链路继续保留，但现在更推荐先判断当前属于日常支持场景，还是需要优先线下咨询。
+          </p>
+          <div className="flex flex-wrap items-center justify-center gap-3">
+            <Link href={consultHref} className="btn-primary">
+              先做 AI 评估
+            </Link>
+            <AddToCartButton
+              slug={plan.slug}
+              name={plan.name}
+              price={plan.price}
+              className="border border-slate-300 bg-white text-slate-700 hover:bg-slate-50"
+            />
+          </div>
         </div>
       </section>
 
@@ -129,15 +168,15 @@ export default function ImmunePlanPage() {
               <h3 className="font-semibold text-slate-900 mb-2">浏览所有产品</h3>
               <p className="text-sm text-slate-600">发现更多健康补充方案</p>
             </Link>
-            <Link href="/plans/fatigue" className="card-hover text-center">
+            <Link href="/solutions/fatigue" className="card-hover text-center">
               <div className="text-3xl mb-3">⚡</div>
-              <h3 className="font-semibold text-slate-900 mb-2">抗疲劳组合</h3>
-              <p className="text-sm text-slate-600">恢复充沛精力</p>
+              <h3 className="font-semibold text-slate-900 mb-2">疲劳恢复方案</h3>
+              <p className="text-sm text-slate-600">查看恢复不足与精力支持方向</p>
             </Link>
-            <Link href="/plans/sleep" className="card-hover text-center">
+            <Link href="/solutions/sleep" className="card-hover text-center">
               <div className="text-3xl mb-3">🌙</div>
-              <h3 className="font-semibold text-slate-900 mb-2">深度睡眠组合</h3>
-              <p className="text-sm text-slate-600">改善睡眠质量</p>
+              <h3 className="font-semibold text-slate-900 mb-2">睡眠支持方案</h3>
+              <p className="text-sm text-slate-600">查看作息与恢复质量相关方案</p>
             </Link>
           </div>
         </div>

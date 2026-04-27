@@ -1,9 +1,11 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
-import { products, getProductBySlug, ProductCategory } from '@/data/products';
+import type { ProductCategory } from '@/lib/data/products';
 import AddToCartButton from '@/components/ui/AddToCartButton';
 import ProductImageGallery from '@/components/ui/ProductImageGallery';
+import { getProductBySlug, listProducts } from '@/lib/data/products';
+import { getAiConsultHrefForValues, getSolutionHrefForValues } from '@/lib/health/consult-entry';
 import type { PlanSlug } from '@/types';
 
 const categoryLabel: Record<ProductCategory, string> = {
@@ -36,7 +38,8 @@ const badgeStyle: Record<string, string> = {
   '送礼': 'bg-amber-500 text-white', '限时': 'bg-emerald-500 text-white',
 };
 
-export function generateStaticParams() {
+export async function generateStaticParams() {
+  const products = await listProducts();
   return products.map((p) => ({ slug: p.slug }));
 }
 
@@ -46,12 +49,15 @@ interface Props {
 
 export default async function ProductDetailPage({ params }: Props) {
   const { slug } = await params;
-  const product = getProductBySlug(slug);
+  const products = await listProducts();
+  const product = await getProductBySlug(slug);
   if (!product) notFound();
 
   const brand = brandInfo[product.brand] || { short: product.brand, color: 'bg-slate-600', desc: '' };
   const gradient = categoryGradient[product.category];
   const discount = Math.round((1 - product.memberPrice / product.price) * 100);
+  const consultHref = getAiConsultHrefForValues(product.plans);
+  const solutionHref = getSolutionHrefForValues(product.plans);
 
   const related = products
     .filter((p) => p.sku !== product.sku && p.plans.some((pl) => product.plans.includes(pl)))
@@ -184,22 +190,46 @@ export default async function ProductDetailPage({ params }: Props) {
               ))}
             </ul>
 
-            <div className="mt-8 flex gap-3">
-              <div className="flex-1">
+            <div className="mt-8 rounded-2xl border border-teal-200 bg-teal-50 px-5 py-5">
+              <p className="text-sm font-semibold text-teal-800">建议先完成 AI 评估</p>
+              <p className="mt-2 text-sm leading-7 text-teal-700">
+                先评估，再看方案，再决定是否进入购买入口。系统会先判断风险等级和支持方向，避免直接按商品做选择。
+              </p>
+              <div className="mt-5 flex flex-wrap gap-3">
+                <Link
+                  href={consultHref}
+                  className="btn-primary"
+                >
+                  先做 AI 评估
+                </Link>
                 <AddToCartButton
                   slug={product.plans[0] as PlanSlug}
                   name={product.name}
                   price={product.memberPrice}
+                  className="rounded-full border border-slate-300 bg-white text-slate-700 hover:bg-slate-50"
                 />
               </div>
+              {solutionHref && (
+                <p className="mt-4 text-sm leading-6 text-slate-500">
+                  如果你已经明确问题方向，也可以先看
+                  {' '}
+                  <Link href={solutionHref} className="font-medium text-teal-700 hover:text-teal-800">
+                    对应方案页
+                  </Link>
+                  。
+                </p>
+              )}
+            </div>
+
+            <div className="mt-6 flex gap-3">
               <Link
-                href="/quiz"
+                href={consultHref}
                 className="rounded-full border border-slate-300 bg-white py-4 px-6 font-semibold text-slate-700 hover:border-slate-400 flex items-center gap-2"
               >
                 <svg className="h-5 w-5 text-teal-600" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z" />
                 </svg>
-                AI 推荐
+                返回 AI 评估入口
               </Link>
             </div>
           </div>

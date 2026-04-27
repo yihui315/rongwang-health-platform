@@ -1,33 +1,55 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
-
-/**
- * A/B 测试中间件
- *
- * 为每个访客分配一个随机的测试组（A 或 B），通过 cookie 持久化。
- * 页面组件可以通过 cookies().get('rw_ab_group') 读取分组。
- *
- * 用法示例（在页面组件中）：
- *   import { cookies } from 'next/headers';
- *   const group = (await cookies()).get('rw_ab_group')?.value || 'A';
- *   // 根据 group 渲染不同的 Hero 文案、CTA 按钮等
- */
+import {
+  ADMIN_COOKIE_NAME,
+  getAdminCookieOptions,
+  getAdminTokenFromRequest,
+  isAdminAuthRequired,
+  isAdminTokenValid,
+} from '@/lib/auth/admin';
+import { getAiConsultHrefForValue } from '@/lib/health/consult-entry';
 
 export function middleware(request: NextRequest) {
-  const response = NextResponse.next();
+  const url = request.nextUrl;
+  const isAdminPath = url.pathname === '/admin' || url.pathname.startsWith('/admin/');
+  const isAdminLoginPath = url.pathname === '/admin/login';
+  const adminToken = getAdminTokenFromRequest({
+    cookieToken: request.cookies.get(ADMIN_COOKIE_NAME)?.value,
+    headerToken: request.headers.get('x-admin-token'),
+  });
 
-  // A/B 测试分组
-  if (!request.cookies.has('rw_ab_group')) {
-    const group = Math.random() < 0.5 ? 'A' : 'B';
-    response.cookies.set('rw_ab_group', group, {
-      maxAge: 60 * 60 * 24 * 30, // 30天
+  if (isAdminPath && !isAdminLoginPath && isAdminAuthRequired() && !isAdminTokenValid(adminToken)) {
+    return NextResponse.redirect(new URL('/admin/login', request.url), 307);
+  }
+
+  const response = url.pathname === '/quiz'
+    ? NextResponse.redirect(
+        new URL(getAiConsultHrefForValue(url.searchParams.get('focus') ?? url.searchParams.get('pre')), request.url),
+        307,
+      )
+    : NextResponse.next();
+
+  if (!request.cookies.has('rw_session')) {
+    response.cookies.set('rw_session', crypto.randomUUID(), {
+      maxAge: 60 * 60 * 24 * 90,
       path: '/',
       sameSite: 'lax',
     });
   }
 
-  // UTM 参数追踪：保存来源信息到 cookie
-  const url = request.nextUrl;
+  if (isAdminPath && isAdminTokenValid(adminToken)) {
+    response.cookies.set(ADMIN_COOKIE_NAME, adminToken, getAdminCookieOptions());
+  }
+
+  if (!request.cookies.has('rw_ab_group')) {
+    const group = Math.random() < 0.5 ? 'A' : 'B';
+    response.cookies.set('rw_ab_group', group, {
+      maxAge: 60 * 60 * 24 * 30,
+      path: '/',
+      sameSite: 'lax',
+    });
+  }
+
   const utmSource = url.searchParams.get('utm_source');
   const utmMedium = url.searchParams.get('utm_medium');
   const utmCampaign = url.searchParams.get('utm_campaign');
@@ -39,16 +61,15 @@ export function middleware(request: NextRequest) {
       medium: utmMedium || '',
       campaign: utmCampaign || '',
     }), {
-      maxAge: 60 * 60 * 24 * 7, // 7天
+      maxAge: 60 * 60 * 24 * 7,
       path: '/',
       sameSite: 'lax',
     });
   }
 
-  // 推荐码追踪
   if (ref) {
     response.cookies.set('rw_ref', ref, {
-      maxAge: 60 * 60 * 24 * 30, // 30天
+      maxAge: 60 * 60 * 24 * 30,
       path: '/',
       sameSite: 'lax',
     });
@@ -59,7 +80,6 @@ export function middleware(request: NextRequest) {
 
 export const config = {
   matcher: [
-    // 匹配所有页面路由，排除静态资源和 API
     '/((?!api|_next/static|_next/image|images|favicon|robots|sitemap).*)',
   ],
 };

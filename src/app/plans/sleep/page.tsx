@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import AddToCartButton from '@/components/ui/AddToCartButton';
+import { getAiConsultHrefForValue, getSolutionHrefForValue } from '@/lib/health/consult-entry';
 
 const plan = {
   slug: 'sleep' as const,
@@ -27,6 +28,9 @@ const plan = {
 };
 
 export default function SleepPlanPage() {
+  const consultHref = getAiConsultHrefForValue(plan.slug);
+  const solutionHref = getSolutionHrefForValue(plan.slug);
+
   return (
     <main className="min-h-screen bg-slate-50">
       <section className="bg-gradient-hero px-6 py-16">
@@ -34,6 +38,12 @@ export default function SleepPlanPage() {
           <Link href="/" className="text-sm text-teal hover:underline mb-4 inline-block">
             ← 返回首页
           </Link>
+          <div className="mb-6 rounded-2xl border border-amber-200 bg-amber-50 px-5 py-5">
+            <p className="text-sm font-semibold text-amber-900">旧组合参考页</p>
+            <p className="mt-2 text-sm leading-7 text-amber-800">
+              这个页面继续保留给已经熟悉旧组合的用户，但当前主路径已经切到 AI 评估。建议先完成评估，再决定是否进入购买入口。
+            </p>
+          </div>
           <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-8">
             <div className="flex-1">
               <span className="badge-teal mb-4">
@@ -45,7 +55,23 @@ export default function SleepPlanPage() {
                 <span className="text-4xl font-bold text-orange">¥{plan.price}</span>
                 <span className="text-slate-500">/月</span>
               </div>
-              <AddToCartButton slug={plan.slug} name={plan.name} price={plan.price} className="btn-primary" />
+              <div className="rounded-2xl border border-teal-200 bg-teal-50 px-5 py-5">
+                <p className="text-sm font-semibold text-teal-800">建议先完成 AI 评估</p>
+                <p className="mt-2 text-sm leading-7 text-teal-700">
+                  AI 会先判断风险等级和问题方向，再带你进入方案页或购买入口，不再建议直接按旧组合下单。
+                </p>
+                <div className="mt-5 flex flex-wrap gap-3">
+                  <Link href={consultHref} className="btn-primary">
+                    先做 AI 评估
+                  </Link>
+                  <Link
+                    href={solutionHref ?? consultHref}
+                    className="btn-secondary"
+                  >
+                    {solutionHref ? '查看对应方案页' : '前往 AI 评估主入口'}
+                  </Link>
+                </div>
+              </div>
             </div>
             <div className="w-full md:w-64 h-48 rounded-2xl overflow-hidden shadow-lg">
               <Image src="/images/plans/sleep.jpg" alt={plan.name} width={400} height={300} className="rounded-2xl object-cover w-full h-full" />
@@ -111,10 +137,23 @@ export default function SleepPlanPage() {
       </section>
 
       <section className="px-6 py-16">
-        <div className="mx-auto max-w-4xl text-center">
-          <h2 className="text-2xl font-bold text-slate-900 mb-4">今晚开始，睡个好觉</h2>
-          <p className="text-slate-600 mb-8">科学配比，温和助眠，不依赖不残留</p>
-          <AddToCartButton slug={plan.slug} name={plan.name} price={plan.price} className="btn-primary text-lg px-10 py-4" />
+        <div className="mx-auto max-w-4xl rounded-3xl border border-slate-200 bg-white px-8 py-10 text-center">
+          <span className="badge-slate">兼容购买入口</span>
+          <h2 className="mt-4 text-2xl font-bold text-slate-900 mb-4">如果你已经完成评估，也可以继续使用旧入口</h2>
+          <p className="text-slate-600 mb-8">
+            购买链路仍然保留，但建议先通过 AI 评估确认自己更适合睡眠支持、疲劳恢复，还是需要先线下咨询。
+          </p>
+          <div className="flex flex-wrap items-center justify-center gap-3">
+            <Link href={consultHref} className="btn-primary">
+              先做 AI 评估
+            </Link>
+            <AddToCartButton
+              slug={plan.slug}
+              name={plan.name}
+              price={plan.price}
+              className="border border-slate-300 bg-white text-slate-700 hover:bg-slate-50"
+            />
+          </div>
         </div>
       </section>
 
@@ -128,15 +167,15 @@ export default function SleepPlanPage() {
               <h3 className="font-semibold text-slate-900 mb-2">浏览所有产品</h3>
               <p className="text-sm text-slate-600">发现更多健康补充方案</p>
             </Link>
-            <Link href="/plans/fatigue" className="card-hover text-center">
+            <Link href="/solutions/fatigue" className="card-hover text-center">
               <div className="text-3xl mb-3">⚡</div>
-              <h3 className="font-semibold text-slate-900 mb-2">抗疲劳组合</h3>
-              <p className="text-sm text-slate-600">恢复充沛精力</p>
+              <h3 className="font-semibold text-slate-900 mb-2">疲劳恢复方案</h3>
+              <p className="text-sm text-slate-600">先看问题方案，再决定是否继续购买</p>
             </Link>
-            <Link href="/plans/stress" className="card-hover text-center">
+            <Link href="/ai-consult" className="card-hover text-center">
               <div className="text-3xl mb-3">🧘</div>
-              <h3 className="font-semibold text-slate-900 mb-2">压力缓解组合</h3>
-              <p className="text-sm text-slate-600">放松身心压力</p>
+              <h3 className="font-semibold text-slate-900 mb-2">直接进入 AI 评估</h3>
+              <p className="text-sm text-slate-600">如果问题不止睡眠，可以直接做完整评估</p>
             </Link>
           </div>
         </div>

@@ -9,4 +9,5 @@ geoflow
 geoflow-config
 .env
 .env.local
+.env.production
 .env.*.local

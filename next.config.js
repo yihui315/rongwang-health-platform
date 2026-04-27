@@ -1,7 +1,15 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Docker 部署需要 standalone 输出
   output: 'standalone',
+  serverExternalPackages: [
+    'stripe',
+    '@prisma/client',
+    '@supabase/supabase-js',
+    '@supabase/ssr',
+  ],
+  experimental: {
+    webpackBuildWorker: false,
+  },
   images: {
     remotePatterns: [
       {
@@ -18,9 +26,24 @@ const nextConfig = {
   },
   poweredByHeader: false,
   compress: true,
-  // 环境变量透传到客户端
   env: {
     NEXT_PUBLIC_SITE_URL: process.env.NEXT_PUBLIC_SITE_URL || 'https://rongwang.health',
+  },
+  async headers() {
+    return [
+      {
+        source: '/(.*)',
+        headers: [
+          { key: 'X-Content-Type-Options', value: 'nosniff' },
+          { key: 'X-Frame-Options', value: 'DENY' },
+          { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
+          {
+            key: 'Permissions-Policy',
+            value: 'camera=(), microphone=(), geolocation=()',
+          },
+        ],
+      },
+    ];
   },
 };
 

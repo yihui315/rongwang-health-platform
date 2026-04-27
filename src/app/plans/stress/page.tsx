@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import AddToCartButton from '@/components/ui/AddToCartButton';
+import { getAiConsultHrefForValue, getSolutionHrefForValue } from '@/lib/health/consult-entry';
 
 const plan = {
   slug: 'stress' as const,
@@ -27,6 +28,9 @@ const plan = {
 };
 
 export default function StressPlanPage() {
+  const consultHref = getAiConsultHrefForValue(plan.slug);
+  const solutionHref = getSolutionHrefForValue(plan.slug);
+
   return (
     <main className="min-h-screen bg-slate-50">
       <section className="bg-gradient-hero px-6 py-16">
@@ -34,6 +38,12 @@ export default function StressPlanPage() {
           <Link href="/" className="text-sm text-teal hover:underline mb-4 inline-block">
             ← 返回首页
           </Link>
+          <div className="mb-6 rounded-2xl border border-amber-200 bg-amber-50 px-5 py-5">
+            <p className="text-sm font-semibold text-amber-900">旧组合参考页</p>
+            <p className="mt-2 text-sm leading-7 text-amber-800">
+              压力缓解组合仍然可访问，但当前站点没有单独的 canonical 压力方案页，这类用户应直接进入 AI 评估主入口。
+            </p>
+          </div>
           <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-8">
             <div className="flex-1">
               <span className="badge-teal mb-4">
@@ -45,7 +55,23 @@ export default function StressPlanPage() {
                 <span className="text-4xl font-bold text-orange">¥{plan.price}</span>
                 <span className="text-slate-500">/月</span>
               </div>
-              <AddToCartButton slug={plan.slug} name={plan.name} price={plan.price} className="btn-primary" />
+              <div className="rounded-2xl border border-teal-200 bg-teal-50 px-5 py-5">
+                <p className="text-sm font-semibold text-teal-800">建议先完成 AI 评估</p>
+                <p className="mt-2 text-sm leading-7 text-teal-700">
+                  压力问题常常会和睡眠、疲劳、应酬恢复等方向重叠。当前更推荐先做完整评估，而不是直接按旧组合购买。
+                </p>
+                <div className="mt-5 flex flex-wrap gap-3">
+                  <Link href={consultHref} className="btn-primary">
+                    先做 AI 评估
+                  </Link>
+                  <Link
+                    href={solutionHref ?? consultHref}
+                    className="btn-secondary"
+                  >
+                    {solutionHref ? '查看对应方案页' : '前往 AI 评估主入口'}
+                  </Link>
+                </div>
+              </div>
             </div>
             <div className="w-full md:w-64 h-48 rounded-2xl overflow-hidden shadow-lg">
               <Image src="/images/plans/stress.jpg" alt={plan.name} width={400} height={300} className="rounded-2xl object-cover w-full h-full" />
@@ -111,10 +137,23 @@ export default function StressPlanPage() {
       </section>
 
       <section className="px-6 py-16">
-        <div className="mx-auto max-w-4xl text-center">
-          <h2 className="text-2xl font-bold text-slate-900 mb-4">找回内心的平静与从容</h2>
-          <p className="text-slate-600 mb-8">从HPA轴源头调节，让身体学会正确应对压力</p>
-          <AddToCartButton slug={plan.slug} name={plan.name} price={plan.price} className="btn-primary text-lg px-10 py-4" />
+        <div className="mx-auto max-w-4xl rounded-3xl border border-slate-200 bg-white px-8 py-10 text-center">
+          <span className="badge-slate">兼容购买入口</span>
+          <h2 className="mt-4 text-2xl font-bold text-slate-900 mb-4">如果你已经完成评估，也可以继续使用旧入口</h2>
+          <p className="text-slate-600 mb-8">
+            压力缓解组合继续保留，但现在更推荐先判断自己是睡眠问题、疲劳恢复，还是更适合从完整 AI 评估开始。
+          </p>
+          <div className="flex flex-wrap items-center justify-center gap-3">
+            <Link href={consultHref} className="btn-primary">
+              先做 AI 评估
+            </Link>
+            <AddToCartButton
+              slug={plan.slug}
+              name={plan.name}
+              price={plan.price}
+              className="border border-slate-300 bg-white text-slate-700 hover:bg-slate-50"
+            />
+          </div>
         </div>
       </section>
 
@@ -128,15 +167,15 @@ export default function StressPlanPage() {
               <h3 className="font-semibold text-slate-900 mb-2">浏览所有产品</h3>
               <p className="text-sm text-slate-600">发现更多健康补充方案</p>
             </Link>
-            <Link href="/plans/sleep" className="card-hover text-center">
+            <Link href="/solutions/sleep" className="card-hover text-center">
               <div className="text-3xl mb-3">🌙</div>
-              <h3 className="font-semibold text-slate-900 mb-2">深度睡眠组合</h3>
-              <p className="text-sm text-slate-600">改善睡眠质量</p>
+              <h3 className="font-semibold text-slate-900 mb-2">睡眠支持方案</h3>
+              <p className="text-sm text-slate-600">查看作息与恢复相关方案</p>
             </Link>
-            <Link href="/plans/immune" className="card-hover text-center">
+            <Link href="/solutions/immune" className="card-hover text-center">
               <div className="text-3xl mb-3">🛡️</div>
-              <h3 className="font-semibold text-slate-900 mb-2">免疫防护组合</h3>
-              <p className="text-sm text-slate-600">增强免疫防线</p>
+              <h3 className="font-semibold text-slate-900 mb-2">免疫支持方案</h3>
+              <p className="text-sm text-slate-600">查看恢复和日常防护方向</p>
             </Link>
           </div>
         </div>

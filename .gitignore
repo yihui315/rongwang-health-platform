@@ -20,6 +20,7 @@ pnpm-debug.log*
 # env
 .env
 .env.local
+.env.production
 .env.development.local
 .env.test.local
 .env.production.local
@@ -61,6 +62,9 @@ geoflow/data/
 tsconfig.tsbuildinfo
 output/
 ai-mcp-server/nul
+
+# local research clones and notes
+.research/
 
 # chanpinlu (product catalog source)
 chanpinlu/

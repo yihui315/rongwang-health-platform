@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { products } from "@/data/products";
+import { listProducts } from "@/lib/data/products";
 
 /**
  * AI 推荐 API
@@ -24,6 +24,7 @@ export async function POST(request: Request) {
       (c: string) => planMap[c] || []
     );
 
+    const products = await listProducts();
     const recommended = products.filter((p) =>
       p.plans.some((plan) => matchedPlans.includes(plan))
     );

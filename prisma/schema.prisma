@@ -1,0 +1,163 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model UserSession {
+  id            String         @id @default(cuid())
+  ipHash        String?
+  userAgent     String?
+  source        String?
+  ref           String?
+  utm           Json?
+  metadata      Json?
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+  consultations Consultation[]
+  leads         Lead[]
+  pddClicks     PddClick[]
+
+  @@index([createdAt])
+  @@index([source])
+}
+
+model Consultation {
+  id                      String       @id @default(cuid())
+  sessionId               String?
+  profileJson             Json
+  symptoms                String[]
+  aiResult                Json
+  riskLevel               String
+  recommendedSolutionType String?
+  source                  String?
+  recommendationSnapshot  Json?
+  aiProvider              String?
+  aiModel                 String?
+  promptVersion           String?
+  rawResponse             Json?
+  metadata                Json?
+  createdAt               DateTime     @default(now())
+  updatedAt               DateTime     @updatedAt
+  session                 UserSession? @relation(fields: [sessionId], references: [id], onDelete: SetNull)
+  pddClicks               PddClick[]
+
+  @@index([createdAt])
+  @@index([riskLevel])
+  @@index([recommendedSolutionType])
+  @@index([source])
+}
+
+model Product {
+  id              String   @id @default(cuid())
+  sku             String?  @unique
+  slug            String   @unique
+  name            String
+  englishName     String?
+  brand           String
+  category        String
+  plans           String[]
+  price           Int
+  memberPrice     Int
+  costPrice       Int?
+  unit            String
+  servings        Int
+  origin          String
+  tagline         String
+  tier            String
+  matrix          String?
+  hero            Json?
+  keyIngredients  Json?
+  scientificBasis String
+  howToUse        String
+  warnings        String[]
+  certifications  String[]
+  stock           String
+  badge           String?
+  shippingNote    String?
+  images          String[]
+  officialUrl     String?
+  pddUrl          String?
+  active          Boolean  @default(true)
+  metadata        Json?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@index([brand])
+  @@index([category])
+  @@index([tier])
+  @@index([active])
+}
+
+model RecommendationRule {
+  id         String   @id @default(cuid())
+  name       String?
+  condition  Json
+  productIds String[]
+  priority   Int      @default(100)
+  active     Boolean  @default(true)
+  note       String?
+  metadata   Json?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@index([active, priority])
+}
+
+model Lead {
+  id        String       @id @default(cuid())
+  sessionId String?
+  contact   String?
+  source    String?
+  intent    String?
+  payload   Json?
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @updatedAt
+  session   UserSession? @relation(fields: [sessionId], references: [id], onDelete: SetNull)
+
+  @@index([createdAt])
+  @@index([source])
+}
+
+model PddClick {
+  id             String        @id @default(cuid())
+  sessionId      String?
+  consultationId String?
+  productId      String?
+  productSlug    String?
+  source         String?
+  solutionSlug   String?
+  destinationUrl String?
+  ref            String?
+  utm            Json?
+  metadata       Json?
+  createdAt      DateTime      @default(now())
+  session        UserSession?  @relation(fields: [sessionId], references: [id], onDelete: SetNull)
+  consultation   Consultation? @relation(fields: [consultationId], references: [id], onDelete: SetNull)
+
+  @@index([createdAt])
+  @@index([consultationId])
+  @@index([productSlug])
+  @@index([source])
+}
+
+model AnalyticsEvent {
+  id             String   @id @default(cuid())
+  name           String
+  sessionId      String?
+  consultationId String?
+  source         String?
+  solutionSlug   String?
+  productId      String?
+  metadata       Json?
+  createdAt      DateTime @default(now())
+
+  @@index([createdAt])
+  @@index([name])
+  @@index([source])
+  @@index([solutionSlug])
+}
