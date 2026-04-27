@@ -12,4 +12,3 @@ test("solution pages keep AI assessment as the conversion path instead of direct
   assert.doesNotMatch(html, /href="\/product-map\//);
   assert.doesNotMatch(html, /source=solution-page/);
 });
-

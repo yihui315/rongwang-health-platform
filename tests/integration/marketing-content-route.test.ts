@@ -88,4 +88,3 @@ test("POST /api/marketing/content rate limits authorized generation attempts", a
     assert.deepEqual(await third.json(), { success: false, error: "rate_limited" });
   });
 });
-

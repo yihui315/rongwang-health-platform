@@ -32,4 +32,3 @@ export async function DELETE() {
   response.cookies.set(ADMIN_COOKIE_NAME, "", getAdminCookieClearOptions());
   return response;
 }
-
