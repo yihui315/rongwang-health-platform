@@ -33,4 +33,3 @@ export function logApiWarning(event: string, fields: LogFields = {}) {
 export function logApiError(event: string, fields: LogFields = {}) {
   write("error", event, fields);
 }
-
