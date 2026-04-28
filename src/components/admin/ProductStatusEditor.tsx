@@ -5,7 +5,7 @@ import type { Product } from "@/lib/data/products";
 import { productStockValues } from "@/schemas/product";
 
 interface ProductStatusEditorProps {
-  product: Product & {
+  product: Omit<Product, "pddUrl"> & {
     active?: boolean;
     pddUrl?: string | null;
   };
