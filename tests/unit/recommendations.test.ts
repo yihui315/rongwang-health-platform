@@ -1,7 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { products } from "@/data/products";
-import { getRecommendations, getRecommendationsFromCatalog } from "@/lib/health/recommendations";
+import { getRedirectDestination, getRecommendations, getRecommendationsFromCatalog } from "@/lib/health/recommendations";
 import type { HealthConsultationResult } from "@/schemas/ai-result";
 import type { HealthProfile } from "@/schemas/health";
 
@@ -82,4 +82,17 @@ test("female health consultation results return rule-based support directions", 
 
   const recommendations = getRecommendations(result, femaleProfile);
   assert.ok(recommendations.length > 0);
+});
+
+test("product redirects prefer the managed PDD URL before official or local product pages", () => {
+  const product = {
+    ...products[0],
+    officialUrl: "https://brand.example/product",
+    pddUrl: "https://mobile.yangkeduo.com/goods.html?goods_id=123",
+  };
+
+  assert.deepEqual(getRedirectDestination(product), {
+    url: "https://mobile.yangkeduo.com/goods.html?goods_id=123",
+    isExternal: true,
+  });
 });

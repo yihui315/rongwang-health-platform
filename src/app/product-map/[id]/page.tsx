@@ -1,11 +1,9 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import ProductRedirectClient from "@/components/ai/ProductRedirectClient";
+import { getProductBySlug } from "@/lib/data/products";
 import { normalizeSolutionSlug } from "@/lib/health/solutions";
-import {
-  findRecommendationProduct,
-  getRedirectDestination,
-} from "@/lib/health/recommendations";
+import { getRedirectDestination } from "@/lib/health/recommendations";
 
 interface ProductMapPageProps {
   params: Promise<{ id: string }>;
@@ -27,7 +25,7 @@ export default async function ProductMapPage({
 }: ProductMapPageProps) {
   const { id } = await params;
   const query = await searchParams;
-  const product = findRecommendationProduct(id);
+  const product = await getProductBySlug(id);
 
   if (!product) {
     notFound();

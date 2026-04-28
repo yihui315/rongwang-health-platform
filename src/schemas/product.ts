@@ -61,6 +61,7 @@ export const productSchema = z.object({
   shippingNote: z.string().trim().min(1).optional(),
   images: z.array(z.string().trim().min(1)).optional(),
   officialUrl: z.string().url().optional(),
+  pddUrl: z.string().url().optional(),
 });
 
 export type ProductRecord = z.infer<typeof productSchema>;

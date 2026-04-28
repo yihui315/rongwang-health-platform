@@ -60,6 +60,7 @@ export interface Product {
   shippingNote?: string;   // 物流说明
   images?: string[];       // 产品图片路径列表
   officialUrl?: string;    // 品牌官网链接
+  pddUrl?: string;         // 后台维护的拼多多/外部购买链接
 }
 
 export const products: Product[] = [

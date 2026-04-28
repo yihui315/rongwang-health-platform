@@ -303,9 +303,11 @@ function buildPreviewProfileSummary(profile: HealthProfile) {
 }
 
 export function getRedirectDestination(product: Product) {
+  const url = product.pddUrl || product.officialUrl || `/products/${product.slug}`;
+
   return {
-    url: product.officialUrl || `/products/${product.slug}`,
-    isExternal: Boolean(product.officialUrl),
+    url,
+    isExternal: url.startsWith("http://") || url.startsWith("https://"),
   };
 }
 

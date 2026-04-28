@@ -4,7 +4,7 @@ import { products as staticProducts, type Product, type ProductCategory, type Pr
 import { getPrisma } from "@/lib/prisma";
 
 export type { Product, ProductCategory, ProductTier } from "@/data/products";
-export type AdminProduct = Product & {
+export type AdminProduct = Omit<Product, "pddUrl"> & {
   active: boolean;
   pddUrl?: string | null;
 };
@@ -48,6 +48,7 @@ function mapProductRecord(record: PrismaProduct): Product {
     shippingNote: record.shippingNote ?? fallback?.shippingNote,
     images: toStringArray(record.images, fallback?.images ?? []),
     officialUrl: record.officialUrl ?? fallback?.officialUrl,
+    pddUrl: record.pddUrl ?? fallback?.pddUrl,
   };
 }
 
