@@ -1,0 +1,20 @@
+<view class="page">
+  <view wx:if="{{loading}}" class="card body">加载详情中...</view>
+  <view wx:if="{{error}}" class="card body">{{error}}</view>
+
+  <view wx:if="{{product}}" class="card">
+    <view class="eyebrow">{{product.brand}}</view>
+    <view class="title">{{product.name}}</view>
+    <view class="body">{{product.tagline}}</view>
+    <view class="price">HK${{product.memberPrice || product.price}}</view>
+    <button class="button-primary" bindtap="goAssessment">先做 AI 评估</button>
+    <button class="button-secondary" bindtap="openMall">官网商城查看详情</button>
+    <button class="button-secondary" bindtap="openPdd">去拼多多查看/购买</button>
+  </view>
+
+  <view wx:if="{{product}}" class="card">
+    <view class="eyebrow">使用提醒</view>
+    <view class="body">{{product.howToUse}}</view>
+    <view class="body" wx:for="{{product.warnings}}" wx:key="*this">- {{item}}</view>
+  </view>
+</view>

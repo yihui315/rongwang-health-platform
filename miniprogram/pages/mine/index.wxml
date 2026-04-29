@@ -1,0 +1,9 @@
+<view class="page">
+  <view class="card">
+    <view class="eyebrow">SERVICE</view>
+    <view class="title">客服与记录</view>
+    <view class="body">当前版本不保存微信支付订单，不在小程序内完成交易。后续可接入 openid、咨询记录和客服消息。</view>
+    <button class="button-primary" open-type="contact">联系在线客服</button>
+    <button class="button-secondary" bindtap="goAssessment">重新做 AI 评估</button>
+  </view>
+</view>

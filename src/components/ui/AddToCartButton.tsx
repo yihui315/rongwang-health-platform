@@ -2,10 +2,9 @@
 
 import React, { useState } from 'react';
 import { useCart } from '@/lib/cart-context';
-import { PlanSlug } from '@/types';
 
 interface AddToCartButtonProps {
-  slug: PlanSlug;
+  slug: string;
   name: string;
   price: number;
   className?: string;

@@ -52,7 +52,7 @@ export default function HomeAssessmentLanding() {
                   立即开始 AI 评估
                 </Link>
                 <Link href="/solutions/sleep" className="btn-ghost">
-                  先看问题方案
+                  先看健康方案
                 </Link>
               </div>
 
@@ -144,8 +144,8 @@ export default function HomeAssessmentLanding() {
 
       <section className="section-container py-16 md:py-20">
         <div className="mb-8 max-w-2xl">
-          <span className="badge-teal">Popular Assessments</span>
-          <h2 className="mt-4 text-balance text-slate-900">从问题进入，不先推商品</h2>
+          <span className="badge-teal">Health Guides</span>
+          <h2 className="mt-4 text-balance text-slate-900">从健康问题进入，不先推商品</h2>
           <p className="mt-3 text-lg text-slate-500">
             先进入对应场景页或直接做 AI 评估，确认风险等级和支持方向后，再查看推荐入口。
           </p>
@@ -172,8 +172,8 @@ export default function HomeAssessmentLanding() {
       <section className="border-y border-slate-100 bg-white">
         <div className="section-container py-16 md:py-20">
           <div className="mb-8 max-w-2xl">
-            <span className="badge-orange">Solution Pages</span>
-            <h2 className="mt-4 text-balance text-slate-900">每个方案页都围绕“问题解决”设计</h2>
+          <span className="badge-orange">Health Plans</span>
+            <h2 className="mt-4 text-balance text-slate-900">每个健康方案页都围绕“问题解决”设计</h2>
             <p className="mt-3 text-lg text-slate-500">
               方案页会覆盖问题描述、常见原因、就医信号、AI 自测入口、基础调理方案与购买入口。
             </p>
@@ -187,7 +187,7 @@ export default function HomeAssessmentLanding() {
                     <p className="text-sm font-medium text-teal-700">{guide.eyebrow}</p>
                     <h3 className="mt-2 text-2xl font-semibold text-slate-900">{guide.title}</h3>
                   </div>
-                  <span className="badge-slate">问题方案页</span>
+                  <span className="badge-slate">健康方案页</span>
                 </div>
 
                 <p className="mt-4 text-sm leading-7 text-slate-600">{guide.summary}</p>

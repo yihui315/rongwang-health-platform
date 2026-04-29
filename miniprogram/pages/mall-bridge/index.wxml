@@ -1,0 +1,9 @@
+<view class="page">
+  <view class="card">
+    <view class="eyebrow">SITE MALL</view>
+    <view class="title">打开荣旺官网商城</view>
+    <view class="body">官网商城承接产品资料、规格、站内购物车与结算链路。请先完成健康评估，再根据教育建议查看商品信息。</view>
+    <button class="button-primary" bindtap="copyLink">复制官网商城链接</button>
+    <button class="button-secondary" bindtap="backProducts">返回产品列表</button>
+  </view>
+</view>

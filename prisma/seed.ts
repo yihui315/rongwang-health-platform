@@ -2,6 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { PrismaClient } from "@prisma/client";
 import { products } from "../src/data/products";
+import { upsertDefaultKnowledgeSeed } from "../src/lib/data/knowledge";
 
 function parseEnvLine(line: string) {
   const trimmed = line.trim();
@@ -167,6 +168,8 @@ async function main() {
       },
     });
   }
+
+  await upsertDefaultKnowledgeSeed(prisma);
 }
 
 main()

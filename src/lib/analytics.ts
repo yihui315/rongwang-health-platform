@@ -10,6 +10,10 @@ export const analyticsEventNames = [
   "marketing_asset_generated",
   "marketing_geoflow_task_created",
   "marketing_autopilot_run",
+  "miniprogram_product_viewed",
+  "miniprogram_pdd_clicked",
+  "wechat_article_published",
+  "wechat_article_cta_clicked",
 ] as const;
 
 export const analyticsEventSchema = z.object({

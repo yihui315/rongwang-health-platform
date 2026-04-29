@@ -5,6 +5,8 @@ import { getFeatureFlagSnapshot } from "@/lib/feature-flags";
 import { buildMarketingAutopilotRun } from "@/lib/marketing/autopilot";
 import { buildMarketingCampaignPlan } from "@/lib/marketing/automation";
 import { getGeoFlowAutomationStatus } from "@/lib/marketing/geoflow";
+import { getWechatReadinessStatus } from "@/lib/wechat/config";
+import { getPddLinkReadiness } from "@/lib/wechat/pdd-link";
 
 const emptyPddSummary: PddClickSummary = {
   total: 0,
@@ -16,14 +18,19 @@ const emptyPddSummary: PddClickSummary = {
 export default function AdminMarketingPage() {
   const flags = getFeatureFlagSnapshot();
   const geoFlow = getGeoFlowAutomationStatus();
+  const wechat = getWechatReadinessStatus();
+  const pddRedirect = getPddLinkReadiness();
   const samplePlan = buildMarketingCampaignPlan({
     objective: "assessment_conversion",
     audience: "关注睡眠、疲劳和女性健康管理的内容用户",
     solution: "female-health",
     keyword: "女性健康支持方案",
     campaignSlug: "female-health-automation",
-    channels: ["seo_article", "landing_page", "xiaohongshu", "email"],
+    channels: ["seo_article", "landing_page", "xiaohongshu", "wechat", "email"],
   });
+  const wechatPublication = samplePlan.assets.flatMap((asset) =>
+    asset.wechatArticle ? [asset.wechatArticle] : [],
+  );
   const autopilot = buildMarketingAutopilotRun({
     request: {
       objective: "assessment_conversion",
@@ -56,7 +63,7 @@ export default function AdminMarketingPage() {
           </Link>
         </div>
 
-        <div className="mt-8 grid gap-4 md:grid-cols-4">
+        <div className="mt-8 grid gap-4 md:grid-cols-5">
           <MetricCard
             title="Automation"
             value={flags.marketingAutomation ? "On" : "Off"}
@@ -77,6 +84,61 @@ export default function AdminMarketingPage() {
             value="AI consult"
             note="All assets route to assessment first"
           />
+          <MetricCard
+            title="WeChat"
+            value={wechat.officialAccount.canUploadDraft ? "Draft ready" : "Dry-run"}
+            note={wechat.miniProgram.configured ? "Mini Program configured" : "Mini Program pending"}
+          />
+          <MetricCard
+            title="PDD Redirect"
+            value={pddRedirect.mode}
+            note={pddRedirect.configured ? "PDD guided mode ready" : "Fallback required"}
+          />
+        </div>
+
+        <div id="wechat-operations" className="mt-8 rounded-3xl border border-emerald-100 bg-emerald-50/70 p-6">
+          <div className="flex flex-wrap items-start justify-between gap-4">
+            <div>
+              <p className="text-sm font-semibold text-emerald-800">WeChat Operations</p>
+              <h2 className="mt-2 text-2xl font-semibold text-slate-900">
+                Official Account draft flow stays review-first
+              </h2>
+              <p className="mt-2 max-w-3xl text-sm leading-7 text-slate-600">
+                WeChat content is generated as Markdown, previewed through md2wechat, then reviewed manually before optional draft upload. Mini Program commerce and WeChat Pay stay separated from article publishing.
+              </p>
+              <p className="mt-2 text-sm text-slate-500">
+                Read-only status API: <code className="rounded bg-white px-1">GET /api/wechat/status</code>
+              </p>
+              <p className="mt-2 text-sm text-slate-500">
+                wechatPublication decisions: {wechatPublication.length}; auto-publish remains gated by WECHAT_AUTO_PUBLISH and compliance review.
+              </p>
+            </div>
+            <Link href="/admin" className="btn-secondary">
+              Admin home
+            </Link>
+          </div>
+          <div className="mt-5 grid gap-3 md:grid-cols-4">
+            <StatusPanel
+              title="Official Account"
+              value={wechat.officialAccount.canUploadDraft ? "Draft upload ready" : "Preview / dry-run only"}
+              missing={wechat.officialAccount.missing}
+            />
+            <StatusPanel
+              title="Mini Program"
+              value={wechat.miniProgram.configured ? "Configured" : "Pending credentials"}
+              missing={wechat.miniProgram.missing}
+            />
+            <StatusPanel
+              title="PDD Redirect"
+              value={pddRedirect.configured ? `Mode: ${pddRedirect.mode}` : "Fallback required"}
+              missing={pddRedirect.missing}
+            />
+            <StatusPanel
+              title="WeChat Pay"
+              value={wechat.pay.configured ? "Configured" : "Payment disabled"}
+              missing={wechat.pay.missing}
+            />
+          </div>
         </div>
 
         <div className="mt-8 rounded-3xl border border-teal-100 bg-teal-50/70 p-6">
@@ -268,6 +330,18 @@ function InsightList({ title, items, empty }: { title: string; items: string[]; 
           <p className="text-xs leading-5 text-slate-500">{empty}</p>
         )}
       </div>
+    </div>
+  );
+}
+
+function StatusPanel({ title, value, missing }: { title: string; value: string; missing: string[] }) {
+  return (
+    <div className="rounded-2xl border border-emerald-100 bg-white p-5">
+      <p className="text-sm font-semibold text-slate-900">{title}</p>
+      <p className="mt-2 text-sm text-slate-600">{value}</p>
+      <p className="mt-3 text-xs leading-5 text-slate-500">
+        {missing.length > 0 ? `Missing: ${missing.join(", ")}` : "No required values missing."}
+      </p>
     </div>
   );
 }

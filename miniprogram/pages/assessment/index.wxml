@@ -1,0 +1,9 @@
+<view class="page">
+  <view class="card">
+    <view class="eyebrow">3 MIN ASSESSMENT</view>
+    <view class="title">用网站主链路完成 AI 评估</view>
+    <view class="body">第一版小程序不直接承载医疗问答。点击后复制或打开荣旺网站 AI 评估链接，继续使用受控的健康建议与推荐规则。</view>
+    <button class="button-primary" bindtap="copyAssessmentLink">复制 AI 评估链接</button>
+    <button class="button-secondary" bindtap="openBridge">查看说明</button>
+  </view>
+</view>

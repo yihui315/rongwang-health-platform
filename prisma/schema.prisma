@@ -45,11 +45,118 @@ model Consultation {
   updatedAt               DateTime     @updatedAt
   session                 UserSession? @relation(fields: [sessionId], references: [id], onDelete: SetNull)
   pddClicks               PddClick[]
+  assessmentReports       AssessmentReport[]
 
   @@index([createdAt])
   @@index([riskLevel])
   @@index([recommendedSolutionType])
   @@index([source])
+}
+
+model UserAccount {
+  id                String             @id @default(cuid())
+  displayName       String?
+  email             String?            @unique
+  phone             String?
+  status            String             @default("active")
+  consentVersion    String?
+  consentedAt       DateTime?
+  metadata          Json?
+  createdAt         DateTime           @default(now())
+  updatedAt         DateTime           @updatedAt
+  identities        UserIdentity[]
+  authSessions      UserAuthSession[]
+  healthProfiles    UserHealthProfile[]
+  assessmentReports AssessmentReport[]
+
+  @@index([createdAt])
+  @@index([status])
+}
+
+model UserIdentity {
+  id                  String      @id @default(cuid())
+  userAccountId       String
+  provider            String
+  providerSubjectHash String
+  unionIdHash         String?
+  credentialHash      String?
+  displayName         String?
+  avatarUrl           String?
+  metadata            Json?
+  lastSeenAt          DateTime?
+  createdAt           DateTime    @default(now())
+  updatedAt           DateTime    @updatedAt
+  userAccount         UserAccount @relation(fields: [userAccountId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerSubjectHash])
+  @@index([userAccountId])
+  @@index([unionIdHash])
+  @@index([provider])
+}
+
+model UserAuthSession {
+  id               String      @id @default(cuid())
+  userAccountId    String
+  sessionTokenHash String      @unique
+  ipHash           String?
+  userAgent        String?
+  metadata         Json?
+  expiresAt        DateTime
+  revokedAt        DateTime?
+  createdAt        DateTime    @default(now())
+  updatedAt        DateTime    @updatedAt
+  userAccount      UserAccount @relation(fields: [userAccountId], references: [id], onDelete: Cascade)
+
+  @@index([userAccountId])
+  @@index([expiresAt])
+  @@index([revokedAt])
+}
+
+model UserHealthProfile {
+  id              String      @id @default(cuid())
+  userAccountId   String
+  profileJson     Json
+  consentVersion  String?
+  snapshotVersion String      @default("health-profile-v1")
+  source          String?
+  metadata        Json?
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
+  userAccount     UserAccount @relation(fields: [userAccountId], references: [id], onDelete: Cascade)
+  assessmentReports AssessmentReport[]
+
+  @@index([userAccountId, createdAt])
+  @@index([source])
+}
+
+model AssessmentReport {
+  id                      String        @id @default(cuid())
+  userAccountId           String
+  consultationId          String?
+  healthProfileId         String?
+  title                   String?
+  profileJson             Json
+  aiResult                Json
+  safetyJson              Json
+  recommendationsJson     Json?
+  riskLevel               String
+  recommendedSolutionType String?
+  aiProvider              String?
+  aiModel                 String?
+  promptVersion           String?
+  reportVersion           String        @default("assessment-report-v1")
+  source                  String?
+  metadata                Json?
+  createdAt               DateTime      @default(now())
+  updatedAt               DateTime      @updatedAt
+  userAccount             UserAccount   @relation(fields: [userAccountId], references: [id], onDelete: Cascade)
+  consultation            Consultation? @relation(fields: [consultationId], references: [id], onDelete: SetNull)
+  healthProfile           UserHealthProfile? @relation(fields: [healthProfileId], references: [id], onDelete: SetNull)
+
+  @@unique([userAccountId, consultationId])
+  @@index([userAccountId, createdAt])
+  @@index([riskLevel])
+  @@index([recommendedSolutionType])
 }
 
 model Product {
@@ -86,11 +193,74 @@ model Product {
   metadata        Json?
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
+  knowledgeLinks  ProductKnowledgeLink[]
 
   @@index([brand])
   @@index([category])
   @@index([tier])
   @@index([active])
+}
+
+model KnowledgeSource {
+  id          String                 @id @default(cuid())
+  title       String
+  sourceType  String                 @default("internal")
+  url         String?
+  publisher   String?
+  citation    String?
+  status      String                 @default("reviewed")
+  reviewedAt  DateTime?
+  metadata    Json?
+  createdAt   DateTime               @default(now())
+  updatedAt   DateTime               @updatedAt
+  entries     HealthKnowledgeEntry[]
+
+  @@index([status])
+  @@index([sourceType])
+}
+
+model HealthKnowledgeEntry {
+  id                String                 @id @default(cuid())
+  sourceId          String?
+  slug              String                 @unique
+  title             String
+  category          String
+  audience          String?
+  summary           String
+  body              String
+  evidenceLevel     String?
+  status            String                 @default("draft")
+  redFlags          String[]
+  contraindications String[]
+  tags              String[]
+  effectiveFrom     DateTime?
+  effectiveTo       DateTime?
+  metadata          Json?
+  createdAt         DateTime               @default(now())
+  updatedAt         DateTime               @updatedAt
+  source            KnowledgeSource?       @relation(fields: [sourceId], references: [id], onDelete: SetNull)
+  productLinks      ProductKnowledgeLink[]
+
+  @@index([category])
+  @@index([status])
+  @@index([effectiveFrom])
+}
+
+model ProductKnowledgeLink {
+  id           String               @id @default(cuid())
+  entryId      String
+  productSlug  String
+  relationType String               @default("education")
+  note         String?
+  metadata     Json?
+  createdAt    DateTime             @default(now())
+  updatedAt    DateTime             @updatedAt
+  entry        HealthKnowledgeEntry @relation(fields: [entryId], references: [id], onDelete: Cascade)
+  product      Product              @relation(fields: [productSlug], references: [slug], onDelete: Cascade)
+
+  @@unique([entryId, productSlug])
+  @@index([productSlug])
+  @@index([relationType])
 }
 
 model RecommendationRule {
@@ -160,4 +330,67 @@ model AnalyticsEvent {
   @@index([name])
   @@index([source])
   @@index([solutionSlug])
+}
+
+model WechatUser {
+  id             String          @id @default(cuid())
+  openId         String          @unique
+  unionId        String?
+  sessionKeyHash String?
+  nickname       String?
+  metadata       Json?
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+  orders         WechatOrder[]
+  payments       WechatPayment[]
+
+  @@index([unionId])
+  @@index([createdAt])
+}
+
+model WechatOrder {
+  id                String          @id @default(cuid())
+  orderNo           String          @unique
+  openId            String?
+  items             Json
+  totalAmount       Int
+  currency          String          @default("CNY")
+  status            String          @default("pending_payment")
+  paymentStatus     String          @default("unpaid")
+  fulfillmentStatus String          @default("unfulfilled")
+  customer          Json?
+  metadata          Json?
+  createdAt         DateTime        @default(now())
+  updatedAt         DateTime        @updatedAt
+  user              WechatUser?     @relation(fields: [openId], references: [openId], onDelete: SetNull)
+  payments          WechatPayment[]
+
+  @@index([openId])
+  @@index([status])
+  @@index([paymentStatus])
+  @@index([fulfillmentStatus])
+  @@index([createdAt])
+}
+
+model WechatPayment {
+  id            String       @id @default(cuid())
+  orderNo       String
+  openId        String?
+  prepayId      String?
+  transactionId String?
+  amount        Int?
+  currency      String       @default("CNY")
+  status        String       @default("unpaid")
+  notifyPayload Json?
+  metadata      Json?
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+  order         WechatOrder  @relation(fields: [orderNo], references: [orderNo], onDelete: Cascade)
+  user          WechatUser?  @relation(fields: [openId], references: [openId], onDelete: SetNull)
+
+  @@index([orderNo])
+  @@index([openId])
+  @@index([transactionId])
+  @@index([status])
+  @@index([createdAt])
 }

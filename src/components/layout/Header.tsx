@@ -7,10 +7,9 @@ import CartBadge from "@/components/ui/CartBadge";
 
 const publicNavLinks = [
   { href: "/ai-consult", label: "AI评估", matchPrefix: "/ai-consult" },
-  { href: "/assessment/sleep", label: "评估入口", matchPrefix: "/assessment" },
-  { href: "/solutions/sleep", label: "问题方案", matchPrefix: "/solutions" },
-  { href: "/products", label: "商品库", matchPrefix: "/products" },
-  { href: "/articles", label: "内容", matchPrefix: "/articles" },
+  { href: "/solutions/sleep", label: "健康方案", matchPrefix: "/solutions" },
+  { href: "/products", label: "官网商城", matchPrefix: "/products" },
+  { href: "/articles", label: "健康内容", matchPrefix: "/articles" },
 ];
 
 const adminNavLink = { href: "/admin", label: "后台", matchPrefix: "/admin" };

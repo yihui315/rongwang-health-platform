@@ -10,7 +10,7 @@ export interface Plan {
 }
 
 export interface CartItem {
-  slug: PlanSlug;
+  slug: string;
   name: string;
   price: number;
   quantity: number;

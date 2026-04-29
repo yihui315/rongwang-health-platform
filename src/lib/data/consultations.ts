@@ -1,5 +1,6 @@
 import type { Prisma } from "@prisma/client";
 import { getPrisma } from "@/lib/prisma";
+import { getMemoryStore, isMemoryStoreEnabled } from "@/lib/data/memory-store";
 import { getSupabase } from "@/lib/supabase";
 import type { ProductRecommendation } from "@/lib/health/recommendations";
 import type { SafetyAssessment } from "@/lib/health/safety";
@@ -205,9 +206,37 @@ async function queryFromSupabase(filters: ReturnType<typeof normalizeListInput>)
   }
 }
 
+function queryFromMemory(filters: ReturnType<typeof normalizeListInput>): ConsultationListItem[] | null {
+  if (!isMemoryStoreEnabled()) {
+    return null;
+  }
+
+  const rows = Array.from(getMemoryStore().consultations.values())
+    .map((row) => ({
+      id: String(row.id ?? ""),
+      createdAt: String(row.createdAt ?? ""),
+      riskLevel: String(row.riskLevel ?? "unknown"),
+      symptoms: Array.isArray(row.symptoms) ? row.symptoms.filter((item): item is string => typeof item === "string") : [],
+      goal: readProfileValue<string>(row.profileJson, "goal"),
+      age: readProfileValue<number>(row.profileJson, "age"),
+      source: typeof row.source === "string" ? row.source : undefined,
+      aiProvider: typeof row.aiProvider === "string" ? row.aiProvider : undefined,
+      aiModel: typeof row.aiModel === "string" ? row.aiModel : undefined,
+      promptVersion: typeof row.promptVersion === "string" ? row.promptVersion : undefined,
+      aiStatus: readNestedValue<string>(row.metadata, ["aiLog", "status"]),
+      fallbackUsed: readNestedValue<boolean>(row.metadata, ["aiLog", "fallbackUsed"]),
+      aiErrorMessage: readNestedValue<string>(row.metadata, ["aiLog", "errorMessage"]),
+      clickCount: 0,
+    }))
+    .sort((a, b) => b.createdAt.localeCompare(a.createdAt))
+    .slice(0, filters.limit);
+
+  return filterConsultationListItems(rows, filters);
+}
+
 export async function listConsultations(input: number | ConsultationListFilters = 50): Promise<ConsultationListItem[]> {
   const filters = normalizeListInput(input);
-  return (await queryFromPrisma(filters)) ?? (await queryFromSupabase(filters));
+  return (await queryFromPrisma(filters)) ?? queryFromMemory(filters) ?? (await queryFromSupabase(filters));
 }
 
 async function queryLogDetailFromPrisma(id: string): Promise<ConsultationLogDetail | null> {
@@ -319,8 +348,52 @@ async function queryLogDetailFromSupabase(id: string): Promise<ConsultationLogDe
   }
 }
 
+function queryLogDetailFromMemory(id: string): ConsultationLogDetail | null {
+  if (!isMemoryStoreEnabled()) {
+    return null;
+  }
+
+  const row = getMemoryStore().consultations.get(id);
+  if (!row) {
+    return null;
+  }
+
+  const aiLog = parseWithSchema(aiLogSchema, readNestedValue(row.metadata, ["aiLog"]));
+  const safety = parseWithSchema(safetyResponseSchema, readNestedValue(row.metadata, ["safety"]));
+  const profile = parseWithSchema(healthProfileSchema, row.profileJson);
+  const result = parseWithSchema(healthConsultationResultSchema, row.aiResult);
+  const recommendations = parseWithSchema(productRecommendationSchema.array(), row.recommendationSnapshot) ?? [];
+  const requestMeta = readNestedValue<{ ipHash?: string | null; userAgent?: string | null }>(
+    row.metadata,
+    ["requestMeta"],
+  );
+
+  return {
+    id: String(row.id ?? ""),
+    createdAt: String(row.createdAt ?? ""),
+    riskLevel: String(row.riskLevel ?? "unknown"),
+    symptoms: Array.isArray(row.symptoms) ? row.symptoms.filter((item): item is string => typeof item === "string") : [],
+    goal: profile?.goal,
+    age: profile?.age,
+    source: typeof row.source === "string" ? row.source : undefined,
+    aiProvider: typeof row.aiProvider === "string" ? row.aiProvider : undefined,
+    aiModel: typeof row.aiModel === "string" ? row.aiModel : undefined,
+    promptVersion: typeof row.promptVersion === "string" ? row.promptVersion : undefined,
+    aiStatus: aiLog?.status,
+    fallbackUsed: aiLog?.fallbackUsed,
+    aiErrorMessage: aiLog?.errorMessage,
+    profile,
+    result,
+    safety,
+    recommendations,
+    aiLog,
+    rawResponse: row.rawResponse,
+    requestMeta,
+  };
+}
+
 export async function getConsultationLogDetail(id: string): Promise<ConsultationLogDetail | null> {
-  return (await queryLogDetailFromPrisma(id)) ?? (await queryLogDetailFromSupabase(id));
+  return (await queryLogDetailFromPrisma(id)) ?? queryLogDetailFromMemory(id) ?? (await queryLogDetailFromSupabase(id));
 }
 
 function toJson(value: unknown) {
@@ -382,9 +455,41 @@ async function persistToSupabase(input: PersistConsultationInput): Promise<void>
   }
 }
 
+function persistToMemory(input: PersistConsultationInput) {
+  if (!isMemoryStoreEnabled()) {
+    return;
+  }
+
+  getMemoryStore().consultations.set(input.id, {
+    id: input.id,
+    profileJson: input.profile,
+    symptoms: input.profile.symptoms,
+    aiResult: input.result,
+    riskLevel: input.result.riskLevel,
+    recommendedSolutionType: input.result.recommendedSolutionType,
+    source: input.source,
+    recommendationSnapshot: input.recommendations,
+    aiProvider: input.aiLog?.provider ?? null,
+    aiModel: input.aiLog?.model ?? null,
+    promptVersion: input.aiLog?.promptVersion ?? null,
+    rawResponse: input.aiLog?.rawOutput ?? null,
+    metadata: {
+      safety: input.safety,
+      aiLog: input.aiLog ?? null,
+      requestMeta: {
+        ipHash: input.ipHash ?? null,
+        userAgent: input.userAgent ?? null,
+      },
+    },
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+  });
+}
+
 export async function saveConsultationRecord(input: PersistConsultationInput): Promise<void> {
   const saved = await persistToPrisma(input);
   if (!saved) {
+    persistToMemory(input);
     await persistToSupabase(input);
   }
 }

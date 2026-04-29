@@ -1,13 +1,13 @@
 'use client';
 
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { CartItem, CartState, PlanSlug } from '@/types';
+import { CartItem, CartState } from '@/types';
 
 interface CartContextType {
   cart: CartState;
-  addItem: (slug: PlanSlug, name: string, price: number) => void;
-  removeItem: (slug: PlanSlug) => void;
-  updateQuantity: (slug: PlanSlug, quantity: number) => void;
+  addItem: (slug: string, name: string, price: number) => void;
+  removeItem: (slug: string) => void;
+  updateQuantity: (slug: string, quantity: number) => void;
   clearCart: () => void;
 }
 
@@ -51,7 +51,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     return { total, itemCount };
   };
 
-  const addItem = (slug: PlanSlug, name: string, price: number) => {
+  const addItem = (slug: string, name: string, price: number) => {
     setCart(prevCart => {
       const existingItem = prevCart.items.find(item => item.slug === slug);
 
@@ -69,7 +69,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     });
   };
 
-  const removeItem = (slug: PlanSlug) => {
+  const removeItem = (slug: string) => {
     setCart(prevCart => {
       const newItems = prevCart.items.filter(item => item.slug !== slug);
       const { total, itemCount } = calculateTotals(newItems);
@@ -77,7 +77,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     });
   };
 
-  const updateQuantity = (slug: PlanSlug, quantity: number) => {
+  const updateQuantity = (slug: string, quantity: number) => {
     setCart(prevCart => {
       let newItems: CartItem[];
 

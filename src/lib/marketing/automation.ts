@@ -16,6 +16,8 @@ import {
   type MarketingCampaignRequestInput,
   type MarketingChannel,
 } from "@/schemas/marketing";
+import { buildWeChatArticleDraft, type WeChatArticleDraft } from "@/lib/marketing/wechat";
+import { buildSiteMallHref } from "@/lib/wechat/site-mall";
 
 export interface MarketingComplianceResult {
   approved: boolean;
@@ -34,6 +36,7 @@ export interface MarketingAsset {
   };
   contentOutline: string[];
   compliance: MarketingComplianceResult;
+  wechatArticle?: WeChatArticleDraft;
 }
 
 export interface MarketingCampaignPlan {
@@ -145,6 +148,7 @@ function createAsset(input: {
   secondaryHref: string | null;
   offer?: string;
   ref?: string;
+  solutionSlug: SolutionSlug | null;
 }): MarketingAsset {
   const spec = channelSpec[input.channel];
   const href = trackedHref(input.primaryCtaHref, {
@@ -166,6 +170,23 @@ function createAsset(input: {
     input.secondaryHref ? "方案教育：连接 assessment / solutions 主内容" : null,
     "转化归因：所有 CTA 使用统一 UTM 和 ref",
   ]);
+  const compliance = evaluateMarketingCompliance(`${title}\n${brief}\n${contentOutline.join("\n")}`);
+  const wechatArticle = input.channel === "wechat"
+    ? buildWeChatArticleDraft({
+      campaignSlug: input.campaignSlug,
+      keyword: input.keyword,
+      audience: input.audience,
+      primaryCtaHref: href,
+      secondaryHref: input.secondaryHref,
+      mallHref: buildSiteMallHref(null, {
+        source: "official_account",
+        campaign: input.campaignSlug,
+        solutionSlug: input.solutionSlug ?? undefined,
+      }),
+      contentOutline,
+      compliance,
+    })
+    : undefined;
 
   return {
     channel: input.channel,
@@ -177,7 +198,8 @@ function createAsset(input: {
       href,
     },
     contentOutline,
-    compliance: evaluateMarketingCompliance(`${title}\n${brief}\n${contentOutline.join("\n")}`),
+    compliance,
+    ...(wechatArticle ? { wechatArticle } : {}),
   };
 }
 
@@ -227,6 +249,7 @@ export function buildMarketingCampaignPlan(input: MarketingCampaignRequestInput)
     secondaryHref,
     offer: request.offer,
     ref: request.ref,
+    solutionSlug,
   }));
   const taskAssets = assets.filter((asset) => channelSpec[asset.channel].geoflow);
   const geoFlowStatus = getGeoFlowAutomationStatus();

@@ -6,7 +6,6 @@ import AddToCartButton from '@/components/ui/AddToCartButton';
 import ProductImageGallery from '@/components/ui/ProductImageGallery';
 import { getProductBySlug, listProducts } from '@/lib/data/products';
 import { getAiConsultHrefForValues, getSolutionHrefForValues } from '@/lib/health/consult-entry';
-import type { PlanSlug } from '@/types';
 
 const categoryLabel: Record<ProductCategory, string> = {
   vitamin: '维生素', mineral: '矿物质', herbal: '草本', probiotic: '益生菌',
@@ -203,7 +202,7 @@ export default async function ProductDetailPage({ params }: Props) {
                   先做 AI 评估
                 </Link>
                 <AddToCartButton
-                  slug={product.plans[0] as PlanSlug}
+                  slug={product.slug}
                   name={product.name}
                   price={product.memberPrice}
                   className="rounded-full border border-slate-300 bg-white text-slate-700 hover:bg-slate-50"

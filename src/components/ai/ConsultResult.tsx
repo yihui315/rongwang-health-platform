@@ -5,6 +5,7 @@ import type { ConsultationResponse } from "@/schemas/consultation-response";
 import { solutionTypeToSlug } from "@/lib/health/solutions";
 import RecommendationPanel from "@/components/ai/RecommendationPanel";
 import RiskCard from "@/components/ai/RiskCard";
+import SaveAssessmentReportButton from "@/components/ai/SaveAssessmentReportButton";
 
 interface ConsultResultProps {
   response: ConsultationResponse;
@@ -26,6 +27,8 @@ export default function ConsultResult({ response }: ConsultResultProps) {
   return (
     <div className="space-y-5 xl:sticky xl:top-24 xl:self-start">
       <RiskCard response={response} />
+
+      <SaveAssessmentReportButton consultationId={response.consultationId} />
 
       {response.ai && (
         <div className="card-elevated">
