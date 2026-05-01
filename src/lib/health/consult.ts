@@ -225,7 +225,6 @@ async function getAiResult(profile: HealthProfile, fallbackType: SolutionType) {
   const generation = await generateTextWithProvider({
     prompt: promptBundle.userPrompt,
     systemPrompt: promptBundle.systemPrompt,
-    provider: "auto",
     temperature: 0.3,
     maxTokens: 900,
     promptVersion: promptBundle.promptVersion,

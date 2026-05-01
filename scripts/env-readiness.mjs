@@ -136,18 +136,46 @@ async function probeRedisRest(env) {
 
   const [urlKey, tokenKey] = pair;
   const url = env[urlKey].replace(/\/$/, "");
-  const response = await fetch(`${url}/ping`, {
+  const headers = {
+    authorization: `Bearer ${env[tokenKey]}`,
+  };
+  const pingResponse = await fetch(`${url}/ping`, {
     headers: {
-      authorization: `Bearer ${env[tokenKey]}`,
+      ...headers,
     },
+    signal: AbortSignal.timeout(8000),
+  }).catch(() => null);
+
+  if (pingResponse?.ok) {
+    return "ping ok";
+  }
+
+  const pipelineResponse = await fetch(`${url}/pipeline`, {
+    method: "POST",
+    headers: {
+      ...headers,
+      "content-type": "application/json",
+    },
+    body: JSON.stringify([["PING"]]),
     signal: AbortSignal.timeout(8000),
   });
 
-  if (!response.ok) {
-    throw new Error(`Redis REST ping failed with status ${response.status}`);
+  if (!pipelineResponse.ok) {
+    const pingStatus = pingResponse ? `; /ping status ${pingResponse.status}` : "";
+    throw new Error(`Redis REST ping failed with status ${pipelineResponse.status}${pingStatus}`);
   }
 
-  return "ping ok";
+  const payload = await pipelineResponse.json().catch(() => null);
+  const result = Array.isArray(payload) ? payload[0] : null;
+  if (result?.error) {
+    throw new Error(`Redis REST pipeline ping failed: ${result.error}`);
+  }
+
+  if (result?.result !== "PONG") {
+    throw new Error("Redis REST pipeline ping returned an unexpected result");
+  }
+
+  return "pipeline ping ok";
 }
 
 async function probeOpenAiModels(env) {

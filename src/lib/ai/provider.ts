@@ -101,7 +101,6 @@ async function generateTextWithDeepSeek(
       headers: {
         "content-type": "application/json",
         authorization: `Bearer ${apiKey}`,
-        Authorization: `Bearer ${apiKey}`,
       },
       body: JSON.stringify({
         model,

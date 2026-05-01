@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { Order, CartItem, OrderForm } from '@/types';
+import { getCustomerSessionFromRequest } from '@/lib/auth/customer';
+import { selectRowsByCustomerId } from '@/lib/customer-data';
 import { getSupabase } from '@/lib/supabase';
 
 function generateOrderId(): string {
@@ -10,6 +12,7 @@ function generateOrderId(): string {
 
 export async function POST(request: NextRequest) {
   try {
+    const session = await getCustomerSessionFromRequest(request);
     const body = await request.json();
 
     const items: CartItem[] = body.items;
@@ -45,6 +48,7 @@ export async function POST(request: NextRequest) {
         total,
         customer,
         status: 'pending',
+        user_id: session?.user.id ?? null,
       });
     } catch (err) {
       console.error('supabase insert failed', err);
@@ -68,9 +72,18 @@ export async function POST(request: NextRequest) {
   }
 }
 
-export async function GET() {
+export async function GET(request: NextRequest) {
+  const session = await getCustomerSessionFromRequest(request);
+  if (!session?.user.id) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  }
+
   try {
-    const { data } = await getSupabase().from('orders').select('*');
+    const { data, error } = await selectRowsByCustomerId('orders', session.user.id);
+    if (error) {
+      throw error;
+    }
+
     return NextResponse.json({ orders: data ?? [] });
   } catch {
     return NextResponse.json({ orders: [] });

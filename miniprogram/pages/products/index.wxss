@@ -1,0 +1,16 @@
+.product-card {
+  border: 2rpx solid #dcefeb;
+}
+
+.product-name {
+  margin-top: 12rpx;
+  font-size: 34rpx;
+  font-weight: 800;
+}
+
+.price {
+  margin-top: 18rpx;
+  color: #0f766e;
+  font-size: 32rpx;
+  font-weight: 800;
+}

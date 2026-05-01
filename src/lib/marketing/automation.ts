@@ -16,6 +16,7 @@ import {
   type MarketingCampaignRequestInput,
   type MarketingChannel,
 } from "@/schemas/marketing";
+import { buildWeChatArticleDraft, type WeChatArticleDraft } from "@/lib/marketing/wechat";
 
 export interface MarketingComplianceResult {
   approved: boolean;
@@ -34,6 +35,7 @@ export interface MarketingAsset {
   };
   contentOutline: string[];
   compliance: MarketingComplianceResult;
+  wechatArticle?: WeChatArticleDraft;
 }
 
 export interface MarketingCampaignPlan {
@@ -166,6 +168,18 @@ function createAsset(input: {
     input.secondaryHref ? "方案教育：连接 assessment / solutions 主内容" : null,
     "转化归因：所有 CTA 使用统一 UTM 和 ref",
   ]);
+  const compliance = evaluateMarketingCompliance(`${title}\n${brief}\n${contentOutline.join("\n")}`);
+  const wechatArticle = input.channel === "wechat"
+    ? buildWeChatArticleDraft({
+      campaignSlug: input.campaignSlug,
+      keyword: input.keyword,
+      audience: input.audience,
+      primaryCtaHref: href,
+      secondaryHref: input.secondaryHref,
+      contentOutline,
+      compliance,
+    })
+    : undefined;
 
   return {
     channel: input.channel,
@@ -177,7 +191,8 @@ function createAsset(input: {
       href,
     },
     contentOutline,
-    compliance: evaluateMarketingCompliance(`${title}\n${brief}\n${contentOutline.join("\n")}`),
+    compliance,
+    ...(wechatArticle ? { wechatArticle } : {}),
   };
 }
 

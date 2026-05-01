@@ -1,0 +1,9 @@
+<view class="page">
+  <view class="card">
+    <view class="eyebrow">GUIDED REDIRECT</view>
+    <view class="title">即将离开小程序</view>
+    <view class="body">由于小程序第一版只做展示与导流，购买动作会在拼多多或荣旺站内中转页完成。请先确认评估结果，再决定是否继续。</view>
+    <button class="button-primary" bindtap="copyLink">复制入口</button>
+    <button class="button-secondary" bindtap="backHome">返回首页</button>
+  </view>
+</view>

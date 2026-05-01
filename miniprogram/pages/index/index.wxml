@@ -1,0 +1,13 @@
+<view class="page">
+  <view class="card">
+    <view class="eyebrow">AI-FIRST HEALTH</view>
+    <view class="title">先评估，再看方案</view>
+    <view class="body">荣旺小程序用于展示健康教育方案和拼多多导流入口。保健品方向由网站规则引擎控制，不做诊断或疗效承诺。</view>
+    <button class="button-primary" bindtap="goAssessment">开始 AI 健康评估</button>
+    <button class="button-secondary" bindtap="goProducts">查看支持方案</button>
+  </view>
+  <view class="card">
+    <view class="eyebrow">SAFETY</view>
+    <view class="body">如有胸痛、呼吸困难、意识模糊、严重过敏等紧急情况，请立即就医，本小程序不会展示购买入口。</view>
+  </view>
+</view>

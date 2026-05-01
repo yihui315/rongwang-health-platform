@@ -29,6 +29,8 @@ Required production groups:
 - Marketing safety: keep `MARKETING_AUTO_PUBLISH_GEOFLOW=false` and `MARKETING_AUTOPILOT_EXECUTE=false` until admin review is operating
 - Marketing limits: tune `MARKETING_CONTENT_RATE_LIMIT`, `MARKETING_AUTOMATION_RATE_LIMIT`, and `MARKETING_AUTOPILOT_RATE_LIMIT` before enabling real campaign generation
 - Marketing AI cost controls: keep `FEATURE_MARKETING_CONTENT_AI`, `FEATURE_MARKETING_EMAIL_AI`, and `FEATURE_MARKETING_LANDING_AI` disabled until provider probes and review workflow are ready
+- WeChat: keep `WECHAT_DRAFT_UPLOAD_ENABLED=false` and `WECHAT_AUTO_PUBLISH=false` until `md2wechat` preview, human review, and audit logging are ready; enable Mini Program payment only after `WECHAT_PAY_*` readiness passes
+- PDD guided redirect: keep `PDD_SHORT_LINK_MODE=web_bridge` until `PDD_MINIPROGRAM_APPID` and `PDD_MINIPROGRAM_PATH_TEMPLATE` are approved and verified in WeChat Developer Tools
 
 Do not commit secrets to tracked env files. Put local secrets in `.env.local` or
 pull them from Vercel environment variables.
@@ -43,12 +45,23 @@ npm run env:probe -- --probe-db
 npm run env:probe -- --probe-redis
 npm run env:probe -- --probe-openai
 npm run env:probe -- --probe-deepseek
+npm run wechat:check
+npm run wechat:check:production
+npm run wechat:check:draft
+npm run wechat:check:pay
 ```
 
 These probes verify connectivity without printing secret values. The OpenAI
 probe calls the models endpoint only. The DeepSeek probe sends a minimal `ping`
 chat-completions request; it does not send a health profile or user consultation
 content.
+
+`npm run wechat:check` is an advisory local inventory and may pass with warnings
+when `md2wechat` or real credentials are missing. `npm run wechat:check:production`
+is the PDD-guided Mini Program gate and does not require WeChat Pay. Use
+`npm run wechat:check:draft` before any Official Account draft upload, and
+`npm run wechat:check:pay` only when payment readiness is explicitly being
+tested. None of these checks prints secret values.
 
 ## 3. Real Database Seed Verification
 
@@ -134,6 +147,7 @@ Do not call the launch complete until all production checks pass:
 - Redis probe
 - OpenAI or DeepSeek probe
 - Browser visual acceptance on the deployed preview URL
+- WeChat launch checks only when WeChat draft upload or Mini Program payment is part of the release
 
 ## 7. Self-Hosted Server Path
 

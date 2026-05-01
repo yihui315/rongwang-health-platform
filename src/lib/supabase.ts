@@ -204,6 +204,7 @@ export interface MinimalClient {
   auth?: {
     signUp: (creds: { email: string; password: string }) => Promise<{ data: unknown; error: Error | null }>;
     signInWithPassword: (creds: { email: string; password: string }) => Promise<{ data: unknown; error: Error | null }>;
+    getUser?: (jwt?: string) => Promise<{ data: { user: unknown | null }; error: Error | null }>;
     signOut: () => Promise<{ error: Error | null }>;
   };
 }
@@ -219,6 +220,7 @@ const stubClient: MinimalClient = {
   auth: {
     signUp: async () => ({ data: null, error: new Error('Supabase not configured') }),
     signInWithPassword: async () => ({ data: null, error: new Error('Supabase not configured') }),
+    getUser: async () => ({ data: { user: null }, error: new Error('Supabase not configured') }),
     signOut: async () => ({ error: null }),
   },
 };

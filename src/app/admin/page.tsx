@@ -32,6 +32,11 @@ const cards = [
     description: "Plan AI-first campaigns, GEOFlow task drafts, UTM tracking, and compliance checks.",
     href: "/admin/marketing",
   },
+  {
+    title: "WeChat Operations",
+    description: "Review Official Account drafts, Mini Program readiness, and WeChat Pay launch checks.",
+    href: "/admin/marketing#wechat-operations",
+  },
 ];
 
 export default async function AdminPage() {

@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { PlanSlug } from '@/types';
+import { getCustomerSessionFromRequest } from '@/lib/auth/customer';
+import { selectRowsByCustomerId } from '@/lib/customer-data';
 import { getSupabase } from '@/lib/supabase';
 
 interface SubscriptionBody {
@@ -15,6 +17,11 @@ const tierIntervalDays: Record<SubscriptionBody['tier'], number> = {
 };
 
 export async function POST(request: NextRequest) {
+  const session = await getCustomerSessionFromRequest(request);
+  if (!session?.user.id) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  }
+
   try {
     const body = (await request.json()) as SubscriptionBody;
     if (!body.planSlug || !body.tier) {
@@ -30,7 +37,7 @@ export async function POST(request: NextRequest) {
       status: 'active' as const,
       next_delivery: nextDelivery.toISOString().slice(0, 10),
       started_at: new Date().toISOString(),
-      user_id: body.userId ?? null,
+      user_id: session.user.id,
     };
 
     try {
@@ -50,9 +57,18 @@ export async function POST(request: NextRequest) {
   }
 }
 
-export async function GET() {
+export async function GET(request: NextRequest) {
+  const session = await getCustomerSessionFromRequest(request);
+  if (!session?.user.id) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  }
+
   try {
-    const { data } = await getSupabase().from('subscriptions').select('*');
+    const { data, error } = await selectRowsByCustomerId('subscriptions', session.user.id);
+    if (error) {
+      throw error;
+    }
+
     return NextResponse.json({ subscriptions: data ?? [] });
   } catch {
     return NextResponse.json({ subscriptions: [] });

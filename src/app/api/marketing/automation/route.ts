@@ -9,6 +9,10 @@ import {
   publishGeoFlowTaskDraft,
 } from "@/lib/marketing/geoflow";
 import {
+  createWeChatPublicationAuditEvent,
+  createWeChatPublicationDecision,
+} from "@/lib/marketing/wechat-publish";
+import {
   marketingCampaignRequestSchema,
   marketingChannelValues,
   marketingObjectiveValues,
@@ -78,6 +82,15 @@ export async function POST(request: Request) {
   const geoFlowResults = execute
     ? await Promise.all(plan.geoFlow.tasks.map((task) => publishGeoFlowTaskDraft(task)))
     : [];
+  const adminAuthorized = isAdminRequestAuthorized(request);
+  const wechatPublication = plan.assets
+    .flatMap((asset) => asset.wechatArticle ? [asset.wechatArticle] : [])
+    .map((draft) => createWeChatPublicationDecision({
+      draft,
+      campaignSlug: plan.campaignSlug,
+      requestPublish: execute,
+      adminAuthorized,
+    }));
 
   await saveAnalyticsEvent({
     name: "marketing_campaign_planned",
@@ -89,13 +102,18 @@ export async function POST(request: Request) {
       channels: plan.assets.map((asset) => asset.channel),
       mode,
       geoFlowTasks: plan.geoFlow.tasks.length,
+      wechatArticles: wechatPublication.length,
     },
   });
+  await Promise.all(
+    wechatPublication.map((decision) => saveAnalyticsEvent(createWeChatPublicationAuditEvent(decision))),
+  );
 
   return NextResponse.json({
     success: true,
     mode,
     plan,
     geoFlowResults,
+    wechatPublication,
   });
 }

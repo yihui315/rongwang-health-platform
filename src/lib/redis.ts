@@ -49,12 +49,13 @@ class FetchRedisRestClient implements RedisRestClient {
   constructor(private readonly config: RedisConfig) {}
 
   private async command<T>(parts: string[]): Promise<T> {
-    const path = parts.map((part) => encodeURIComponent(part)).join("/");
-    const response = await fetch(`${this.config.url}/${path}`, {
+    const response = await fetch(`${this.config.url}/pipeline`, {
       method: "POST",
       headers: {
         Authorization: `Bearer ${this.config.token}`,
+        "Content-Type": "application/json",
       },
+      body: JSON.stringify([parts]),
       cache: "no-store",
     });
 
@@ -62,12 +63,19 @@ class FetchRedisRestClient implements RedisRestClient {
       throw new Error(`Redis REST command failed with ${response.status}`);
     }
 
-    const payload = (await response.json()) as RedisRestResponse<T>;
-    if (payload.error) {
-      throw new Error(payload.error);
+    const payload = (await response.json()) as
+      | RedisRestResponse<T>
+      | RedisRestResponse<T>[];
+    const result = Array.isArray(payload) ? payload[0] : payload;
+    if (!result) {
+      throw new Error("Redis REST command returned an empty response");
     }
 
-    return payload.result as T;
+    if (result.error) {
+      throw new Error(result.error);
+    }
+
+    return result.result as T;
   }
 
   async incr(key: string) {

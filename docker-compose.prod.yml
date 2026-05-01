@@ -13,7 +13,7 @@ services:
       HOSTNAME: 0.0.0.0
       DATABASE_URL: postgresql://${POSTGRES_USER:-rongwang}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB:-rongwang}?schema=public
       DIRECT_URL: postgresql://${POSTGRES_USER:-rongwang}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB:-rongwang}?schema=public
-      REDIS_REST_URL: http://redis-rest:8079
+      REDIS_REST_URL: http://redis-rest:80
       REDIS_REST_TOKEN: ${REDIS_REST_TOKEN}
     depends_on:
       postgres:
@@ -75,7 +75,7 @@ services:
       redis:
         condition: service_healthy
     ports:
-      - "127.0.0.1:8079:8079"
+      - "127.0.0.1:8079:80"
     restart: unless-stopped
 
 volumes:

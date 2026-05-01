@@ -45,7 +45,12 @@ test("deepseek provider calls the OpenAI-compatible chat completions endpoint", 
         calls += 1;
         assert.equal(String(input), "https://api.deepseek.com/chat/completions");
         assert.equal(init?.method, "POST");
-        assert.equal((init?.headers as Record<string, string>).Authorization, "Bearer test-deepseek-key");
+        const headers = init?.headers as Record<string, string>;
+        assert.equal(headers.authorization, "Bearer test-deepseek-key");
+        assert.equal(
+          Object.keys(headers).filter((key) => key.toLowerCase() === "authorization").length,
+          1,
+        );
 
         const body = JSON.parse(String(init?.body));
         assert.equal(body.model, "deepseek-v4-flash");

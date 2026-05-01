@@ -7,12 +7,18 @@ import {
   isAdminAuthRequired,
   isAdminTokenValid,
 } from '@/lib/auth/admin';
+import {
+  CUSTOMER_SESSION_COOKIE_NAME,
+  getCustomerLoginRedirectUrl,
+  isCustomerProtectedPath,
+} from '@/lib/auth/customer-shared';
 import { getAiConsultHrefForValue } from '@/lib/health/consult-entry';
 
 export function middleware(request: NextRequest) {
   const url = request.nextUrl;
   const isAdminPath = url.pathname === '/admin' || url.pathname.startsWith('/admin/');
   const isAdminLoginPath = url.pathname === '/admin/login';
+  const isCustomerPath = isCustomerProtectedPath(url.pathname);
   const adminToken = getAdminTokenFromRequest({
     cookieToken: request.cookies.get(ADMIN_COOKIE_NAME)?.value,
     headerToken: request.headers.get('x-admin-token'),
@@ -20,6 +26,10 @@ export function middleware(request: NextRequest) {
 
   if (isAdminPath && !isAdminLoginPath && isAdminAuthRequired() && !isAdminTokenValid(adminToken)) {
     return NextResponse.redirect(new URL('/admin/login', request.url), 307);
+  }
+
+  if (isCustomerPath && !request.cookies.has(CUSTOMER_SESSION_COOKIE_NAME)) {
+    return NextResponse.redirect(getCustomerLoginRedirectUrl(request.url), 307);
   }
 
   const response = url.pathname === '/quiz'

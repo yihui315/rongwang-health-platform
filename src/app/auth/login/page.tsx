@@ -26,7 +26,8 @@ export default function LoginPage() {
         setError(data.error ?? '登录失败');
         return;
       }
-      router.push('/dashboard');
+      const nextPath = new URLSearchParams(window.location.search).get('next');
+      router.push(nextPath?.startsWith('/') && !nextPath.startsWith('//') ? nextPath : '/dashboard');
     } catch {
       setError('网络异常');
     } finally {
