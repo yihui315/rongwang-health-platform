@@ -95,7 +95,7 @@ export default function HeroSection() {
               />
 
               {/* Floating dashboard card overlay */}
-              <div className="absolute bottom-4 left-4 right-4 rounded-2xl border border-white/20 bg-white/85 backdrop-blur-xl p-4 shadow-lg">
+              <div className="absolute bottom-4 left-4 right-4 rounded-2xl border border-white/20 bg-white/90 backdrop-blur-xl p-4 shadow-lg">
                 <div className="flex items-center gap-3 mb-3">
                   <div className="h-8 w-8 rounded-lg bg-gradient-to-br from-teal-600 to-teal-500 flex items-center justify-center">
                     <svg className="h-4 w-4 text-white" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">

@@ -16,7 +16,7 @@ const urgentKeywordGroups: Array<{ label: string; keywords: string[] }> = [
 ];
 
 const highRiskKeywordGroups: Array<{ label: string; keywords: string[] }> = [
-  { label: "症状持续时间较长", keywords: ["超过 3 个月", "长期", "反复"] },
+  { label: "症状持续时间较长", keywords: ["超过3个月", "长期", "反复"] },
   { label: "存在用药或过敏信息", keywords: ["正在服药", "慢性病", "过敏"] },
 ];
 
@@ -87,7 +87,7 @@ export function assessMedicalSafety(profile: HealthProfile): SafetyAssessment {
     riskLevel === "urgent"
       ? ["请尽快前往急诊或联系当地医疗服务，不建议继续依赖自我调理。"]
       : riskLevel === "high"
-        ? ["建议在开始任何补充剂或 OTC 方向前，先和医生或药师确认适用性。"]
+        ? ["建议在开始任何补充剂或OTC方向前，先和医生或药师确认适用性。"]
         : ["若症状持续、反复，或开始用药后不适加重，请尽快线下咨询医生。"];
 
   return {
@@ -101,13 +101,14 @@ export function assessMedicalSafety(profile: HealthProfile): SafetyAssessment {
 
 export function createUrgentResult(redFlags: string[]): HealthConsultationResult {
   return {
-    summary: "你提供的信息里出现了需要尽快线下处理的风险信号，当前更重要的是及时就医，而不是继续自行筛选补充剂或 OTC 方案。",
+    summary:
+      "你提供的信息里出现了需要尽快线下处理的风险信号。当前更重要的是及时就医，而不是继续自行筛选补充剂或OTC方案。",
     riskLevel: "urgent",
     possibleFactors: [],
     redFlags: redFlags.length > 0 ? redFlags : ["存在需要及时线下评估的症状"],
     lifestyleAdvice: [
       "优先联系医生、急诊或当地医疗服务。",
-      "暂时不要自行叠加新的保健品、OTC 或酒精。",
+      "暂时不要自行叠加新的保健品、OTC或酒精。",
       "若症状正在加重，请尽快让家人陪同就医。",
     ],
     supplementDirections: [],

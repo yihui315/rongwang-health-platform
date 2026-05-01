@@ -16,17 +16,20 @@ const baseConsultStreamSteps = [
   {
     id: "safety",
     title: "风险分层",
-    description: "优先识别胸痛、呼吸困难、出血、自伤想法等高风险信号。",
+    description:
+      "优先识别胸痛、呼吸困难、出血、自伤想法等需要及时就医的信号。",
   },
   {
     id: "analysis",
     title: "生成解释",
-    description: "结合症状、持续时间和生活习惯生成健康教育建议。",
+    description:
+      "结合症状、持续时间和生活习惯生成健康教育建议，不替代医生判断。",
   },
   {
     id: "recommend",
-    title: "规则推荐",
-    description: "AI 只给方向，商品入口由规则引擎匹配并受 urgent 禁购保护。",
+    title: "方案匹配",
+    description:
+      "AI 只给方向，商品入口由规则匹配，并受高风险禁购保护。",
   },
 ] as const;
 

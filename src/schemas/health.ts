@@ -3,7 +3,7 @@ import { z } from "zod";
 const optionalNote = z
   .string()
   .trim()
-  .max(200, "内容请控制在 200 字以内")
+  .max(200, "内容请控制在200字以内")
   .optional()
   .transform((value) => value ?? "");
 
@@ -12,13 +12,13 @@ export const healthProfileSchema = z.object({
     .coerce
     .number()
     .int("年龄需要是整数")
-    .min(12, "年龄需大于等于 12 岁")
-    .max(90, "年龄需小于等于 90 岁"),
+    .min(12, "年龄需要大于等于12岁")
+    .max(90, "年龄需要小于等于90岁"),
   gender: z.enum(["male", "female", "other"], "请选择性别"),
   symptoms: z
     .array(z.string().trim().min(1))
-    .min(1, "请至少选择 1 个主要困扰")
-    .max(8, "最多选择 8 个主要困扰"),
+    .min(1, "请至少选择1个主要困扰")
+    .max(8, "最多选择8个主要困扰"),
   duration: z.string().trim().min(1, "请选择持续时间").max(80),
   lifestyle: z.object({
     sleep: z.string().trim().min(1, "请选择睡眠情况").max(80),
@@ -26,7 +26,7 @@ export const healthProfileSchema = z.object({
     smoking: z.boolean(),
     exercise: z.string().trim().min(1, "请选择运动情况").max(80),
   }),
-  goal: z.string().trim().min(1, "请填写健康目标").max(160, "目标请控制在 160 字以内"),
+  goal: z.string().trim().min(1, "请填写健康目标").max(160, "目标请控制在160字以内"),
   medications: optionalNote,
   allergies: optionalNote,
 });
@@ -44,8 +44,8 @@ export const symptomOptions = [
   "夜间易醒",
   "熬夜后不适",
   "饮酒后疲惫",
-  "换季易感冒",
-  "恢复慢",
+  "换季易不适",
+  "恢复变慢",
   "压力大",
   "焦虑紧绷",
   "情绪波动",
@@ -53,10 +53,10 @@ export const symptomOptions = [
 ] as const;
 
 export const durationOptions = [
-  "不到 1 周",
-  "1 到 4 周",
-  "1 到 3 个月",
-  "超过 3 个月",
+  "不到1周",
+  "1到4周",
+  "1到3个月",
+  "超过3个月",
 ] as const;
 
 export const sleepOptions = [
@@ -67,8 +67,8 @@ export const sleepOptions = [
 
 export const exerciseOptions = [
   "几乎不运动",
-  "每周 1 到 2 次",
-  "每周 3 次以上",
+  "每周1到2次",
+  "每周3次以上",
 ] as const;
 
 export const goalOptions = [

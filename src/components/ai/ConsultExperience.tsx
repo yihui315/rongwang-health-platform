@@ -36,7 +36,7 @@ function buildSeededFormState(
   return {
     ...baseState,
     symptoms: focusGuide.commonSymptoms.slice(0, 2),
-    goal: `想优先改善 ${focusGuide.shortTitle} 相关问题`,
+    goal: `想优先改善${focusGuide.shortTitle}相关问题`,
   };
 }
 
@@ -214,10 +214,10 @@ export default function ConsultExperience() {
       <section className="border-b border-slate-100 bg-white">
         <div className="section-container py-14 md:py-16">
           <div className="max-w-3xl">
-            <span className="badge-teal">AI Consult</span>
-            <h1 className="mt-4 text-balance text-slate-900">AI 健康咨询主入口</h1>
+            <span className="badge-teal">AI评估</span>
+            <h1 className="mt-4 text-balance text-slate-900">AI健康评估主入口</h1>
             <p className="mt-4 text-lg leading-8 text-slate-500">
-              先收集你的年龄、主要困扰和生活方式，再给出风险等级、生活建议、补充剂方向与购买入口。
+              先收集年龄、主要困扰和生活方式，再生成风险分层、生活建议、营养支持方向与可控购买入口。
             </p>
           </div>
         </div>

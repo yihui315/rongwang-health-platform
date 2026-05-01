@@ -10,8 +10,8 @@ export default function ConsultStream({ activeIndex = 1 }: ConsultStreamProps) {
   const steps = getConsultStreamSteps(activeIndex);
 
   return (
-    <div className="mt-6 rounded-3xl border border-teal-100 bg-teal-50/70 p-5">
-      <p className="text-sm font-semibold text-teal-800">分析过程</p>
+    <div className="mt-6 rounded-lg border border-teal-100 bg-teal-50/70 p-5">
+      <p className="text-sm font-semibold text-teal-800">分析进度</p>
       <div className="mt-4 space-y-3">
         {steps.map((step) => (
           <div key={step.id} className="flex gap-3">

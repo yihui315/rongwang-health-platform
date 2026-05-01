@@ -38,14 +38,14 @@ export default async function AssessmentPage({ params }: AssessmentPageProps) {
 
   return (
     <main className="bg-[var(--bg)]">
-      <section className="border-b border-slate-100 bg-white">
-        <div className="section-container py-16 md:py-20">
+      <section className="border-b border-[var(--border-subtle)] bg-[var(--surface)]">
+        <div className="section-container py-14 md:py-18">
           <span className="badge-teal">{guide.shortTitle}</span>
-          <h1 className="mt-4 text-balance text-slate-900">{guide.title}</h1>
-          <p className="mt-4 max-w-3xl text-lg leading-8 text-slate-500">{guide.assessmentIntro}</p>
+          <h1 className="mt-4 text-balance text-[var(--text-primary)]">{guide.title}</h1>
+          <p className="mt-4 max-w-3xl text-lg leading-8 text-[var(--text-secondary)]">{guide.assessmentIntro}</p>
           <div className="mt-8 flex flex-wrap gap-3">
             <Link href={`/ai-consult?focus=${guide.slug}`} className="btn-primary">
-              开始 AI 自测
+              开始AI自测
             </Link>
             <Link href={`/solutions/${guide.slug}`} className="btn-secondary">
               先看方案页
@@ -54,46 +54,31 @@ export default async function AssessmentPage({ params }: AssessmentPageProps) {
         </div>
       </section>
 
-      <section className="section-container py-16">
+      <section className="section-container py-12 md:py-14">
         <div className="grid gap-5 md:grid-cols-2">
-          <div className="card-elevated">
-            <h2 className="text-xl font-semibold text-slate-900">常见表现</h2>
-            <ul className="mt-5 space-y-3 text-sm leading-7 text-slate-600">
-              {guide.commonSymptoms.map((item) => (
-                <li key={item}>{item}</li>
-              ))}
-            </ul>
-          </div>
-          <div className="card-elevated">
-            <h2 className="text-xl font-semibold text-slate-900">常见原因</h2>
-            <ul className="mt-5 space-y-3 text-sm leading-7 text-slate-600">
-              {guide.commonCauses.map((item) => (
-                <li key={item}>{item}</li>
-              ))}
-            </ul>
-          </div>
-          <div className="card-elevated">
-            <h2 className="text-xl font-semibold text-slate-900">先做什么</h2>
-            <ul className="mt-5 space-y-3 text-sm leading-7 text-slate-600">
-              {guide.baselinePlan.map((item) => (
-                <li key={item}>{item}</li>
-              ))}
-            </ul>
-          </div>
-          <div className="card-elevated">
-            <h2 className="text-xl font-semibold text-slate-900">这些情况要先就医</h2>
-            <ul className="mt-5 space-y-3 text-sm leading-7 text-slate-600">
-              {guide.seekCareSignals.map((item) => (
-                <li key={item}>{item}</li>
-              ))}
-            </ul>
-          </div>
+          <AssessmentBlock title="常见表现" items={guide.commonSymptoms} />
+          <AssessmentBlock title="常见原因" items={guide.commonCauses} />
+          <AssessmentBlock title="先做什么" items={guide.baselinePlan} />
+          <AssessmentBlock title="这些情况要先就医" items={guide.seekCareSignals} />
         </div>
 
-        <div className="mt-8 rounded-3xl border border-orange-200 bg-orange-50 px-6 py-6 text-sm leading-7 text-orange-900">
+        <div className="mt-8 rounded-lg border border-[#ead7c6] bg-[#fff7ed] px-5 py-6 text-sm leading-7 text-[#70442f]">
           {MEDICAL_DISCLAIMER}
         </div>
       </section>
     </main>
+  );
+}
+
+function AssessmentBlock({ title, items }: { title: string; items: string[] }) {
+  return (
+    <div className="card-elevated">
+      <h2 className="text-xl font-semibold text-[var(--text-primary)]">{title}</h2>
+      <ul className="mt-5 space-y-3 text-sm leading-7 text-[var(--text-secondary)]">
+        {items.map((item) => (
+          <li key={item}>{item}</li>
+        ))}
+      </ul>
+    </div>
   );
 }
