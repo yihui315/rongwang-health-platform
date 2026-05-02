@@ -1,4 +1,5 @@
 import Link from "next/link";
+import AssessmentOverviewVideo from "@/components/media/AssessmentOverviewVideo";
 import TrustSection from "@/components/sections/TrustSection";
 import { solutionGuides } from "@/lib/health/solutions";
 import { MEDICAL_DISCLAIMER } from "@/lib/health/safety";
@@ -65,45 +66,36 @@ export default function HomeAssessmentLanding() {
               </div>
             </div>
 
-            <div className="rounded-[2rem] border border-white/10 bg-white/6 p-6 shadow-2xl backdrop-blur-xl">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm font-medium text-teal-100">示例报告</p>
-                  <h2 className="mt-1 text-2xl font-semibold text-white">疲劳恢复评估</h2>
-                </div>
-                <span className="rounded-full bg-amber-400/15 px-3 py-1 text-sm font-semibold text-amber-100 ring-1 ring-amber-200/20">
-                  风险等级: 中
-                </span>
-              </div>
+            <div className="space-y-4">
+              <AssessmentOverviewVideo
+                src="/videos/home-assessment-overview.mp4"
+                poster="/videos/home-assessment-first-frame.jpg"
+                label="荣旺 AI 健康评估流程视频"
+                className="border-white/15 bg-slate-900/40 shadow-2xl"
+              />
 
-              <div className="mt-6 space-y-4">
-                <div className="rounded-2xl bg-slate-950/40 p-4">
-                  <p className="text-sm text-slate-300">AI 结论</p>
-                  <p className="mt-2 text-sm leading-6 text-slate-100">
-                    当前更像是恢复不足叠加睡眠债，建议先稳住作息和应酬节奏，再看精力支持方向。
+              <div className="rounded-2xl border border-white/10 bg-white/6 p-5 shadow-2xl backdrop-blur-xl">
+                <div className="flex items-center justify-between gap-4">
+                  <div>
+                    <p className="text-sm font-medium text-teal-100">示例报告</p>
+                    <h2 className="mt-1 text-xl font-semibold text-white">疲劳恢复评估</h2>
+                  </div>
+                  <span className="rounded-full bg-amber-400/15 px-3 py-1 text-sm font-semibold text-amber-100 ring-1 ring-amber-200/20">
+                    风险等级: 中
+                  </span>
+                </div>
+
+                <div className="mt-4 space-y-3">
+                  <div className="rounded-xl bg-slate-950/40 p-4">
+                    <p className="text-sm text-slate-300">AI 结论</p>
+                    <p className="mt-2 text-sm leading-6 text-slate-100">
+                      当前更像是恢复不足叠加睡眠债，建议先稳住作息和应酬节奏，再看精力支持方向。
+                    </p>
+                  </div>
+                  <p className="rounded-xl border border-white/10 bg-white/5 p-4 text-xs leading-6 text-slate-300">
+                    {MEDICAL_DISCLAIMER}
                   </p>
                 </div>
-                <div className="grid gap-4 md:grid-cols-2">
-                  <div className="rounded-2xl border border-white/10 p-4">
-                    <p className="text-sm font-medium text-white">可能因素</p>
-                    <ul className="mt-3 space-y-2 text-sm text-slate-200">
-                      <li>睡眠恢复不足</li>
-                      <li>连续高压输出</li>
-                      <li>活动量偏低</li>
-                    </ul>
-                  </div>
-                  <div className="rounded-2xl border border-white/10 p-4">
-                    <p className="text-sm font-medium text-white">建议方向</p>
-                    <ul className="mt-3 space-y-2 text-sm text-slate-200">
-                      <li>B 族维生素方向</li>
-                      <li>辅酶 Q10 方向</li>
-                      <li>睡眠恢复方向</li>
-                    </ul>
-                  </div>
-                </div>
-                <p className="rounded-2xl border border-white/10 bg-white/5 p-4 text-xs leading-6 text-slate-300">
-                  {MEDICAL_DISCLAIMER}
-                </p>
               </div>
             </div>
           </div>
