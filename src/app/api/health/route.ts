@@ -10,8 +10,11 @@ function hasAiProvider() {
   if (process.env.AI_PROVIDER === "deepseek") {
     return Boolean(process.env.DEEPSEEK_API_KEY);
   }
+  if (process.env.AI_PROVIDER === "minimax") {
+    return Boolean(process.env.MINIMAX_API_KEY);
+  }
 
-  return Boolean(process.env.OPENAI_API_KEY || process.env.DEEPSEEK_API_KEY);
+  return Boolean(process.env.OPENAI_API_KEY || process.env.DEEPSEEK_API_KEY || process.env.MINIMAX_API_KEY);
 }
 
 function hasCmsProvider() {
@@ -24,6 +27,9 @@ function getAiProviderName() {
   }
   if (process.env.DEEPSEEK_API_KEY) {
     return "deepseek";
+  }
+  if (process.env.MINIMAX_API_KEY) {
+    return "minimax";
   }
   return "openai";
 }
