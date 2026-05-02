@@ -17,6 +17,7 @@
     "wechat:check:draft": "node scripts/wechat-readiness.mjs --draft",
     "wechat:check:pay": "node scripts/wechat-readiness.mjs --production --pay",
     "wechat:article": "tsx scripts/wechat-generate-article.ts",
+    "wechat:inspect": "node scripts/wechat-md2wechat.mjs --inspect",
     "wechat:preview": "node scripts/wechat-md2wechat.mjs --preview",
     "wechat:draft": "node scripts/wechat-md2wechat.mjs --draft",
     "env:bootstrap:production": "node scripts/bootstrap-production-env.mjs",

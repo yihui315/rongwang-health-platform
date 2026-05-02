@@ -13,6 +13,11 @@ const cards = [
     href: "/admin/consultations",
   },
   {
+    title: "Assessment Reports",
+    description: "Audit user-saved AI assessment reports with masked identity metadata.",
+    href: "/admin/reports",
+  },
+  {
     title: "AI Logs",
     description: "Review provider, model, prompt version, and fallback metadata from the new consultation pipeline.",
     href: "/admin/ai-logs",
@@ -36,6 +41,11 @@ const cards = [
     title: "WeChat Operations",
     description: "Review Official Account drafts, Mini Program readiness, and WeChat Pay launch checks.",
     href: "/admin/marketing#wechat-operations",
+  },
+  {
+    title: "Health Knowledge Base",
+    description: "Review health and OTC education entries, source status, and product education links.",
+    href: "/admin/knowledge",
   },
 ];
 

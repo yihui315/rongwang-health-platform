@@ -76,6 +76,7 @@ npm run wechat:check:production
 npm run wechat:check:draft
 npm run wechat:check:pay
 npm run wechat:article
+npm run wechat:inspect
 npm run wechat:preview
 npm run wechat:draft
 npm run docker:build
@@ -94,11 +95,29 @@ See `docs/marketing-automation.md`.
 
 WeChat is split into two safe tracks:
 
-- Official Account content uses Markdown, `md2wechat` preview, human review, and optional draft upload.
-- Native Mini Program commerce uses separate API contracts for login, product list/detail, PDD guided redirect, orders, and fail-closed WeChat Pay readiness.
+- Official Account content uses Markdown, `md2wechat` inspect/preview, human review, website mall attribution links, and optional draft upload.
+- Native Mini Program commerce uses separate API contracts for login, product list/detail, website mall bridge, PDD guided redirect, orders, and fail-closed WeChat Pay readiness.
 
 The first Mini Program release sells through controlled PDD guidance only. Draft upload, auto-publish, and payment are disabled until real credentials and admin review gates are present. Keep `WECHAT_AUTO_PUBLISH=false` and leave WeChat Pay disabled until production review, merchant credentials, and callback verification are complete.
 See `docs/wechat-ops-runbook.md` and `docs/wechat-miniprogram-mvp.md`.
+
+## User accounts and health knowledge
+
+The service layer now includes a first-party user foundation:
+
+- `rw_session` opaque HTTP-only cookie sessions for website login
+- email account login/signup backed by Prisma `UserAccount` and `UserIdentity`
+- WeChat Open Platform QR login through `/auth/wechat` when `WECHAT_OPEN_*` credentials are configured
+- saved AI assessment reports through `/api/assessment-reports`
+- a reviewed health/OTC knowledge base surfaced at `/admin/knowledge`
+
+Anonymous AI assessment remains available. Login is only required when a user
+wants to save and reopen reports. Knowledge entries marked `draft` or `retired`
+must not be used in public AI copy; product links in the knowledge base are
+education context only, while SKU selection remains rule-based.
+
+The route plan and later phases live in
+`docs/user-auth-knowledge-service-roadmap.md`.
 
 ## Migration note
 
@@ -116,6 +135,7 @@ To strictly compare seeded database products with the static source, run
 - `npm run mojibake:scan` blocks high-confidence mojibake in public source files before release.
 - `npm run env:check` reports local environment readiness without printing secret values.
 - `npm run env:check:production` applies production-required checks for DB, Redis, OpenAI, and admin auth.
+- Production auth also requires `AUTH_ID_HASH_SALT`; WeChat QR login stays disabled until `WECHAT_OPEN_APPID`, `WECHAT_OPEN_SECRET`, and `WECHAT_OPEN_LOGIN_CALLBACK_URL` are real values.
 - `npm run env:probe -- --probe-db`, `--probe-redis`, `--probe-openai`, or `--probe-deepseek` can run external connectivity probes when real credentials are configured.
 - `npm run acceptance` starts the built Next.js app and checks key public pages, redirects, and high-confidence mojibake markers.
 

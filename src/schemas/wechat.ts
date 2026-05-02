@@ -28,6 +28,12 @@ export const wechatFulfillmentStatusValues = [
 
 export const wechatMiniProgramLoginSchema = z.object({
   code: z.string().min(1).max(256),
+  profile: z
+    .object({
+      nickname: z.string().max(80).optional(),
+      avatarUrl: z.string().url().optional(),
+    })
+    .optional(),
 });
 
 export const wechatMiniProgramOrderItemSchema = z.object({

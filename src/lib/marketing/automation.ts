@@ -17,6 +17,7 @@ import {
   type MarketingChannel,
 } from "@/schemas/marketing";
 import { buildWeChatArticleDraft, type WeChatArticleDraft } from "@/lib/marketing/wechat";
+import { buildSiteMallHref } from "@/lib/wechat/site-mall";
 
 export interface MarketingComplianceResult {
   approved: boolean;
@@ -147,6 +148,7 @@ function createAsset(input: {
   secondaryHref: string | null;
   offer?: string;
   ref?: string;
+  solutionSlug: SolutionSlug | null;
 }): MarketingAsset {
   const spec = channelSpec[input.channel];
   const href = trackedHref(input.primaryCtaHref, {
@@ -176,6 +178,11 @@ function createAsset(input: {
       audience: input.audience,
       primaryCtaHref: href,
       secondaryHref: input.secondaryHref,
+      mallHref: buildSiteMallHref(null, {
+        source: "official_account",
+        campaign: input.campaignSlug,
+        solutionSlug: input.solutionSlug ?? undefined,
+      }),
       contentOutline,
       compliance,
     })
@@ -242,6 +249,7 @@ export function buildMarketingCampaignPlan(input: MarketingCampaignRequestInput)
     secondaryHref,
     offer: request.offer,
     ref: request.ref,
+    solutionSlug,
   }));
   const taskAssets = assets.filter((asset) => channelSpec[asset.channel].geoflow);
   const geoFlowStatus = getGeoFlowAutomationStatus();

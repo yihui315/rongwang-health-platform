@@ -19,7 +19,9 @@ test("wechat marketing assets include an assessment-first official account draft
   assert.equal(wechatAsset.wechatArticle.title.length <= 32, true);
   assert.equal(wechatAsset.wechatArticle.digest.length <= 128, true);
   assert.match(wechatAsset.wechatArticle.primaryCtaHref, /^\/ai-consult\?focus=sleep/);
+  assert.match(wechatAsset.wechatArticle.mallHref, /^\/products\?/);
   assert.match(wechatAsset.wechatArticle.markdown, /\/ai-consult\?focus=sleep/);
-  assert.doesNotMatch(wechatAsset.wechatArticle.markdown, /\/products|\/checkout|\/product-map/);
+  assert.match(wechatAsset.wechatArticle.markdown, /\/products\?utm_source=wechat/);
+  assert.doesNotMatch(wechatAsset.wechatArticle.markdown, /\/checkout|\/product-map/);
   assert.match(wechatAsset.wechatArticle.markdown, /健康教育/);
 });

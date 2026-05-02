@@ -49,7 +49,6 @@ export async function POST(request: Request) {
     mode: "contract",
     order: {
       orderNo: createOrderNo(),
-      openId: parsed.data.openId,
       items: orderItems,
       totalAmount,
       currency: "CNY",

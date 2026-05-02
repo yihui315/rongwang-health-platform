@@ -36,6 +36,7 @@ test("wechat article generator writes assessment-first markdown", async () => {
 
   assert.match(markdown, /^---/);
   assert.match(markdown, /\/ai-consult\?focus=sleep/);
-  assert.doesNotMatch(markdown, /\/products|\/checkout|\/product-map/);
+  assert.match(markdown, /\/products\?utm_source=wechat/);
+  assert.doesNotMatch(markdown, /\/checkout|\/product-map/);
   assert.match(markdown, /健康教育/);
 });

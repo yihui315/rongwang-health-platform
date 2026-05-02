@@ -65,6 +65,22 @@ test("md2wechat preview wrapper does not require official account credentials", 
   assert.match(result.output, /article\.md/);
 });
 
+test("md2wechat inspect wrapper does not require official account credentials", async () => {
+  const fakePath = createFakeMd2Wechat();
+  const article = path.join(fakePath, "article.md");
+  fs.writeFileSync(article, "# Test\n\n[CTA](/ai-consult?focus=sleep)\n", "utf8");
+
+  const result = await runWrapper(["--inspect", `--file=${article}`], {
+    PATH: `${fakePath}${path.delimiter}${process.env.PATH ?? ""}`,
+    WECHAT_APPID: "",
+    WECHAT_SECRET: "",
+  });
+
+  assert.equal(result.exitCode, 0);
+  assert.match(result.output, /md2wechat inspect/);
+  assert.match(result.output, /article\.md/);
+});
+
 test("md2wechat draft wrapper fails closed unless draft upload is explicitly enabled", async () => {
   const fakePath = createFakeMd2Wechat();
   const article = path.join(fakePath, "article.md");

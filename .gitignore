@@ -54,6 +54,7 @@ create_tasks.php
 reset_pw.php
 test_api.php
 *.sql
+!prisma/migrations/**/*.sql
 
 # GEOFlow data
 geoflow/data/

@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { getProductBySlug } from "@/lib/data/products";
 import { buildMiniProgramPddAction } from "@/lib/wechat/pdd-link";
+import { buildMiniProgramSiteMallAction } from "@/lib/wechat/site-mall";
 
 interface RouteContext {
   params: Promise<{
@@ -46,6 +47,7 @@ export async function GET(request: Request, context: RouteContext) {
       warnings: product.warnings,
       images: product.images,
       stock: product.stock,
+      siteMallAction: buildMiniProgramSiteMallAction(product, attribution),
       pddManaged: Boolean(product.pddUrl),
       purchaseMode: "pdd_guided_redirect",
       pddAction: buildMiniProgramPddAction(product, attribution),

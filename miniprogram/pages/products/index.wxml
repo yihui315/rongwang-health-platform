@@ -4,6 +4,7 @@
     <view class="title">评估后的方案参考</view>
     <view class="body">商品只作为健康教育后的方向参考，建议先完成 AI 评估。</view>
     <button class="button-primary" bindtap="goAssessment">立即开始 AI 评估</button>
+    <button class="button-secondary" bindtap="openMallCatalog">打开官网商城</button>
   </view>
 
   <view wx:if="{{loading}}" class="card body">加载方案中...</view>

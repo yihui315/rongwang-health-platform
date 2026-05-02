@@ -6,6 +6,7 @@ import { promisify } from "node:util";
 const execFileAsync = promisify(execFile);
 const rawArgs = process.argv.slice(2);
 const args = new Set(rawArgs.filter((arg) => arg.startsWith("--") && !arg.includes("=")));
+const inspectMode = args.has("--inspect");
 const previewMode = args.has("--preview");
 const draftMode = args.has("--draft");
 const envFileArg = rawArgs.find((arg) => arg.startsWith("--rw-env-file=") || arg.startsWith("--env-file="));
@@ -107,8 +108,9 @@ function fail(message) {
   process.exit(1);
 }
 
-if (previewMode === draftMode) {
-  fail("choose exactly one mode: --preview or --draft");
+const modeCount = [inspectMode, previewMode, draftMode].filter(Boolean).length;
+if (modeCount !== 1) {
+  fail("choose exactly one mode: --inspect, --preview, or --draft");
 }
 
 if (!fileArg) {
@@ -121,6 +123,11 @@ if (!fs.existsSync(filePath)) {
 }
 
 const env = loadEnv();
+
+if (inspectMode) {
+  await runMd2Wechat(["inspect", filePath], env);
+  process.exit(0);
+}
 
 if (previewMode) {
   await runMd2Wechat(["preview", filePath], env);

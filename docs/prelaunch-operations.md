@@ -22,6 +22,7 @@ npm run env:check:production
 Required production groups:
 
 - Admin: `ADMIN_AUTH_TOKEN`
+- Auth: `AUTH_ID_HASH_SALT`; do not reuse demo salts in production
 - Database: `DATABASE_URL`
 - Redis: `UPSTASH_REDIS_REST_URL` + `UPSTASH_REDIS_REST_TOKEN` or equivalent Redis REST pair
 - AI: `OPENAI_API_KEY` or `DEEPSEEK_API_KEY` when `AI_PROVIDER=deepseek`
@@ -29,8 +30,9 @@ Required production groups:
 - Marketing safety: keep `MARKETING_AUTO_PUBLISH_GEOFLOW=false` and `MARKETING_AUTOPILOT_EXECUTE=false` until admin review is operating
 - Marketing limits: tune `MARKETING_CONTENT_RATE_LIMIT`, `MARKETING_AUTOMATION_RATE_LIMIT`, and `MARKETING_AUTOPILOT_RATE_LIMIT` before enabling real campaign generation
 - Marketing AI cost controls: keep `FEATURE_MARKETING_CONTENT_AI`, `FEATURE_MARKETING_EMAIL_AI`, and `FEATURE_MARKETING_LANDING_AI` disabled until provider probes and review workflow are ready
-- WeChat: keep `WECHAT_DRAFT_UPLOAD_ENABLED=false` and `WECHAT_AUTO_PUBLISH=false` until `md2wechat` preview, human review, and audit logging are ready; enable Mini Program payment only after `WECHAT_PAY_*` readiness passes
+- WeChat: keep `WECHAT_DRAFT_UPLOAD_ENABLED=false` and `WECHAT_AUTO_PUBLISH=false` until `md2wechat` inspect/preview, human review, website mall attribution links, and audit logging are ready; enable Mini Program payment only after `WECHAT_PAY_*` readiness passes
 - PDD guided redirect: keep `PDD_SHORT_LINK_MODE=web_bridge` until `PDD_MINIPROGRAM_APPID` and `PDD_MINIPROGRAM_PATH_TEMPLATE` are approved and verified in WeChat Developer Tools
+- WeChat QR login: keep the login button disabled until `WECHAT_OPEN_APPID`, `WECHAT_OPEN_SECRET`, and `WECHAT_OPEN_LOGIN_CALLBACK_URL` are approved on the WeChat Open Platform callback domain
 
 Do not commit secrets to tracked env files. Put local secrets in `.env.local` or
 pull them from Vercel environment variables.
@@ -73,6 +75,9 @@ npm run prisma:validate
 npm run db:deploy
 npm run db:seed
 ```
+
+The seed step now includes the reviewed health/OTC knowledge-base baseline used
+by `/admin/knowledge`. Public AI copy may use only `reviewed` knowledge entries.
 
 Then compare the seeded database catalog with the static fallback source:
 
@@ -129,6 +134,9 @@ Check these pages in the browser:
 - `/plans/stress`
 - `/cart`
 - `/checkout`
+- `/auth/login`
+- `/dashboard`
+- `/admin/knowledge`
 
 Acceptance criteria:
 
@@ -137,6 +145,7 @@ Acceptance criteria:
 - Legacy commerce paths remain accessible but visually secondary
 - `/plans/stress` enters `/ai-consult` without a `focus` query
 - Urgent consult results do not show purchase recommendations
+- Logged-in users can save an AI assessment report and reopen it from `/dashboard`
 
 ## 6. Launch Blockers To Clear
 

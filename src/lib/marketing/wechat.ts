@@ -7,6 +7,7 @@ export interface WeChatArticleDraft {
   digest: string;
   fileName: string;
   primaryCtaHref: string;
+  mallHref: string;
   markdown: string;
   compliance: MarketingComplianceResult;
 }
@@ -36,6 +37,7 @@ export function buildWeChatArticleDraft(input: {
   audience: string;
   primaryCtaHref: string;
   secondaryHref: string | null;
+  mallHref: string;
   contentOutline: string[];
   compliance: MarketingComplianceResult;
 }): WeChatArticleDraft {
@@ -69,6 +71,12 @@ export function buildWeChatArticleDraft(input: {
     "",
     `[立即开始AI健康评估](${input.primaryCtaHref})`,
     "",
+    "## 官网商城",
+    "",
+    "完成评估后，可在荣旺官网商城查看产品资料、规格与站内购买入口。产品信息只作为健康教育后的辅助参考，不替代专业建议。",
+    "",
+    `[查看荣旺官网商城](${input.mallHref})`,
+    "",
     "## 免责声明",
     "",
     disclaimer,
@@ -81,6 +89,7 @@ export function buildWeChatArticleDraft(input: {
     digest,
     fileName: safeFileName(input.campaignSlug),
     primaryCtaHref: input.primaryCtaHref,
+    mallHref: input.mallHref,
     markdown,
     compliance: input.compliance,
   };

@@ -53,7 +53,7 @@ export interface QuizResultRow {
 export interface OrderRow {
   id: string;
   user_id: string | null;
-  items: Array<{ slug: PlanSlug; name: string; price: number; quantity: number }>;
+  items: Array<{ slug: string; name: string; price: number; quantity: number }>;
   total: number;
   customer: Record<string, string>;
   status: 'pending' | 'confirmed' | 'shipped' | 'delivered' | 'cancelled';

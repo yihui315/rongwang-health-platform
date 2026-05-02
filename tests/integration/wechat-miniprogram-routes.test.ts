@@ -62,7 +62,11 @@ test("mini program product API exposes safe product data without direct PDD URLs
   assert.equal(payload.success, true);
   assert.equal(Array.isArray(payload.products), true);
   assert.equal(payload.products.length > 0, true);
+  assert.equal(payload.siteMallAction.type, "site_mall");
+  assert.match(payload.siteMallAction.href, /^\/products\?/);
   assert.equal(typeof payload.products[0].pddManaged, "boolean");
+  assert.equal(payload.products[0].siteMallAction.type, "site_mall");
+  assert.match(payload.products[0].siteMallAction.href, /^\/products\//);
   assert.equal("pddUrl" in payload.products[0], false);
   assert.match(payload.primaryCta.href, /^\/ai-consult/);
 });
@@ -83,6 +87,9 @@ test("mini program product detail returns a PDD CTA with attribution but no raw 
   assert.equal(payload.product.pddAction.tracking.source, "miniprogram_detail");
   assert.equal(payload.product.pddAction.tracking.campaign, "wechat-launch");
   assert.equal(payload.product.pddAction.tracking.solutionSlug, "sleep");
+  assert.equal(payload.product.siteMallAction.type, "site_mall");
+  assert.match(payload.product.siteMallAction.href, /^\/products\/msr-nadh-tipsynox\?/);
+  assert.match(payload.product.siteMallAction.href, /utm_source=wechat/);
   assert.equal(serialized.includes("pddUrl"), false);
   assert.equal(serialized.includes("pinduoduo"), false);
 });
@@ -100,6 +107,7 @@ test("mini program order contract creates a pending payment order shape", async 
   assert.equal(payload.order.status, "pending_payment");
   assert.equal(payload.order.paymentStatus, "unpaid");
   assert.equal(payload.order.fulfillmentStatus, "unfulfilled");
+  assert.equal("openId" in payload.order, false);
 });
 
 test("wechat pay prepay and notify fail closed without payment credentials", async () => {

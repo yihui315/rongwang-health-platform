@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { getAiConsultHrefForValue } from "@/lib/health/consult-entry";
 import { listProducts } from "@/lib/data/products";
 import { buildMiniProgramPddAction } from "@/lib/wechat/pdd-link";
+import { buildMiniProgramSiteMallAction } from "@/lib/wechat/site-mall";
 
 export async function GET() {
   const products = (await listProducts())
@@ -18,6 +19,9 @@ export async function GET() {
       tagline: product.tagline,
       images: product.images,
       stock: product.stock,
+      siteMallAction: buildMiniProgramSiteMallAction(product, {
+        source: "miniprogram_catalog",
+      }),
       pddManaged: Boolean(product.pddUrl),
       purchaseMode: "pdd_guided_redirect",
       pddAction: buildMiniProgramPddAction(product, {
@@ -31,6 +35,9 @@ export async function GET() {
       label: "Start AI assessment",
       href: getAiConsultHrefForValue(null),
     },
+    siteMallAction: buildMiniProgramSiteMallAction(null, {
+      source: "miniprogram_catalog",
+    }),
     products,
     disclaimer: "Health education only. Mini Program checkout is disabled until WeChat Pay readiness is complete.",
   });

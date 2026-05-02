@@ -97,7 +97,8 @@ test("POST /api/marketing/automation returns an authorized dry-run campaign plan
     const wechatAsset = payload.plan.assets.find((asset: { channel: string }) => asset.channel === "wechat");
     assert.equal(wechatAsset.wechatArticle.kind, "official_account_article");
     assert.match(wechatAsset.wechatArticle.markdown, /\/ai-consult\?focus=sleep/);
-    assert.doesNotMatch(wechatAsset.wechatArticle.markdown, /\/products|\/checkout|\/product-map/);
+    assert.match(wechatAsset.wechatArticle.markdown, /\/products\?utm_source=wechat/);
+    assert.doesNotMatch(wechatAsset.wechatArticle.markdown, /\/checkout|\/product-map/);
     assert.equal(payload.wechatPublication.length, 1);
     assert.equal(payload.wechatPublication[0].status, "draft_only");
     assert.equal(payload.wechatPublication[0].publishAllowed, false);

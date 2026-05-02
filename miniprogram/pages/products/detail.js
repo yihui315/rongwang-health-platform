@@ -1,4 +1,5 @@
 const api = require("../../utils/api");
+const mall = require("../../utils/mall");
 const pdd = require("../../utils/pdd");
 
 Page({
@@ -39,5 +40,11 @@ Page({
       return;
     }
     pdd.runPddAction(this.data.product.pddAction);
+  },
+  openMall() {
+    if (!this.data.product) {
+      return;
+    }
+    mall.runMallAction(this.data.product.siteMallAction);
   },
 });

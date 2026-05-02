@@ -11,12 +11,15 @@ Mini Program entry
 -> product catalog
 -> product detail
 -> AI assessment guidance
+-> website mall bridge for product details and site cart
 -> PDD guided redirect action
 -> PDD / site bridge fallback
 ```
 
 The product catalog still links users back to AI assessment guidance. Direct
-PDD links are not exposed in Mini Program product API responses.
+PDD links are not exposed in Mini Program product API responses. Website mall
+links point only to Rongwang-owned `/products` and `/products/[slug]` pages with
+WeChat UTM attribution; they do not open `/checkout` directly.
 
 Local Mini Program endpoints are centralized in `miniprogram/config.js`. Keep
 `project.config.json` on `touristappid` for repository-safe development, and
@@ -29,6 +32,7 @@ before simulator, preview, or real-device validation.
 - `pages/products/index`: product list from `GET /api/wechat/miniprogram/products`.
 - `pages/products/detail`: product detail using the same safe product payload.
 - `pages/assessment/index`: copies or opens the website AI assessment entry.
+- `pages/mall-bridge/index`: explains the website mall handoff and copies the controlled site URL.
 - `pages/pdd-bridge/index`: explains external redirect and copies the controlled bridge URL.
 - `pages/mine/index`: service and customer-support entry.
 
@@ -36,8 +40,8 @@ before simulator, preview, or real-device validation.
 
 - `GET /api/wechat/status`: sanitized readiness for Official Account, Mini Program, and payment.
 - `POST /api/wechat/miniprogram/login`: exchanges WeChat `code` only after app credentials are configured.
-- `GET /api/wechat/miniprogram/products`: safe product list, no raw `pddUrl`.
-- `GET /api/wechat/miniprogram/products/[slug]`: safe product detail with PDD CTA attribution.
+- `GET /api/wechat/miniprogram/products`: safe product list with website mall actions, no raw `pddUrl`.
+- `GET /api/wechat/miniprogram/products/[slug]`: safe product detail with website mall and PDD CTA attribution.
 - `POST /api/wechat/miniprogram/orders`: creates a `pending_payment` order contract.
 - `POST /api/wechat/pay/prepay`: disabled until payment credentials and signing are live.
 - `POST /api/wechat/pay/notify`: disabled until callback verification is live.

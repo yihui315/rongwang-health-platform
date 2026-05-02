@@ -8,6 +8,7 @@
     <view class="body">{{product.tagline}}</view>
     <view class="price">HK${{product.memberPrice || product.price}}</view>
     <button class="button-primary" bindtap="goAssessment">先做 AI 评估</button>
+    <button class="button-secondary" bindtap="openMall">官网商城查看详情</button>
     <button class="button-secondary" bindtap="openPdd">去拼多多查看/购买</button>
   </view>
 

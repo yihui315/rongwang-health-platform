@@ -41,6 +41,7 @@ test("production probe readiness fails closed when core production integrations 
   const output = `${stdout}\n${stderr}`;
   assert.equal(exitCode, 1);
   assert.match(output, /DATABASE_URL is required/);
+  assert.match(output, /AUTH_ID_HASH_SALT is required/);
   assert.match(output, /Redis credentials are required/);
   assert.match(output, /OPENAI_API_KEY or DEEPSEEK_API_KEY is required/);
   assert.match(output, /GEOFLOW_API_URL is required/);

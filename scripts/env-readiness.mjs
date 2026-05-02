@@ -266,6 +266,7 @@ console.log(`[env] profile: ${productionProfile ? "production" : "local"}`);
 printGroup("core", [
   formatKey(env, "NEXT_PUBLIC_SITE_URL"),
   formatKey(env, "ADMIN_AUTH_TOKEN"),
+  formatKey(env, "AUTH_ID_HASH_SALT"),
 ]);
 
 printGroup("database", [
@@ -339,6 +340,9 @@ if (productionProfile) {
   }
   if (!isConfigured(env, "DATABASE_URL")) {
     errors.push("DATABASE_URL is required for production persistence");
+  }
+  if (!isConfigured(env, "AUTH_ID_HASH_SALT")) {
+    errors.push("AUTH_ID_HASH_SALT is required for production identity hashing");
   }
   if (usesDeepSeek && !hasDeepSeekKey) {
     errors.push("DEEPSEEK_API_KEY is required when AI_PROVIDER=deepseek");

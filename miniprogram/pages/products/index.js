@@ -1,10 +1,12 @@
 const api = require("../../utils/api");
+const mall = require("../../utils/mall");
 
 Page({
   data: {
     loading: true,
     error: "",
     products: [],
+    siteMallAction: null,
   },
   onLoad() {
     this.loadProducts();
@@ -15,6 +17,7 @@ Page({
         this.setData({
           loading: false,
           products: payload.products || [],
+          siteMallAction: payload.siteMallAction || null,
         });
       })
       .catch(() => {
@@ -26,6 +29,9 @@ Page({
   },
   goAssessment() {
     wx.switchTab({ url: "/pages/assessment/index" });
+  },
+  openMallCatalog() {
+    mall.runMallAction(this.data.siteMallAction);
   },
   openDetail(event) {
     const slug = event.currentTarget.dataset.slug;

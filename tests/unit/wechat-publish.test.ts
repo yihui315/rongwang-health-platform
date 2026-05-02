@@ -13,6 +13,7 @@ const approvedDraft: WeChatArticleDraft = {
   digest: "Assessment first health education.",
   fileName: "sleep-support.md",
   primaryCtaHref: "/ai-consult?focus=sleep&utm_source=wechat",
+  mallHref: "/products?utm_source=wechat&utm_medium=official_account&utm_campaign=sleep-wechat",
   markdown: "Start with AI assessment.\n\n本内容仅供健康教育和一般参考。",
   compliance: {
     approved: true,

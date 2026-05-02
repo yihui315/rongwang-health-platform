@@ -41,6 +41,7 @@ test("wechat operational commands are exposed as explicit npm scripts", () => {
   assert.equal(pkg.scripts["wechat:check:draft"], "node scripts/wechat-readiness.mjs --draft");
   assert.equal(pkg.scripts["wechat:check:pay"], "node scripts/wechat-readiness.mjs --production --pay");
   assert.equal(pkg.scripts["wechat:article"], "tsx scripts/wechat-generate-article.ts");
+  assert.equal(pkg.scripts["wechat:inspect"], "node scripts/wechat-md2wechat.mjs --inspect");
   assert.equal(pkg.scripts["wechat:preview"], "node scripts/wechat-md2wechat.mjs --preview");
   assert.equal(pkg.scripts["wechat:draft"], "node scripts/wechat-md2wechat.mjs --draft");
   assert.equal(pkg.scripts.verify.includes("wechat:check"), false);

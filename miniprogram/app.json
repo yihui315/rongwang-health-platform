@@ -4,6 +4,7 @@
     "pages/products/index",
     "pages/products/detail",
     "pages/assessment/index",
+    "pages/mall-bridge/index",
     "pages/pdd-bridge/index",
     "pages/mine/index"
   ],
