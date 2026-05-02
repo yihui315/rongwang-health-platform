@@ -14,6 +14,14 @@ import {
 } from '@/lib/auth/customer-shared';
 import { getAiConsultHrefForValue } from '@/lib/health/consult-entry';
 
+function getTrackingCookieOptions() {
+  return {
+    path: '/',
+    sameSite: 'lax' as const,
+    secure: process.env.NODE_ENV === 'production',
+  };
+}
+
 export function middleware(request: NextRequest) {
   const url = request.nextUrl;
   const isAdminPath = url.pathname === '/admin' || url.pathname.startsWith('/admin/');
@@ -41,9 +49,8 @@ export function middleware(request: NextRequest) {
 
   if (!request.cookies.has('rw_session')) {
     response.cookies.set('rw_session', crypto.randomUUID(), {
+      ...getTrackingCookieOptions(),
       maxAge: 60 * 60 * 24 * 90,
-      path: '/',
-      sameSite: 'lax',
     });
   }
 
@@ -54,9 +61,8 @@ export function middleware(request: NextRequest) {
   if (!request.cookies.has('rw_ab_group')) {
     const group = Math.random() < 0.5 ? 'A' : 'B';
     response.cookies.set('rw_ab_group', group, {
+      ...getTrackingCookieOptions(),
       maxAge: 60 * 60 * 24 * 30,
-      path: '/',
-      sameSite: 'lax',
     });
   }
 
@@ -71,17 +77,15 @@ export function middleware(request: NextRequest) {
       medium: utmMedium || '',
       campaign: utmCampaign || '',
     }), {
+      ...getTrackingCookieOptions(),
       maxAge: 60 * 60 * 24 * 7,
-      path: '/',
-      sameSite: 'lax',
     });
   }
 
   if (ref) {
     response.cookies.set('rw_ref', ref, {
+      ...getTrackingCookieOptions(),
       maxAge: 60 * 60 * 24 * 30,
-      path: '/',
-      sameSite: 'lax',
     });
   }
 
