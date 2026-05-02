@@ -8,6 +8,7 @@ const probeDb = probeAll || args.has("--probe-db");
 const probeRedis = probeAll || args.has("--probe-redis");
 const probeOpenAiFlag = args.has("--probe-openai");
 const probeDeepSeekFlag = args.has("--probe-deepseek");
+const probeMiniMaxFlag = args.has("--probe-minimax");
 const envFileArg = process.argv.find((arg) => arg.startsWith("--rw-env-file=") || arg.startsWith("--env-file="));
 
 const root = process.cwd();
@@ -40,7 +41,7 @@ function loadEnv() {
   const env = {};
 
   for (const file of envFiles) {
-    const filePath = path.join(root, file);
+    const filePath = path.isAbsolute(file) ? file : path.join(root, file);
     if (!fs.existsSync(filePath)) {
       continue;
     }
@@ -206,6 +207,10 @@ function getDeepSeekModel(env) {
   return "deepseek-v4-flash";
 }
 
+function getMiniMaxModel(env) {
+  return env.MINIMAX_MODEL || env.AI_MODEL || "abab6.5s-chat";
+}
+
 async function probeDeepSeekChat(env) {
   if (!isConfigured(env, "DEEPSEEK_API_KEY")) {
     throw new Error("DEEPSEEK_API_KEY is missing");
@@ -244,6 +249,44 @@ async function probeDeepSeekChat(env) {
   }
 
   return `chat ok; model=${data.model || getDeepSeekModel(env)}`;
+}
+
+async function probeMiniMaxChat(env) {
+  if (!isConfigured(env, "MINIMAX_API_KEY")) {
+    throw new Error("MINIMAX_API_KEY is missing");
+  }
+
+  const baseUrl = (isConfigured(env, "MINIMAX_BASE_URL") ? env.MINIMAX_BASE_URL : "https://api.minimax.chat").replace(/\/$/, "");
+  const response = await fetch(`${baseUrl}/chat/completions`, {
+    method: "POST",
+    headers: {
+      authorization: `Bearer ${env.MINIMAX_API_KEY}`,
+      "content-type": "application/json",
+    },
+    body: JSON.stringify({
+      model: getMiniMaxModel(env),
+      messages: [
+        { role: "system", content: "Reply with a short health-check token only." },
+        { role: "user", content: "ping" },
+      ],
+      temperature: 0,
+      max_tokens: 32,
+    }),
+    signal: AbortSignal.timeout(15000),
+  });
+
+  if (!response.ok) {
+    const text = await response.text().catch(() => "");
+    throw new Error(`MiniMax chat probe failed with status ${response.status}: ${text.slice(0, 160)}`);
+  }
+
+  const data = await response.json();
+  const content = data?.choices?.[0]?.message?.content;
+  if (!content) {
+    throw new Error("MiniMax chat probe returned an empty response");
+  }
+
+  return `chat ok; model=${data.model || getMiniMaxModel(env)}`;
 }
 
 async function runProbe(label, fn, errors) {
@@ -292,6 +335,9 @@ printGroup("ai", [
   formatKey(env, "DEEPSEEK_API_KEY"),
   formatKey(env, "DEEPSEEK_BASE_URL"),
   formatKey(env, "DEEPSEEK_MODEL"),
+  formatKey(env, "MINIMAX_API_KEY"),
+  formatKey(env, "MINIMAX_BASE_URL"),
+  formatKey(env, "MINIMAX_MODEL"),
   formatKey(env, "AI_PROVIDER"),
   formatKey(env, "AI_MODEL"),
   formatKey(env, "AI_PROMPT_VERSION"),
@@ -329,10 +375,13 @@ if (!isConfigured(env, "NEXT_PUBLIC_SITE_URL")) {
 
 const aiProvider = env.AI_PROVIDER?.trim().toLowerCase();
 const usesDeepSeek = aiProvider === "deepseek";
+const usesMiniMax = aiProvider === "minimax";
 const hasOpenAiKey = isConfigured(env, "OPENAI_API_KEY");
 const hasDeepSeekKey = isConfigured(env, "DEEPSEEK_API_KEY");
+const hasMiniMaxKey = isConfigured(env, "MINIMAX_API_KEY");
 const probeOpenAi = probeOpenAiFlag || (probeAll && hasOpenAiKey);
 const probeDeepSeek = probeDeepSeekFlag || (probeAll && hasDeepSeekKey);
+const probeMiniMax = probeMiniMaxFlag || (probeAll && hasMiniMaxKey);
 
 if (productionProfile) {
   if (!isConfigured(env, "ADMIN_AUTH_TOKEN")) {
@@ -346,8 +395,10 @@ if (productionProfile) {
   }
   if (usesDeepSeek && !hasDeepSeekKey) {
     errors.push("DEEPSEEK_API_KEY is required when AI_PROVIDER=deepseek");
-  } else if (!usesDeepSeek && !hasOpenAiKey && !hasDeepSeekKey) {
-    errors.push("OPENAI_API_KEY or DEEPSEEK_API_KEY is required for production AI provider mode");
+  } else if (usesMiniMax && !hasMiniMaxKey) {
+    errors.push("MINIMAX_API_KEY is required when AI_PROVIDER=minimax");
+  } else if (!hasOpenAiKey && !hasDeepSeekKey && !hasMiniMaxKey) {
+    errors.push("OPENAI_API_KEY, DEEPSEEK_API_KEY, or MINIMAX_API_KEY is required for production AI provider mode");
   }
   if (!hasAnyConfiguredPair(env, [
     ["UPSTASH_REDIS_REST_URL", "UPSTASH_REDIS_REST_TOKEN"],
@@ -395,8 +446,8 @@ if (productionProfile) {
   if (!isConfigured(env, "DATABASE_URL")) {
     warnings.push("DATABASE_URL missing; app will use static/fallback data where supported");
   }
-  if (!hasOpenAiKey && !hasDeepSeekKey) {
-    warnings.push("OPENAI_API_KEY and DEEPSEEK_API_KEY missing; AI provider calls should stay behind fallback/feature flags");
+  if (!hasOpenAiKey && !hasDeepSeekKey && !hasMiniMaxKey) {
+    warnings.push("OPENAI_API_KEY, DEEPSEEK_API_KEY, and MINIMAX_API_KEY missing; AI provider calls should stay behind fallback/feature flags");
   }
   if (!hasAnyConfiguredPair(env, [
     ["UPSTASH_REDIS_REST_URL", "UPSTASH_REDIS_REST_TOKEN"],
@@ -422,6 +473,9 @@ if (probeOpenAi) {
 }
 if (probeDeepSeek) {
   await runProbe("deepseek", () => probeDeepSeekChat(env), errors);
+}
+if (probeMiniMax) {
+  await runProbe("minimax", () => probeMiniMaxChat(env), errors);
 }
 
 if (errors.length > 0) {

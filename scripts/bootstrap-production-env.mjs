@@ -73,4 +73,4 @@ fs.writeFileSync(envPath, `${lines.join("\n").replace(/\n*$/, "")}\n`, "utf8");
 console.log("[env:bootstrap:production] created .env.production");
 console.log("[env:bootstrap:production] generated ADMIN_AUTH_TOKEN, POSTGRES_PASSWORD, REDIS_REST_TOKEN, and GEOFLOW_WEBHOOK_SECRET");
 console.log("[env:bootstrap:production] secret values were not printed");
-console.log("[env:bootstrap:production] fill NEXT_PUBLIC_SITE_URL, DEEPSEEK_API_KEY, and optional GEOFlow API credentials before launch");
+console.log("[env:bootstrap:production] fill NEXT_PUBLIC_SITE_URL, MINIMAX_API_KEY or DEEPSEEK_API_KEY, and optional GEOFlow API credentials before launch");
