@@ -1,5 +1,5 @@
-import HomeAssessmentLanding from "@/components/ai/HomeAssessmentLanding";
+import HomePageV3 from "@/components/home/HomePageV3";
 
 export default function HomePage() {
-  return <HomeAssessmentLanding />;
+  return <HomePageV3 />;
 }

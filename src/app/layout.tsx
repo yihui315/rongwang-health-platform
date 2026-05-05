@@ -14,7 +14,7 @@ export const metadata: Metadata = {
     template: "%s | 荣旺健康",
   },
   description:
-    "先做3分钟AI健康评估，了解风险分层、生活方式建议和营养支持方向，再进入对应方案与可控购买入口。",
+    "荣旺健康提供3分钟AI健康评估，帮助用户了解风险分层、生活方式建议与营养支持方向。内容仅供健康教育参考，不替代医生诊断。",
   keywords: [
     "荣旺健康",
     "AI健康评估",
@@ -57,7 +57,7 @@ export const metadata: Metadata = {
     index: true,
     follow: true,
   },
-  metadataBase: new URL("https://rongwang.health"),
+  metadataBase: new URL("https://rongwang.hk"),
 };
 
 export const viewport: Viewport = {
