@@ -1,0 +1,28 @@
+{
+  "name": "rongwang-health-platform",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint .",
+    "test": "node --test --import tsx",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "next": "15.2.4",
+    "react": "19.0.0",
+    "react-dom": "19.0.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.24.0",
+    "@types/node": "22.15.3",
+    "@types/react": "19.0.10",
+    "@types/react-dom": "19.0.4",
+    "eslint": "9.24.0",
+    "eslint-config-next": "15.2.4",
+    "tsx": "^4.21.0",
+    "typescript": "5.8.3"
+  }
+}

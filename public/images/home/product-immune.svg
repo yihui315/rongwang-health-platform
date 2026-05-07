@@ -1,0 +1,12 @@
+<svg width="300" height="320" viewBox="0 0 300 320" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">日常免疫方向示意图</title>
+  <desc id="desc">绿色瓶身的营养支持方向示意图。</desc>
+  <rect width="300" height="320" rx="32" fill="#ECFDF5"/>
+  <ellipse cx="150" cy="272" rx="70" ry="16" fill="#A7F3D0"/>
+  <rect x="103" y="76" width="94" height="176" rx="20" fill="#047857"/>
+  <rect x="112" y="116" width="76" height="88" rx="11" fill="#F8FAFC"/>
+  <path d="M150 130 174 140v19c0 21-11 36-24 43-13-7-24-22-24-43v-19l24-10Z" fill="#D1FAE5"/>
+  <path d="M137 161l9 9 19-22" stroke="#059669" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="122" y="214" width="56" height="13" rx="6.5" fill="#86EFAC"/>
+  <rect x="117" y="54" width="66" height="29" rx="10" fill="#E2E8F0"/>
+</svg>

@@ -1,0 +1,11 @@
+<svg width="300" height="320" viewBox="0 0 300 320" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">疲劳恢复方向示意图</title>
+  <desc id="desc">琥珀色瓶身的营养支持方向示意图。</desc>
+  <rect width="300" height="320" rx="32" fill="#FFF7ED"/>
+  <ellipse cx="150" cy="272" rx="70" ry="16" fill="#FED7AA"/>
+  <rect x="103" y="78" width="94" height="174" rx="20" fill="#7C2D12"/>
+  <rect x="112" y="118" width="76" height="86" rx="11" fill="#FFFBEB"/>
+  <path d="m153 129-31 45h24l-4 29 36-51h-24l-1-23Z" fill="#F59E0B"/>
+  <rect x="122" y="214" width="56" height="13" rx="6.5" fill="#FDBA74"/>
+  <rect x="117" y="55" width="66" height="29" rx="10" fill="#E2E8F0"/>
+</svg>
