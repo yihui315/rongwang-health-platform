@@ -9,3 +9,4 @@ coverage
 *.log
 .rongwang-data
 tsconfig.tsbuildinfo
+.worktrees
