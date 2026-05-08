@@ -1,5 +1,6 @@
 import './globals.css';
 import type { Metadata } from 'next';
+import Image from 'next/image';
 import Link from 'next/link';
 import { ReactNode } from 'react';
 
@@ -34,17 +35,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <header className="site-header">
           <div className="site-header-inner">
             <Link className="site-logo" href="/" aria-label="荣旺健康首页">
-              <span className="site-logo-mark" aria-hidden>
-                <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M18 3c7 3 11 8 11 15 0 8-5 13-11 15C12 31 7 26 7 18 7 11 11 6 18 3Z" fill="#D1FAE5" />
-                  <path d="M18 7c4 2 7 6 7 11 0 6-3 9-7 11-4-2-7-5-7-11 0-5 3-9 7-11Z" stroke="#059669" strokeWidth="2.4" />
-                  <path d="M14 18.5 17 21l5.5-6" stroke="#047857" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-              </span>
-              <span>
-                <strong>荣旺健康</strong>
-                <small>RONGWANG HEALTH</small>
-              </span>
+              <Image src="/images/home/rongwang-health-logo.png" alt="荣旺健康 Rongwang Health" width={176} height={60} priority />
             </Link>
             <nav className="site-nav" aria-label="主导航">
               <NavLink href="/ai-consult">AI评估</NavLink>
@@ -62,17 +53,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           <div className="site-footer-inner">
             <div className="site-footer-brand">
               <Link className="site-logo site-logo-footer" href="/">
-                <span className="site-logo-mark" aria-hidden>
-                  <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M18 3c7 3 11 8 11 15 0 8-5 13-11 15C12 31 7 26 7 18 7 11 11 6 18 3Z" fill="#D1FAE5" />
-                    <path d="M18 7c4 2 7 6 7 11 0 6-3 9-7 11-4-2-7-5-7-11 0-5 3-9 7-11Z" stroke="#059669" strokeWidth="2.4" />
-                    <path d="M14 18.5 17 21l5.5-6" stroke="#047857" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
-                </span>
-                <span>
-                  <strong>荣旺健康</strong>
-                  <small>RONGWANG HEALTH</small>
-                </span>
+                <Image src="/images/home/rongwang-health-logo.png" alt="荣旺健康 Rongwang Health" width={176} height={60} />
               </Link>
               <p>科学评估 · 审慎支持 · 健康相伴</p>
               <p>service@rongwanghealth.com</p>

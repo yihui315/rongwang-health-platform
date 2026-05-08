@@ -60,7 +60,7 @@ export const homeHealthDirections = [
     href: '/assessment/sleep',
     accent: 'purple',
     icon: 'moon',
-    image: '/images/home/direction-sleep.png',
+    image: '/images/home/direction-sleep.webp',
   },
   {
     title: '疲劳恢复',
@@ -68,7 +68,7 @@ export const homeHealthDirections = [
     href: '/assessment/fatigue',
     accent: 'green',
     icon: 'zap',
-    image: '/images/home/direction-fatigue.png',
+    image: '/images/home/direction-fatigue.webp',
   },
   {
     title: '免疫支持',
@@ -76,7 +76,7 @@ export const homeHealthDirections = [
     href: '/assessment/immune',
     accent: 'blue',
     icon: 'shield-check',
-    image: '/images/home/direction-immune.png',
+    image: '/images/home/direction-immune.webp',
   },
   {
     title: '女性健康',
@@ -84,7 +84,7 @@ export const homeHealthDirections = [
     href: '/assessment/female',
     accent: 'pink',
     icon: 'female',
-    image: '/images/home/direction-female.png',
+    image: '/images/home/direction-female.webp',
   },
 ] satisfies Array<{
   title: string;
@@ -124,19 +124,19 @@ export const productPreviewItems = [
   {
     title: '睡眠支持',
     description: '支持放松与夜间休息状态管理。',
-    image: '/images/home/product-sleep.png',
+    image: '/images/home/product-sleep.webp',
     href: '/solutions/sleep',
   },
   {
     title: '日常免疫',
     description: '支持基础营养补充与日常健康管理。',
-    image: '/images/home/product-immune.png',
+    image: '/images/home/product-immune.webp',
     href: '/solutions/immune',
   },
   {
     title: '疲劳恢复',
     description: '支持能量代谢与日常精力管理。',
-    image: '/images/home/product-fatigue.png',
+    image: '/images/home/product-fatigue.webp',
     href: '/solutions/fatigue',
   },
 ];

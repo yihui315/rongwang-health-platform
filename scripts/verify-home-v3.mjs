@@ -17,14 +17,15 @@ const requiredFiles = [
   'app/ai-consult/page.tsx',
   'app/assessment/[slug]/page.tsx',
   'app/solutions/[slug]/page.tsx',
-  'public/images/home/expert-consultant.png',
-  'public/images/home/direction-sleep.png',
-  'public/images/home/direction-fatigue.png',
-  'public/images/home/direction-immune.png',
-  'public/images/home/direction-female.png',
-  'public/images/home/product-sleep.png',
-  'public/images/home/product-immune.png',
-  'public/images/home/product-fatigue.png',
+  'public/images/home/rongwang-health-logo.png',
+  'public/images/home/expert-consultant.webp',
+  'public/images/home/direction-sleep.webp',
+  'public/images/home/direction-fatigue.webp',
+  'public/images/home/direction-immune.webp',
+  'public/images/home/direction-female.webp',
+  'public/images/home/product-sleep.webp',
+  'public/images/home/product-immune.webp',
+  'public/images/home/product-fatigue.webp',
 ];
 
 const requiredSnippets = [
@@ -55,7 +56,11 @@ const requiredSnippets = [
   },
   {
     file: 'src/components/home/HomeExpertTrust.tsx',
-    snippets: ['/images/home/expert-consultant.png', '健康顾问正在整理营养建议'],
+    snippets: ['/images/home/expert-consultant.webp', '健康顾问正在整理营养建议'],
+  },
+  {
+    file: 'app/layout.tsx',
+    snippets: ['/images/home/rongwang-health-logo.png', '荣旺健康 Rongwang Health'],
   },
   {
     file: 'src/components/home/HomeFAQ.tsx',

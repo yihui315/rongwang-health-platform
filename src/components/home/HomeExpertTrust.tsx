@@ -29,7 +29,7 @@ export default function HomeExpertTrust() {
 
           <div className="home-expert-visual" aria-label="健康顾问示意图">
             <Image
-              src="/images/home/expert-consultant.png"
+              src="/images/home/expert-consultant.webp"
               alt="健康顾问正在整理营养建议"
               width={520}
               height={292}
