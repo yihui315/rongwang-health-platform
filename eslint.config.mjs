@@ -12,7 +12,15 @@ const compat = new FlatCompat({
 
 const config = [
   {
-    ignores: ['.next/**', 'node_modules/**', 'next-env.d.ts', 'tsconfig.tsbuildinfo', '.rongwang-data/**'],
+    ignores: [
+      '.next/**',
+      '.worktrees/**',
+      'node_modules/**',
+      'next-env.d.ts',
+      'tsconfig.tsbuildinfo',
+      '.rongwang-data/**',
+      '网站图片/**',
+    ],
   },
   ...compat.extends('next/core-web-vitals', 'next/typescript'),
 ];
