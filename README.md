@@ -2,6 +2,14 @@
 
 荣旺跨境健康平台是一个面向中国大陆市场的跨境健康品独立站与 AI Agent 运营中台。
 
+## 当前线上状态
+
+- 生产站点：https://rongwang.hk
+- 当前线上提交：`1b3d8ee` (`chore: upgrade Next.js runtime`)
+- 当前线上分支：`codex/deployed-rongwang-hk-20260515`
+- 运行方式：Ubuntu 云服务器 + Nginx + systemd + Next.js
+- 注意：GitHub 默认 `origin/main` 目前不是线上生产分支，分支关系说明见 [docs/github-repository-status.md](docs/github-repository-status.md)。
+
 ## 项目目标
 
 第一阶段目标：
