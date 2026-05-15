@@ -80,3 +80,22 @@
 - commit 信息清晰说明改动目的
 - 不要混合多个主题到一个 commit 中
 - 不要删除用户未要求删除的文件
+
+## Deploy Configuration (configured by /setup-deploy)
+- Platform: Custom Ubuntu server, Nginx reverse proxy, systemd-managed Next.js app
+- Production URL: https://rongwang.hk
+- Deploy workflow: manual SSH deploy from verified local git archive; GitHub push should happen before deploy when credentials are available
+- Deploy status command: ssh root@38.76.178.75 'systemctl is-active rongwang-health-platform && curl -sf http://127.0.0.1:3201 -o /dev/null -w "%{http_code}"'
+- Merge method: direct main commits for current MVP; prefer squash merge for future PRs
+- Project type: Next.js web app / API routes
+- Post-deploy health check: https://rongwang.hk
+
+### Custom deploy hooks
+- Pre-merge: npm run lint && npm run typecheck && npm test && npm run build
+- Deploy trigger: archive current git HEAD to /opt/rongwang-health-platform/releases/<commit-timestamp>, run npm ci, run npm run build, update /opt/rongwang-health-platform/current, restart systemd service
+- Deploy status: systemctl status rongwang-health-platform and journalctl -u rongwang-health-platform -n 80 --no-pager
+- Health check: curl -sf https://rongwang.hk -o /dev/null -w "%{http_code}"
+- Runtime service: rongwang-health-platform.service listens on 127.0.0.1:3201
+- Nginx route: /etc/nginx/sites-available/rongwang.hk proxies rongwang.hk HTTPS traffic to 127.0.0.1:3201
+- Rollback: restore the previous /etc/nginx/sites-available/rongwang.hk backup or point proxy_pass back to 127.0.0.1:3200, then run nginx -t && systemctl reload nginx
+- Secret handling: never store server passwords, API keys, or tokens in CLAUDE.md or git
