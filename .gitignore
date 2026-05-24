@@ -8,5 +8,6 @@ coverage
 .DS_Store
 *.log
 .rongwang-data
+.release
 tsconfig.tsbuildinfo
 .worktrees

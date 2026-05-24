@@ -26,7 +26,11 @@ export default function WorkspaceImportPage() {
   }
 
   useEffect(() => {
-    loadProducts();
+    const timer = window.setTimeout(() => {
+      void loadProducts();
+    }, 0);
+
+    return () => window.clearTimeout(timer);
   }, []);
 
   async function handleImport(e: React.FormEvent) {
@@ -60,7 +64,14 @@ export default function WorkspaceImportPage() {
   return (
     <main className="min-h-screen bg-slate-50 text-slate-900">
       <section className="mx-auto max-w-6xl px-6 py-14">
-        <a href="/workspace" className="text-sm text-emerald-700 hover:underline">← 返回工作台</a>
+        <div className="flex flex-wrap items-center justify-between gap-4">
+          <a href="/workspace" className="text-sm text-emerald-700 hover:underline">← 返回工作台</a>
+          <form method="post" action="/api/auth/logout">
+            <button className="rounded-full border border-slate-300 px-3 py-1 text-sm font-medium hover:border-emerald-400" type="submit">
+              退出登录
+            </button>
+          </form>
+        </div>
         <h1 className="mt-4 text-3xl font-bold">商品导入</h1>
         <p className="mt-3 max-w-3xl leading-8 text-slate-600">
           这里是本地演示版。你输入链接后，系统会调用 mock 抓取 Agent，生成一个标准化商品对象并保存到内存中。

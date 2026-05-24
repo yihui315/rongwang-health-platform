@@ -8,11 +8,10 @@ import {
   getProductById,
   listAgentTasks,
   listApprovedStorefrontProducts,
-  resetMockStore,
-  resetMockStoreToSeed,
   saveContentWithComplianceReview,
   saveImportedProduct,
-} from "../src/lib/mock-store";
+} from "../src/lib/repositories/product-repository";
+import { resetMockStore, resetMockStoreToSeed } from "../src/lib/mock-store";
 
 test("rejects unsupported product source URLs before import", async () => {
   await assert.rejects(
@@ -21,10 +20,10 @@ test("rejects unsupported product source URLs before import", async () => {
   );
 });
 
-test("records import task lifecycle and persists the normalized product", () => {
+test("records import task lifecycle and persists the normalized product", async () => {
   resetMockStore();
-  const task = createImportTask({ sourceUrl: "https://item.jd.com/demo-vitamin.html", createdBy: "review-test" });
-  const product = saveImportedProduct(
+  const task = await createImportTask({ sourceUrl: "https://item.jd.com/demo-vitamin.html", createdBy: "review-test" });
+  const product = await saveImportedProduct(
     {
       source: "jd",
       sourceUrl: "https://item.jd.com/demo-vitamin.html",
@@ -48,17 +47,17 @@ test("records import task lifecycle and persists the normalized product", () => 
   );
 
   assert.equal(product.status, "imported");
-  assert.equal(getProductById(product.id)?.title, "测试维生素");
+  assert.equal((await getProductById(product.id))?.title, "测试维生素");
 
-  const storedTask = listAgentTasks().find((item) => item.id === task.id);
+  const storedTask = (await listAgentTasks()).find((item) => item.id === task.id);
   assert.equal(storedTask?.status, "completed");
   assert.equal(storedTask?.targetId, product.id);
   assert.equal(storedTask?.taskType, "fetch_product");
 });
 
-test("content generation stores compliance review and blocks risky content from approval", () => {
+test("content generation stores compliance review and blocks risky content from approval", async () => {
   resetMockStore();
-  const product = saveImportedProduct({
+  const product = await saveImportedProduct({
     source: "jd",
     sourceUrl: "https://item.jd.com/demo-vitamin.html",
     externalId: null,
@@ -77,7 +76,7 @@ test("content generation stores compliance review and blocks risky content from 
       specs: { 规格: "90 粒" },
     },
   });
-  const stored = saveContentWithComplianceReview(product.id, {
+  const stored = await saveContentWithComplianceReview(product.id, {
     shortTitle: "测试鱼油",
     shortDescription: "用于治疗疲劳的描述",
     longDescription: "本草稿缺少安全边界。",
@@ -93,9 +92,9 @@ test("content generation stores compliance review and blocks risky content from 
   assert.match(stored.review.riskFlags.join(","), /missing_health_disclaimer/);
 });
 
-test("only approved products are exposed to storefront queries", () => {
+test("only approved products are exposed to storefront queries", async () => {
   resetMockStore();
-  const imported = saveImportedProduct({
+  const imported = await saveImportedProduct({
     source: "jd",
     sourceUrl: "https://item.jd.com/imported.html",
     externalId: null,
@@ -114,7 +113,7 @@ test("only approved products are exposed to storefront queries", () => {
       specs: { 规格: "60 粒" },
     },
   });
-  saveContentWithComplianceReview(imported.id, {
+  await saveContentWithComplianceReview(imported.id, {
     shortTitle: "未审核商品",
     shortDescription: "草稿",
     longDescription: "草稿",
@@ -124,7 +123,7 @@ test("only approved products are exposed to storefront queries", () => {
     riskFlags: [],
   });
 
-  assert.deepEqual(listApprovedStorefrontProducts(), []);
+  assert.deepEqual(await listApprovedStorefrontProducts(), []);
 });
 
 test("compliance scan catches banned terms and missing required disclaimers", () => {
