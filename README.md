@@ -7,6 +7,7 @@
 - 生产站点：https://rongwang.hk
 - 当前线上提交：`1b3d8ee` (`chore: upgrade Next.js runtime`)
 - 当前线上分支：`codex/deployed-rongwang-hk-20260515`
+- 未来开发主线：`main`
 - 运行方式：Ubuntu 云服务器 + Nginx + systemd + Next.js
 - 注意：GitHub 默认 `origin/main` 目前不是线上生产分支，分支关系说明见 [docs/github-repository-status.md](docs/github-repository-status.md)。
 
@@ -38,6 +39,13 @@
 - 上架任务准备
 - 事件日志与任务状态跟踪
 
+## 发布流程
+
+1. 以 `main` 作为开发主线合入稳定变更。
+2. 使用 `npm run release:verify` 运行发布前检查。
+3. 使用 `npm run release:bundle` 生成可部署归档包。
+4. 按照 [docs/release-runbook.md](docs/release-runbook.md) 在生产主机上完成发布、健康检查和回滚验证。
+
 ## 技术方向
 
 - 前端：Next.js + TypeScript
@@ -63,10 +71,19 @@ database/                 数据库脚本
 
 当前项目已经内置一个本地演示工作台：
 
+- `/login`：工作台登录页
+- `/workspace`：工作台首页与入口
 - `/workspace/import`：输入商品链接，模拟商品导入
 - `/workspace/generate`：对已导入商品生成内容草稿
 
-这两个页面用于帮助非技术背景用户先理解“商品导入 → 内容生成”的中台工作流。
+这些页面用于帮助非技术背景用户先理解“商品导入 → 内容生成”的中台工作流。
+
+访问工作台前，需要在 `.env.local` 中设置：
+
+- `WORKSPACE_ADMIN_EMAIL`
+- `WORKSPACE_ADMIN_PASSWORD`
+- `APP_SECRET` 或 `JWT_SECRET`
+- `WORKSPACE_SESSION_TTL_DAYS`
 
 ## 本地启动
 

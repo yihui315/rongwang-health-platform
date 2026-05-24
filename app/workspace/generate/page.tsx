@@ -41,7 +41,11 @@ export default function WorkspaceGeneratePage() {
   }, [selectedId]);
 
   useEffect(() => {
-    loadData();
+    const timer = window.setTimeout(() => {
+      void loadData();
+    }, 0);
+
+    return () => window.clearTimeout(timer);
   }, [loadData]);
 
   async function handleGenerate() {
@@ -72,7 +76,14 @@ export default function WorkspaceGeneratePage() {
   return (
     <main className="min-h-screen bg-slate-50 text-slate-900">
       <section className="mx-auto max-w-6xl px-6 py-14">
-        <a href="/workspace" className="text-sm text-emerald-700 hover:underline">← 返回工作台</a>
+        <div className="flex flex-wrap items-center justify-between gap-4">
+          <a href="/workspace" className="text-sm text-emerald-700 hover:underline">← 返回工作台</a>
+          <form method="post" action="/api/auth/logout">
+            <button className="rounded-full border border-slate-300 px-3 py-1 text-sm font-medium hover:border-emerald-400" type="submit">
+              退出登录
+            </button>
+          </form>
+        </div>
         <h1 className="mt-4 text-3xl font-bold">内容生成</h1>
         <p className="mt-3 max-w-3xl leading-8 text-slate-600">
           这一步会把已标准化的商品对象送进内容生成 Agent，得到标题、描述、FAQ、SEO 关键词和免责声明草稿。

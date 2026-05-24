@@ -1,8 +1,8 @@
 import Link from 'next/link';
-import { listApprovedStorefrontProducts } from '@/src/lib/mock-store';
+import { listApprovedStorefrontProducts } from '@/src/lib/repositories/product-repository';
 
-export default function ProductsPage() {
-  const products = listApprovedStorefrontProducts();
+export default async function ProductsPage() {
+  const products = await listApprovedStorefrontProducts();
 
   return (
     <main style={{ maxWidth: 1120, margin: '0 auto', padding: '48px 24px' }}>

@@ -1,5 +1,5 @@
 CREATE TABLE IF NOT EXISTS products (
-  id UUID PRIMARY KEY,
+  id TEXT PRIMARY KEY,
   source VARCHAR(50) NOT NULL,
   source_url TEXT NOT NULL,
   external_id VARCHAR(255),
@@ -17,8 +17,8 @@ CREATE TABLE IF NOT EXISTS products (
 );
 
 CREATE TABLE IF NOT EXISTS product_contents (
-  id UUID PRIMARY KEY,
-  product_id UUID NOT NULL REFERENCES products(id),
+  id TEXT PRIMARY KEY,
+  product_id TEXT NOT NULL REFERENCES products(id),
   short_title TEXT NOT NULL,
   short_description TEXT NOT NULL,
   long_description TEXT NOT NULL,
@@ -32,8 +32,8 @@ CREATE TABLE IF NOT EXISTS product_contents (
 );
 
 CREATE TABLE IF NOT EXISTS media_files (
-  id UUID PRIMARY KEY,
-  product_id UUID NOT NULL REFERENCES products(id),
+  id TEXT PRIMARY KEY,
+  product_id TEXT NOT NULL REFERENCES products(id),
   type VARCHAR(20) NOT NULL,
   url TEXT NOT NULL,
   asset_id VARCHAR(255),
@@ -41,9 +41,9 @@ CREATE TABLE IF NOT EXISTS media_files (
 );
 
 CREATE TABLE IF NOT EXISTS listings (
-  id UUID PRIMARY KEY,
-  product_id UUID NOT NULL REFERENCES products(id),
-  content_id UUID REFERENCES product_contents(id),
+  id TEXT PRIMARY KEY,
+  product_id TEXT NOT NULL REFERENCES products(id),
+  content_id TEXT REFERENCES product_contents(id),
   channel VARCHAR(50) NOT NULL,
   external_listing_id VARCHAR(255),
   status VARCHAR(50) NOT NULL DEFAULT 'queued',
@@ -53,10 +53,10 @@ CREATE TABLE IF NOT EXISTS listings (
 );
 
 CREATE TABLE IF NOT EXISTS agent_tasks (
-  id UUID PRIMARY KEY,
+  id TEXT PRIMARY KEY,
   task_type VARCHAR(100) NOT NULL,
   target_type VARCHAR(100) NOT NULL,
-  target_id UUID,
+  target_id TEXT,
   input_payload JSONB DEFAULT '{}'::jsonb,
   output_payload JSONB DEFAULT '{}'::jsonb,
   status VARCHAR(50) NOT NULL DEFAULT 'pending',
@@ -69,9 +69,9 @@ CREATE TABLE IF NOT EXISTS agent_tasks (
 );
 
 CREATE TABLE IF NOT EXISTS compliance_reviews (
-  id UUID PRIMARY KEY,
-  product_id UUID NOT NULL REFERENCES products(id),
-  content_id UUID REFERENCES product_contents(id),
+  id TEXT PRIMARY KEY,
+  product_id TEXT NOT NULL REFERENCES products(id),
+  content_id TEXT REFERENCES product_contents(id),
   review_status VARCHAR(50) NOT NULL DEFAULT 'pending_manual_review',
   risk_level VARCHAR(50) NOT NULL DEFAULT 'medium',
   risk_flags JSONB DEFAULT '[]'::jsonb,
@@ -83,8 +83,8 @@ CREATE TABLE IF NOT EXISTS compliance_reviews (
 );
 
 CREATE TABLE IF NOT EXISTS campaigns (
-  id UUID PRIMARY KEY,
-  product_id UUID REFERENCES products(id),
+  id TEXT PRIMARY KEY,
+  product_id TEXT REFERENCES products(id),
   channel VARCHAR(50) NOT NULL,
   campaign_type VARCHAR(50) NOT NULL,
   status VARCHAR(50) NOT NULL DEFAULT 'draft',
@@ -94,8 +94,8 @@ CREATE TABLE IF NOT EXISTS campaigns (
 );
 
 CREATE TABLE IF NOT EXISTS campaign_stats (
-  id UUID PRIMARY KEY,
-  campaign_id UUID NOT NULL REFERENCES campaigns(id),
+  id TEXT PRIMARY KEY,
+  campaign_id TEXT NOT NULL REFERENCES campaigns(id),
   stat_date DATE NOT NULL,
   impressions INT NOT NULL DEFAULT 0,
   clicks INT NOT NULL DEFAULT 0,

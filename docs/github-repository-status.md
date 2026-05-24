@@ -1,12 +1,13 @@
 # GitHub 仓库状态与分支说明
 
-最后更新：2026-05-16
+最后更新：2026-05-24
 
 ## 当前生产版本
 
 - 生产域名：https://rongwang.hk
 - 生产提交：`1b3d8ee` (`chore: upgrade Next.js runtime`)
 - 生产分支：`codex/deployed-rongwang-hk-20260515`
+- 未来开发主线：`main`
 - 运行方式：Ubuntu 云服务器 + Nginx + systemd + Next.js
 - 应用端口：`127.0.0.1:3201`
 - Nginx 入口：`rongwang.hk` HTTPS 反向代理到 `127.0.0.1:3201`
@@ -15,25 +16,20 @@
 
 | 分支 | 当前用途 | 备注 |
 | --- | --- | --- |
-| `codex/deployed-rongwang-hk-20260515` | 当前线上生产版本 | 与 `rongwang.hk` 已部署版本保持一致 |
-| `main` / `origin/main` | GitHub 默认分支 | 目前是另一条 Phase2/Docker 历史，不等同于当前线上版本 |
+| `codex/deployed-rongwang-hk-20260515` | 当前线上生产版本 | 作为当前稳定发布线的源分支 |
+| `main` / `origin/main` | 未来开发主线 | 新功能优先合入此分支，再择期发布到生产线 |
+| `codex/production-launch-task1` | 本次发布契约工作分支 | 用于补齐 release contract、runbook 与验证脚本 |
 | `rongwang-platform-phase2` | 本地 Phase2 工作分支 | 包含更复杂的工作台、认证、营销能力探索 |
 | `codex/preop-readiness-minimax` | 预发布修复分支 | MiniMax 生产就绪识别修复 |
 | `codex/rongwang-visual-video-upgrade` | 视觉/视频升级分支 | 待确认是否合并 |
 | `codex/rongwang-wechat-auth-knowledge` | 微信认证与知识库分支 | 待确认是否合并 |
 
-## 为什么 GitHub 默认 `main` 和线上不一致
+## 分支策略
 
-当前仓库存在两条不同历史：
-
-1. 线上生产站点使用轻量 Next.js MVP 历史，最新提交是 `1b3d8ee`。
-2. GitHub 默认 `origin/main` 使用 Phase2/Docker 历史，最新提交是 `48233bb`。
-
-两者不是简单的快进关系，不能直接强推覆盖。后续需要先明确产品方向，再选择以下路径之一：
-
-- 以当前线上 MVP 为主线，把 Phase2 能力按模块迁回。
-- 以 Phase2/Docker 版本为主线，把当前线上视觉和稳定内容迁入。
-- 新建 `production` 分支作为稳定发布线，默认 `main` 保留研发主线。
+1. `main` 作为未来开发主线，所有新功能优先进入 `main`。
+2. 当前线上稳定版本保留在 `codex/deployed-rongwang-hk-20260515`，用于生产回滚和审计比对。
+3. 生产发布时，以经过验证的 release commit 为准，从开发主线挑选稳定提交后生成发布包，再同步到生产主机。
+4. 生产切换只允许通过 release runbook 里的 archive → deploy → smoke → rollback 检查流程执行。
 
 ## 当前部署流程
 
@@ -43,7 +39,8 @@
 npm run typecheck
 npm test
 npm run build
-git archive --format=tar.gz -o /tmp/rongwang-health-platform-<commit>.tgz HEAD
+npm run release:verify
+npm run release:bundle
 ```
 
 服务器侧：
@@ -66,6 +63,8 @@ systemctl reload nginx
 - `npm run typecheck`
 - `npm test`
 - `npm run build`
+- `npm run lint`
+- `npm run release:verify`
 - `https://rongwang.hk/`
 - `https://rongwang.hk/products`
 - `https://rongwang.hk/ai-consult`
@@ -83,6 +82,6 @@ systemctl reload nginx
 ## 建议下一步
 
 1. 在 GitHub 设置中确认默认分支策略。
-2. 如果当前线上 MVP 是正式方向，建议把 `codex/deployed-rongwang-hk-20260515` 提升为 `production` 分支。
-3. 建立 PR 规则：所有上线变更先合并到生产分支，再部署。
+2. 将 release runbook 作为上线前检查表的一部分固定下来。
+3. 生产发布统一通过 release helper scripts 触发，不再手工拼命令。
 4. 清理或归档不再使用的 Copilot 实验分支。

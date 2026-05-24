@@ -5,6 +5,7 @@ import { randomUUID } from 'node:crypto';
 import type { GeneratedContent } from '../agents/generate-content';
 import type { NormalizedProduct } from '../agents/fetch-product';
 import { scanCompliance, type ComplianceScanResult } from '../services/compliance-service';
+import { shouldUsePostgresRepository } from './db';
 
 export type ProductStatus = 'draft' | 'imported' | 'approved' | 'rejected';
 export type ContentStatus = 'generated' | 'compliance_flagged' | 'pending_manual_review' | 'approved' | 'rejected';
@@ -67,7 +68,6 @@ type StoreState = {
 };
 
 declare global {
-  // eslint-disable-next-line no-var
   var __rongwangMockStore: StoreState | undefined;
 }
 
@@ -168,6 +168,7 @@ function readStoreFromDisk(): StoreState {
 }
 
 function persistStore(): void {
+  if (shouldUsePostgresRepository()) return;
   mkdirSync(dataDirectory, { recursive: true });
   writeFileSync(storePath, `${JSON.stringify(store, null, 2)}\n`);
 }
@@ -175,6 +176,13 @@ function persistStore(): void {
 const store = globalThis.__rongwangMockStore ?? (globalThis.__rongwangMockStore = readStoreFromDisk());
 
 export function resetMockStore(seed: StoreState | null = null): void {
+  if (shouldUsePostgresRepository()) {
+    store.products = seed?.products ?? [];
+    store.contents = seed?.contents ?? [];
+    store.agentTasks = seed?.agentTasks ?? [];
+    store.complianceReviews = seed?.complianceReviews ?? [];
+    return;
+  }
   store.products = seed?.products ?? [];
   store.contents = seed?.contents ?? [];
   store.agentTasks = seed?.agentTasks ?? [];
@@ -381,4 +389,13 @@ export function listApprovedStorefrontProducts(): StorefrontProduct[] {
 
 export function getApprovedStorefrontProduct(productId: string): StorefrontProduct | undefined {
   return listApprovedStorefrontProducts().find((product) => product.id === productId);
+}
+
+export function reloadMockStoreFromDisk(): void {
+  if (shouldUsePostgresRepository()) return;
+  const diskStore = readStoreFromDisk();
+  store.products = diskStore.products;
+  store.contents = diskStore.contents;
+  store.agentTasks = diskStore.agentTasks;
+  store.complianceReviews = diskStore.complianceReviews;
 }

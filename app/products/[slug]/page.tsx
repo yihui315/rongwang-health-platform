@@ -1,10 +1,10 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { getApprovedStorefrontProduct } from '@/src/lib/mock-store';
+import { getApprovedStorefrontProduct } from '@/src/lib/repositories/product-repository';
 
 export default async function ProductDetailPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const product = getApprovedStorefrontProduct(slug);
+  const product = await getApprovedStorefrontProduct(slug);
 
   if (!product) {
     notFound();

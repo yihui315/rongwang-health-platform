@@ -53,6 +53,13 @@ select {
   gap: 24px;
 }
 
+.site-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
 .site-logo {
   display: inline-flex;
   align-items: center;
@@ -100,6 +107,26 @@ select {
 
 .site-header-cta:hover {
   background: #047857;
+}
+
+.site-header-workspace {
+  display: inline-flex;
+  min-height: 42px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #cbd5e1;
+  border-radius: 999px;
+  background: #ffffff;
+  color: #0f172a;
+  padding: 0 18px;
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.site-header-workspace:hover {
+  border-color: #059669;
+  color: #047857;
+  background: #ecfdf5;
 }
 
 .site-footer {
@@ -1055,6 +1082,142 @@ select {
   font-weight: 800;
 }
 
+.login-page {
+  min-height: 72vh;
+  display: grid;
+  place-items: center;
+  padding: 56px 24px 80px;
+  background: linear-gradient(135deg, #f8fafc, #ecfdf5);
+}
+
+.login-panel {
+  width: min(100%, 560px);
+  border: 1px solid #dbe4ee;
+  border-radius: 24px;
+  background: #ffffff;
+  padding: 34px 32px;
+  box-shadow: 0 20px 48px rgba(15, 23, 42, 0.08);
+}
+
+.login-eyebrow {
+  margin: 0 0 10px;
+  color: #047857;
+  font-size: 13px;
+  font-weight: 900;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.login-panel h1 {
+  margin: 0;
+  color: #082144;
+  font-size: 34px;
+  line-height: 1.2;
+}
+
+.login-copy {
+  margin: 16px 0 0;
+  color: #475569;
+  line-height: 1.8;
+}
+
+.login-form {
+  margin-top: 28px;
+  display: grid;
+  gap: 16px;
+}
+
+.login-form label {
+  display: grid;
+  gap: 8px;
+  color: #334155;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.login-form input {
+  min-height: 48px;
+  border: 1px solid #cbd5e1;
+  border-radius: 14px;
+  padding: 0 14px;
+  background: #ffffff;
+  color: #0f172a;
+}
+
+.login-form input:focus {
+  outline: 2px solid rgba(5, 150, 105, 0.16);
+  border-color: #059669;
+}
+
+.login-form button,
+.login-primary-link {
+  min-height: 48px;
+  border: 0;
+  border-radius: 999px;
+  background: #059669;
+  color: #ffffff;
+  padding: 0 18px;
+  font-weight: 800;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-form button:hover,
+.login-primary-link:hover {
+  background: #047857;
+}
+
+.login-error {
+  margin: 0;
+  color: #b91c1c;
+  font-size: 14px;
+}
+
+.login-success {
+  margin: 0;
+  color: #047857;
+  font-size: 14px;
+}
+
+.login-state {
+  margin-top: 24px;
+  border: 1px solid #bbf7d0;
+  border-radius: 18px;
+  background: #ecfdf5;
+  padding: 18px;
+}
+
+.login-state p {
+  margin: 0;
+  color: #065f46;
+  line-height: 1.7;
+}
+
+.login-actions {
+  margin-top: 16px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+}
+
+.login-actions form button {
+  min-height: 48px;
+  border: 1px solid #cbd5e1;
+  border-radius: 999px;
+  background: #ffffff;
+  color: #0f172a;
+  padding: 0 18px;
+  font-weight: 800;
+}
+
+.login-actions form button:hover {
+  border-color: #059669;
+  color: #047857;
+  background: #ecfdf5;
+}
+
 @media (max-width: 1020px) {
   .site-header-inner {
     display: grid;
@@ -1071,6 +1234,10 @@ select {
     grid-column: 1 / -1;
     flex-basis: 100%;
     gap: 24px;
+  }
+
+  .site-header-actions {
+    gap: 10px;
   }
 
   .home-hero-grid {
@@ -1138,6 +1305,20 @@ select {
     padding: 0 12px;
     font-size: 12px;
     white-space: nowrap;
+  }
+
+  .site-header-workspace {
+    min-height: 38px;
+    padding: 0 12px;
+    font-size: 12px;
+    white-space: nowrap;
+  }
+
+  .site-header-actions {
+    gap: 8px;
+    grid-column: 1 / -1;
+    justify-content: flex-start;
+    flex-wrap: wrap;
   }
 
   .site-nav {
@@ -1271,5 +1452,27 @@ select {
 
   .simple-page-card {
     padding: 28px 22px;
+  }
+
+  .login-page {
+    padding: 28px 16px 64px;
+  }
+
+  .login-panel {
+    padding: 28px 20px;
+  }
+
+  .login-panel h1 {
+    font-size: 30px;
+  }
+
+  .login-actions {
+    align-items: stretch;
+  }
+
+  .login-actions a,
+  .login-actions form,
+  .login-actions form button {
+    width: 100%;
   }
 }
