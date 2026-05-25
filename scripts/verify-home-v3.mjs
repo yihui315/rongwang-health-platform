@@ -35,36 +35,52 @@ const requiredSnippets = [
   },
   {
     file: 'app/layout.tsx',
-    snippets: ['metadataBase: new URL("https://rongwang.hk")', 'AI评估', '健康方案', '官网商城', '健康内容'],
+    snippets: [
+      'metadataBase: new URL("https://rongwang.hk")',
+      'AI健康评估与跨境营养支持方案',
+      '先选健康场景，再查看适合的营养支持方案',
+      '/images/home/homepage-kit/assets/branding/rongwang-health-logo-header.png',
+    ],
   },
   {
-    file: 'src/components/home/HomeHero.tsx',
+    file: 'src/components/home/HomePageV3.tsx',
     snippets: [
-      '3分钟 AI 健康评估',
-      '找到更适合你的营养支持方向',
-      '本报告仅供健康教育参考，不作为诊断依据。',
+      '先选健康场景',
+      '再查看适合的',
+      '营养支持方案',
+      '热门健康场景方案',
+      '精选营养支持产品推荐',
+      '为什么选择荣旺健康？',
+      '购买流程说明',
+      '重要声明：',
+      'PRODUCT_NOT_MEDICINE_NOTICE',
+      'ORIGIN_STANDARD_DIFFERENCE_NOTICE',
       '/ai-consult',
     ],
   },
   {
-    file: 'src/components/home/HomeProductPreview.tsx',
-    snippets: ['方案推荐方向（示例）', '完整推荐将在评估后为你展示', '具体推荐以评估结果为准', '产品示意图'],
+    file: 'src/components/layout/SiteChrome.tsx',
+    snippets: ['usePathname', "pathname === '/'", '本品不能替代药物', '本商品符合原产国标准'],
   },
   {
-    file: 'src/components/home/HomeHealthDirections.tsx',
-    snippets: ['方向场景图', 'home-direction-visual'],
+    file: 'src/lib/home/home-content.ts',
+    snippets: [
+      'family-group-v3.png',
+      'city-skyline-v2.png',
+      'health-education-card-v2.png',
+    ],
   },
   {
-    file: 'src/components/home/HomeExpertTrust.tsx',
-    snippets: ['/images/home/expert-consultant.webp', '健康顾问正在整理营养建议'],
+    file: 'src/components/branding/BrandMark.tsx',
+    snippets: ['/images/home/homepage-kit/assets/branding/rongwang-health-logo-header.png'],
   },
   {
-    file: 'app/layout.tsx',
-    snippets: ['/images/home/rongwang-health-logo.png', '荣旺健康 Rongwang Health'],
+    file: 'src/components/marketing/FunnelPageTracker.tsx',
+    snippets: ['useTrackPageView'],
   },
   {
-    file: 'src/components/home/HomeFAQ.tsx',
-    snippets: ['AI评估仅提供健康教育参考，不作为诊断依据；中高风险建议优先就医并咨询医生。'],
+    file: 'src/lib/compliance/copy.ts',
+    snippets: ['本品不能替代药物', '本商品符合原产国标准，可能与中国相关标准存在差异'],
   },
 ];
 

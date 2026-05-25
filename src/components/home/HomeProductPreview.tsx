@@ -1,28 +1,67 @@
 import Image from 'next/image';
-import Link from 'next/link';
 import { productPreviewItems } from '@/src/lib/home/home-content';
+import TrackedLink from '@/src/components/marketing/TrackedLink';
+import FunnelPageTracker from '@/src/components/marketing/FunnelPageTracker';
 import HomeSectionHeader from './HomeSectionHeader';
 
 export default function HomeProductPreview() {
   return (
     <section className="home-section home-products-section">
+      <FunnelPageTracker eventName="product_card_view" payload={{ section: 'homepage_featured_products', product_count: productPreviewItems.length }} />
       <div className="home-container">
-        <HomeSectionHeader title="方案推荐方向（示例）" note="完整推荐将在评估后为你展示" />
+        <HomeSectionHeader
+          title="精选营养支持产品推荐"
+          note="基于科学研究和用户需求，精选优质营养补充剂"
+        />
         <div className="home-products-grid">
-          {productPreviewItems.map((item) => (
+          {productPreviewItems.map((item, index) => (
             <article className="home-product-card" key={item.title}>
-              <div className="home-product-image">
-                <Image src={item.image} alt={`${item.title}产品示意图`} width={180} height={135} />
-              </div>
-              <div>
+              <TrackedLink
+                className="home-product-art"
+                href={item.productHref}
+                eventName="product_detail_click"
+                payload={{
+                  product_id: item.productHref.split('/').pop(),
+                  scenario_slug: item.href.split('/').pop(),
+                  cta_id: 'homepage_product_card',
+                  route: item.productHref,
+                  section: 'featured_products',
+                }}
+              >
+                <Image src={item.image} alt={`${item.title}产品卡片`} width={196} height={284} priority={index < 3} />
+              </TrackedLink>
+              <div className="home-product-meta sr-visual-meta" data-accent={item.accent}>
+                <span>{item.tag}</span>
                 <h3>{item.title}</h3>
                 <p>{item.description}</p>
-                <Link href={item.href}>查看详情</Link>
+                <strong>{item.price}</strong>
+                <TrackedLink
+                  href={item.productHref}
+                  eventName="product_detail_click"
+                  payload={{
+                    product_id: item.productHref.split('/').pop(),
+                    scenario_slug: item.href.split('/').pop(),
+                    cta_id: 'homepage_product_detail',
+                    route: item.productHref,
+                    section: 'featured_products',
+                  }}
+                >
+                  查看详情 <span aria-hidden>→</span>
+                </TrackedLink>
               </div>
             </article>
           ))}
         </div>
-        <p className="home-products-note">产品示例仅供方向参考，具体推荐以评估结果为准。本品不能替代药物。</p>
+        <div className="home-section-action">
+          <TrackedLink
+            className="home-mini-button"
+            href="/products"
+            eventName="product_detail_click"
+            payload={{ cta_id: 'homepage_all_products', route: '/products', section: 'featured_products' }}
+          >
+            查看所有产品 <span aria-hidden>→</span>
+          </TrackedLink>
+        </div>
       </div>
     </section>
   );

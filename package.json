@@ -9,7 +9,7 @@
     "lint": "eslint .",
     "test": "node --test --test-concurrency=1 --import tsx",
     "typecheck": "tsc --noEmit",
-    "release:verify": "npm run typecheck && npm test && npm run compliance:scan && npm run build && npm run lint",
+    "release:verify": "node scripts/verify-home-v3.mjs && npm run typecheck && npm test && npm run compliance:scan && npm run build && npm run lint",
     "release:bundle": "node scripts/release-bundle.mjs",
     "smoke": "node scripts/smoke-fast-funnel.mjs",
     "acceptance": "node scripts/acceptance-fast-funnel.mjs",
