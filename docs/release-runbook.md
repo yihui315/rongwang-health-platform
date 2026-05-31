@@ -75,7 +75,7 @@ Run the strict production gate with production-shaped environment values before 
 RONGWANG_RELEASE_TARGET=production npm run release:gate
 ```
 
-`npm run release:gate` must pass with an HTTPS `NEXT_PUBLIC_SITE_URL`, strong `APP_SECRET`, `JWT_SECRET`, and `RONGWANG_ADMIN_TOKEN` values of at least 32 characters. The WeChat login, WeChat store, payment, automated marketing send, and auto listing publish switches must remain `false` unless the release log contains manual approval for the exact integration being opened.
+`npm run release:gate` must pass with an HTTPS `NEXT_PUBLIC_SITE_URL`, strong `APP_SECRET`, `JWT_SECRET`, and `RONGWANG_ADMIN_TOKEN` values of at least 32 characters. Do not use placeholder, example, repeated, low-diversity, or shared secret values. The WeChat login, WeChat store, payment, automated marketing send, and auto listing publish switches must remain `false` unless the release log contains manual approval for the exact integration being opened.
 
 For a local production smoke:
 

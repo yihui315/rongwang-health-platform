@@ -13,6 +13,29 @@ function hasMinimumLength(name, minLength) {
   return value.length >= minLength;
 }
 
+function hasPlaceholderSecretValue(name) {
+  const value = env(name).toLowerCase();
+  return [
+    'changeme',
+    'change-me',
+    'example',
+    'placeholder',
+    'secret',
+    'password',
+    'test',
+    'verify-local-token',
+    '0123456789abcdef',
+    'abcdef0123456789',
+  ].some((placeholder) => value.includes(placeholder));
+}
+
+function hasLowDiversitySecretValue(name) {
+  const value = env(name);
+  const uniqueCharacters = new Set(value).size;
+  const repeatedRun = /(.)\1{7,}/.test(value);
+  return uniqueCharacters < 12 || repeatedRun;
+}
+
 function isExplicitlyFalse(name) {
   return env(name).toLowerCase() === 'false';
 }
@@ -58,6 +81,33 @@ addCheck(
   'JWT_SECRET must be at least 32 characters',
   !productionGateEnabled || hasMinimumLength('JWT_SECRET', 32),
   'store only in the production secret manager'
+);
+
+for (const key of ['RONGWANG_ADMIN_TOKEN', 'APP_SECRET', 'JWT_SECRET']) {
+  addCheck(
+    `${key} must not use placeholder secret values`,
+    !productionGateEnabled || !hasPlaceholderSecretValue(key),
+    'generate a fresh private value for production'
+  );
+
+  addCheck(
+    `${key} must not use low-diversity secret values`,
+    !productionGateEnabled || !hasLowDiversitySecretValue(key),
+    'avoid repeated or predictable strings'
+  );
+}
+
+addCheck(
+  'APP_SECRET and JWT_SECRET must be different',
+  !productionGateEnabled || env('APP_SECRET') !== env('JWT_SECRET'),
+  'use separate production secrets'
+);
+
+addCheck(
+  'RONGWANG_ADMIN_TOKEN must not reuse APP_SECRET or JWT_SECRET',
+  !productionGateEnabled ||
+    (env('RONGWANG_ADMIN_TOKEN') !== env('APP_SECRET') && env('RONGWANG_ADMIN_TOKEN') !== env('JWT_SECRET')),
+  'admin token must be dedicated to admin access'
 );
 
 for (const key of [
