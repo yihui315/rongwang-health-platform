@@ -1,5 +1,5 @@
 import { readdirSync, readFileSync, statSync } from 'node:fs';
-import { join, relative } from 'node:path';
+import { isAbsolute, join, relative, resolve } from 'node:path';
 
 const riskyPhrases = [
   '治疗',
@@ -33,7 +33,10 @@ const allowlistPatterns = [
 ];
 
 const targetExtensions = new Set(['.ts', '.tsx', '.js', '.mjs', '.md']);
-const targetRoots = ['app', 'src'];
+const targetRoots = (process.env.COMPLIANCE_SCAN_ROOTS || 'app,src')
+  .split(',')
+  .map((root) => root.trim())
+  .filter(Boolean);
 
 function listFiles(directory) {
   const entries = readdirSync(directory, { withFileTypes: true });
@@ -57,7 +60,7 @@ function listFiles(directory) {
   return files;
 }
 
-const files = targetRoots.flatMap((root) => listFiles(root));
+const files = targetRoots.flatMap((root) => listFiles(isAbsolute(root) ? root : resolve(process.cwd(), root)));
 
 const findings = [];
 

@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import { spawnSync } from 'node:child_process';
-import { existsSync, readFileSync } from 'node:fs';
+import { existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
+import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { test } from 'node:test';
 
@@ -11,9 +12,15 @@ function readProjectFile(relativePath: string): string {
 }
 
 function parseJsonSummary(scriptName: string, stdout: string, stderr: string) {
-  const jsonStart = stdout.lastIndexOf('\n{');
-  assert.notEqual(jsonStart, -1, `${scriptName} did not print JSON summary:\n${stdout}\n${stderr}`);
-  return JSON.parse(stdout.slice(jsonStart + 1)) as unknown;
+  for (const output of [stdout, stderr]) {
+    const jsonStart = output.lastIndexOf('\n{');
+    const jsonText = jsonStart === -1 ? output.trim() : output.slice(jsonStart + 1).trim();
+
+    if (!jsonText.startsWith('{')) continue;
+    return JSON.parse(jsonText) as unknown;
+  }
+
+  assert.fail(`${scriptName} did not print JSON summary:\n${stdout}\n${stderr}`);
 }
 
 function runProjectScript(scriptPath: string, env: NodeJS.ProcessEnv) {
@@ -60,6 +67,23 @@ function runDeployCheck(env: NodeJS.ProcessEnv) {
       failures: string[];
       gateMode: 'ready' | 'blocked';
       inspectedFrom: string;
+    },
+  };
+}
+
+function runComplianceScan(env: NodeJS.ProcessEnv) {
+  const result = runProjectScript('scripts/compliance-scan.mjs', env);
+
+  return {
+    ...result,
+    summary: result.summary as {
+      decision: 'PASS' | 'FAIL';
+      scannedFiles?: number;
+      findings?: Array<{
+        file: string;
+        line: number;
+        phrase: string;
+      }>;
     },
   };
 }
@@ -160,6 +184,47 @@ test('deploy check executes ready and blocked decisions with explicit JSON mode'
   assert.equal(blocked.summary.decision, 'FAIL');
   assert.equal(blocked.summary.gateMode, 'blocked');
   assert.ok(blocked.summary.failures.includes('RONGWANG_ADMIN_TOKEN must be set before production release'));
+});
+
+test('compliance scan executes against configured roots and blocks risky public copy', () => {
+  const tempDir = mkdtempSync(path.join(tmpdir(), 'rongwang-compliance-scan-'));
+
+  try {
+    const appDir = path.join(tempDir, 'app');
+    mkdirSync(appDir, { recursive: true });
+
+    writeFileSync(
+      path.join(appDir, 'safe-copy.ts'),
+      [
+        'export const copy = "本品不能替代药物。本商品符合原产国标准，可能与中国相关标准存在差异。";',
+        '',
+      ].join('\n')
+    );
+
+    const safe = runComplianceScan({
+      ...process.env,
+      COMPLIANCE_SCAN_ROOTS: appDir,
+    });
+
+    assert.equal(safe.status, 0);
+    assert.equal(safe.summary.decision, 'PASS');
+    assert.equal(safe.summary.scannedFiles, 1);
+
+    writeFileSync(path.join(appDir, 'risky-copy.ts'), 'export const copy = "治疗失眠，保证见效";\n');
+
+    const risky = runComplianceScan({
+      ...process.env,
+      COMPLIANCE_SCAN_ROOTS: appDir,
+    });
+
+    assert.equal(risky.status, 1);
+    assert.equal(risky.summary.decision, 'FAIL');
+    assert.ok(risky.summary.findings?.some((finding) => finding.file.endsWith('risky-copy.ts')));
+    assert.ok(risky.summary.findings?.some((finding) => finding.phrase === '治疗失眠'));
+    assert.ok(risky.summary.findings?.some((finding) => finding.phrase === '保证见效'));
+  } finally {
+    rmSync(tempDir, { recursive: true, force: true });
+  }
 });
 
 test('wechat launch readiness is documented without requiring production credentials for MVP', () => {
