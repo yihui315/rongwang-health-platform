@@ -14,7 +14,8 @@
     "customer:smoke": "node scripts/customer-journey-smoke.mjs",
     "compliance:scan": "node scripts/compliance-scan.mjs",
     "deploy:check": "node scripts/deploy-check.mjs",
-    "release:verify": "npm run deploy:check && npm run typecheck && npm test && npm run build && npm run lint && npm run compliance:scan",
+    "release:gate": "node scripts/release-gate.mjs",
+    "release:verify": "npm run deploy:check && npm run release:gate && npm run typecheck && npm test && npm run build && npm run lint && npm run compliance:scan",
     "release:smoke": "npm run smoke && npm run acceptance && npm run customer:smoke"
   },
   "dependencies": {

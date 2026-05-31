@@ -16,12 +16,18 @@ This runbook prepares the current MVP for release to `https://rongwang.hk/`. It 
 Set these on the server before restart:
 
 - `NODE_ENV=production`
+- `RONGWANG_RELEASE_TARGET=production`
 - `DATABASE_URL`
 - `NEXT_PUBLIC_SITE_URL=https://rongwang.hk`
 - `APP_SECRET`
 - `JWT_SECRET`
 - `RONGWANG_ADMIN_TOKEN`
 - `NEXT_PUBLIC_WHATSAPP_CONTACT`
+- `ALLOW_WECHAT_LOGIN_PRODUCTION=false`
+- `ALLOW_WECHAT_STORE_PRODUCTION=false`
+- `ALLOW_PAYMENT_PRODUCTION=false`
+- `ALLOW_AUTOMATED_MARKETING_SEND=false`
+- `ALLOW_AUTO_LISTING_PUBLISH=false`
 - Optional analytics or error reporting keys such as `SENTRY_DSN`
 
 Never commit real secrets. Rotate any token that was pasted into chat or terminal history.
@@ -63,6 +69,14 @@ npm run release:verify
 npm run build
 ```
 
+Run the strict production gate with production-shaped environment values before archive creation:
+
+```bash
+RONGWANG_RELEASE_TARGET=production npm run release:gate
+```
+
+`npm run release:gate` must pass with an HTTPS `NEXT_PUBLIC_SITE_URL`, strong `APP_SECRET`, `JWT_SECRET`, and `RONGWANG_ADMIN_TOKEN` values of at least 32 characters. The WeChat login, WeChat store, payment, automated marketing send, and auto listing publish switches must remain `false` unless the release log contains manual approval for the exact integration being opened.
+
 For a local production smoke:
 
 ```bash
@@ -96,6 +110,7 @@ mkdir -p /opt/rongwang-health-platform/releases/$RELEASE_ID
 tar -xzf /tmp/rongwang-health-platform-<commit>.tgz -C /opt/rongwang-health-platform/releases/$RELEASE_ID
 cd /opt/rongwang-health-platform/releases/$RELEASE_ID
 npm ci
+RONGWANG_RELEASE_TARGET=production npm run release:gate
 npm run build
 ln -sfn /opt/rongwang-health-platform/releases/$RELEASE_ID /opt/rongwang-health-platform/current
 systemctl restart rongwang-health-platform

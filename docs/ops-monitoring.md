@@ -34,6 +34,7 @@ Run a full predeploy verification before any new release:
 
 ```bash
 npm run release:verify
+RONGWANG_RELEASE_TARGET=production npm run release:gate
 ```
 
 ## Security Signals
@@ -44,6 +45,7 @@ Investigate immediately when:
 - unauthorized API mutation succeeds
 - admin login accepts an unexpected token
 - `RONGWANG_ADMIN_TOKEN` is missing in production
+- `RONGWANG_RELEASE_TARGET=production npm run release:gate` fails
 - a secret appears in repository files or logs
 
 ## Compliance Signals

@@ -126,6 +126,55 @@ test('wechat launch readiness is documented without requiring production credent
   }
 });
 
+test('production release gate blocks weak secrets and unapproved live integrations', () => {
+  assert.ok(existsSync(path.join(rootDir, 'scripts/release-gate.mjs')), 'release-gate script is missing');
+
+  const packageJson = JSON.parse(readProjectFile('package.json')) as { scripts: Record<string, string> };
+  assert.equal(packageJson.scripts['release:gate'], 'node scripts/release-gate.mjs');
+  assert.match(packageJson.scripts['release:verify'], /release:gate/);
+
+  const envExample = readProjectFile('.env.example');
+  for (const required of [
+    'RONGWANG_RELEASE_TARGET=local-preview',
+    'ALLOW_WECHAT_LOGIN_PRODUCTION=false',
+    'ALLOW_WECHAT_STORE_PRODUCTION=false',
+    'ALLOW_PAYMENT_PRODUCTION=false',
+    'ALLOW_AUTOMATED_MARKETING_SEND=false',
+    'ALLOW_AUTO_LISTING_PUBLISH=false',
+  ]) {
+    assert.match(envExample, new RegExp(`^${required}$`, 'm'));
+  }
+
+  const releaseGate = readProjectFile('scripts/release-gate.mjs');
+  for (const required of [
+    'NEXT_PUBLIC_SITE_URL must be an https URL for production release',
+    'RONGWANG_ADMIN_TOKEN must be at least 32 characters',
+    'APP_SECRET must be at least 32 characters',
+    'JWT_SECRET must be at least 32 characters',
+    'RONGWANG_RELEASE_TARGET',
+    'ALLOW_WECHAT_LOGIN_PRODUCTION',
+    'ALLOW_WECHAT_STORE_PRODUCTION',
+    'ALLOW_PAYMENT_PRODUCTION',
+    'ALLOW_AUTOMATED_MARKETING_SEND',
+    'ALLOW_AUTO_LISTING_PUBLISH',
+    'manual approval',
+  ]) {
+    assert.match(releaseGate, new RegExp(required));
+  }
+
+  const runbook = readProjectFile('docs/release-runbook.md');
+  for (const required of [
+    'npm run release:gate',
+    'ALLOW_WECHAT_LOGIN_PRODUCTION',
+    'ALLOW_WECHAT_STORE_PRODUCTION',
+    'ALLOW_PAYMENT_PRODUCTION',
+    'ALLOW_AUTOMATED_MARKETING_SEND',
+    'ALLOW_AUTO_LISTING_PUBLISH',
+  ]) {
+    assert.match(runbook, new RegExp(required));
+  }
+});
+
 test('latest price sheet compliance notes avoid public risky terms', () => {
   const latestPriceProducts = readProjectFile('src/data/latest-price-products.ts');
 
