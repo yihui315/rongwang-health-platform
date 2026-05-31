@@ -579,6 +579,32 @@ test('release smoke scripts run against one local server for funnel, acceptance,
   });
 });
 
+test('release preview smoke command starts local production preview and runs all smoke suites', () => {
+  assert.ok(existsSync(path.join(rootDir, 'scripts/release-preview-smoke.mjs')), 'release preview smoke script is missing');
+
+  const packageJson = JSON.parse(readProjectFile('package.json')) as { scripts: Record<string, string> };
+  assert.equal(packageJson.scripts['release:preview-smoke'], 'node scripts/release-preview-smoke.mjs');
+
+  const script = readProjectFile('scripts/release-preview-smoke.mjs');
+  for (const required of [
+    'next',
+    'start',
+    'scripts/smoke-fast-funnel.mjs',
+    'scripts/acceptance-fast-funnel.mjs',
+    'scripts/customer-journey-smoke.mjs',
+    'SMOKE_BASE_URL',
+    'RONGWANG_ADMIN_TOKEN',
+    'server.kill',
+    'previewSmoke',
+  ]) {
+    assert.match(script, new RegExp(required));
+  }
+
+  const runbook = readProjectFile('docs/release-runbook.md');
+  assert.match(runbook, /npm run release:preview-smoke/);
+  assert.match(runbook, /local production preview/i);
+});
+
 test('release runbook documents machine-readable release and smoke gate outputs', () => {
   const runbook = readProjectFile('docs/release-runbook.md');
 

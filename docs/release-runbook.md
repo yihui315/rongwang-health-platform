@@ -96,12 +96,10 @@ This command runs the strict production gate with in-memory dry-run secrets and 
 For a local production smoke:
 
 ```bash
-RONGWANG_ADMIN_TOKEN=<temporary-token> npm run start -- --port 3001
-SMOKE_BASE_URL=http://localhost:3001 npm run release:smoke
-npm run customer:smoke
+npm run release:preview-smoke
 ```
 
-Confirm `/workspace` redirects to login when unauthorized, `npm run customer:smoke` can submit the AI consult flow into manual review, and `/api/mock/*` write routes reject unauthorized requests.
+This command starts a local production preview from the existing `.next` build, waits for it to become reachable, runs the fast funnel, acceptance, and customer journey smoke scripts against the same local server, and then stops the preview process. Confirm it reports `decision: PASS`, no smoke failures, `/workspace` redirects to login when unauthorized, the customer journey can submit the AI consult flow into manual review, and `/api/mock/*` write routes reject unauthorized requests.
 
 For admin login checks, local HTTP loopback preview may omit the Secure cookie flag so `http://localhost` and `http://127.0.0.1` smoke tests can save the protected cookie. Production HTTPS must keep the admin cookie Secure.
 
