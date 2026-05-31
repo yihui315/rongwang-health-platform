@@ -561,6 +561,46 @@ test('release runbook documents machine-readable release and smoke gate outputs'
   }
 });
 
+test('release log template captures gate evidence, manual approvals, and rollback notes', () => {
+  assert.ok(existsSync(path.join(rootDir, 'docs/release-log-template.md')), 'release log template is missing');
+
+  const template = readProjectFile('docs/release-log-template.md');
+  for (const required of [
+    'Release identity',
+    'Release commit',
+    'Operator',
+    'Release timestamp',
+    'RONGWANG_RELEASE_TARGET=production',
+    'deploy:check JSON',
+    'release:gate JSON',
+    'compliance:scan JSON',
+    'release:smoke JSON',
+    'customer:smoke JSON',
+    'gateMode',
+    'smokeMode',
+    'decision: PASS',
+    'failures',
+    'homepageScenarioCardsCount',
+    'productCardsFound',
+    'trackingHookDetected',
+    'COMPLIANCE_SCAN_ROOTS',
+    'Manual approval',
+    'WeChat login',
+    'WeChat store',
+    'mini program',
+    'payment',
+    'automated marketing send',
+    'auto listing publish',
+    '本品不能替代药物',
+    '本商品符合原产国标准',
+    'Rollback decision',
+    'Incident notes',
+    'Do not deploy',
+  ]) {
+    assert.match(template, new RegExp(required));
+  }
+});
+
 test('wechat launch readiness is documented without requiring production credentials for MVP', () => {
   const envExample = readProjectFile('.env.example');
   const deployCheck = readProjectFile('scripts/deploy-check.mjs');
