@@ -10,32 +10,65 @@ function readProjectFile(relativePath: string): string {
   return readFileSync(path.join(rootDir, relativePath), 'utf8');
 }
 
-function runReleaseGate(env: Record<string, string>) {
-  const result = spawnSync(process.execPath, ['scripts/release-gate.mjs'], {
+function parseJsonSummary(scriptName: string, stdout: string, stderr: string) {
+  const jsonStart = stdout.lastIndexOf('\n{');
+  assert.notEqual(jsonStart, -1, `${scriptName} did not print JSON summary:\n${stdout}\n${stderr}`);
+  return JSON.parse(stdout.slice(jsonStart + 1)) as unknown;
+}
+
+function runProjectScript(scriptPath: string, env: NodeJS.ProcessEnv) {
+  const result = spawnSync(process.execPath, [scriptPath], {
     cwd: rootDir,
-    env: {
-      ...process.env,
-      ...env,
-    },
+    env,
     encoding: 'utf8',
   });
-
-  const jsonStart = result.stdout.lastIndexOf('\n{');
-  assert.notEqual(jsonStart, -1, `release gate did not print JSON summary:\n${result.stdout}\n${result.stderr}`);
-  const summary = JSON.parse(result.stdout.slice(jsonStart + 1)) as {
-    decision: 'PASS' | 'FAIL';
-    failures: string[];
-    inspectedEnvironment: {
-      gateMode: 'local-preview' | 'production';
-    };
-  };
 
   return {
     status: result.status,
     stdout: result.stdout,
     stderr: result.stderr,
-    summary,
+    summary: parseJsonSummary(scriptPath, result.stdout, result.stderr),
   };
+}
+
+function runReleaseGate(env: Record<string, string>) {
+  const result = runProjectScript('scripts/release-gate.mjs', {
+    ...process.env,
+    ...env,
+  });
+
+  return {
+    ...result,
+    summary: result.summary as {
+      decision: 'PASS' | 'FAIL';
+      failures: string[];
+      inspectedEnvironment: {
+        gateMode: 'local-preview' | 'production';
+      };
+    },
+  };
+}
+
+function runDeployCheck(env: NodeJS.ProcessEnv) {
+  const result = runProjectScript('scripts/deploy-check.mjs', env);
+
+  return {
+    ...result,
+    summary: result.summary as {
+      decision: 'PASS' | 'FAIL';
+      checks: number;
+      failures: string[];
+      gateMode: 'ready' | 'blocked';
+      inspectedFrom: string;
+    },
+  };
+}
+
+function currentEnvironmentWithoutAdminToken(): NodeJS.ProcessEnv {
+  const env = { ...process.env };
+  delete env.RONGWANG_ADMIN_TOKEN;
+  delete env.ADMIN_TOKEN;
+  return env;
 }
 
 test('release readiness provides repeatable deploy checks and runbooks', () => {
@@ -107,6 +140,26 @@ test('release readiness provides repeatable deploy checks and runbooks', () => {
   ]) {
     assert.match(monitoring, new RegExp(required));
   }
+});
+
+test('deploy check executes ready and blocked decisions with explicit JSON mode', () => {
+  const ready = runDeployCheck({
+    ...process.env,
+    RONGWANG_ADMIN_TOKEN: 'verify-local-token',
+  });
+
+  assert.equal(ready.status, 0);
+  assert.equal(ready.summary.decision, 'PASS');
+  assert.equal(ready.summary.gateMode, 'ready');
+  assert.equal(ready.summary.failures.length, 0);
+  assert.ok(ready.summary.checks >= 32);
+
+  const blocked = runDeployCheck(currentEnvironmentWithoutAdminToken());
+
+  assert.equal(blocked.status, 1);
+  assert.equal(blocked.summary.decision, 'FAIL');
+  assert.equal(blocked.summary.gateMode, 'blocked');
+  assert.ok(blocked.summary.failures.includes('RONGWANG_ADMIN_TOKEN must be set before production release'));
 });
 
 test('wechat launch readiness is documented without requiring production credentials for MVP', () => {

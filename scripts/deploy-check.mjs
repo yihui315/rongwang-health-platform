@@ -119,6 +119,7 @@ console.log(
       decision: failures.length === 0 ? 'PASS' : 'FAIL',
       checks: checks.length,
       failures: failures.map((check) => check.name),
+      gateMode: failures.length === 0 ? 'ready' : 'blocked',
       nextVerification: [
         'npm run release:verify',
         'RONGWANG_ADMIN_TOKEN=<token> SMOKE_BASE_URL=<url> npm run release:smoke',
