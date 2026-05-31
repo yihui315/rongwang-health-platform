@@ -1,0 +1,338 @@
+{
+  "reference_boards": [
+    "reference/01-design-system-board.png",
+    "reference/02-brand-hero-board.png",
+    "reference/03-product-board.png",
+    "reference/04-icon-board.png",
+    "reference/05-scenario-board.png",
+    "reference/06-swirly-logo.png",
+    "reference/07-homepage-composite.png"
+  ],
+  "assets": {
+    "branding/logo-black-green.png": {
+      "box": [
+        34,
+        18,
+        420,
+        185
+      ]
+    },
+    "hero/family-group.png": {
+      "box": [
+        470,
+        40,
+        1005,
+        370
+      ]
+    },
+    "hero/health-education-card.png": {
+      "box": [
+        1000,
+        172,
+        1415,
+        325
+      ]
+    },
+    "hero/city-skyline.png": {
+      "box": [
+        30,
+        418,
+        972,
+        656
+      ]
+    },
+    "hero/cta-primary.png": {
+      "box": [
+        1000,
+        420,
+        1410,
+        500
+      ]
+    },
+    "hero/cta-secondary.png": {
+      "box": [
+        1000,
+        564,
+        1410,
+        656
+      ]
+    },
+    "hero/trust-strip.png": {
+      "box": [
+        40,
+        670,
+        1410,
+        830
+      ]
+    },
+    "decorations/leaves-left.png": {
+      "box": [
+        0,
+        844,
+        350,
+        1086
+      ]
+    },
+    "decorations/leaves-right.png": {
+      "box": [
+        1110,
+        840,
+        1448,
+        1086
+      ]
+    },
+    "branding/logo-swirly.png": {
+      "box": [
+        0,
+        0,
+        1448,
+        1086
+      ]
+    },
+    "scenarios/cards/01-sleep-pressure.png": {
+      "box": [
+        47,
+        195,
+        207,
+        515
+      ]
+    },
+    "scenarios/cards/02-brain-focus.png": {
+      "box": [
+        219,
+        195,
+        379,
+        515
+      ]
+    },
+    "scenarios/cards/03-digestion-metabolism.png": {
+      "box": [
+        391,
+        195,
+        551,
+        515
+      ]
+    },
+    "scenarios/cards/04-joint-bone.png": {
+      "box": [
+        563,
+        195,
+        723,
+        515
+      ]
+    },
+    "scenarios/cards/05-liver-metabolism.png": {
+      "box": [
+        735,
+        195,
+        895,
+        515
+      ]
+    },
+    "scenarios/cards/06-immune-support.png": {
+      "box": [
+        907,
+        195,
+        1067,
+        515
+      ]
+    },
+    "scenarios/cards/07-men-health.png": {
+      "box": [
+        1079,
+        195,
+        1239,
+        515
+      ]
+    },
+    "scenarios/cards/08-women-health.png": {
+      "box": [
+        1251,
+        195,
+        1411,
+        515
+      ]
+    },
+    "scenarios/icon-strip.png": {
+      "box": [
+        54,
+        610,
+        1408,
+        780
+      ]
+    },
+    "products/cards/01-sleep-support.png": {
+      "box": [
+        42,
+        134,
+        238,
+        418
+      ]
+    },
+    "products/cards/02-brain-support.png": {
+      "box": [
+        258,
+        134,
+        454,
+        418
+      ]
+    },
+    "products/cards/03-liver-support.png": {
+      "box": [
+        474,
+        134,
+        670,
+        418
+      ]
+    },
+    "products/cards/04-joint-support.png": {
+      "box": [
+        690,
+        134,
+        886,
+        418
+      ]
+    },
+    "products/cards/05-immune-support.png": {
+      "box": [
+        906,
+        134,
+        1102,
+        418
+      ]
+    },
+    "products/cards/06-energy-support.png": {
+      "box": [
+        1122,
+        134,
+        1318,
+        418
+      ]
+    },
+    "products/bottles/01-sleep-support.png": {
+      "box": [
+        64,
+        458,
+        250,
+        704
+      ]
+    },
+    "products/bottles/02-brain-support.png": {
+      "box": [
+        293,
+        458,
+        479,
+        704
+      ]
+    },
+    "products/bottles/03-liver-support.png": {
+      "box": [
+        522,
+        458,
+        708,
+        704
+      ]
+    },
+    "products/bottles/04-joint-support.png": {
+      "box": [
+        751,
+        458,
+        937,
+        704
+      ]
+    },
+    "products/bottles/05-immune-support.png": {
+      "box": [
+        980,
+        458,
+        1166,
+        704
+      ]
+    },
+    "products/bottles/06-energy-support.png": {
+      "box": [
+        1209,
+        458,
+        1395,
+        704
+      ]
+    },
+    "products/tag-pills-strip.png": {
+      "box": [
+        44,
+        748,
+        620,
+        812
+      ]
+    },
+    "products/action-buttons-strip.png": {
+      "box": [
+        44,
+        840,
+        920,
+        910
+      ]
+    },
+    "products/aux-icons-strip.png": {
+      "box": [
+        44,
+        928,
+        918,
+        1060
+      ]
+    },
+    "icons/value-icons-strip.png": {
+      "box": [
+        10,
+        20,
+        1438,
+        210
+      ]
+    },
+    "icons/trust-icons-strip.png": {
+      "box": [
+        10,
+        208,
+        1438,
+        356
+      ]
+    },
+    "icons/why-choose-icons-strip.png": {
+      "box": [
+        10,
+        358,
+        1438,
+        610
+      ]
+    },
+    "icons/process-icons-strip.png": {
+      "box": [
+        10,
+        610,
+        1438,
+        820
+      ]
+    },
+    "icons/utility-icons-strip.png": {
+      "box": [
+        10,
+        820,
+        1438,
+        930
+      ]
+    },
+    "icons/social-icons-strip.png": {
+      "box": [
+        10,
+        930,
+        1438,
+        1080
+      ]
+    }
+  },
+  "notes": [
+    "Reference boards are copied verbatim from the uploaded screenshot set.",
+    "Asset crops are approximate but aligned to the design system shown in the boards.",
+    "All paths are relative to public/images/home/homepage-kit/."
+  ]
+}

@@ -1,9 +1,10 @@
 import { NextResponse } from "next/server";
-import { runFetchProductAgent } from "@/src/agents/fetch-product";
-import { createImportTask, failAgentTask, saveImportedProduct } from "@/src/lib/mock-store";
+import { createProductImportTask } from "@/src/api/product";
+import { requireAdminRequest } from "@/src/lib/auth/admin-guard";
 
 export async function POST(request: Request) {
-  let taskId: string | null = null;
+  const unauthorized = requireAdminRequest(request);
+  if (unauthorized) return unauthorized;
 
   try {
     const body = await request.json();
@@ -14,19 +15,16 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "sourceUrl is required" }, { status: 400 });
     }
 
-    const task = createImportTask({ sourceUrl, createdBy });
-    taskId = task.id;
-    const normalized = await runFetchProductAgent({ sourceUrl, createdBy });
-    const product = saveImportedProduct(normalized, task.id);
+    const result = await createProductImportTask({ sourceUrl, createdBy });
 
-    return NextResponse.json({ ok: true, taskStatus: "completed", taskId: task.id, product });
+    return NextResponse.json(result);
   } catch (error) {
-    if (taskId) {
-      failAgentTask(taskId, error instanceof Error ? error.message : "Import failed");
-    }
-
     return NextResponse.json(
-      { ok: false, error: error instanceof Error ? error.message : "Import failed" },
+      {
+        ok: false,
+        error: error instanceof Error ? error.message : "Import failed",
+        task: error instanceof Error && "task" in error ? error.task : undefined,
+      },
       { status: 500 }
     );
   }

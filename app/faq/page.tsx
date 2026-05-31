@@ -1,3 +1,5 @@
+import MeasuredText from '@/src/components/text/MeasuredText';
+
 const faqs = [
   {
     q: '平台上的商品是什么类型？',
@@ -17,15 +19,35 @@ const faqs = [
   },
 ];
 
+const faqTextFonts = {
+  question: '800 20px "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", Arial, sans-serif',
+  answer: '400 16px Arial, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif',
+};
+
 export default function FaqPage() {
   return (
-    <main style={{ maxWidth: 960, margin: '0 auto', padding: '48px 24px' }}>
+    <main className="faq-page">
       <h1>常见问题</h1>
-      <div style={{ marginTop: 24, display: 'grid', gap: 16 }}>
+      <div className="faq-card-list">
         {faqs.map((item) => (
-          <section key={item.q} style={{ border: '1px solid #e2e8f0', borderRadius: 16, padding: 20 }}>
-            <h2 style={{ marginTop: 0, fontSize: 20 }}>{item.q}</h2>
-            <p style={{ color: '#475569', lineHeight: 1.8 }}>{item.a}</p>
+          <section key={item.q} className="faq-card">
+            <MeasuredText
+              as="h2"
+              className="faq-card-question"
+              font={faqTextFonts.question}
+              lineHeight={26}
+              maxLines={2}
+            >
+              {item.q}
+            </MeasuredText>
+            <MeasuredText
+              className="faq-card-answer"
+              font={faqTextFonts.answer}
+              lineHeight={29}
+              maxLines={4}
+            >
+              {item.a}
+            </MeasuredText>
           </section>
         ))}
       </div>

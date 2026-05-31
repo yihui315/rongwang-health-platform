@@ -1,6 +1,8 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+
+import { DraftLayoutPreviewGroup } from "@/src/components/text/DraftLayoutPreview";
 
 type Product = {
   id: string;
@@ -23,6 +25,10 @@ type Content = {
   createdAt: string;
 };
 
+const draftPreviewFonts = {
+  mobilePreview: '700 14px "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", Arial, sans-serif',
+};
+
 export default function WorkspaceGeneratePage() {
   const [products, setProducts] = useState<Product[]>([]);
   const [contents, setContents] = useState<Content[]>([]);
@@ -30,19 +36,30 @@ export default function WorkspaceGeneratePage() {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
 
-  const loadData = useCallback(async () => {
-    const res = await fetch("/api/mock/products", { cache: "no-store" });
-    const data = await res.json();
-    setProducts(data.products || []);
-    setContents(data.contents || []);
-    if (!selectedId && data.products?.length) {
-      setSelectedId(data.products[0].id);
-    }
-  }, [selectedId]);
-
   useEffect(() => {
-    loadData();
-  }, [loadData]);
+    let cancelled = false;
+
+    void fetch("/api/mock/products", { cache: "no-store" })
+      .then((res) => res.json())
+      .then((data) => {
+        if (cancelled) return;
+
+        const nextProducts = data.products || [];
+        setProducts(nextProducts);
+        setContents(data.contents || []);
+        setSelectedId((currentSelectedId) => currentSelectedId || nextProducts[0]?.id || "");
+      })
+      .catch(() => {
+        if (cancelled) return;
+        setProducts([]);
+        setContents([]);
+        setSelectedId("");
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   async function handleGenerate() {
     if (!selectedId) return;
@@ -58,7 +75,11 @@ export default function WorkspaceGeneratePage() {
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "生成失败");
       setMessage(`已生成：${data.product.title}`);
-      await loadData();
+      const refresh = await fetch("/api/mock/products", { cache: "no-store" });
+      const refreshData = await refresh.json();
+      setProducts(refreshData.products || []);
+      setContents(refreshData.contents || []);
+      setSelectedId((currentSelectedId) => currentSelectedId || refreshData.products?.[0]?.id || "");
     } catch (error) {
       setMessage(error instanceof Error ? error.message : "生成失败");
     } finally {
@@ -70,21 +91,22 @@ export default function WorkspaceGeneratePage() {
   const latestContent = contents.find((item) => item.productId === selectedId) || contents[0];
 
   return (
-    <main className="min-h-screen bg-slate-50 text-slate-900">
-      <section className="mx-auto max-w-6xl px-6 py-14">
-        <a href="/workspace" className="text-sm text-emerald-700 hover:underline">← 返回工作台</a>
-        <h1 className="mt-4 text-3xl font-bold">内容生成</h1>
-        <p className="mt-3 max-w-3xl leading-8 text-slate-600">
+    <main className="workspace-shell">
+      <section className="workspace-generate">
+        <a href="/workspace" className="workspace-back-link">← 返回工作台</a>
+        <p className="workspace-eyebrow">Content Agent</p>
+        <h1>内容生成</h1>
+        <p className="workspace-generate-intro">
           这一步会把已标准化的商品对象送进内容生成 Agent，得到标题、描述、FAQ、SEO 关键词和免责声明草稿。
         </p>
 
-        <div className="mt-8 grid gap-8 lg:grid-cols-[0.9fr_1.1fr]">
-          <div className="rounded-2xl bg-white p-6 shadow-sm">
-            <h2 className="text-xl font-semibold">选择商品</h2>
+        <div className="workspace-generate-grid">
+          <div className="workspace-generate-card">
+            <h2>选择商品</h2>
             <select
               value={selectedId}
               onChange={(e) => setSelectedId(e.target.value)}
-              className="mt-4 w-full rounded-xl border border-slate-300 px-4 py-3"
+              className="workspace-select"
             >
               <option value="">请选择商品</option>
               {products.map((product) => (
@@ -95,7 +117,7 @@ export default function WorkspaceGeneratePage() {
             </select>
 
             {selectedProduct ? (
-              <div className="mt-5 rounded-xl border border-slate-200 bg-slate-50 p-4 text-sm leading-7 text-slate-700">
+              <div className="workspace-product-summary">
                 <p><strong>来源：</strong>{selectedProduct.source.toUpperCase()}</p>
                 <p><strong>价格：</strong>{selectedProduct.priceText || "-"}</p>
                 <p><strong>产地：</strong>{selectedProduct.originCountry || "-"}</p>
@@ -105,82 +127,107 @@ export default function WorkspaceGeneratePage() {
             <button
               onClick={handleGenerate}
               disabled={!selectedId || loading}
-              className="mt-6 rounded-xl bg-slate-900 px-5 py-3 font-medium text-white hover:bg-slate-800 disabled:opacity-60"
+              className="workspace-primary-action"
             >
               {loading ? "生成中..." : "生成内容草稿"}
             </button>
 
-            {message ? <p className="mt-4 text-sm text-slate-700">{message}</p> : null}
+            {message ? <p className="workspace-message-inline">{message}</p> : null}
 
-            <div className="mt-6 rounded-xl border border-emerald-200 bg-emerald-50 p-4 text-sm leading-7 text-emerald-900">
+            <div className="workspace-safe-note">
               注意：这里生成的是草稿，不是可直接上线的最终内容。后续必须经过合规预检和人工审核。
             </div>
           </div>
 
-          <div className="rounded-2xl bg-white p-6 shadow-sm">
-            <h2 className="text-xl font-semibold">最新生成结果</h2>
+          <div className="workspace-generate-card">
+            <h2>最新生成结果</h2>
 
             {latestContent ? (
-              <div className="mt-6 space-y-6 text-sm leading-7 text-slate-700">
-                <section>
-                  <h3 className="font-semibold text-slate-900">短标题</h3>
-                  <p className="mt-2">{latestContent.shortTitle}</p>
+              <div className="workspace-generated-content">
+                <DraftLayoutPreviewGroup
+                  title="移动端文案布局预检"
+                  description="按移动端内容卡常用宽度预估行数，帮助发布前先压缩标题、短描述和 FAQ。"
+                  items={[
+                    {
+                      id: `${latestContent.id}-title`,
+                      label: "产品卡标题",
+                      text: latestContent.shortTitle,
+                    },
+                    {
+                      id: `${latestContent.id}-short-description`,
+                      label: "产品卡短描述",
+                      text: latestContent.shortDescription,
+                    },
+                    ...latestContent.faqDraft.slice(0, 2).map((item, index) => ({
+                      id: `${latestContent.id}-faq-${index}`,
+                      label: `FAQ ${index + 1}`,
+                      text: item,
+                    })),
+                  ]}
+                  font={draftPreviewFonts.mobilePreview}
+                  lineHeight={24}
+                  maxLines={3}
+                />
+
+                <section className="workspace-content-section">
+                  <h3>短标题</h3>
+                  <p>{latestContent.shortTitle}</p>
                 </section>
 
-                <section>
-                  <h3 className="font-semibold text-slate-900">短描述</h3>
-                  <p className="mt-2">{latestContent.shortDescription}</p>
+                <section className="workspace-content-section">
+                  <h3>短描述</h3>
+                  <p>{latestContent.shortDescription}</p>
                 </section>
 
-                <section>
-                  <h3 className="font-semibold text-slate-900">长描述</h3>
-                  <p className="mt-2">{latestContent.longDescription}</p>
+                <section className="workspace-content-section">
+                  <h3>长描述</h3>
+                  <p>{latestContent.longDescription}</p>
                 </section>
 
-                <section>
-                  <h3 className="font-semibold text-slate-900">SEO 关键词</h3>
-                  <div className="mt-3 flex flex-wrap gap-2">
+                <section className="workspace-content-section">
+                  <h3>SEO 关键词</h3>
+                  <div className="workspace-chip-row">
                     {latestContent.seoKeywords.map((keyword) => (
-                      <span key={keyword} className="rounded-full bg-slate-100 px-3 py-1 text-xs">
+                      <span key={keyword}>
                         {keyword}
                       </span>
                     ))}
                   </div>
                 </section>
 
-                <section>
-                  <h3 className="font-semibold text-slate-900">FAQ 草稿</h3>
-                  <ul className="mt-3 list-disc space-y-2 pl-5">
+                <section className="workspace-content-section">
+                  <h3>FAQ 草稿</h3>
+                  <ul className="workspace-content-list">
                     {latestContent.faqDraft.map((item) => (
                       <li key={item}>{item}</li>
                     ))}
                   </ul>
                 </section>
 
-                <section>
-                  <h3 className="font-semibold text-slate-900">免责声明</h3>
-                  <p className="mt-2 rounded-xl border border-amber-200 bg-amber-50 p-4 text-amber-900">
+                <section className="workspace-content-section">
+                  <h3>免责声明</h3>
+                  <p className="workspace-disclaimer-preview">
                     {latestContent.disclaimer}
                   </p>
                 </section>
 
-                <section>
-                  <h3 className="font-semibold text-slate-900">风险标记</h3>
+                <section className="workspace-content-section">
+                  <h3>风险标记</h3>
                   {latestContent.riskFlags.length ? (
-                    <div className="mt-3 flex flex-wrap gap-2">
+                    <div className="workspace-risk-row">
                       {latestContent.riskFlags.map((flag) => (
-                        <span key={flag} className="rounded-full bg-red-100 px-3 py-1 text-xs text-red-700">
+                        <span key={flag}>
                           {flag}
                         </span>
                       ))}
                     </div>
                   ) : (
-                    <p className="mt-2 text-emerald-700">当前未检测到高风险词。</p>
+                    <p className="workspace-safe-copy">当前未检测到高风险词。</p>
                   )}
                 </section>
               </div>
             ) : (
-              <p className="mt-4 text-slate-600">还没有生成结果。先去导入商品，再回来点击生成。</p>
+              <p className="workspace-empty-copy">还没有生成结果。先去导入商品，再回来点击生成。</p>
             )}
           </div>
         </div>

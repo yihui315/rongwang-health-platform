@@ -8,9 +8,17 @@
     "start": "next start",
     "lint": "eslint .",
     "test": "node --test --import tsx",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "smoke": "node scripts/smoke-fast-funnel.mjs",
+    "acceptance": "node scripts/acceptance-fast-funnel.mjs",
+    "customer:smoke": "node scripts/customer-journey-smoke.mjs",
+    "compliance:scan": "node scripts/compliance-scan.mjs",
+    "deploy:check": "node scripts/deploy-check.mjs",
+    "release:verify": "npm run deploy:check && npm run typecheck && npm test && npm run build && npm run lint && npm run compliance:scan",
+    "release:smoke": "npm run smoke && npm run acceptance && npm run customer:smoke"
   },
   "dependencies": {
+    "@chenglou/pretext": "^0.0.7",
     "next": "^16.2.6",
     "react": "^19.2.6",
     "react-dom": "^19.2.6"

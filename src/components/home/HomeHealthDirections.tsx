@@ -1,30 +1,45 @@
-import Link from 'next/link';
 import Image from 'next/image';
 import { homeHealthDirections } from '@/src/lib/home/home-content';
-import HomeIcon from './HomeIcon';
+import TrackedLink from '@/src/components/marketing/TrackedLink';
 import HomeSectionHeader from './HomeSectionHeader';
 
 export default function HomeHealthDirections() {
   return (
-    <section className="home-section home-directions-section">
+    <section className="home-section home-directions-section" id="health-scenarios">
       <div className="home-container">
-        <HomeSectionHeader title="关注你的健康方向" />
+        <HomeSectionHeader
+          title="热门健康场景方案"
+          note="选择您最关注的健康问题，查看个性化营养支持建议与推荐产品"
+        />
         <div className="home-directions-grid">
           {homeHealthDirections.map((item) => (
-            <article className="home-direction-card" data-accent={item.accent} key={item.title}>
-              <div className="home-direction-visual">
-                <Image src={item.image} alt={`${item.title}方向场景图`} width={360} height={270} />
-              </div>
-              <div className="home-direction-body">
-                <span className="home-direction-icon">
-                  <HomeIcon name={item.icon} />
-                </span>
-                <h3>{item.title}</h3>
-                <p>{item.description}</p>
-                <Link href={item.href}>进入评估</Link>
-              </div>
-            </article>
+            <TrackedLink
+              className="home-direction-card"
+              href={item.href}
+              eventName="scenario_click"
+              payload={{
+                scenario_slug: item.href.split('/').pop() ?? item.title,
+                cta_id: 'homepage_scenario_card',
+                route: item.href,
+                section: 'health_scenarios',
+              }}
+              key={item.title}
+              aria-label={`${item.title}：${item.description}，查看方案`}
+            >
+              <Image src={item.image} alt={`${item.title}健康场景卡`} width={160} height={320} priority={item.href === '/solutions/sleep-support'} />
+              <span className="home-direction-overlay">{item.safetyNote}</span>
+            </TrackedLink>
           ))}
+        </div>
+        <div className="home-section-action">
+          <TrackedLink
+            className="home-mini-button"
+            href="#health-scenarios"
+            eventName="scenario_click"
+            payload={{ scenario_slug: 'more_scenarios', cta_id: 'homepage_more_scenarios', route: '/', section: 'health_scenarios' }}
+          >
+            查看更多健康场景 <span aria-hidden>→</span>
+          </TrackedLink>
         </div>
       </div>
     </section>

@@ -10,3 +10,4 @@ coverage
 .rongwang-data
 tsconfig.tsbuildinfo
 .worktrees
+.gstack/

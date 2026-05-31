@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang='zh-CN'>
+<head>
+  <meta charset='utf-8'>
+  <meta name='viewport' content='width=device-width, initial-scale=1'>
+  <title>荣旺首页素材预览</title>
+  <style>
+    :root {
+      --bg: #f6f8f4;
+      --panel: #ffffff;
+      --text: #142019;
+      --muted: #5f6e63;
+      --line: #d9e5db;
+      --green: #1b8a3b;
+      --green-deep: #0c6a2f;
+      --shadow: 0 16px 40px rgba(12, 43, 23, 0.08);
+      --radius: 18px;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', system-ui, sans-serif;
+      color: var(--text);
+      background: linear-gradient(180deg, #fff 0%, var(--bg) 100%);
+    }
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--line);
+    }
+    .wrap { width: min(1440px, calc(100vw - 40px)); margin: 0 auto; }
+    .topbar {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 16px; padding: 16px 0;
+    }
+    .brand { display: flex; align-items: center; gap: 14px; }
+    .brand img { height: 42px; width: auto; display: block; }
+    .brand strong { display: block; font-size: 15px; letter-spacing: .02em; }
+    .brand span { display: block; color: var(--muted); font-size: 12px; margin-top: 2px; }
+    .pill {
+      display: inline-flex; align-items: center; gap: 8px; padding: 10px 14px;
+      border-radius: 999px; background: #eaf6ee; color: var(--green-deep); font-weight: 700;
+      border: 1px solid #d1ead8;
+    }
+    main { padding: 24px 0 40px; }
+    section { margin-bottom: 28px; }
+    .section-head {
+      display: flex; align-items: end; justify-content: space-between; gap: 16px;
+      margin: 0 0 14px;
+    }
+    h1, h2, h3 { margin: 0; }
+    h1 { font-size: 30px; line-height: 1.15; }
+    h2 { font-size: 22px; }
+    .sub { color: var(--muted); font-size: 14px; margin-top: 6px; }
+    .grid { display: grid; gap: 16px; }
+    .grid.two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .grid.three { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .grid.four { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    .grid.eight { grid-template-columns: repeat(8, minmax(0, 1fr)); }
+    .card {
+      background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius);
+      box-shadow: var(--shadow); overflow: hidden;
+    }
+    .card .meta { padding: 12px 14px 14px; }
+    .card p { margin: 0; color: var(--muted); font-size: 13px; line-height: 1.5; }
+    .card img { width: 100%; height: auto; display: block; background: #fff; }
+    .reference img { aspect-ratio: 1448 / 1086; object-fit: cover; }
+    .tile img { aspect-ratio: 1 / 1; object-fit: cover; }
+    .strip img { aspect-ratio: auto; object-fit: contain; background: #fff; }
+    .compact-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
+    .caption { font-size: 13px; color: var(--muted); margin-top: 8px; }
+    .stack { display: grid; gap: 14px; }
+    .tag {
+      display: inline-flex; align-items: center; gap: 6px; font-size: 12px; color: var(--green-deep);
+      background: #ecf8ef; border: 1px solid #d7ecdb; padding: 6px 10px; border-radius: 999px;
+    }
+    .note {
+      background: #fff; border: 1px dashed #cfe0d2; border-radius: 16px; padding: 16px 18px;
+      color: #3e5544; font-size: 14px; line-height: 1.7;
+    }
+    .full-reference { width: 100%; border-radius: 20px; overflow: hidden; box-shadow: var(--shadow); border: 1px solid var(--line); }
+    .full-reference img { width: 100%; display: block; }
+    @media (max-width: 1200px) {
+      .grid.four, .compact-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .grid.eight { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+      .grid.three, .grid.two { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 720px) {
+      .wrap { width: min(100vw - 24px, 1440px); }
+      h1 { font-size: 24px; }
+      .grid.four, .grid.eight, .compact-grid { grid-template-columns: 1fr; }
+      .topbar { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class='wrap topbar'>
+      <div class='brand'>
+        <img src='/images/home/homepage-kit/assets/branding/rongwang-health-logo-header.png' alt='荣旺健康标志'>
+        <div>
+          <strong>荣旺健康首页素材预览</strong>
+          <span>logo · hero · 场景卡 · 产品卡 · 图标条</span>
+        </div>
+      </div>
+      <div class='pill'>homepage-kit · ready</div>
+    </div>
+  </header>
+  <main class='wrap'>
+    <section>
+      <div class='section-head'>
+        <div>
+          <h1>素材总览</h1>
+          <div class='sub'>这页会把可直接引用的首页资产一次性摊开，便于你判断哪些能直接接到首页里。</div>
+        </div>
+        <div class='tag'>路径: /images/home/homepage-kit</div>
+      </div>
+      <div class='grid.four'>
+      </div>
+    </section>
+
+<section><div class='grid four'>
+<article class='card tile'><img src='/images/home/homepage-kit/assets/branding/rongwang-health-logo-header.png' alt='Brand logo'><div class='meta'><h3>Brand logo</h3><p>/images/home/homepage-kit/assets/branding/rongwang-health-logo-header.png</p></div></article>
+<article class='card tile'><img src='/images/home/homepage-kit/assets/branding/logo-swirly-mark.png' alt='Logo mark'><div class='meta'><h3>Logo mark</h3><p>/images/home/homepage-kit/assets/branding/logo-swirly-mark.png</p></div></article>
+<article class='card tile'><img src='/images/home/homepage-kit/assets/hero/family-group.png' alt='Hero family'><div class='meta'><h3>Hero family</h3><p>/images/home/homepage-kit/assets/hero/family-group.png</p></div></article>
+<article class='card tile'><img src='/images/home/homepage-kit/assets/hero/city-skyline.png' alt='Hero skyline'><div class='meta'><h3>Hero skyline</h3><p>/images/home/homepage-kit/assets/hero/city-skyline.png</p></div></article>
+<article class='card tile'><img src='/images/home/homepage-kit/assets/hero/health-education-card.png' alt='Hero disclaimer'><div class='meta'><h3>Hero disclaimer</h3><p>/images/home/homepage-kit/assets/hero/health-education-card.png</p></div></article>
+<article class='card tile'><img src='/images/home/homepage-kit/assets/hero/cta-primary.png' alt='Primary CTA'><div class='meta'><h3>Primary CTA</h3><p>/images/home/homepage-kit/assets/hero/cta-primary.png</p></div></article>
+<article class='card tile'><img src='/images/home/homepage-kit/assets/hero/cta-secondary.png' alt='Secondary CTA'><div class='meta'><h3>Secondary CTA</h3><p>/images/home/homepage-kit/assets/hero/cta-secondary.png</p></div></article>
+<article class='card tile'><img src='/images/home/homepage-kit/assets/hero/trust-strip.png' alt='Trust strip'><div class='meta'><h3>Trust strip</h3><p>/images/home/homepage-kit/assets/hero/trust-strip.png</p></div></article>
+</div></section>
+<section><div class='section-head'><div><h2>场景卡</h2><div class='sub'>8 张场景卡可直接映射到首页健康场景区域。</div></div><div class='tag'>cards / scenarios</div></div><div class='grid four'>
+<article class='card tile'><img src='/images/home/homepage-kit/assets/scenarios/cards/01-sleep-pressure.png' alt='场景卡 1'><div class='meta'><h3>场景卡 1</h3><p>/images/home/homepage-kit/assets/scenarios/cards/01-sleep-pressure.png</p></div></article>
+<article class='card tile'><img src='/images/home/homepage-kit/assets/scenarios/cards/02-brain-focus.png' alt='场景卡 2'><div class='meta'><h3>场景卡 2</h3><p>/images/home/homepage-kit/assets/scenarios/cards/02-brain-focus.png</p></div></article>
+<article class='card tile'><img src='/images/home/homepage-kit/assets/scenarios/cards/03-digestion-metabolism.png' alt='场景卡 3'><div class='meta'><h3>场景卡 3</h3><p>/images/home/homepage-kit/assets/scenarios/cards/03-digestion-metabolism.png</p></div></article>
+<article class='card tile'><img src='/images/home/homepage-kit/assets/scenarios/cards/04-joint-bone.png' alt='场景卡 4'><div class='meta'><h3>场景卡 4</h3><p>/images/home/homepage-kit/assets/scenarios/cards/04-joint-bone.png</p></div></article>
+<article class='card tile'><img src='/images/home/homepage-kit/assets/scenarios/cards/05-liver-metabolism.png' alt='场景卡 5'><div class='meta'><h3>场景卡 5</h3><p>/images/home/homepage-kit/assets/scenarios/cards/05-liver-metabolism.png</p></div></article>
+<article class='card tile'><img src='/images/home/homepage-kit/assets/scenarios/cards/06-immune-support.png' alt='场景卡 6'><div class='meta'><h3>场景卡 6</h3><p>/images/home/homepage-kit/assets/scenarios/cards/06-immune-support.png</p></div></article>
+<article class='card tile'><img src='/images/home/homepage-kit/assets/scenarios/cards/07-men-health.png' alt='场景卡 7'><div class='meta'><h3>场景卡 7</h3><p>/images/home/homepage-kit/assets/scenarios/cards/07-men-health.png</p></div></article>
+<article class='card tile'><img src='/images/home/homepage-kit/assets/scenarios/cards/08-women-health.png' alt='场景卡 8'><div class='meta'><h3>场景卡 8</h3><p>/images/home/homepage-kit/assets/scenarios/cards/08-women-health.png</p></div></article>
+</div></section>
+<section><div class='section-head'><div><h2>产品卡</h2><div class='sub'>卡片和瓶身图可分别用于推荐区与商品展示区。</div></div><div class='tag'>cards / bottles</div></div><div class='grid three'>
+<article class='card tile'><img src='/images/home/homepage-kit/assets/products/cards/01-sleep-support.png' alt='产品卡 1'><div class='meta'><h3>产品卡 1</h3><p>/images/home/homepage-kit/assets/products/cards/01-sleep-support.png</p></div></article>
+<article class='card tile'><img src='/images/home/homepage-kit/assets/products/cards/02-brain-support.png' alt='产品卡 2'><div class='meta'><h3>产品卡 2</h3><p>/images/home/homepage-kit/assets/products/cards/02-brain-support.png</p></div></article>
+<article class='card tile'><img src='/images/home/homepage-kit/assets/products/cards/03-liver-support.png' alt='产品卡 3'><div class='meta'><h3>产品卡 3</h3><p>/images/home/homepage-kit/assets/products/cards/03-liver-support.png</p></div></article>
+<article class='card tile'><img src='/images/home/homepage-kit/assets/products/cards/04-joint-support.png' alt='产品卡 4'><div class='meta'><h3>产品卡 4</h3><p>/images/home/homepage-kit/assets/products/cards/04-joint-support.png</p></div></article>
+<article class='card tile'><img src='/images/home/homepage-kit/assets/products/cards/05-immune-support.png' alt='产品卡 5'><div class='meta'><h3>产品卡 5</h3><p>/images/home/homepage-kit/assets/products/cards/05-immune-support.png</p></div></article>
+<article class='card tile'><img src='/images/home/homepage-kit/assets/products/cards/06-energy-support.png' alt='产品卡 6'><div class='meta'><h3>产品卡 6</h3><p>/images/home/homepage-kit/assets/products/cards/06-energy-support.png</p></div></article>
+</div><div style='height:16px'></div><div class='grid three'>
+<article class='card tile'><img src='/images/home/homepage-kit/assets/products/bottles/01-sleep-support.png' alt='产品瓶身 1'><div class='meta'><h3>产品瓶身 1</h3><p>/images/home/homepage-kit/assets/products/bottles/01-sleep-support.png</p></div></article>
+<article class='card tile'><img src='/images/home/homepage-kit/assets/products/bottles/02-brain-support.png' alt='产品瓶身 2'><div class='meta'><h3>产品瓶身 2</h3><p>/images/home/homepage-kit/assets/products/bottles/02-brain-support.png</p></div></article>
+<article class='card tile'><img src='/images/home/homepage-kit/assets/products/bottles/03-liver-support.png' alt='产品瓶身 3'><div class='meta'><h3>产品瓶身 3</h3><p>/images/home/homepage-kit/assets/products/bottles/03-liver-support.png</p></div></article>
+<article class='card tile'><img src='/images/home/homepage-kit/assets/products/bottles/04-joint-support.png' alt='产品瓶身 4'><div class='meta'><h3>产品瓶身 4</h3><p>/images/home/homepage-kit/assets/products/bottles/04-joint-support.png</p></div></article>
+<article class='card tile'><img src='/images/home/homepage-kit/assets/products/bottles/05-immune-support.png' alt='产品瓶身 5'><div class='meta'><h3>产品瓶身 5</h3><p>/images/home/homepage-kit/assets/products/bottles/05-immune-support.png</p></div></article>
+<article class='card tile'><img src='/images/home/homepage-kit/assets/products/bottles/06-energy-support.png' alt='产品瓶身 6'><div class='meta'><h3>产品瓶身 6</h3><p>/images/home/homepage-kit/assets/products/bottles/06-energy-support.png</p></div></article>
+</div></section>
+<section><div class='section-head'><div><h2>图标与功能条</h2><div class='sub'>这些是从设计总板里切出来的图标条，适合做信任栏、流程图、功能入口。</div></div><div class='tag'>icons / strips</div></div><div class='stack'>
+<article class='card strip'><img src='/images/home/homepage-kit/assets/icons/value-icons-strip.png' alt='Value icons'><div class='meta'><h3>Value icons</h3><p>/images/home/homepage-kit/assets/icons/value-icons-strip.png</p></div></article>
+<article class='card strip'><img src='/images/home/homepage-kit/assets/icons/trust-icons-strip.png' alt='Trust icons'><div class='meta'><h3>Trust icons</h3><p>/images/home/homepage-kit/assets/icons/trust-icons-strip.png</p></div></article>
+<article class='card strip'><img src='/images/home/homepage-kit/assets/icons/why-choose-icons-strip.png' alt='Why choose icons'><div class='meta'><h3>Why choose icons</h3><p>/images/home/homepage-kit/assets/icons/why-choose-icons-strip.png</p></div></article>
+<article class='card strip'><img src='/images/home/homepage-kit/assets/icons/process-icons-strip.png' alt='Process icons'><div class='meta'><h3>Process icons</h3><p>/images/home/homepage-kit/assets/icons/process-icons-strip.png</p></div></article>
+<article class='card strip'><img src='/images/home/homepage-kit/assets/icons/utility-icons-strip.png' alt='Utility icons'><div class='meta'><h3>Utility icons</h3><p>/images/home/homepage-kit/assets/icons/utility-icons-strip.png</p></div></article>
+<article class='card strip'><img src='/images/home/homepage-kit/assets/icons/social-icons-strip.png' alt='Social icons'><div class='meta'><h3>Social icons</h3><p>/images/home/homepage-kit/assets/icons/social-icons-strip.png</p></div></article>
+</div></section>
+<section><div class='section-head'><div><h2>Hero 区素材</h2><div class='sub'>品牌、家庭主图、城市背景、声明卡和 CTA 按钮都在这里。</div></div><div class='tag'>hero</div></div><div class='grid two'>
+<article class='card tile'><img src='/images/home/homepage-kit/assets/hero/family-group.png' alt='Hero family'><div class='meta'><h3>Hero family</h3><p>/images/home/homepage-kit/assets/hero/family-group.png</p></div></article>
+<article class='card tile'><img src='/images/home/homepage-kit/assets/hero/city-skyline.png' alt='Hero skyline'><div class='meta'><h3>Hero skyline</h3><p>/images/home/homepage-kit/assets/hero/city-skyline.png</p></div></article>
+<article class='card tile'><img src='/images/home/homepage-kit/assets/hero/health-education-card.png' alt='Hero disclaimer'><div class='meta'><h3>Hero disclaimer</h3><p>/images/home/homepage-kit/assets/hero/health-education-card.png</p></div></article>
+<article class='card tile'><img src='/images/home/homepage-kit/assets/hero/cta-primary.png' alt='Primary CTA'><div class='meta'><h3>Primary CTA</h3><p>/images/home/homepage-kit/assets/hero/cta-primary.png</p></div></article>
+<article class='card tile'><img src='/images/home/homepage-kit/assets/hero/cta-secondary.png' alt='Secondary CTA'><div class='meta'><h3>Secondary CTA</h3><p>/images/home/homepage-kit/assets/hero/cta-secondary.png</p></div></article>
+<article class='card tile'><img src='/images/home/homepage-kit/assets/hero/trust-strip.png' alt='Trust strip'><div class='meta'><h3>Trust strip</h3><p>/images/home/homepage-kit/assets/hero/trust-strip.png</p></div></article>
+</div></section>
+<section><div class='section-head'><div><h2>原始参考板</h2><div class='sub'>这 7 张保留原样，方便回看布局和细节。</div></div><div class='tag'>reference boards</div></div><div class='grid two'>
+<article class='full-reference'><img src='/images/home/homepage-kit/reference/01-design-system-board.png' alt='参考板'></article>
+<article class='full-reference'><img src='/images/home/homepage-kit/reference/02-brand-hero-board.png' alt='参考板'></article>
+<article class='full-reference'><img src='/images/home/homepage-kit/reference/03-product-board.png' alt='参考板'></article>
+<article class='full-reference'><img src='/images/home/homepage-kit/reference/04-icon-board.png' alt='参考板'></article>
+<article class='full-reference'><img src='/images/home/homepage-kit/reference/05-scenario-board.png' alt='参考板'></article>
+<article class='full-reference'><img src='/images/home/homepage-kit/reference/06-swirly-logo.png' alt='参考板'></article>
+<article class='full-reference'><img src='/images/home/homepage-kit/reference/07-homepage-composite.png' alt='参考板'></article>
+</div></section>
+
+    <section class='note'>
+      备注：这个预览页现在只做展示，不改首页逻辑。下一步我可以把首页组件直接切到这套 assets 上，再把首屏排版对齐到你这版截图。
+    </section>
+  </main>
+</body>
+</html>

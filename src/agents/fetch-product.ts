@@ -12,6 +12,27 @@ export type RawProductPayload = {
   specs?: Record<string, string>;
   sourceUrl: string;
   source: SupportedSource;
+  sourceFile?: string;
+  sheetName?: string;
+  sourceRows?: number[];
+  importedBatch?: string;
+  importedAt?: string;
+  originalColumns?: Record<string, string>;
+  jdReference?: {
+    itemUrl: string;
+    imageUrl?: string;
+    title?: string;
+    source?: string;
+  } | null;
+  importNotes?: Record<string, unknown>;
+};
+
+export type ProductAssetFollowUp = {
+  status: 'pending_manual_image_reference';
+  searchKeywords: string[];
+  preferredSource: 'jd';
+  reason: string;
+  attemptedAt: string;
 };
 
 export type NormalizedProduct = {

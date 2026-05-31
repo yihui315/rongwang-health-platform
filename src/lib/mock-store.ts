@@ -4,6 +4,7 @@ import { randomUUID } from 'node:crypto';
 
 import type { GeneratedContent } from '../agents/generate-content';
 import type { NormalizedProduct } from '../agents/fetch-product';
+import { latestPriceProducts } from '../data/latest-price-products';
 import { scanCompliance, type ComplianceScanResult } from '../services/compliance-service';
 
 export type ProductStatus = 'draft' | 'imported' | 'approved' | 'rejected';
@@ -67,7 +68,6 @@ type StoreState = {
 };
 
 declare global {
-  // eslint-disable-next-line no-var
   var __rongwangMockStore: StoreState | undefined;
 }
 
@@ -115,6 +115,7 @@ function createSeedStore(): StoreState {
         createdAt,
         updatedAt: createdAt,
       },
+      ...latestPriceProducts,
     ],
     contents: [
       {
@@ -290,6 +291,10 @@ export function getMockProductById(productId: string): StoredProduct | undefined
 
 export function listMockProducts(): StoredProduct[] {
   return [...store.products].sort((a, b) => b.createdAt.localeCompare(a.createdAt));
+}
+
+export function getAgentTaskById(taskId: string): StoredAgentTask | undefined {
+  return store.agentTasks.find((item) => item.id === taskId);
 }
 
 export function saveContentWithComplianceReview(

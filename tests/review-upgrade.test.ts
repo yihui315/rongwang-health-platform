@@ -8,11 +8,28 @@ import {
   getProductById,
   listAgentTasks,
   listApprovedStorefrontProducts,
+  listMockProducts,
   resetMockStore,
   resetMockStoreToSeed,
   saveContentWithComplianceReview,
   saveImportedProduct,
 } from "../src/lib/mock-store";
+
+const latestPriceBatchId = "price-sheet-2026-05-27:";
+
+function hasPendingAssetFollowUp(value: unknown): value is {
+  status: "pending_manual_image_reference";
+  searchKeywords: string[];
+} {
+  if (!value || typeof value !== "object") return false;
+
+  const followUp = value as { status?: unknown; searchKeywords?: unknown };
+  return (
+    followUp.status === "pending_manual_image_reference" &&
+    Array.isArray(followUp.searchKeywords) &&
+    followUp.searchKeywords.length >= 2
+  );
+}
 
 test("rejects unsupported product source URLs before import", async () => {
   await assert.rejects(
@@ -125,6 +142,65 @@ test("only approved products are exposed to storefront queries", () => {
   });
 
   assert.deepEqual(listApprovedStorefrontProducts(), []);
+});
+
+test("latest price sheet products seed as imported and stay hidden from the storefront", () => {
+  resetMockStoreToSeed();
+
+  const latestProducts = listMockProducts().filter((product) => product.externalId?.startsWith(latestPriceBatchId));
+  const productsWithJdReferences = latestProducts.filter((product) => product.rawPayload.jdReference);
+
+  assert.equal(latestProducts.length, 10);
+  assert.ok(latestProducts.every((product) => product.status === "imported"));
+  assert.ok(latestProducts.every((product) => product.rawPayload.sourceFile?.includes("产品价格体系2026-05-27.xls")));
+  assert.equal(latestProducts.filter((product) => product.rawPayload.images?.length).length, 4);
+  assert.equal(productsWithJdReferences.length, 4);
+  assert.equal(
+    latestProducts.filter((product) => !product.rawPayload.images?.length).length,
+    6
+  );
+  assert.ok(
+    latestProducts
+      .filter((product) => !product.rawPayload.images?.length)
+      .every((product) => hasPendingAssetFollowUp(product.rawPayload.importNotes?.assetFollowUp))
+  );
+  assert.ok(
+    productsWithJdReferences.every((product) =>
+      product.rawPayload.jdReference?.source?.includes("待人工确认")
+    )
+  );
+  assert.ok(
+    latestProducts.every(
+      (product) => product.rawPayload.importNotes?.storefrontVisibility === "blocked_until_manual_approval"
+    )
+  );
+  assert.ok(
+    latestProducts.some(
+      (product) =>
+        product.externalId === `${latestPriceBatchId}uncle_darrens_bone_cycle` &&
+        product.rawPayload.images?.length === 2 &&
+        product.rawPayload.jdReference?.itemUrl.includes('10219799018088') &&
+        product.rawPayload.importNotes?.jdVariantCandidates
+    )
+  );
+  assert.ok(
+    latestProducts.some(
+      (product) =>
+        product.externalId === `${latestPriceBatchId}uncle_darrens_brain_cycle` &&
+        product.rawPayload.images?.length === 2 &&
+        product.rawPayload.jdReference?.itemUrl.includes('10215367490540') &&
+        product.rawPayload.jdReference?.itemUrl.includes('10215367490542') &&
+        product.rawPayload.importNotes?.jdVariantCandidates
+    )
+  );
+  assert.ok(
+    latestProducts.some((product) =>
+      product.rawPayload.sourceRows?.join(",") === "2,66,88"
+    )
+  );
+  assert.ok(
+    listApprovedStorefrontProducts().every((product) => !product.externalId?.startsWith(latestPriceBatchId))
+  );
 });
 
 test("compliance scan catches banned terms and missing required disclaimers", () => {
