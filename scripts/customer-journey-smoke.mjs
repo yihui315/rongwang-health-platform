@@ -177,6 +177,7 @@ console.log(
     {
       decision: failures.length === 0 ? 'PASS' : 'FAIL',
       baseUrl,
+      smokeMode: 'customer-journey',
       checks: checks.length,
       failures: failures.map((item) => item.name),
     },

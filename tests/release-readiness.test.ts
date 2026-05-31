@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
-import { spawnSync } from 'node:child_process';
+import { spawn, spawnSync } from 'node:child_process';
 import { existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
+import { createServer, type IncomingMessage, type ServerResponse } from 'node:http';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { test } from 'node:test';
@@ -86,6 +87,195 @@ function runComplianceScan(env: NodeJS.ProcessEnv) {
       }>;
     },
   };
+}
+
+async function runCustomerSmokeAsync(env: NodeJS.ProcessEnv) {
+  const child = spawn(process.execPath, ['scripts/customer-journey-smoke.mjs'], {
+    cwd: rootDir,
+    env,
+    stdio: ['ignore', 'pipe', 'pipe'],
+  });
+
+  let stdout = '';
+  let stderr = '';
+  child.stdout.setEncoding('utf8');
+  child.stderr.setEncoding('utf8');
+  child.stdout.on('data', (chunk) => {
+    stdout += chunk;
+  });
+  child.stderr.on('data', (chunk) => {
+    stderr += chunk;
+  });
+
+  const status = await new Promise<number | null>((resolve, reject) => {
+    child.on('error', reject);
+    child.on('close', resolve);
+  });
+
+  return {
+    status,
+    stdout,
+    stderr,
+    summary: parseJsonSummary('scripts/customer-journey-smoke.mjs', stdout, stderr) as {
+      decision: 'PASS' | 'FAIL';
+      checks: number;
+      failures: string[];
+      smokeMode: 'customer-journey';
+    },
+  };
+}
+
+async function readRequestBody(request: IncomingMessage) {
+  const chunks: Buffer[] = [];
+  for await (const chunk of request) {
+    chunks.push(Buffer.isBuffer(chunk) ? chunk : Buffer.from(chunk));
+  }
+  const text = Buffer.concat(chunks).toString('utf8');
+  return text ? JSON.parse(text) : {};
+}
+
+function sendResponse(
+  response: ServerResponse,
+  status: number,
+  body: string,
+  headers: Record<string, string | string[]> = {}
+) {
+  response.writeHead(status, {
+    'Content-Type': 'text/html; charset=utf-8',
+    ...headers,
+  });
+  response.end(body);
+}
+
+function sendJson(response: ServerResponse, status: number, body: unknown, headers: Record<string, string | string[]> = {}) {
+  sendResponse(response, status, JSON.stringify(body), {
+    'Content-Type': 'application/json; charset=utf-8',
+    ...headers,
+  });
+}
+
+async function withCustomerSmokeServer(callback: (baseUrl: string, state: { smokeSourceSeen: boolean }) => Promise<void>) {
+  const state = { smokeSourceSeen: false };
+  let lastReportId = '';
+  let lastLeadId = '';
+  let lastPlanId = '';
+
+  const server = createServer(async (request, response) => {
+    const url = new URL(request.url || '/', 'http://localhost');
+
+    if (request.method === 'GET' && url.pathname === '/products') {
+      sendResponse(
+        response,
+        200,
+        '已审核商品展示 官网商城当前为商品展示与顾问确认入口 微信商城/小程序待开通 本品不能替代药物'
+      );
+      return;
+    }
+
+    if (request.method === 'GET' && url.pathname === '/products/prod_demo_approved') {
+      sendResponse(response, 200, '荣旺进口维生素营养片 当前不提供站内支付 本商品符合原产国标准');
+      return;
+    }
+
+    if (request.method === 'POST' && url.pathname === '/api/health-report') {
+      const body = await readRequestBody(request);
+      state.smokeSourceSeen = body.source === 'customer_journey_smoke';
+      lastReportId = 'report_smoke_1';
+      lastLeadId = 'lead_smoke_1';
+      sendJson(response, 200, {
+        ok: true,
+        lead: {
+          id: lastLeadId,
+          source: body.source,
+          consent: body.consent,
+        },
+        report: {
+          id: lastReportId,
+          status: 'pending_manual_review',
+          overallScore: 72,
+          manualReviewRequired: true,
+        },
+      });
+      return;
+    }
+
+    if (request.method === 'POST' && url.pathname === '/api/marketing/plan') {
+      lastPlanId = 'plan_smoke_1';
+      sendJson(response, 200, {
+        ok: true,
+        plan: {
+          id: lastPlanId,
+          status: 'pending_manual_review',
+          automationLevel: 'draft_only',
+          workflow: { reviewGate: 'manual_approval_required' },
+          complianceSummary: { autoSendBlocked: true },
+        },
+      });
+      return;
+    }
+
+    if (request.method === 'GET' && url.pathname === '/workspace') {
+      if (!request.headers.cookie?.includes('rongwang_admin_token=smoke-admin-token')) {
+        response.writeHead(307, { Location: '/login?next=/workspace' });
+        response.end();
+        return;
+      }
+      sendResponse(response, 200, '运营审核工作台 上线准备核对 微信登录 未开通');
+      return;
+    }
+
+    if (request.method === 'POST' && url.pathname === '/api/auth/login') {
+      const body = await readRequestBody(request);
+      if (body.token !== 'smoke-admin-token') {
+        sendJson(response, 401, { ok: false });
+        return;
+      }
+      sendJson(response, 200, { ok: true }, { 'Set-Cookie': 'rongwang_admin_token=smoke-admin-token; Path=/; HttpOnly' });
+      return;
+    }
+
+    if (request.method === 'GET' && url.pathname === '/api/health-report') {
+      if (!request.headers.cookie?.includes('rongwang_admin_token=smoke-admin-token')) {
+        sendJson(response, 401, { ok: false });
+        return;
+      }
+      sendJson(response, 200, {
+        ok: true,
+        reports: [{ id: lastReportId }],
+        leads: [{ id: lastLeadId, source: 'customer_journey_smoke' }],
+      });
+      return;
+    }
+
+    if (request.method === 'GET' && url.pathname === '/api/marketing/plan') {
+      if (!request.headers.cookie?.includes('rongwang_admin_token=smoke-admin-token')) {
+        sendJson(response, 401, { ok: false });
+        return;
+      }
+      sendJson(response, 200, {
+        ok: true,
+        plans: [{ id: lastPlanId }],
+      });
+      return;
+    }
+
+    sendResponse(response, 404, 'not found');
+  });
+
+  await new Promise<void>((resolve) => server.listen(0, '127.0.0.1', resolve));
+  const address = server.address();
+  assert.ok(address && typeof address === 'object');
+
+  try {
+    await callback(`http://127.0.0.1:${address.port}`, state);
+  } finally {
+    await new Promise<void>((resolve, reject) => {
+      server.close((error) => {
+        if (error) reject(error);
+        else resolve();
+      });
+    });
+  }
 }
 
 function currentEnvironmentWithoutAdminToken(): NodeJS.ProcessEnv {
@@ -225,6 +415,23 @@ test('compliance scan executes against configured roots and blocks risky public 
   } finally {
     rmSync(tempDir, { recursive: true, force: true });
   }
+});
+
+test('customer journey smoke verifies protected workspace and manual-review flow against a local server', async () => {
+  await withCustomerSmokeServer(async (baseUrl, state) => {
+    const result = await runCustomerSmokeAsync({
+      ...process.env,
+      SMOKE_BASE_URL: baseUrl,
+      RONGWANG_ADMIN_TOKEN: 'smoke-admin-token',
+    });
+
+    assert.equal(result.status, 0);
+    assert.equal(result.summary.decision, 'PASS');
+    assert.equal(result.summary.smokeMode, 'customer-journey');
+    assert.equal(result.summary.failures.length, 0);
+    assert.ok(result.summary.checks >= 20);
+    assert.equal(state.smokeSourceSeen, true);
+  });
 });
 
 test('wechat launch readiness is documented without requiring production credentials for MVP', () => {
