@@ -90,7 +90,21 @@ function runComplianceScan(env: NodeJS.ProcessEnv) {
 }
 
 async function runCustomerSmokeAsync(env: NodeJS.ProcessEnv) {
-  const child = spawn(process.execPath, ['scripts/customer-journey-smoke.mjs'], {
+  const result = await runProjectScriptAsync('scripts/customer-journey-smoke.mjs', env);
+
+  return {
+    ...result,
+    summary: result.summary as {
+      decision: 'PASS' | 'FAIL';
+      checks: number;
+      failures: string[];
+      smokeMode: 'customer-journey';
+    },
+  };
+}
+
+async function runProjectScriptAsync(scriptPath: string, env: NodeJS.ProcessEnv) {
+  const child = spawn(process.execPath, [scriptPath], {
     cwd: rootDir,
     env,
     stdio: ['ignore', 'pipe', 'pipe'],
@@ -116,11 +130,34 @@ async function runCustomerSmokeAsync(env: NodeJS.ProcessEnv) {
     status,
     stdout,
     stderr,
-    summary: parseJsonSummary('scripts/customer-journey-smoke.mjs', stdout, stderr) as {
+    summary: parseJsonSummary(scriptPath, stdout, stderr),
+  };
+}
+
+async function runFastFunnelSmokeAsync(env: NodeJS.ProcessEnv) {
+  const result = await runProjectScriptAsync('scripts/smoke-fast-funnel.mjs', env);
+
+  return {
+    ...result,
+    summary: result.summary as {
       decision: 'PASS' | 'FAIL';
       checks: number;
       failures: string[];
-      smokeMode: 'customer-journey';
+      smokeMode: 'fast-funnel';
+    },
+  };
+}
+
+async function runAcceptanceSmokeAsync(env: NodeJS.ProcessEnv) {
+  const result = await runProjectScriptAsync('scripts/acceptance-fast-funnel.mjs', env);
+
+  return {
+    ...result,
+    summary: result.summary as {
+      decision: 'PASS' | 'FAIL';
+      homepageScenarioCardsCount: number;
+      productCardsFound: number;
+      failures: string[];
     },
   };
 }
@@ -174,6 +211,44 @@ async function withCustomerSmokeServer(callback: (baseUrl: string, state: { smok
 
     if (request.method === 'GET' && url.pathname === '/products/prod_demo_approved') {
       sendResponse(response, 200, '荣旺进口维生素营养片 当前不提供站内支付 本商品符合原产国标准');
+      return;
+    }
+
+    if (request.method === 'GET' && url.pathname === '/') {
+      sendResponse(
+        response,
+        200,
+        [
+          '按健康场景查看方案',
+          '<a href="/solutions/sleep-support">睡眠压力</a>',
+          '<a href="/solutions/brain-focus">脑力专注</a>',
+          '<a href="/solutions/liver-metabolism">肝脏代谢</a>',
+          '<a href="/solutions/joint-bone">关节骨骼</a>',
+          '<a href="/solutions/digestive-support">消化代谢</a>',
+          '<a href="/solutions/immune-support">免疫支持</a>',
+          '<a href="/solutions/men-health">男士健康</a>',
+          '<a href="/solutions/women-health">女士健康</a>',
+        ].join('\n')
+      );
+      return;
+    }
+
+    if (request.method === 'GET' && url.pathname.startsWith('/solutions/')) {
+      sendResponse(
+        response,
+        200,
+        [
+          '推荐产品',
+          '本页面内容仅用于健康教育',
+          '<article class="solution-product-card">推荐产品</article>',
+          '<a href="https://mobile.yangkeduo.com/goods.html?goods_id=123&utm_campaign=fast_funnel_v2">查看</a>',
+        ].join('\n')
+      );
+      return;
+    }
+
+    if (request.method === 'GET' && url.pathname === '/product-map/sleep-support-001') {
+      sendResponse(response, 200, '购买前复核');
       return;
     }
 
@@ -430,6 +505,36 @@ test('customer journey smoke verifies protected workspace and manual-review flow
     assert.equal(result.summary.smokeMode, 'customer-journey');
     assert.equal(result.summary.failures.length, 0);
     assert.ok(result.summary.checks >= 20);
+    assert.equal(state.smokeSourceSeen, true);
+  });
+});
+
+test('release smoke scripts run against one local server for funnel, acceptance, and customer journey', async () => {
+  await withCustomerSmokeServer(async (baseUrl, state) => {
+    const env = {
+      ...process.env,
+      SMOKE_BASE_URL: baseUrl,
+      RONGWANG_ADMIN_TOKEN: 'smoke-admin-token',
+    };
+
+    const fastFunnel = await runFastFunnelSmokeAsync(env);
+    assert.equal(fastFunnel.status, 0);
+    assert.equal(fastFunnel.summary.decision, 'PASS');
+    assert.equal(fastFunnel.summary.smokeMode, 'fast-funnel');
+    assert.equal(fastFunnel.summary.failures.length, 0);
+    assert.ok(fastFunnel.summary.checks >= 15);
+
+    const acceptance = await runAcceptanceSmokeAsync(env);
+    assert.equal(acceptance.status, 0);
+    assert.equal(acceptance.summary.decision, 'PASS');
+    assert.equal(acceptance.summary.failures.length, 0);
+    assert.ok(acceptance.summary.homepageScenarioCardsCount >= 8);
+    assert.ok(acceptance.summary.productCardsFound >= 4);
+
+    const customer = await runCustomerSmokeAsync(env);
+    assert.equal(customer.status, 0);
+    assert.equal(customer.summary.decision, 'PASS');
+    assert.equal(customer.summary.smokeMode, 'customer-journey');
     assert.equal(state.smokeSourceSeen, true);
   });
 });

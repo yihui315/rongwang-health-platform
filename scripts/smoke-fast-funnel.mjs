@@ -49,9 +49,20 @@ for (const item of checks) {
   console.log(`${item.ok ? 'PASS' : 'FAIL'} ${item.name}${item.detail ? ` - ${item.detail}` : ''}`);
 }
 
+console.log(
+  JSON.stringify(
+    {
+      decision: failures.length === 0 ? 'PASS' : 'FAIL',
+      baseUrl,
+      smokeMode: 'fast-funnel',
+      checks: checks.length,
+      failures: failures.map((item) => item.name),
+    },
+    null,
+    2
+  )
+);
+
 if (failures.length > 0) {
-  console.error(`Smoke failed with ${failures.length} issue(s).`);
   process.exit(1);
 }
-
-console.log('Smoke passed.');
