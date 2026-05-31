@@ -85,6 +85,14 @@ Record the JSON summary from each gate in the release log:
 
 Do not deploy if any JSON summary reports `decision: FAIL`, a non-empty `failures` array, missing `gateMode`, weak secrets, or an enabled high-risk production switch without explicit manual approval. Investigate the failed check, fix it on a new release commit, and restart this section from `npm run release:verify`.
 
+For a production-shaped dry run that does not write secrets, deploy, or enable high-risk integrations:
+
+```bash
+npm run release:dry-run
+```
+
+This command runs the strict production gate with in-memory dry-run secrets and checks the dry-run release log example. It must report `decision: PASS`, `releaseGate.gateMode: production`, and `releaseLog.decision: PASS` before the real release log is filled.
+
 For a local production smoke:
 
 ```bash

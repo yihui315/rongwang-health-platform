@@ -106,6 +106,29 @@ function runReleaseLogCheck(releaseLogPath: string) {
   };
 }
 
+function runReleaseDryRun() {
+  const result = runProjectScript('scripts/release-dry-run.mjs', process.env);
+
+  return {
+    ...result,
+    summary: result.summary as {
+      decision: 'PASS' | 'FAIL';
+      dryRun: true;
+      releaseGate: {
+        decision: 'PASS' | 'FAIL';
+        gateMode: 'production' | 'local-preview';
+        failures: string[];
+      };
+      releaseLog: {
+        decision: 'PASS' | 'FAIL';
+        checkedFile: string;
+        failures: string[];
+      };
+      failures: string[];
+    },
+  };
+}
+
 async function runCustomerSmokeAsync(env: NodeJS.ProcessEnv) {
   const result = await runProjectScriptAsync('scripts/customer-journey-smoke.mjs', env);
 
@@ -762,6 +785,29 @@ test('release log dry-run example is complete and passes verification without re
   assert.equal(result.summary.decision, 'PASS');
   assert.equal(result.summary.failures.length, 0);
   assert.ok(result.summary.checks >= 30);
+});
+
+test('release dry-run command executes strict production gate and release log verification', () => {
+  assert.ok(existsSync(path.join(rootDir, 'scripts/release-dry-run.mjs')), 'release dry-run script is missing');
+
+  const packageJson = JSON.parse(readProjectFile('package.json')) as { scripts: Record<string, string> };
+  assert.equal(packageJson.scripts['release:dry-run'], 'node scripts/release-dry-run.mjs');
+
+  const runbook = readProjectFile('docs/release-runbook.md');
+  assert.match(runbook, /npm run release:dry-run/);
+  assert.match(runbook, /strict production gate/i);
+
+  const result = runReleaseDryRun();
+  assert.equal(result.status, 0);
+  assert.equal(result.summary.decision, 'PASS');
+  assert.equal(result.summary.dryRun, true);
+  assert.equal(result.summary.releaseGate.decision, 'PASS');
+  assert.equal(result.summary.releaseGate.gateMode, 'production');
+  assert.equal(result.summary.releaseGate.failures.length, 0);
+  assert.equal(result.summary.releaseLog.decision, 'PASS');
+  assert.match(result.summary.releaseLog.checkedFile, /docs\/release-log-dry-run-example\.md$/);
+  assert.equal(result.summary.releaseLog.failures.length, 0);
+  assert.equal(result.summary.failures.length, 0);
 });
 
 test('wechat launch readiness is documented without requiring production credentials for MVP', () => {
