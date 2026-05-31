@@ -539,6 +539,28 @@ test('release smoke scripts run against one local server for funnel, acceptance,
   });
 });
 
+test('release runbook documents machine-readable release and smoke gate outputs', () => {
+  const runbook = readProjectFile('docs/release-runbook.md');
+
+  for (const required of [
+    'gateMode',
+    'smokeMode',
+    'fast-funnel',
+    'customer-journey',
+    'homepageScenarioCardsCount',
+    'productCardsFound',
+    'trackingHookDetected',
+    'COMPLIANCE_SCAN_ROOTS',
+    'decision: PASS',
+    'failures',
+    'Do not deploy',
+    'rollback',
+    'investigate',
+  ]) {
+    assert.match(runbook, new RegExp(required));
+  }
+});
+
 test('wechat launch readiness is documented without requiring production credentials for MVP', () => {
   const envExample = readProjectFile('.env.example');
   const deployCheck = readProjectFile('scripts/deploy-check.mjs');

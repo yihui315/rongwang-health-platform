@@ -77,6 +77,14 @@ RONGWANG_RELEASE_TARGET=production npm run release:gate
 
 `npm run release:gate` must pass with an HTTPS `NEXT_PUBLIC_SITE_URL`, strong `APP_SECRET`, `JWT_SECRET`, and `RONGWANG_ADMIN_TOKEN` values of at least 32 characters. Do not use placeholder, example, repeated, low-diversity, or shared secret values. The WeChat login, WeChat store, payment, automated marketing send, and auto listing publish switches must remain `false` unless the release log contains manual approval for the exact integration being opened.
 
+Record the JSON summary from each gate in the release log:
+
+- `npm run deploy:check` must end with `decision: PASS`, `gateMode: ready`, a nonzero `checks` count, and an empty `failures` array.
+- `npm run release:gate` must end with `decision: PASS`, an empty `failures` array, and `inspectedEnvironment.gateMode: production` for the strict production check. `inspectedEnvironment.gateMode: local-preview` is acceptable only before production-shaped values are loaded.
+- `npm run compliance:scan` must end with `decision: PASS`. Use `COMPLIANCE_SCAN_ROOTS=<path>` when spot-checking a built archive, copied release directory, or a narrowed review package outside the default `app,src` roots.
+
+Do not deploy if any JSON summary reports `decision: FAIL`, a non-empty `failures` array, missing `gateMode`, weak secrets, or an enabled high-risk production switch without explicit manual approval. Investigate the failed check, fix it on a new release commit, and restart this section from `npm run release:verify`.
+
 For a local production smoke:
 
 ```bash
@@ -126,6 +134,14 @@ Run:
 SMOKE_BASE_URL=https://rongwang.hk npm run release:smoke
 SMOKE_BASE_URL=https://rongwang.hk npm run customer:smoke
 ```
+
+Record these machine-readable smoke summaries:
+
+- Fast funnel smoke must report `decision: PASS`, `smokeMode: fast-funnel`, a nonzero `checks` count, and an empty `failures` array.
+- Acceptance smoke must report `decision: PASS`, `homepageScenarioCardsCount >= 8`, `productCardsFound >= 4`, `trackingHookDetected: true`, and an empty `failures` array.
+- Customer journey smoke must report `decision: PASS`, `smokeMode: customer-journey`, a nonzero `checks` count, and an empty `failures` array. The submitted lead source must remain `customer_journey_smoke`, health reports must stay `pending_manual_review`, and marketing plans must remain draft/manual-review only.
+
+If any postdeploy smoke summary reports `decision: FAIL`, a non-empty `failures` array, missing `smokeMode` for the fast funnel or customer journey script, or missing tracking/customer-review evidence, stop the release. Roll back first when production traffic is affected, then investigate with the failing JSON field and rerun the complete smoke suite before declaring recovery.
 
 Manually verify:
 
