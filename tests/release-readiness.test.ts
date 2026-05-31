@@ -89,6 +89,23 @@ function runComplianceScan(env: NodeJS.ProcessEnv) {
   };
 }
 
+function runReleaseLogCheck(releaseLogPath: string) {
+  const result = runProjectScript('scripts/release-log-check.mjs', {
+    ...process.env,
+    RELEASE_LOG_PATH: releaseLogPath,
+  });
+
+  return {
+    ...result,
+    summary: result.summary as {
+      decision: 'PASS' | 'FAIL';
+      checkedFile: string;
+      checks: number;
+      failures: string[];
+    },
+  };
+}
+
 async function runCustomerSmokeAsync(env: NodeJS.ProcessEnv) {
   const result = await runProjectScriptAsync('scripts/customer-journey-smoke.mjs', env);
 
@@ -598,6 +615,129 @@ test('release log template captures gate evidence, manual approvals, and rollbac
     'Do not deploy',
   ]) {
     assert.match(template, new RegExp(required));
+  }
+});
+
+test('release log check blocks incomplete gate evidence and missing manual signatures', () => {
+  assert.ok(existsSync(path.join(rootDir, 'scripts/release-log-check.mjs')), 'release-log-check script is missing');
+
+  const packageJson = JSON.parse(readProjectFile('package.json')) as { scripts: Record<string, string> };
+  assert.equal(packageJson.scripts['release-log:check'], 'node scripts/release-log-check.mjs');
+
+  const tempDir = mkdtempSync(path.join(tmpdir(), 'rongwang-release-log-'));
+
+  try {
+    const passingLogPath = path.join(tempDir, 'passing-release-log.md');
+    writeFileSync(
+      passingLogPath,
+      [
+        '# Test Release Log',
+        '',
+        '- Release commit: abc123',
+        '- Release branch: production',
+        '- Release timestamp: 2026-05-31T19:00:00+08:00',
+        '- Operator: QA Operator',
+        '- Reviewer: Compliance Reviewer',
+        '- Target site: https://rongwang.hk',
+        '- Release package path: /tmp/rongwang-health-platform-abc123.tgz',
+        '- Previous release id: previous-release',
+        '',
+        '- `RONGWANG_RELEASE_TARGET=production`: confirmed',
+        '- `NEXT_PUBLIC_SITE_URL=https://rongwang.hk`: confirmed',
+        '- `RONGWANG_ADMIN_TOKEN` stored in secret manager, not in this log: confirmed',
+        '- `APP_SECRET` stored in secret manager, not in this log: confirmed',
+        '- `JWT_SECRET` stored in secret manager, not in this log: confirmed',
+        '- `ALLOW_WECHAT_LOGIN_PRODUCTION=false`: confirmed',
+        '- `ALLOW_WECHAT_STORE_PRODUCTION=false`: confirmed',
+        '- `ALLOW_PAYMENT_PRODUCTION=false`: confirmed',
+        '- `ALLOW_AUTOMATED_MARKETING_SEND=false`: confirmed',
+        '- `ALLOW_AUTO_LISTING_PUBLISH=false`: confirmed',
+        '',
+        '### `deploy:check JSON`',
+        '```json',
+        '{"decision":"PASS","checks":32,"failures":[],"gateMode":"ready"}',
+        '```',
+        '',
+        '### `release:gate JSON`',
+        '```json',
+        '{"decision":"PASS","checks":17,"failures":[],"inspectedEnvironment":{"gateMode":"production"}}',
+        '```',
+        '',
+        '### `compliance:scan JSON`',
+        '```json',
+        '{"decision":"PASS","scannedFiles":102}',
+        '```',
+        '',
+        '- WeChat login: not applicable, signer QA, 2026-05-31T19:05:00+08:00',
+        '- WeChat store: not applicable, signer QA, 2026-05-31T19:05:00+08:00',
+        '- mini program: not applicable, signer QA, 2026-05-31T19:05:00+08:00',
+        '- payment: not applicable, signer QA, 2026-05-31T19:05:00+08:00',
+        '- automated marketing send: not applicable, signer QA, 2026-05-31T19:05:00+08:00',
+        '- auto listing publish: not applicable, signer QA, 2026-05-31T19:05:00+08:00',
+        '- health report approval: approved, signer QA, 2026-05-31T19:05:00+08:00',
+        '- marketing draft approval: approved, signer QA, 2026-05-31T19:05:00+08:00',
+        '- product copy publication: approved, signer QA, 2026-05-31T19:05:00+08:00',
+        '- channel listing publication: not applicable, signer QA, 2026-05-31T19:05:00+08:00',
+        '',
+        '- Product pages preserve `本品不能替代药物`: confirmed',
+        '- Cross-border pages preserve `本商品符合原产国标准` and the standard-difference notice: confirmed',
+        '- AI health reports remain `pending_manual_review` when risk is elevated: confirmed',
+        '- Marketing workflows remain `draft_only` and `manual_approval_required`: confirmed',
+        '- No treatment, cure, guaranteed-effect, or disease claim was introduced: confirmed',
+        '',
+        '### `release:smoke JSON` fast funnel',
+        '```json',
+        '{"decision":"PASS","smokeMode":"fast-funnel","checks":19,"failures":[]}',
+        '```',
+        '',
+        '### `release:smoke JSON` acceptance',
+        '```json',
+        '{"decision":"PASS","homepageScenarioCardsCount":8,"productCardsFound":8,"trackingHookDetected":true,"failures":[]}',
+        '```',
+        '',
+        '### `customer:smoke JSON`',
+        '```json',
+        '{"decision":"PASS","smokeMode":"customer-journey","checks":29,"failures":[]}',
+        '```',
+        '',
+        '- Home page loads: confirmed',
+        '- `/products` loads approved products only: confirmed',
+        '- `/ai-consult` accepts a test consultation into manual review: confirmed',
+        '- `/workspace` redirects unauthorized users to login: confirmed',
+        '- `/workspace` is reachable after admin login: confirmed',
+        '- `/compliance` shows required statements: confirmed',
+        '- `/api/mock/*` write routes reject unauthorized requests: confirmed',
+        '',
+        '- Rollback decision: not needed',
+        '- Rollback trigger if any: none',
+        '- Previous release id used: previous-release',
+        '- Rollback operator: QA Operator',
+        '- Recovery smoke command: not needed',
+        '- Recovery smoke result: not needed',
+      ].join('\n')
+    );
+
+    const passing = runReleaseLogCheck(passingLogPath);
+    assert.equal(passing.status, 0);
+    assert.equal(passing.summary.decision, 'PASS');
+    assert.equal(passing.summary.failures.length, 0);
+    assert.ok(passing.summary.checks >= 30);
+
+    const failingLogPath = path.join(tempDir, 'failing-release-log.md');
+    writeFileSync(
+      failingLogPath,
+      readFileSync(passingLogPath, 'utf8')
+        .replace('"decision":"PASS","checks":17', '"decision":"FAIL","checks":17')
+        .replace('- payment: not applicable, signer QA, 2026-05-31T19:05:00+08:00', '- payment:')
+    );
+
+    const failing = runReleaseLogCheck(failingLogPath);
+    assert.equal(failing.status, 1);
+    assert.equal(failing.summary.decision, 'FAIL');
+    assert.match(failing.summary.failures.join('\n'), /release:gate JSON must have decision PASS/);
+    assert.match(failing.summary.failures.join('\n'), /payment manual approval entry must be signed/);
+  } finally {
+    rmSync(tempDir, { recursive: true, force: true });
   }
 });
 
