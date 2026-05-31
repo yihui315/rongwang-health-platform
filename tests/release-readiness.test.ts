@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import { spawnSync } from 'node:child_process';
 import { existsSync, readFileSync } from 'node:fs';
 import path from 'node:path';
 import { test } from 'node:test';
@@ -7,6 +8,34 @@ const rootDir = process.cwd();
 
 function readProjectFile(relativePath: string): string {
   return readFileSync(path.join(rootDir, relativePath), 'utf8');
+}
+
+function runReleaseGate(env: Record<string, string>) {
+  const result = spawnSync(process.execPath, ['scripts/release-gate.mjs'], {
+    cwd: rootDir,
+    env: {
+      ...process.env,
+      ...env,
+    },
+    encoding: 'utf8',
+  });
+
+  const jsonStart = result.stdout.lastIndexOf('\n{');
+  assert.notEqual(jsonStart, -1, `release gate did not print JSON summary:\n${result.stdout}\n${result.stderr}`);
+  const summary = JSON.parse(result.stdout.slice(jsonStart + 1)) as {
+    decision: 'PASS' | 'FAIL';
+    failures: string[];
+    inspectedEnvironment: {
+      gateMode: 'local-preview' | 'production';
+    };
+  };
+
+  return {
+    status: result.status,
+    stdout: result.stdout,
+    stderr: result.stderr,
+    summary,
+  };
 }
 
 test('release readiness provides repeatable deploy checks and runbooks', () => {
@@ -177,6 +206,51 @@ test('production release gate blocks weak secrets and unapproved live integratio
   ]) {
     assert.match(runbook, new RegExp(required));
   }
+});
+
+test('release gate executes local and production decisions with explicit JSON mode', () => {
+  const localPreview = runReleaseGate({});
+  assert.equal(localPreview.status, 0);
+  assert.equal(localPreview.summary.decision, 'PASS');
+  assert.equal(localPreview.summary.inspectedEnvironment.gateMode, 'local-preview');
+
+  const productionBaseEnv = {
+    RONGWANG_RELEASE_TARGET: 'production',
+    NEXT_PUBLIC_SITE_URL: 'https://rongwang.hk',
+    RONGWANG_ADMIN_TOKEN: 'rwAdm_2026_X7mQ2pL9sV4hN8cT3yB6kR5',
+    APP_SECRET: 'rwApp_Z9vL3qR8mT2cH7xP5nK1aD4fG6',
+    JWT_SECRET: 'rwJwt_M4pR8tY2vB6nQ9xL3cH7sK5dF1',
+    ALLOW_WECHAT_LOGIN_PRODUCTION: 'false',
+    ALLOW_WECHAT_STORE_PRODUCTION: 'false',
+    ALLOW_PAYMENT_PRODUCTION: 'false',
+    ALLOW_AUTOMATED_MARKETING_SEND: 'false',
+    ALLOW_AUTO_LISTING_PUBLISH: 'false',
+  };
+
+  const productionReady = runReleaseGate(productionBaseEnv);
+  assert.equal(productionReady.status, 0);
+  assert.equal(productionReady.summary.decision, 'PASS');
+  assert.equal(productionReady.summary.inspectedEnvironment.gateMode, 'production');
+
+  const weakSecrets = runReleaseGate({
+    ...productionBaseEnv,
+    RONGWANG_ADMIN_TOKEN: 'placeholder-secret-placeholder-secret',
+    APP_SECRET: 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+    JWT_SECRET: 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+  });
+  assert.equal(weakSecrets.status, 1);
+  assert.equal(weakSecrets.summary.decision, 'FAIL');
+  assert.match(weakSecrets.summary.failures.join('\n'), /placeholder secret values/);
+  assert.match(weakSecrets.summary.failures.join('\n'), /low-diversity secret values/);
+  assert.match(weakSecrets.summary.failures.join('\n'), /APP_SECRET and JWT_SECRET must be different/);
+
+  const unsafeWechatOpen = runReleaseGate({
+    ...productionBaseEnv,
+    ALLOW_WECHAT_LOGIN_PRODUCTION: 'true',
+  });
+  assert.equal(unsafeWechatOpen.status, 1);
+  assert.equal(unsafeWechatOpen.summary.decision, 'FAIL');
+  assert.ok(unsafeWechatOpen.summary.failures.includes('ALLOW_WECHAT_LOGIN_PRODUCTION must remain false until manual approval'));
 });
 
 test('latest price sheet compliance notes avoid public risky terms', () => {

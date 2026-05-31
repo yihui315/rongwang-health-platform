@@ -139,6 +139,7 @@ console.log(
       failures: failures.map((check) => check.name),
       inspectedEnvironment: {
         siteUrl,
+        gateMode: productionGateEnabled ? 'production' : 'local-preview',
         releaseTarget: productionGateEnabled ? 'production' : 'local-preview',
         productionIntegrationsRequireManualApproval: true,
       },
