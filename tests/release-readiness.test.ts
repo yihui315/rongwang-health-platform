@@ -578,6 +578,14 @@ test('release runbook documents machine-readable release and smoke gate outputs'
   }
 });
 
+test('release runbook requires completed release log verification before release signoff', () => {
+  const runbook = readProjectFile('docs/release-runbook.md');
+
+  assert.match(runbook, /npm run release-log:check -- <completed-release-log\.md>/);
+  assert.match(runbook, /completed release log/i);
+  assert.match(runbook, /do not declare the release ready/i);
+});
+
 test('release log template captures gate evidence, manual approvals, and rollback notes', () => {
   assert.ok(existsSync(path.join(rootDir, 'docs/release-log-template.md')), 'release log template is missing');
 

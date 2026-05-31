@@ -97,6 +97,16 @@ Confirm `/workspace` redirects to login when unauthorized, `npm run customer:smo
 
 For admin login checks, local HTTP loopback preview may omit the Secure cookie flag so `http://localhost` and `http://127.0.0.1` smoke tests can save the protected cookie. Production HTTPS must keep the admin cookie Secure.
 
+## Release Log Verification
+
+After the predeploy gate outputs, manual approvals, compliance checks, and local smoke summaries are copied into the completed release log, run:
+
+```bash
+npm run release-log:check -- <completed-release-log.md>
+```
+
+The completed release log check must report `decision: PASS` before archive creation, server deployment, or release signoff. Do not declare the release ready if `release-log:check` reports `decision: FAIL`, missing JSON evidence, unsigned manual approvals, unconfirmed compliance checks, or rollback fields that are still blank.
+
 ## Artifact Build
 
 Use a clean release commit:
