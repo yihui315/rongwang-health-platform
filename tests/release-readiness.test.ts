@@ -749,6 +749,21 @@ test('release log check blocks incomplete gate evidence and missing manual signa
   }
 });
 
+test('release log dry-run example is complete and passes verification without real secrets', () => {
+  const samplePath = 'docs/release-log-dry-run-example.md';
+  assert.ok(existsSync(path.join(rootDir, samplePath)), 'dry-run release log example is missing');
+
+  const sample = readProjectFile(samplePath);
+  assert.match(sample, /dry run/i);
+  assert.match(sample, /no real secrets/i);
+
+  const result = runReleaseLogCheck(samplePath);
+  assert.equal(result.status, 0);
+  assert.equal(result.summary.decision, 'PASS');
+  assert.equal(result.summary.failures.length, 0);
+  assert.ok(result.summary.checks >= 30);
+});
+
 test('wechat launch readiness is documented without requiring production credentials for MVP', () => {
   const envExample = readProjectFile('.env.example');
   const deployCheck = readProjectFile('scripts/deploy-check.mjs');
