@@ -7,6 +7,10 @@ export interface RongwangMemoryStore {
   consultations: Map<string, MemoryRecord>;
   healthProfiles: Map<string, MemoryRecord>;
   assessmentReports: Map<string, MemoryRecord>;
+  marketingPlans: Map<string, MemoryRecord>;
+  outboundQueue: Map<string, MemoryRecord>;
+  sendEvents: Map<string, MemoryRecord>;
+  auditEvents: Map<string, MemoryRecord>;
 }
 
 const globalForMemory = globalThis as typeof globalThis & {
@@ -26,6 +30,10 @@ export function getMemoryStore() {
       consultations: new Map(),
       healthProfiles: new Map(),
       assessmentReports: new Map(),
+      marketingPlans: new Map(),
+      outboundQueue: new Map(),
+      sendEvents: new Map(),
+      auditEvents: new Map(),
     };
   }
 

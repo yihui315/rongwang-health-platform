@@ -120,6 +120,7 @@ model UserHealthProfile {
   snapshotVersion String      @default("health-profile-v1")
   source          String?
   metadata        Json?
+  retentionExpiresAt DateTime?
   createdAt       DateTime    @default(now())
   updatedAt       DateTime    @updatedAt
   userAccount     UserAccount @relation(fields: [userAccountId], references: [id], onDelete: Cascade)
@@ -127,6 +128,7 @@ model UserHealthProfile {
 
   @@index([userAccountId, createdAt])
   @@index([source])
+  @@index([retentionExpiresAt])
 }
 
 model AssessmentReport {
@@ -146,6 +148,11 @@ model AssessmentReport {
   promptVersion           String?
   reportVersion           String        @default("assessment-report-v1")
   source                  String?
+  status                  String        @default("pending_manual_review")
+  reviewNotes             String?
+  reviewer                String?
+  reviewedAt              DateTime?
+  retentionExpiresAt      DateTime?
   metadata                Json?
   createdAt               DateTime      @default(now())
   updatedAt               DateTime      @updatedAt
@@ -157,6 +164,8 @@ model AssessmentReport {
   @@index([userAccountId, createdAt])
   @@index([riskLevel])
   @@index([recommendedSolutionType])
+  @@index([status])
+  @@index([retentionExpiresAt])
 }
 
 model Product {
@@ -279,18 +288,112 @@ model RecommendationRule {
 }
 
 model Lead {
-  id        String       @id @default(cuid())
-  sessionId String?
-  contact   String?
-  source    String?
-  intent    String?
-  payload   Json?
-  createdAt DateTime     @default(now())
-  updatedAt DateTime     @updatedAt
-  session   UserSession? @relation(fields: [sessionId], references: [id], onDelete: SetNull)
+  id                          String       @id @default(cuid())
+  sessionId                   String?
+  contact                     String?
+  source                      String?
+  intent                      String?
+  status                      String       @default("new")
+  privacyAccepted             Boolean      @default(false)
+  termsAccepted               Boolean      @default(false)
+  sensitiveHealthDataAccepted Boolean      @default(false)
+  marketingContactAccepted    Boolean      @default(false)
+  consentVersion              String?
+  consentedAt                 DateTime?
+  retentionExpiresAt          DateTime?
+  stopContactRequested        Boolean      @default(false)
+  payload                     Json?
+  createdAt                   DateTime     @default(now())
+  updatedAt                   DateTime     @updatedAt
+  session                     UserSession? @relation(fields: [sessionId], references: [id], onDelete: SetNull)
+  outboundQueueEntries        OutboundQueueEntry[]
 
   @@index([createdAt])
   @@index([source])
+  @@index([status])
+  @@index([retentionExpiresAt])
+}
+
+model MarketingPlan {
+  id                   String               @id @default(cuid())
+  campaignSlug         String
+  objective            String
+  audience             String
+  keyword              String
+  solutionSlug         String?
+  channels             String[]
+  status               String               @default("pending_manual_review")
+  planJson             Json
+  complianceJson       Json
+  reviewHistory        Json?
+  metadata             Json?
+  retentionExpiresAt   DateTime?
+  createdAt            DateTime             @default(now())
+  updatedAt            DateTime             @updatedAt
+  outboundQueueEntries OutboundQueueEntry[]
+
+  @@index([campaignSlug])
+  @@index([status])
+  @@index([createdAt])
+  @@index([retentionExpiresAt])
+}
+
+model OutboundQueueEntry {
+  id              String        @id @default(cuid())
+  marketingPlanId String
+  leadId          String?
+  channel         String
+  destination     String?
+  status          String        @default("blocked")
+  blockedReasons  String[]
+  gateSnapshot    Json
+  payload         Json
+  metadata        Json?
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+  marketingPlan   MarketingPlan @relation(fields: [marketingPlanId], references: [id], onDelete: Cascade)
+  lead            Lead?         @relation(fields: [leadId], references: [id], onDelete: SetNull)
+  sendEvents      SendEvent[]
+
+  @@index([marketingPlanId])
+  @@index([leadId])
+  @@index([channel])
+  @@index([status])
+  @@index([createdAt])
+}
+
+model SendEvent {
+  id                   String              @id @default(cuid())
+  outboundQueueEntryId String?
+  marketingPlanId      String?
+  channel              String
+  provider             String?
+  status               String
+  payload              Json?
+  responseJson         Json?
+  metadata             Json?
+  createdAt            DateTime            @default(now())
+  outboundQueueEntry   OutboundQueueEntry? @relation(fields: [outboundQueueEntryId], references: [id], onDelete: SetNull)
+
+  @@index([outboundQueueEntryId])
+  @@index([marketingPlanId])
+  @@index([channel])
+  @@index([status])
+  @@index([createdAt])
+}
+
+model AuditEvent {
+  id         String   @id @default(cuid())
+  actor      String?
+  action     String
+  targetType String
+  targetId   String?
+  metadata   Json?
+  createdAt  DateTime @default(now())
+
+  @@index([action])
+  @@index([targetType, targetId])
+  @@index([createdAt])
 }
 
 model PddClick {

@@ -4,6 +4,11 @@ import {
   buildMarketingCampaignPlan,
   evaluateMarketingCompliance,
 } from "@/lib/marketing/automation";
+import {
+  blockedReasonsForGate,
+  buildOutboundQueueDrafts,
+  createOutboundGateSnapshot,
+} from "@/lib/marketing/outbound-queue";
 
 test("marketing automation plans keep AI assessment as the primary conversion path", () => {
   const plan = buildMarketingCampaignPlan({
@@ -35,4 +40,33 @@ test("marketing compliance blocks medical diagnosis and absolute effect claims",
   assert.equal(result.approved, false);
   assert.equal(result.warnings.length >= 3, true);
   assert.match(result.safeDisclaimer, /健康教育/);
+});
+
+test("outbound queue gates block automated sends by default", () => {
+  const plan = buildMarketingCampaignPlan({
+    objective: "assessment_conversion",
+    audience: "sleep support subscribers",
+    solution: "sleep",
+    keyword: "sleep support",
+    campaignSlug: "sleep-outbound-gate",
+    channels: ["wechat", "email"],
+  });
+
+  const snapshot = createOutboundGateSnapshot({
+    planStatus: "pending_manual_review",
+    complianceApproved: true,
+    channel: "wechat",
+  });
+  const reasons = blockedReasonsForGate(snapshot);
+  assert.equal(reasons.includes("marketing_plan_not_approved"), true);
+  assert.equal(reasons.includes("automated_marketing_disabled"), true);
+  assert.equal(reasons.includes("manual_send_review_required"), true);
+
+  const drafts = buildOutboundQueueDrafts({
+    marketingPlanId: "marketing_plan_test",
+    plan,
+  });
+  assert.equal(drafts.length, 2);
+  assert.equal(drafts.every((draft) => draft.status === "blocked"), true);
+  assert.equal(drafts.every((draft) => draft.gateSnapshot.manualApprovalRequired), true);
 });

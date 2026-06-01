@@ -4,6 +4,8 @@ import {
   GET as getMarketingAutomation,
   POST as postMarketingAutomation,
 } from "@/app/api/marketing/automation/route";
+import { GET as getOutboundQueue } from "@/app/api/admin/outbound-queue/route";
+import { resetMemoryStore } from "@/lib/data/memory-store";
 
 async function withMarketingAutomationEnv<T>(fn: () => Promise<T>) {
   const previous = {
@@ -17,6 +19,9 @@ async function withMarketingAutomationEnv<T>(fn: () => Promise<T>) {
   process.env.FEATURE_MARKETING_AUTOMATION = "true";
   process.env.MARKETING_AUTOMATION_RATE_LIMIT = "2";
   process.env.MARKETING_AUTOMATION_RATE_WINDOW_MS = "60000";
+  process.env.RW_ENABLE_MEMORY_DB = "true";
+  delete process.env.DATABASE_URL;
+  resetMemoryStore();
 
   try {
     return await fn();
@@ -25,6 +30,8 @@ async function withMarketingAutomationEnv<T>(fn: () => Promise<T>) {
     process.env.FEATURE_MARKETING_AUTOMATION = previous.featureMarketingAutomation;
     process.env.MARKETING_AUTOMATION_RATE_LIMIT = previous.rateLimit;
     process.env.MARKETING_AUTOMATION_RATE_WINDOW_MS = previous.rateWindow;
+    delete process.env.RW_ENABLE_MEMORY_DB;
+    resetMemoryStore();
   }
 }
 
@@ -102,6 +109,35 @@ test("POST /api/marketing/automation returns an authorized dry-run campaign plan
     assert.equal(payload.wechatPublication.length, 1);
     assert.equal(payload.wechatPublication[0].status, "draft_only");
     assert.equal(payload.wechatPublication[0].publishAllowed, false);
+    assert.equal(payload.storedPlan.status, "pending_manual_review");
+    assert.equal(payload.storedPlan.outboundQueue.length, 2);
+    assert.equal(payload.storedPlan.outboundQueue.every((entry: { status: string }) => entry.status === "blocked"), true);
+  });
+});
+
+test("GET /api/admin/outbound-queue requires admin and returns blocked queue entries", async () => {
+  await withMarketingAutomationEnv(async () => {
+    await postMarketingAutomation(
+      marketingAutomationRequest({
+        token: "automation-admin",
+        ip: "198.51.100.23",
+      }),
+    );
+
+    const unauthorized = await getOutboundQueue(new Request("http://localhost/api/admin/outbound-queue"));
+    assert.equal(unauthorized.status, 401);
+
+    const authorized = await getOutboundQueue(
+      new Request("http://localhost/api/admin/outbound-queue", {
+        headers: { "x-admin-token": "automation-admin" },
+      }),
+    );
+    assert.equal(authorized.status, 200);
+    const payload = await authorized.json();
+    assert.equal(payload.success, true);
+    assert.equal(payload.queue.length >= 1, true);
+    assert.equal(payload.queue[0].status, "blocked");
+    assert.equal(payload.queue[0].blockedReasons.includes("manual_send_review_required"), true);
   });
 });
 

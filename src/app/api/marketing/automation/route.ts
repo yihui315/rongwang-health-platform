@@ -4,6 +4,7 @@ import { saveAnalyticsEvent } from "@/lib/data/analytics-events";
 import { isFeatureEnabled } from "@/lib/feature-flags";
 import { enforceMarketingAdminGuard } from "@/lib/marketing/api-guard";
 import { buildMarketingCampaignPlan } from "@/lib/marketing/automation";
+import { saveMarketingPlanDraft } from "@/lib/marketing/plan-store";
 import {
   getGeoFlowAutomationStatus,
   publishGeoFlowTaskDraft,
@@ -73,6 +74,7 @@ export async function POST(request: Request) {
   }
 
   const plan = buildMarketingCampaignPlan(parsed.data);
+  const storedPlan = await saveMarketingPlanDraft({ plan });
   const execute = parsed.data.execute === true;
   if (execute && !isAdminRequestAuthorized(request)) {
     return NextResponse.json({ success: false, error: "admin_required" }, { status: 401 });
@@ -103,6 +105,8 @@ export async function POST(request: Request) {
       mode,
       geoFlowTasks: plan.geoFlow.tasks.length,
       wechatArticles: wechatPublication.length,
+      marketingPlanId: storedPlan.id,
+      outboundQueueEntries: storedPlan.outboundQueue.length,
     },
   });
   await Promise.all(
@@ -113,6 +117,11 @@ export async function POST(request: Request) {
     success: true,
     mode,
     plan,
+    storedPlan: {
+      id: storedPlan.id,
+      status: storedPlan.status,
+      outboundQueue: storedPlan.outboundQueue,
+    },
     geoFlowResults,
     wechatPublication,
   });
