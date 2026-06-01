@@ -1,13 +1,29 @@
 import { NextRequest, NextResponse } from 'next/server';
+import type { Prisma } from '@prisma/client';
+import { getRetentionExpiresAt } from '@/lib/data/retention';
+import { getPrisma } from '@/lib/prisma';
 import { getSupabaseServer } from '@/lib/supabase';
 
 interface LeadPayload {
   name: string;
   phone: string;
   wechatId?: string;
+  source?: string;
+  intent?: string;
+  consent?: {
+    privacyAccepted?: boolean;
+    termsAccepted?: boolean;
+    sensitiveHealthDataAccepted?: boolean;
+    marketingContactAccepted?: boolean;
+    version?: string;
+  };
   answers?: Array<{ questionId: number; answer: string }>;
   recommendations?: string[];
   aiSummary?: string;
+}
+
+function toJson(value: unknown) {
+  return value as Prisma.InputJsonValue;
 }
 
 export async function POST(request: NextRequest) {
@@ -19,6 +35,36 @@ export async function POST(request: NextRequest) {
     }
 
     const supabase = getSupabaseServer();
+    const prisma = getPrisma();
+
+    if (prisma) {
+      await prisma.lead.create({
+        data: {
+          contact: body.phone,
+          source: body.source ?? 'ai-consult',
+          intent: body.intent ?? 'health_advisor_followup',
+          status: 'new',
+          privacyAccepted: body.consent?.privacyAccepted === true,
+          termsAccepted: body.consent?.termsAccepted === true,
+          sensitiveHealthDataAccepted: body.consent?.sensitiveHealthDataAccepted === true,
+          marketingContactAccepted: body.consent?.marketingContactAccepted === true,
+          consentVersion: body.consent?.version ?? 'lead-capture-v1',
+          consentedAt: new Date(),
+          retentionExpiresAt: getRetentionExpiresAt(),
+          payload: toJson({
+            name: body.name,
+            wechatId: body.wechatId ?? null,
+            answers: body.answers ?? [],
+            recommendations: body.recommendations ?? [],
+            aiSummary: body.aiSummary ?? null,
+            compliance: {
+              manualReviewRequired: true,
+              noAutomatedSend: true,
+            },
+          }),
+        },
+      });
+    }
 
     if (!supabase.isStub) {
       // Store in quiz_results with user contact info

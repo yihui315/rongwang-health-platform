@@ -315,6 +315,7 @@ printGroup("core", [
 printGroup("database", [
   formatKey(env, "DATABASE_URL"),
   formatKey(env, "DIRECT_URL"),
+  formatKey(env, "SENSITIVE_HEALTH_RETENTION_DAYS"),
   formatKey(env, "NEXT_PUBLIC_SUPABASE_URL"),
   formatKey(env, "NEXT_PUBLIC_SUPABASE_ANON_KEY"),
   formatKey(env, "SUPABASE_SERVICE_ROLE_KEY"),
@@ -364,6 +365,7 @@ printGroup("marketing automation", [
   formatKey(env, "MARKETING_LANDING_RATE_LIMIT"),
   formatKey(env, "MARKETING_AUTO_PUBLISH_GEOFLOW"),
   formatKey(env, "MARKETING_AUTOPILOT_EXECUTE"),
+  formatKey(env, "ALLOW_AUTOMATED_MARKETING_SEND"),
   formatKey(env, "GEOFLOW_DEFAULT_TITLE_LIBRARY_ID"),
   formatKey(env, "GEOFLOW_DEFAULT_PROMPT_ID"),
   formatKey(env, "GEOFLOW_DEFAULT_AI_MODEL_ID"),
@@ -428,6 +430,9 @@ if (productionProfile) {
   }
   if (env.MARKETING_AUTOPILOT_EXECUTE === "true" && env.MARKETING_AUTO_PUBLISH_GEOFLOW !== "true") {
     errors.push("MARKETING_AUTO_PUBLISH_GEOFLOW must be true before MARKETING_AUTOPILOT_EXECUTE=true");
+  }
+  if (env.ALLOW_AUTOMATED_MARKETING_SEND === "true") {
+    errors.push("ALLOW_AUTOMATED_MARKETING_SEND must remain false until manual outbound-channel approval");
   }
   if (probeAll) {
     for (const key of [

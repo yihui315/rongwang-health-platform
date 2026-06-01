@@ -2,6 +2,7 @@ import type { Prisma } from "@prisma/client";
 import { getPrisma } from "@/lib/prisma";
 import { getConsultationLogDetail } from "@/lib/data/consultations";
 import { getMemoryStore, isMemoryStoreEnabled } from "@/lib/data/memory-store";
+import { getRetentionExpiresAt } from "@/lib/data/retention";
 import type { UserSummary } from "@/lib/auth/user-service";
 
 export interface AssessmentReportSummary {
@@ -129,6 +130,7 @@ export async function saveAssessmentReportForUser(
   const recommendations = isUrgentRisk(detail.riskLevel) ? [] : detail.recommendations;
   const title = reportTitle(detail.riskLevel, detail.result.recommendedSolutionType);
   const prisma = getPrisma();
+  const retentionExpiresAt = getRetentionExpiresAt();
 
   if (prisma) {
     try {
@@ -150,6 +152,7 @@ export async function saveAssessmentReportForUser(
           profileJson: toJson(detail.profile),
           consentVersion: "assessment-save-v1",
           source: "ai-consult",
+          retentionExpiresAt,
         },
       });
 
@@ -169,9 +172,12 @@ export async function saveAssessmentReportForUser(
           aiModel: detail.aiLog?.model ?? null,
           promptVersion: detail.aiLog?.promptVersion ?? null,
           source: "ai-consult",
+          status: "pending_manual_review",
+          retentionExpiresAt,
           metadata: toJson({
             savedFrom: "assessment-result",
             aiStatus: detail.aiLog?.status ?? null,
+            manualReviewRequired: true,
           }),
         },
       });
@@ -202,6 +208,7 @@ export async function saveAssessmentReportForUser(
     profileJson: detail.profile,
     consentVersion: "assessment-save-v1",
     source: "ai-consult",
+    retentionExpiresAt: retentionExpiresAt.toISOString(),
     createdAt: nowIso(),
     updatedAt: nowIso(),
   });
@@ -221,6 +228,8 @@ export async function saveAssessmentReportForUser(
     aiProvider: detail.aiLog?.provider ?? null,
     aiModel: detail.aiLog?.model ?? null,
     promptVersion: detail.aiLog?.promptVersion ?? null,
+    status: "pending_manual_review",
+    retentionExpiresAt: retentionExpiresAt.toISOString(),
     createdAt: nowIso(),
     updatedAt: nowIso(),
   };

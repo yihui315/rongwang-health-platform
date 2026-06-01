@@ -1,0 +1,4 @@
+<view class="assessment-page">
+  <view class="title">AI 评估链接</view>
+  <view class="copy">请先完成健康评估，再查看教育内容和商城入口。</view>
+</view>
