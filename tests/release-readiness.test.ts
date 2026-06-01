@@ -408,8 +408,12 @@ test('release readiness provides repeatable deploy checks and runbooks', () => {
 
   const packageJson = JSON.parse(readProjectFile('package.json')) as { scripts: Record<string, string> };
   assert.equal(packageJson.scripts['deploy:check'], 'node scripts/deploy-check.mjs');
+  assert.equal(packageJson.scripts['db:schema-check'], 'node scripts/postgres-schema-check.mjs');
+  assert.equal(packageJson.scripts['db:postgres-smoke'], 'tsx scripts/postgres-assessment-smoke.mjs');
+  assert.equal(packageJson.scripts['db:postgres-smoke-cleanup'], 'node scripts/postgres-smoke-cleanup.mjs');
   assert.equal(packageJson.scripts['customer:smoke'], 'node scripts/customer-journey-smoke.mjs');
   assert.match(packageJson.scripts['release:verify'], /deploy:check/);
+  assert.match(packageJson.scripts['release:verify'], /db:schema-check/);
   assert.match(packageJson.scripts['release:verify'], /typecheck/);
   assert.match(packageJson.scripts['release:verify'], /test/);
   assert.match(packageJson.scripts['release:verify'], /build/);
@@ -428,6 +432,9 @@ test('release readiness provides repeatable deploy checks and runbooks', () => {
   assert.match(deployCheck, /RONGWANG_ADMIN_TOKEN must be set/);
   assert.match(deployCheck, /draft_only/);
   assert.match(deployCheck, /manual_approval_required/);
+  assert.match(deployCheck, /postgres schema check exists/);
+  assert.match(deployCheck, /postgres assessment smoke exists/);
+  assert.match(deployCheck, /postgres smoke cleanup exists/);
   assert.match(deployCheck, /release:verify/);
   assert.match(deployCheck, /customer journey smoke script exists/);
 
@@ -442,6 +449,12 @@ test('release readiness provides repeatable deploy checks and runbooks', () => {
     'rollback',
     'backup',
     'RONGWANG_ADMIN_TOKEN',
+    'npm run db:schema-check',
+    'RUN_POSTGRES_SCHEMA_CHECK=true',
+    'npm run db:postgres-smoke',
+    'RUN_POSTGRES_ASSESSMENT_SMOKE=true',
+    'npm run db:postgres-smoke-cleanup',
+    'CONFIRM_POSTGRES_SMOKE_CLEANUP=delete-smoke-records',
     'local HTTP loopback preview may omit the Secure cookie flag',
     'Production HTTPS must keep the admin cookie Secure',
     '本品不能替代药物',
@@ -892,6 +905,8 @@ test('production release gate blocks weak secrets and unapproved live integratio
   const envExample = readProjectFile('.env.example');
   for (const required of [
     'RONGWANG_RELEASE_TARGET=local-preview',
+    'RONGWANG_DATA_BACKEND=json',
+    'SENSITIVE_HEALTH_RETENTION_DAYS=180',
     'ALLOW_WECHAT_LOGIN_PRODUCTION=false',
     'ALLOW_WECHAT_STORE_PRODUCTION=false',
     'ALLOW_PAYMENT_PRODUCTION=false',
@@ -912,6 +927,8 @@ test('production release gate blocks weak secrets and unapproved live integratio
     'APP_SECRET and JWT_SECRET must be different',
     'RONGWANG_ADMIN_TOKEN must not reuse APP_SECRET or JWT_SECRET',
     'RONGWANG_RELEASE_TARGET',
+    'RONGWANG_DATA_BACKEND',
+    'RONGWANG_DATA_BACKEND must be postgres for production release',
     'ALLOW_WECHAT_LOGIN_PRODUCTION',
     'ALLOW_WECHAT_STORE_PRODUCTION',
     'ALLOW_PAYMENT_PRODUCTION',
@@ -952,6 +969,7 @@ test('release gate executes local and production decisions with explicit JSON mo
     ALLOW_PAYMENT_PRODUCTION: 'false',
     ALLOW_AUTOMATED_MARKETING_SEND: 'false',
     ALLOW_AUTO_LISTING_PUBLISH: 'false',
+    RONGWANG_DATA_BACKEND: 'postgres',
   };
 
   const productionReady = runReleaseGate(productionBaseEnv);
@@ -978,6 +996,14 @@ test('release gate executes local and production decisions with explicit JSON mo
   assert.equal(unsafeWechatOpen.status, 1);
   assert.equal(unsafeWechatOpen.summary.decision, 'FAIL');
   assert.ok(unsafeWechatOpen.summary.failures.includes('ALLOW_WECHAT_LOGIN_PRODUCTION must remain false until manual approval'));
+
+  const jsonBackend = runReleaseGate({
+    ...productionBaseEnv,
+    RONGWANG_DATA_BACKEND: 'json',
+  });
+  assert.equal(jsonBackend.status, 1);
+  assert.equal(jsonBackend.summary.decision, 'FAIL');
+  assert.ok(jsonBackend.summary.failures.includes('RONGWANG_DATA_BACKEND must be postgres for production release'));
 });
 
 test('latest price sheet compliance notes avoid public risky terms', () => {

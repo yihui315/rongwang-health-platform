@@ -2,12 +2,12 @@ import { NextResponse } from 'next/server';
 
 import { runCampaignAgents, type MarketingChannel } from '@/src/agents/run-campaigns';
 import { requireAdminRequest } from '@/src/lib/auth/admin-guard';
-import { getHealthReport } from '@/src/lib/health-report/report-store';
+import { getHealthReport, getLeadById } from '@/src/lib/assessment/assessment-store';
 import {
   listMarketingPlans,
   saveMarketingPlan,
   updateMarketingPlanStatus,
-} from '@/src/lib/marketing/marketing-plan-store';
+} from '@/src/lib/marketing/marketing-plan-repository';
 
 const defaultChannels: MarketingChannel[] = ['wechat_private', 'sms', 'content_remarketing'];
 const allowedChannels = new Set<MarketingChannel>(['wechat_private', 'sms', 'content_remarketing', 'email']);
@@ -22,7 +22,7 @@ export async function POST(request: Request) {
   try {
     const body = await request.json();
     const reportId = String(body?.reportId || '');
-    const report = getHealthReport(reportId);
+    const report = await getHealthReport(reportId);
 
     if (!report) {
       return NextResponse.json({ ok: false, error: 'Health report not found' }, { status: 404 });
@@ -32,13 +32,14 @@ export async function POST(request: Request) {
       report,
       leadId: report.leadId,
       channels: parseChannels(body?.channels),
+      lead: await getLeadById(report.leadId),
     });
 
     if (!('automationLevel' in plan)) {
       throw new Error('Marketing plan generation failed');
     }
 
-    const storedPlan = saveMarketingPlan({ reportId, plan: { ...plan, reportId } });
+    const storedPlan = await saveMarketingPlan({ reportId, plan: { ...plan, reportId } });
     return NextResponse.json({ ok: true, plan: storedPlan });
   } catch (error) {
     return NextResponse.json(
@@ -57,7 +58,7 @@ export async function GET(request: Request) {
 
   return NextResponse.json({
     ok: true,
-    plans: listMarketingPlans(),
+    plans: await listMarketingPlans(),
   });
 }
 
@@ -67,7 +68,7 @@ export async function PATCH(request: Request) {
 
   try {
     const body = await request.json();
-    const plan = updateMarketingPlanStatus({
+    const plan = await updateMarketingPlanStatus({
       planId: String(body?.planId || ''),
       status: String(body?.status || 'pending_manual_review') as 'pending_manual_review' | 'approved' | 'rejected',
       reviewNotes: body?.reviewNotes ? String(body.reviewNotes) : null,

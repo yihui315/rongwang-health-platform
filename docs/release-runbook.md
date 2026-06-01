@@ -66,6 +66,7 @@ Run locally from the release commit:
 ```bash
 npm ci
 npm run release:verify
+npm run db:schema-check
 npm run build
 ```
 
@@ -75,12 +76,39 @@ Run the strict production gate with production-shaped environment values before 
 RONGWANG_RELEASE_TARGET=production npm run release:gate
 ```
 
+`npm run db:schema-check` runs an offline SQL contract check by default. Before a production release that changes database shape, run the live Postgres execution check against the target database:
+
+```bash
+RUN_POSTGRES_SCHEMA_CHECK=true DATABASE_URL=<production-or-staging-postgres-url> npm run db:schema-check
+```
+
+The live check applies `database/schema.sql` with idempotent `CREATE TABLE IF NOT EXISTS` statements and verifies the assessment, consent, health report, marketing plan, outbound queue, send event, and audit event tables exist before the app is deployed.
+
+After the schema check passes on staging or a release database clone, run the Postgres assessment smoke:
+
+```bash
+RUN_POSTGRES_ASSESSMENT_SMOKE=true DATABASE_URL=<staging-or-release-clone-postgres-url> npm run db:postgres-smoke
+```
+
+This writes one test lead, one health report, one marketing plan, and one WeChat private outbound queue entry through the Postgres data backend. The smoke must leave outbound status `blocked`; do not run it against production customer data unless the release operator has approved a disposable smoke record and retention cleanup plan.
+
+To clean up disposable Postgres smoke records after a staging or release-clone run:
+
+```bash
+RUN_POSTGRES_SMOKE_CLEANUP=true CONFIRM_POSTGRES_SMOKE_CLEANUP=delete-smoke-records DATABASE_URL=<staging-or-release-clone-postgres-url> npm run db:postgres-smoke-cleanup
+```
+
+The cleanup script is destructive and must remain opt-in. It only targets smoke records with source `customer_journey_smoke`, contact prefix `postgres-smoke-`, and consent version `postgres-smoke-2026-06`.
+
 `npm run release:gate` must pass with an HTTPS `NEXT_PUBLIC_SITE_URL`, strong `APP_SECRET`, `JWT_SECRET`, and `RONGWANG_ADMIN_TOKEN` values of at least 32 characters. Do not use placeholder, example, repeated, low-diversity, or shared secret values. The WeChat login, WeChat store, payment, automated marketing send, and auto listing publish switches must remain `false` unless the release log contains manual approval for the exact integration being opened.
 
 Record the JSON summary from each gate in the release log:
 
 - `npm run deploy:check` must end with `decision: PASS`, `gateMode: ready`, a nonzero `checks` count, and an empty `failures` array.
 - `npm run release:gate` must end with `decision: PASS`, an empty `failures` array, and `inspectedEnvironment.gateMode: production` for the strict production check. `inspectedEnvironment.gateMode: local-preview` is acceptable only before production-shaped values are loaded.
+- `npm run db:schema-check` must end with `decision: PASS`, `mode: offline` for local contract checks or `mode: postgres` for live database checks, and an empty `failures` array.
+- `npm run db:postgres-smoke` defaults to `decision: SKIP` unless `RUN_POSTGRES_ASSESSMENT_SMOKE=true` is set. For a live database smoke, it must end with `decision: PASS`, `mode: postgres`, and an empty `failures` array.
+- `npm run db:postgres-smoke-cleanup` defaults to `decision: SKIP`. When cleanup is approved, it must be run with `CONFIRM_POSTGRES_SMOKE_CLEANUP=delete-smoke-records` and record the `deleted` counts in the release log.
 - `npm run compliance:scan` must end with `decision: PASS`. Use `COMPLIANCE_SCAN_ROOTS=<path>` when spot-checking a built archive, copied release directory, or a narrowed review package outside the default `app,src` roots.
 
 Do not deploy if any JSON summary reports `decision: FAIL`, a non-empty `failures` array, missing `gateMode`, weak secrets, or an enabled high-risk production switch without explicit manual approval. Investigate the failed check, fix it on a new release commit, and restart this section from `npm run release:verify`.

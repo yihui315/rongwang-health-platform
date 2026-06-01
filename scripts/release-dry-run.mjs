@@ -33,6 +33,7 @@ function runNodeScript(scriptPath, env) {
 const dryRunEnv = {
   ...process.env,
   RONGWANG_RELEASE_TARGET: 'production',
+  RONGWANG_DATA_BACKEND: 'postgres',
   NEXT_PUBLIC_SITE_URL: 'https://rongwang.hk',
   RONGWANG_ADMIN_TOKEN: makeSecret('rwAdmDryRun'),
   APP_SECRET: makeSecret('rwAppDryRun'),

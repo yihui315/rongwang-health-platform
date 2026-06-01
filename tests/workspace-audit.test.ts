@@ -26,10 +26,12 @@ const env = process.env as Record<string, string | undefined>;
 const originalNodeEnv = env.NODE_ENV;
 const originalAdminToken = env.RONGWANG_ADMIN_TOKEN;
 const originalLegacyAdminToken = env.ADMIN_TOKEN;
+const originalDataBackend = env.RONGWANG_DATA_BACKEND;
 
 before(() => {
   process.chdir(tempDir);
   env.NODE_ENV = 'test';
+  env.RONGWANG_DATA_BACKEND = 'json';
   env.RONGWANG_ADMIN_TOKEN = '';
   env.ADMIN_TOKEN = '';
   resetLeadsForTest();
@@ -40,6 +42,7 @@ before(() => {
 after(() => {
   process.chdir(originalCwd);
   env.NODE_ENV = originalNodeEnv;
+  env.RONGWANG_DATA_BACKEND = originalDataBackend;
   env.RONGWANG_ADMIN_TOKEN = originalAdminToken;
   env.ADMIN_TOKEN = originalLegacyAdminToken;
   rmSync(tempDir, { recursive: true, force: true });
@@ -89,6 +92,7 @@ test('admin review APIs accept login cookie authorization when admin token is co
     assert.equal(authorizedReportsBody.ok, true);
   } finally {
     env.NODE_ENV = 'test';
+    env.RONGWANG_DATA_BACKEND = 'json';
     env.RONGWANG_ADMIN_TOKEN = '';
     env.ADMIN_TOKEN = '';
   }
@@ -112,6 +116,7 @@ test('admin protection is enabled by default even when local env misses token', 
     assert.equal(unauthorized.status, 401);
   } finally {
     env.NODE_ENV = 'test';
+    env.RONGWANG_DATA_BACKEND = 'json';
     env.RONGWANG_ADMIN_TOKEN = '';
     env.ADMIN_TOKEN = '';
   }
@@ -149,6 +154,7 @@ test('admin login keeps production cookies secure except local loopback preview'
     assert.match(productionCookie, /;\s*Secure/i);
   } finally {
     env.NODE_ENV = 'test';
+    env.RONGWANG_DATA_BACKEND = 'json';
     env.RONGWANG_ADMIN_TOKEN = '';
     env.ADMIN_TOKEN = '';
   }

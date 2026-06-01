@@ -7,11 +7,13 @@ import { readFileSync } from 'node:fs';
 
 import { POST as createHealthReportRoute } from '../app/api/health-report/route';
 import { POST as createMarketingPlanRoute } from '../app/api/marketing/plan/route';
+import { GET as listOutboundQueueRoute } from '../app/api/outbound/queue/route';
 import { generateHealthReport } from '../src/agents/generate-health-report';
 import { runCampaignAgents } from '../src/agents/run-campaigns';
 import { listLeads, resetLeadsForTest } from '../src/lib/contact/lead-store';
 import { listHealthReports, resetHealthReportsForTest } from '../src/lib/health-report/report-store';
 import { listMarketingPlans, resetMarketingPlansForTest } from '../src/lib/marketing/marketing-plan-store';
+import { listOutboundQueue, resetOutboundQueueForTest } from '../src/lib/automation/outbound-queue-store';
 
 const originalCwd = process.cwd();
 const tempDir = mkdtempSync(path.join(tmpdir(), 'rongwang-report-marketing-'));
@@ -21,6 +23,7 @@ before(() => {
   resetLeadsForTest();
   resetHealthReportsForTest();
   resetMarketingPlansForTest();
+  resetOutboundQueueForTest();
 });
 
 after(() => {
@@ -245,6 +248,67 @@ test('marketing plan API creates an automated draft workflow from a report', asy
   assert.deepEqual(body.plan.reviewHistory, []);
   assert.equal(plans[0]?.id, body.plan.id);
   assert.equal(plans[0]?.complianceSummary.autoSendBlocked, true);
+});
+
+test('marketing plan API creates blocked WeChat outbound queue entries by default', async () => {
+  const reportResponse = await createHealthReportRoute(
+    new Request('http://localhost/api/health-report', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        name: '赵女士',
+        contact: 'wechat-outbound',
+        scenarioSlug: 'immune-support',
+        consent: {
+          privacyAccepted: true,
+          termsAccepted: true,
+          sensitiveHealthDataAccepted: true,
+          marketingContactAccepted: true,
+          version: 'privacy-terms-2026-05',
+          page: '/ai-consult',
+        },
+        answers: {
+          sleepHours: 7,
+          stressLevel: 3,
+          symptomDurationDays: 2,
+          medicationUse: '',
+          pregnancyOrBreastfeeding: false,
+        },
+      }),
+    })
+  );
+  const reportBody = await reportResponse.json();
+
+  const response = await createMarketingPlanRoute(
+    new Request('http://localhost/api/marketing/plan', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        reportId: reportBody.report.id,
+        channels: ['wechat_private'],
+      }),
+    })
+  );
+  const body = await response.json();
+  const outboundEntries = listOutboundQueue();
+
+  assert.equal(response.status, 200);
+  assert.equal(body.plan.outboundQueue.length, 1);
+  assert.equal(body.plan.outboundQueue[0].channel, 'wechat_private');
+  assert.equal(body.plan.outboundQueue[0].status, 'blocked');
+  assert.ok(body.plan.outboundQueue[0].blockedReasons.includes('marketing_plan_not_approved'));
+  assert.ok(body.plan.outboundQueue[0].blockedReasons.includes('automated_marketing_disabled'));
+  assert.equal(outboundEntries[0]?.id, body.plan.outboundQueue[0].id);
+
+  const adminResponse = await listOutboundQueueRoute(
+    new Request('http://localhost/api/outbound/queue', {
+      headers: { 'x-admin-token': 'workspace-secret-token' },
+    })
+  );
+  const adminBody = await adminResponse.json();
+
+  assert.equal(adminResponse.status, 401);
+  assert.equal(adminBody.ok, false);
 });
 
 test('AI consult form submits report inputs and requests draft marketing automation', () => {

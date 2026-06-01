@@ -1,14 +1,16 @@
 import { NextResponse } from 'next/server';
 
 import { generateHealthReport, type HealthReportAnswers } from '@/src/agents/generate-health-report';
-import { createLead, listLeads, type LeadConsentInput, type LeadSource } from '@/src/lib/contact/lead-store';
+import { type LeadConsentInput, type LeadSource } from '@/src/lib/contact/lead-store';
 import { getHealthScenario } from '@/src/data/health-scenarios';
 import { requireAdminRequest } from '@/src/lib/auth/admin-guard';
 import {
+  createLead,
   listHealthReports,
+  listLeads,
   saveHealthReport,
   updateHealthReportStatus,
-} from '@/src/lib/health-report/report-store';
+} from '@/src/lib/assessment/assessment-store';
 
 const leadSources = new Set<LeadSource>(['ai_consult', 'contact', 'product_consult', 'customer_journey_smoke']);
 
@@ -43,6 +45,8 @@ function parseConsent(value: unknown): LeadConsentInput | null {
   return {
     privacyAccepted: Boolean(source.privacyAccepted),
     termsAccepted: Boolean(source.termsAccepted),
+    sensitiveHealthDataAccepted: Boolean(source.sensitiveHealthDataAccepted ?? source.privacyAccepted),
+    marketingContactAccepted: Boolean(source.marketingContactAccepted),
     version: source.version ? String(source.version) : undefined,
     page: source.page ? String(source.page) : undefined,
   };
@@ -54,7 +58,7 @@ export async function POST(request: Request) {
     const scenarioSlug = String(body?.scenarioSlug || 'sleep-support');
     const scenario = getHealthScenario(scenarioSlug);
     const answers = parseAnswers(body?.answers);
-    const lead = createLead({
+    const lead = await createLead({
       name: String(body?.name || ''),
       contact: String(body?.contact || ''),
       concern: String(body?.concern || scenario?.label || scenarioSlug),
@@ -63,7 +67,7 @@ export async function POST(request: Request) {
       consent: parseConsent(body?.consent),
     });
 
-    const report = saveHealthReport(
+    const report = await saveHealthReport(
       generateHealthReport({
         leadId: lead.id,
         name: lead.name,
@@ -91,8 +95,8 @@ export async function GET(request: Request) {
 
   return NextResponse.json({
     ok: true,
-    leads: listLeads(),
-    reports: listHealthReports(),
+    leads: await listLeads(),
+    reports: await listHealthReports(),
   });
 }
 
@@ -102,7 +106,7 @@ export async function PATCH(request: Request) {
 
   try {
     const body = await request.json();
-    const report = updateHealthReportStatus({
+    const report = await updateHealthReportStatus({
       reportId: String(body?.reportId || ''),
       status: String(body?.status || 'pending_manual_review') as 'generated' | 'pending_manual_review' | 'approved' | 'rejected',
       reviewNotes: body?.reviewNotes ? String(body.reviewNotes) : null,

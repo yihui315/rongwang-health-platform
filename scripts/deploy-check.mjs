@@ -20,7 +20,9 @@ function fileContains(relativePath, patterns) {
 }
 
 const requiredRuntimeEnv = [
+  'RONGWANG_DATA_BACKEND',
   'DATABASE_URL',
+  'SENSITIVE_HEALTH_RETENTION_DAYS',
   'NEXT_PUBLIC_SITE_URL',
   'APP_SECRET',
   'JWT_SECRET',
@@ -56,9 +58,13 @@ addCheck('smoke script exists', existsSync(resolve(rootDir, 'scripts/smoke-fast-
 addCheck('acceptance script exists', existsSync(resolve(rootDir, 'scripts/acceptance-fast-funnel.mjs')));
 addCheck('customer journey smoke script exists', existsSync(resolve(rootDir, 'scripts/customer-journey-smoke.mjs')));
 addCheck('compliance scan exists', existsSync(resolve(rootDir, 'scripts/compliance-scan.mjs')));
+addCheck('postgres schema check exists', existsSync(resolve(rootDir, 'scripts/postgres-schema-check.mjs')));
+addCheck('postgres assessment smoke exists', existsSync(resolve(rootDir, 'scripts/postgres-assessment-smoke.mjs')));
+addCheck('postgres smoke cleanup exists', existsSync(resolve(rootDir, 'scripts/postgres-smoke-cleanup.mjs')));
 
 const packageJson = JSON.parse(readProjectFile('package.json'));
 addCheck('release:verify script is wired', /deploy:check/.test(packageJson.scripts?.['release:verify'] || ''));
+addCheck('db:schema-check script is wired into release:verify', /db:schema-check/.test(packageJson.scripts?.['release:verify'] || ''));
 addCheck('release:smoke script is wired', /acceptance/.test(packageJson.scripts?.['release:smoke'] || ''));
 addCheck('customer:smoke script is wired into release:smoke', /customer:smoke/.test(packageJson.scripts?.['release:smoke'] || ''));
 

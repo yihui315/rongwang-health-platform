@@ -1,4 +1,7 @@
 import type { HealthReport, HealthRiskLevel } from './generate-health-report';
+import type { OutboundQueueEntry } from '@/src/lib/automation/outbound-queue';
+import { createOutboundQueueEntry, evaluateOutboundSendGate } from '@/src/lib/automation/outbound-queue';
+import type { StoredLead } from '@/src/lib/contact/lead-store';
 
 export type MarketingChannel = 'wechat_private' | 'sms' | 'content_remarketing' | 'email';
 
@@ -11,6 +14,7 @@ export type ReportCampaignInput = {
   report: HealthReport;
   leadId: string;
   channels: MarketingChannel[];
+  lead?: StoredLead | null;
 };
 
 export type CampaignInput = ProductCampaignInput | ReportCampaignInput;
@@ -65,6 +69,7 @@ export type MarketingPlan = {
     reviewGate: 'manual_approval_required';
     stopConditions: string[];
   };
+  outboundQueue?: OutboundQueueEntry[];
 };
 
 function segmentForRisk(level: HealthRiskLevel): MarketingPlan['audience']['segment'] {
@@ -182,8 +187,42 @@ export async function runCampaignAgents(input: CampaignInput): Promise<Marketing
         ],
       },
     };
+    const wechatStep = plan.steps.find((step) => step.channel === 'wechat_private');
+    const outboundQueue = wechatStep
+      ? [
+          createOutboundQueueEntry({
+            leadId: input.leadId,
+            reportId: input.report.id,
+            marketingPlanId: plan.id ?? 'pending_marketing_plan_id',
+            channel: 'wechat_private',
+            messageIntent: input.report.riskLevel === 'high' ? 'education' : 'consult',
+            payload: {
+              draftCopy: wechatStep.draftCopy,
+              objective: wechatStep.objective,
+              dayOffset: wechatStep.dayOffset,
+            },
+            gate: evaluateOutboundSendGate({
+              channel: 'wechat_private',
+              reportStatus: 'pending_manual_review',
+              planStatus: plan.status,
+              riskLevel: input.report.riskLevel,
+              messageIntent: input.report.riskLevel === 'high' ? 'education' : 'consult',
+              consent: {
+                privacyAccepted: Boolean(input.lead?.consent.privacyAccepted),
+                termsAccepted: Boolean(input.lead?.consent.termsAccepted),
+                sensitiveHealthDataAccepted: Boolean(input.lead?.consent.sensitiveHealthDataAccepted),
+                marketingContactAccepted: Boolean(input.lead?.consent.marketingContactAccepted),
+                stopContactRequested: Boolean(input.lead?.stopContactRequested),
+              },
+            }),
+          }),
+        ]
+      : [];
 
-    return plan;
+    return {
+      ...plan,
+      outboundQueue,
+    };
   }
 
   return {

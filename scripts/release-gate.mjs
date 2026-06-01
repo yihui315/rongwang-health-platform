@@ -40,6 +40,10 @@ function isExplicitlyFalse(name) {
   return env(name).toLowerCase() === 'false';
 }
 
+function isPostgresDataBackend() {
+  return env('RONGWANG_DATA_BACKEND').toLowerCase() === 'postgres';
+}
+
 function isHttpsUrl(value) {
   try {
     const url = new URL(value);
@@ -108,6 +112,12 @@ addCheck(
   !productionGateEnabled ||
     (env('RONGWANG_ADMIN_TOKEN') !== env('APP_SECRET') && env('RONGWANG_ADMIN_TOKEN') !== env('JWT_SECRET')),
   'admin token must be dedicated to admin access'
+);
+
+addCheck(
+  'RONGWANG_DATA_BACKEND must be postgres for production release',
+  !productionGateEnabled || isPostgresDataBackend(),
+  'set RONGWANG_DATA_BACKEND=postgres before release'
 );
 
 for (const key of [

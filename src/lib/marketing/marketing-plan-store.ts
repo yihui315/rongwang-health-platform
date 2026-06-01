@@ -3,6 +3,7 @@ import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
 
 import type { MarketingPlan, MarketingComplianceSummary, MarketingManualFollowUp } from '@/src/agents/run-campaigns';
+import { saveOutboundQueueEntries } from '@/src/lib/automation/outbound-queue-store';
 
 export type MarketingPlanReviewEvent = {
   status: 'pending_manual_review' | 'approved' | 'rejected';
@@ -84,9 +85,10 @@ function persistPlans(plans: StoredMarketingPlan[]): void {
 
 export function saveMarketingPlan(input: { reportId: string; plan: MarketingPlan }): StoredMarketingPlan {
   const createdAt = new Date().toISOString();
+  const planId = input.plan.id ?? `marketing_plan_${randomUUID()}`;
   const storedPlan: StoredMarketingPlan = {
     ...input.plan,
-    id: input.plan.id ?? `marketing_plan_${randomUUID()}`,
+    id: planId,
     reportId: input.reportId,
     reviewNotes: null,
     reviewer: null,
@@ -99,6 +101,15 @@ export function saveMarketingPlan(input: { reportId: string; plan: MarketingPlan
   const plans = readPlans().filter((plan) => plan.id !== storedPlan.id);
   plans.unshift(storedPlan);
   persistPlans(plans);
+  if (input.plan.outboundQueue?.length) {
+    const outboundEntries = input.plan.outboundQueue.map((entry) => ({
+      ...entry,
+      marketingPlanId: planId,
+      updatedAt: createdAt,
+    }));
+    saveOutboundQueueEntries(outboundEntries);
+    storedPlan.outboundQueue = outboundEntries;
+  }
   return storedPlan;
 }
 

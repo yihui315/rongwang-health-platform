@@ -1,7 +1,8 @@
 import { NextResponse } from 'next/server';
 
 import { requireAdminRequest } from '@/src/lib/auth/admin-guard';
-import { createLead, listLeads, type LeadConsentInput, type LeadSource } from '@/src/lib/contact/lead-store';
+import { type LeadConsentInput, type LeadSource } from '@/src/lib/contact/lead-store';
+import { createLead, listLeads } from '@/src/lib/assessment/assessment-store';
 
 const leadSources = new Set<LeadSource>(['ai_consult', 'contact', 'product_consult', 'customer_journey_smoke']);
 
@@ -19,6 +20,8 @@ function parseConsent(value: unknown): LeadConsentInput | null {
   return {
     privacyAccepted: Boolean(source.privacyAccepted),
     termsAccepted: Boolean(source.termsAccepted),
+    sensitiveHealthDataAccepted: Boolean(source.sensitiveHealthDataAccepted ?? source.privacyAccepted),
+    marketingContactAccepted: Boolean(source.marketingContactAccepted),
     version: source.version ? String(source.version) : undefined,
     page: source.page ? String(source.page) : undefined,
   };
@@ -27,7 +30,7 @@ function parseConsent(value: unknown): LeadConsentInput | null {
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const lead = createLead({
+    const lead = await createLead({
       name: String(body?.name || ''),
       contact: String(body?.contact || ''),
       concern: String(body?.concern || ''),
@@ -54,6 +57,6 @@ export async function GET(request: Request) {
 
   return NextResponse.json({
     ok: true,
-    leads: listLeads(),
+    leads: await listLeads(),
   });
 }
