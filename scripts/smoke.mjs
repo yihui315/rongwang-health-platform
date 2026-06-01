@@ -181,8 +181,9 @@ async function runSmokeChecks() {
   {
     const { response, text } = await getText("/");
     assert.equal(response.status, 200);
-    assert.match(text, /3 分钟 AI 健康评估/);
-    assert.match(text, /\/tools\/sleep-score/);
+    assert.match(text, /3\s*分钟\s*AI\s*健康评估/);
+    assert.match(text, /\/ai-consult/);
+    assert.match(text, /不替代医生诊断/);
   }
 
   {
