@@ -38,6 +38,11 @@ const cards = [
     href: "/admin/marketing",
   },
   {
+    title: "Outbound Queue",
+    description: "Review blocked outbound sends, manual gates, and compliance reasons before any provider can send.",
+    href: "/admin/outbound-queue",
+  },
+  {
     title: "WeChat Operations",
     description: "Review Official Account drafts, Mini Program readiness, and WeChat Pay launch checks.",
     href: "/admin/marketing#wechat-operations",
