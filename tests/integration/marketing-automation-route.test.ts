@@ -6,6 +6,7 @@ import {
 } from "@/app/api/marketing/automation/route";
 import { GET as getOutboundQueue } from "@/app/api/admin/outbound-queue/route";
 import { POST as postOutboundQueueReview } from "@/app/api/admin/outbound-queue/[id]/review/route";
+import { recordOutboundQueueReviewFormDecision } from "@/app/admin/outbound-queue/actions";
 import { getMemoryStore, resetMemoryStore } from "@/lib/data/memory-store";
 
 async function withMarketingAutomationEnv<T>(fn: () => Promise<T>) {
@@ -286,6 +287,67 @@ test("POST /api/admin/outbound-queue/[id]/review refuses already sent entries", 
     assert.equal(store.outboundQueue.get("outbound_sent")?.status, "sent");
     assert.equal(store.auditEvents.size, 0);
     assert.equal(store.sendEvents.size, 0);
+  });
+});
+
+test("admin outbound queue form helper records review decisions without sending", async () => {
+  await withMarketingAutomationEnv(async () => {
+    const planResponse = await postMarketingAutomation(
+      marketingAutomationRequest({
+        token: "automation-admin",
+        ip: "198.51.100.25",
+      }),
+    );
+    assert.equal(planResponse.status, 200);
+    const planPayload = await planResponse.json();
+    const queueEntry = planPayload.storedPlan.outboundQueue[0];
+
+    const formData = new FormData();
+    formData.set("id", queueEntry.id);
+    formData.set("action", "reviewed_blocked");
+    formData.set("note", "Form action review keeps this outbound item blocked.");
+    formData.set("actor", "admin-ui");
+
+    await recordOutboundQueueReviewFormDecision(formData);
+
+    const updated = getMemoryStore().outboundQueue.get(queueEntry.id);
+    assert.equal(updated?.status, "blocked");
+    assert.equal(
+      ((updated?.metadata as { reviewHistory?: Array<{ action: string }> })?.reviewHistory ?? [])[0]?.action,
+      "reviewed_blocked",
+    );
+    assert.equal(getMemoryStore().auditEvents.size, 1);
+    assert.equal(getMemoryStore().sendEvents.size, 0);
+  });
+});
+
+test("admin outbound queue form helper rejects unsupported actions without side effects", async () => {
+  await withMarketingAutomationEnv(async () => {
+    const planResponse = await postMarketingAutomation(
+      marketingAutomationRequest({
+        token: "automation-admin",
+        ip: "198.51.100.26",
+      }),
+    );
+    assert.equal(planResponse.status, 200);
+    const planPayload = await planResponse.json();
+    const queueEntry = planPayload.storedPlan.outboundQueue[0];
+
+    const formData = new FormData();
+    formData.set("id", queueEntry.id);
+    formData.set("action", "approve_and_send");
+    formData.set("note", "This form action should be rejected.");
+    formData.set("actor", "admin-ui");
+
+    await assert.rejects(
+      () => recordOutboundQueueReviewFormDecision(formData),
+      /invalid_outbound_queue_review/,
+    );
+
+    const updated = getMemoryStore().outboundQueue.get(queueEntry.id);
+    assert.equal((updated?.metadata as { reviewHistory?: unknown[] })?.reviewHistory, undefined);
+    assert.equal(getMemoryStore().auditEvents.size, 0);
+    assert.equal(getMemoryStore().sendEvents.size, 0);
   });
 });
 

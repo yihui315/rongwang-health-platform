@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { listOutboundQueue, type OutboundQueueEntryView } from "@/lib/marketing/outbound-queue";
+import { reviewOutboundQueueEntryAction } from "./actions";
 
 function countByStatus(queue: OutboundQueueEntryView[], status: OutboundQueueEntryView["status"]) {
   return queue.filter((entry) => entry.status === status).length;
@@ -45,6 +46,10 @@ function getReviewHistory(metadata: OutboundQueueEntryView["metadata"]) {
       previousStatus: typeof item.previousStatus === "string" ? item.previousStatus : "",
       nextStatus: typeof item.nextStatus === "string" ? item.nextStatus : "",
     }));
+}
+
+function canRecordReview(entry: OutboundQueueEntryView) {
+  return entry.status === "blocked" || entry.status === "ready";
 }
 
 export default async function AdminOutboundQueuePage() {
@@ -194,6 +199,53 @@ function OutboundQueueEntryCard({ entry }: { entry: OutboundQueueEntryView }) {
               </div>
             ))}
           </div>
+        )}
+      </div>
+
+      <div className="mt-4 rounded-2xl border border-amber-200 bg-amber-50 p-4">
+        <p className="text-sm font-semibold text-amber-900">Record manual review decision</p>
+        <p className="mt-2 text-sm leading-7 text-amber-800">
+          These controls only record review state for the blocked outbound queue. They do not send messages,
+          approve delivery, or mark a message as delivered.
+        </p>
+        {canRecordReview(entry) ? (
+          <form action={reviewOutboundQueueEntryAction} className="mt-4 grid gap-3 md:grid-cols-[12rem_1fr_auto]">
+            <input type="hidden" name="id" value={entry.id} />
+            <input type="hidden" name="actor" value="admin-ui" />
+            <label className="flex flex-col gap-2 text-sm font-medium text-amber-950">
+              Decision
+              <select
+                name="action"
+                className="rounded-xl border border-amber-200 bg-white px-3 py-2 text-sm text-slate-900 outline-none ring-teal-300 transition focus:ring-2"
+                defaultValue="reviewed_blocked"
+              >
+                <option value="reviewed_blocked">Keep blocked</option>
+                <option value="cancelled">Cancel draft</option>
+              </select>
+            </label>
+            <label className="flex flex-col gap-2 text-sm font-medium text-amber-950">
+              Note
+              <textarea
+                name="note"
+                required
+                minLength={3}
+                maxLength={1000}
+                rows={2}
+                className="min-h-20 rounded-xl border border-amber-200 bg-white px-3 py-2 text-sm text-slate-900 outline-none ring-teal-300 transition focus:ring-2"
+                placeholder="Record why this item remains blocked or should be cancelled."
+              />
+            </label>
+            <button
+              type="submit"
+              className="self-end rounded-full bg-amber-900 px-5 py-3 text-sm font-semibold text-white transition hover:bg-amber-800"
+            >
+              Record review
+            </button>
+          </form>
+        ) : (
+          <p className="mt-3 rounded-xl border border-amber-200 bg-white px-4 py-3 text-sm leading-6 text-slate-600">
+            This entry is {entry.status}; review decisions are closed for this status.
+          </p>
         )}
       </div>
     </article>
