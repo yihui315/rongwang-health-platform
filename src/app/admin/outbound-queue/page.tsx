@@ -29,6 +29,24 @@ function formatBlockedReasons(reasons: string[]) {
   return reasons.length > 0 ? reasons.join(" / ") : "No active blocker";
 }
 
+function getReviewHistory(metadata: OutboundQueueEntryView["metadata"]) {
+  const history = metadata.reviewHistory;
+  if (!Array.isArray(history)) {
+    return [];
+  }
+
+  return history
+    .filter((item): item is Record<string, unknown> => Boolean(item) && typeof item === "object")
+    .map((item) => ({
+      action: typeof item.action === "string" ? item.action : "review",
+      actor: typeof item.actor === "string" ? item.actor : "admin",
+      note: typeof item.note === "string" ? item.note : "",
+      at: typeof item.at === "string" ? item.at : "",
+      previousStatus: typeof item.previousStatus === "string" ? item.previousStatus : "",
+      nextStatus: typeof item.nextStatus === "string" ? item.nextStatus : "",
+    }));
+}
+
 export default async function AdminOutboundQueuePage() {
   const queue = await listOutboundQueue();
   const blockedCount = countByStatus(queue, "blocked");
@@ -78,66 +96,107 @@ export default async function AdminOutboundQueuePage() {
               path creates blocked draft sends for manual inspection.
             </div>
           ) : (
-            queue.map((entry) => (
-              <article key={entry.id} className="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm">
-                <div className="flex flex-wrap items-start justify-between gap-4">
-                  <div>
-                    <div className="flex flex-wrap items-center gap-2">
-                      <span className="badge-slate">{entry.channel}</span>
-                      <span className={entry.status === "blocked" ? "badge-orange" : "badge-teal"}>
-                        {entry.status}
-                      </span>
-                    </div>
-                    <h2 className="mt-3 text-xl font-semibold text-slate-900">
-                      {formatPayloadTitle(entry.payload)}
-                    </h2>
-                    {formatPayloadBrief(entry.payload) ? (
-                      <p className="mt-2 max-w-3xl text-sm leading-7 text-slate-600">
-                        {formatPayloadBrief(entry.payload)}
-                      </p>
-                    ) : null}
-                    <p className="mt-3 break-all text-sm text-slate-500">
-                      Destination: {entry.destination ?? "not set"}
-                    </p>
-                    <p className="mt-1 text-sm text-slate-500">
-                      Marketing plan: {entry.marketingPlanId} | Lead: {entry.leadId ?? "-"}
-                    </p>
-                  </div>
-                  <div className="text-right text-sm text-slate-500">
-                    <p>{entry.createdAt}</p>
-                    <p className="mt-2">Updated: {entry.updatedAt}</p>
-                  </div>
-                </div>
-
-                <div className="mt-5 grid gap-4 lg:grid-cols-[1fr_1.1fr]">
-                  <div className="rounded-2xl border border-rose-100 bg-rose-50 p-4">
-                    <p className="text-sm font-semibold text-rose-800">Blocked reasons</p>
-                    <p className="mt-2 text-sm leading-7 text-rose-700">
-                      {formatBlockedReasons(entry.blockedReasons)}
-                    </p>
-                  </div>
-                  <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
-                    <p className="text-sm font-semibold text-slate-900">Gate snapshot</p>
-                    <dl className="mt-3 grid gap-2 text-sm text-slate-600 md:grid-cols-2">
-                      <GateTerm label="Plan" value={entry.gateSnapshot.marketingPlanStatus} />
-                      <GateTerm label="Compliance" value={entry.gateSnapshot.complianceApproved ? "approved" : "not approved"} />
-                      <GateTerm
-                        label="Automated send"
-                        value={entry.gateSnapshot.automatedMarketingEnabled ? "enabled" : "automated_marketing_disabled"}
-                      />
-                      <GateTerm
-                        label="Provider"
-                        value={entry.gateSnapshot.channelProviderConfigured ? "configured" : "channel_provider_not_configured"}
-                      />
-                    </dl>
-                  </div>
-                </div>
-              </article>
-            ))
+            queue.map((entry) => <OutboundQueueEntryCard key={entry.id} entry={entry} />)
           )}
         </div>
       </section>
     </main>
+  );
+}
+
+function OutboundQueueEntryCard({ entry }: { entry: OutboundQueueEntryView }) {
+  const reviewHistory = getReviewHistory(entry.metadata);
+
+  return (
+    <article className="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm">
+      <div className="flex flex-wrap items-start justify-between gap-4">
+        <div>
+          <div className="flex flex-wrap items-center gap-2">
+            <span className="badge-slate">{entry.channel}</span>
+            <span className={entry.status === "blocked" ? "badge-orange" : "badge-teal"}>
+              {entry.status}
+            </span>
+          </div>
+          <h2 className="mt-3 text-xl font-semibold text-slate-900">
+            {formatPayloadTitle(entry.payload)}
+          </h2>
+          {formatPayloadBrief(entry.payload) ? (
+            <p className="mt-2 max-w-3xl text-sm leading-7 text-slate-600">
+              {formatPayloadBrief(entry.payload)}
+            </p>
+          ) : null}
+          <p className="mt-3 break-all text-sm text-slate-500">
+            Destination: {entry.destination ?? "not set"}
+          </p>
+          <p className="mt-1 text-sm text-slate-500">
+            Marketing plan: {entry.marketingPlanId} | Lead: {entry.leadId ?? "-"}
+          </p>
+        </div>
+        <div className="text-right text-sm text-slate-500">
+          <p>{entry.createdAt}</p>
+          <p className="mt-2">Updated: {entry.updatedAt}</p>
+        </div>
+      </div>
+
+      <div className="mt-5 grid gap-4 lg:grid-cols-[1fr_1.1fr]">
+        <div className="rounded-2xl border border-rose-100 bg-rose-50 p-4">
+          <p className="text-sm font-semibold text-rose-800">Blocked reasons</p>
+          <p className="mt-2 text-sm leading-7 text-rose-700">
+            {formatBlockedReasons(entry.blockedReasons)}
+          </p>
+        </div>
+        <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+          <p className="text-sm font-semibold text-slate-900">Gate snapshot</p>
+          <dl className="mt-3 grid gap-2 text-sm text-slate-600 md:grid-cols-2">
+            <GateTerm label="Plan" value={entry.gateSnapshot.marketingPlanStatus} />
+            <GateTerm
+              label="Compliance"
+              value={entry.gateSnapshot.complianceApproved ? "approved" : "not approved"}
+            />
+            <GateTerm
+              label="Automated send"
+              value={entry.gateSnapshot.automatedMarketingEnabled ? "enabled" : "automated_marketing_disabled"}
+            />
+            <GateTerm
+              label="Provider"
+              value={entry.gateSnapshot.channelProviderConfigured ? "configured" : "channel_provider_not_configured"}
+            />
+          </dl>
+        </div>
+      </div>
+
+      <div className="mt-4 rounded-2xl border border-slate-200 bg-white p-4">
+        <p className="text-sm font-semibold text-slate-900">Review history</p>
+        {reviewHistory.length === 0 ? (
+          <p className="mt-2 text-sm leading-7 text-slate-500">
+            No manual review decision has been recorded for this queue entry.
+          </p>
+        ) : (
+          <div className="mt-3 space-y-3">
+            {reviewHistory.map((review, index) => (
+              <div
+                key={`${entry.id}-review-${index}`}
+                className="border-t border-slate-100 pt-3 first:border-t-0 first:pt-0"
+              >
+                <div className="flex flex-wrap items-center gap-2 text-sm">
+                  <span className="badge-slate">{review.action}</span>
+                  <span className="text-slate-500">{review.actor}</span>
+                  <span className="text-slate-400">{review.at}</span>
+                </div>
+                {review.previousStatus || review.nextStatus ? (
+                  <p className="mt-2 text-xs uppercase tracking-[0.16em] text-slate-400">
+                    {review.previousStatus || "-"} to {review.nextStatus || "-"}
+                  </p>
+                ) : null}
+                {review.note ? (
+                  <p className="mt-2 text-sm leading-7 text-slate-600">{review.note}</p>
+                ) : null}
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+    </article>
   );
 }
 
