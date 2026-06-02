@@ -15,6 +15,7 @@ test("outbound queue admin page is a read-only manual review surface", () => {
 
   assert.match(page, /listOutboundQueue/);
   assert.match(page, /Manual review required/);
+  assert.match(page, /Review history/);
   assert.match(page, /ALLOW_AUTOMATED_MARKETING_SEND/);
   assert.match(page, /automated_marketing_disabled/);
   assert.doesNotMatch(page, /sendNow|approveAndSend|markAsSent|fetch\(/);
