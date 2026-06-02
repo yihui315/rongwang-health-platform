@@ -16,7 +16,22 @@ test("outbound queue admin page is a read-only manual review surface", () => {
   assert.match(page, /listOutboundQueue/);
   assert.match(page, /Manual review required/);
   assert.match(page, /Review history/);
+  assert.match(page, /reviewOutboundQueueEntryAction/);
+  assert.match(page, /reviewed_blocked/);
+  assert.match(page, /cancelled/);
+  assert.match(page, /name="note"/);
   assert.match(page, /ALLOW_AUTOMATED_MARKETING_SEND/);
   assert.match(page, /automated_marketing_disabled/);
-  assert.doesNotMatch(page, /sendNow|approveAndSend|markAsSent|fetch\(/);
+  assert.doesNotMatch(page, /sendNow|approveAndSend|markAsSent|approve_and_send|fetch\(/);
+});
+
+test("outbound queue admin actions stay server-side and never send messages", () => {
+  const actions = fs.readFileSync("src/app/admin/outbound-queue/actions.ts", "utf8");
+
+  assert.match(actions, /"use server"/);
+  assert.match(actions, /recordOutboundQueueReviewDecision/);
+  assert.match(actions, /reviewed_blocked/);
+  assert.match(actions, /cancelled/);
+  assert.match(actions, /isAdminTokenValid/);
+  assert.doesNotMatch(actions, /sendEvent|sendNow|approveAndSend|markAsSent|approve_and_send|fetch\(/);
 });
