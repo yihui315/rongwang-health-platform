@@ -71,6 +71,7 @@ export default function ProductsPage() {
                 >
                   {product.content.shortDescription}
                 </MeasuredText>
+                {product.priceText ? <p className="storefront-product-price">{product.priceText}</p> : null}
                 <dl className="storefront-product-specs">
                   <div>
                     <dt>原产地</dt>
