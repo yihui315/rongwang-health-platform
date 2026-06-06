@@ -4,6 +4,11 @@ import { randomUUID } from 'node:crypto';
 
 import type { GeneratedContent } from '../agents/generate-content';
 import type { NormalizedProduct } from '../agents/fetch-product';
+import {
+  approvedStorefrontContents,
+  approvedStorefrontProducts,
+  approvedStorefrontReviews,
+} from '../data/approved-storefront-products';
 import { latestPriceProducts } from '../data/latest-price-products';
 import { scanCompliance, type ComplianceScanResult } from '../services/compliance-service';
 
@@ -115,6 +120,7 @@ function createSeedStore(): StoreState {
         createdAt,
         updatedAt: createdAt,
       },
+      ...approvedStorefrontProducts,
       ...latestPriceProducts,
     ],
     contents: [
@@ -132,6 +138,7 @@ function createSeedStore(): StoreState {
         createdAt,
         updatedAt: createdAt,
       },
+      ...approvedStorefrontContents,
     ],
     agentTasks: [],
     complianceReviews: [
@@ -148,7 +155,22 @@ function createSeedStore(): StoreState {
         createdAt,
         updatedAt: createdAt,
       },
+      ...approvedStorefrontReviews,
     ],
+  };
+}
+
+function mergeById<T extends { id: string }>(existing: T[], additions: T[]): T[] {
+  const existingIds = new Set(existing.map((item) => item.id));
+  return [...existing, ...additions.filter((item) => !existingIds.has(item.id))];
+}
+
+function hydrateStoreState(state: StoreState): StoreState {
+  return {
+    products: mergeById(state.products, approvedStorefrontProducts),
+    contents: mergeById(state.contents, approvedStorefrontContents),
+    agentTasks: state.agentTasks,
+    complianceReviews: mergeById(state.complianceReviews, approvedStorefrontReviews),
   };
 }
 
@@ -162,7 +184,7 @@ function readStoreFromDisk(): StoreState {
   }
 
   try {
-    return JSON.parse(readFileSync(storePath, 'utf8')) as StoreState;
+    return hydrateStoreState(JSON.parse(readFileSync(storePath, 'utf8')) as StoreState);
   } catch {
     return createSeedStore();
   }

@@ -29,6 +29,8 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
     { label: '品牌', value: product.brand || '-' },
     { label: '类别', value: product.category || '健康商品' },
     { label: '规格', value: product.specs.规格 || '-' },
+    { label: '参考价', value: product.priceText || '-' },
+    { label: '购买方式', value: product.specs.购买方式 || '联系顾问人工确认' },
   ];
   const complianceNotes = [NOT_MEDICAL_ADVICE, CONSULT_PROFESSIONAL_WARNING, THIRD_PARTY_PURCHASE_DISCLAIMER, CROSS_BORDER_NOTICE];
 
