@@ -11,6 +11,7 @@
  */
 
 import type { PlanSlug } from '@/types';
+import { approvedStorefrontProducts } from './approved-storefront-products';
 
 export type ProductCategory =
   | 'vitamin'
@@ -732,6 +733,7 @@ export const products: Product[] = [
       '/images/products/rw-collagen/detail-2.jpg',
     ],
   },
+  ...approvedStorefrontProducts,
 ];
 
 /**
