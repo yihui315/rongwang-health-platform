@@ -7,6 +7,21 @@ const storefrontBottleImages = {
   energy: '/images/home/homepage-kit/assets/products/bottles/06-energy-support.png',
 } as const;
 
+const approvedProductImages: Record<string, string> = {
+  prod_uncle_darrens_heart_men: '/images/products/one-bottle/heart-men.jpg',
+  prod_uncle_darrens_heart_women: '/images/products/one-bottle/heart-women.jpg',
+  prod_uncle_darrens_brain_child: '/images/products/one-bottle/brain-child.jpg',
+  prod_uncle_darrens_brain_women: '/images/products/one-bottle/brain-women.jpg',
+  prod_uncle_darrens_brain_men: '/images/products/one-bottle/brain-men.jpg',
+  prod_uncle_darrens_joint_women: '/images/products/one-bottle/joint-women.jpg',
+  prod_uncle_darrens_joint_men: '/images/products/one-bottle/joint-men.jpg',
+  prod_uncle_darrens_bone_child: '/images/products/one-bottle/bone-child.jpg',
+  prod_uncle_darrens_gut_men: '/images/products/one-bottle/gut-men.jpg',
+  prod_uncle_darrens_gut_women: '/images/products/one-bottle/gut-women.jpg',
+  prod_uncle_darrens_unc45: '/images/products/one-bottle/unc45.jpg',
+  prod_uncle_darrens_atp: '/images/products/one-bottle/atp.jpg',
+};
+
 const fallbackOrder = [
   storefrontBottleImages.energy,
   storefrontBottleImages.immune,
@@ -31,6 +46,10 @@ function hashSeed(value: string): number {
 }
 
 export function getStorefrontBottleImage(input: { id?: string; title: string; category?: string | null }): string {
+  if (input.id && approvedProductImages[input.id]) {
+    return approvedProductImages[input.id];
+  }
+
   const text = normalizeText(`${input.title} ${input.category ?? ''}`);
 
   if (text.includes('睡眠') || text.includes('压力')) {
