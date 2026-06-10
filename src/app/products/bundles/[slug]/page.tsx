@@ -76,7 +76,17 @@ export default async function BundleDetailPage({ params }: Props) {
 
       {/* Hero Section */}
       <section className={`relative overflow-hidden bg-gradient-to-br ${bundle.gradient} py-14 px-6`}>
-        <div className="absolute inset-0 opacity-10">
+        {/* 产品组合氛围图背景 */}
+        <div aria-hidden className="absolute inset-0 z-0">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/images/products/bundle-products_001.jpg"
+            alt=""
+            className="h-full w-full object-cover opacity-25"
+          />
+          <div className="absolute inset-0" />
+        </div>
+        <div className="absolute inset-0 opacity-10 z-0">
           <div className="absolute -top-20 -right-20 w-80 h-80 rounded-full bg-white/20 blur-3xl" />
           <div className="absolute -bottom-20 -left-20 w-60 h-60 rounded-full bg-white/10 blur-3xl" />
         </div>

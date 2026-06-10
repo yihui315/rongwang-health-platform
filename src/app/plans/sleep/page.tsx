@@ -33,8 +33,18 @@ export default function SleepPlanPage() {
 
   return (
     <main className="min-h-screen bg-slate-50">
-      <section className="bg-gradient-hero px-6 py-16">
-        <div className="mx-auto max-w-4xl">
+      <section className="relative overflow-hidden bg-gradient-hero px-6 py-16">
+        {/* 睡眠方案氛围图背景 */}
+        <div aria-hidden className="absolute inset-0 z-0">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/images/sections/sleep-hero_001.jpg"
+            alt=""
+            className="h-full w-full object-cover opacity-20"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-slate-50/60 via-slate-50/40 to-slate-50/60" />
+        </div>
+        <div className="mx-auto max-w-4xl relative z-10">
           <Link href="/" className="text-sm text-teal hover:underline mb-4 inline-block">
             ← 返回首页
           </Link>
@@ -74,7 +84,7 @@ export default function SleepPlanPage() {
               </div>
             </div>
             <div className="w-full md:w-64 h-48 rounded-2xl overflow-hidden shadow-lg">
-              <Image src="/images/plans/sleep.jpg" alt={plan.name} width={400} height={300} className="rounded-2xl object-cover w-full h-full" />
+              <Image src="/images/sections/sleep-hero_001.jpg" alt={plan.name} width={400} height={300} className="rounded-2xl object-cover w-full h-full" />
             </div>
           </div>
         </div>

@@ -92,10 +92,24 @@ function TopNav() {
 function HeroBanner() {
   return (
     <section className="relative overflow-hidden bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
+      {/* 品牌主视觉背景图 */}
+      <div
+        aria-hidden
+        className="absolute inset-0 z-0"
+      >
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/images/hero/homepage-hero_001.jpg"
+          alt=""
+          className="h-full w-full object-cover opacity-30"
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-slate-900/90 via-slate-900/70 to-transparent" />
+      </div>
+
       {/* 装饰性背景 */}
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 opacity-20"
+        className="pointer-events-none absolute inset-0 z-0 opacity-20"
         style={{
           background:
             "radial-gradient(ellipse 80% 60% at 50% -20%, rgba(16,185,129,0.4), transparent)",

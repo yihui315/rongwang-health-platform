@@ -17,8 +17,22 @@ export default function TrustCenterPage() {
   return (
     <main className="min-h-screen bg-slate-50">
       {/* Hero */}
-      <section className="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 py-16 px-6">
-        <div className="mx-auto max-w-4xl text-center">
+      <section className="relative overflow-hidden bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 py-16 px-6">
+        {/* 品牌主视觉氛围图背景 */}
+        <div aria-hidden className="absolute inset-0 z-0">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/images/brand/trust-ingredients_001.jpg"
+            alt=""
+            className="h-full w-full object-cover opacity-15"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-slate-900/80 via-slate-900/60 to-slate-900/80" />
+        </div>
+        <div className="absolute inset-0 opacity-5 z-0">
+          <div className="absolute top-0 left-1/4 w-96 h-96 rounded-full bg-white/10 blur-3xl" />
+          <div className="absolute bottom-0 right-1/4 w-72 h-72 rounded-full bg-white/5 blur-3xl" />
+        </div>
+        <div className="relative mx-auto max-w-4xl text-center z-10">
           <h1 className="text-3xl sm:text-4xl font-bold text-white">信任中心</h1>
           <p className="mt-4 text-lg text-slate-300 max-w-2xl mx-auto">
             香港荣旺健康所有产品均来自正规授权渠道，每批产品均可溯源。点击下方模块查看对应资质证明。
