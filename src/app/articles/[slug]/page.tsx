@@ -1,10 +1,11 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
-import { articles, getArticleBySlug as getStaticArticle } from '@/data/articles';
+import { articles as rawArticles, getArticleBySlug } from '@/data/articles';
 import { getArticleBySlugWithFallback, getArticlesWithFallback } from '@/lib/cms';
 import { generateArticleJsonLd, generateArticleMetadata } from '@/lib/seo';
 import AddToCartButton from '@/components/ui/AddToCartButton';
+import WeChatCTA from '@/components/ui/WeChatCTA';
 import { plans } from '@/data/plans';
 import { getAiConsultHrefForValue, getSolutionHrefForValue } from '@/lib/health/consult-entry';
 import type { PlanSlug } from '@/types';
@@ -13,8 +14,10 @@ type PageProps = {
   params: Promise<{ slug: string }>;
 };
 
-// ISR: 每小时重验证一次，Webhook 可立即触发
-export const revalidate = 3600;
+// ISR disabled — articles checked directly from GEOFlow DB for accurate 404
+// dynamicParams=false means unlisted slugs return a proper 404
+export const revalidate = 0;
+export const dynamicParams = false;
 
 /**
  * 动态 SEO 元数据
@@ -35,6 +38,10 @@ export default async function ArticleDetailPage({ params }: PageProps) {
   const { article, source } = await getArticleBySlugWithFallback(slug);
 
   if (!article) notFound();
+
+  // Get recommendation from raw articles.ts
+  const rawArticle = getArticleBySlug(slug);
+  const recommendation = rawArticle?.recommendation ?? null;
 
   // 获取相关文章
   const { articles: allArticles } = await getArticlesWithFallback({ per_page: 50 });
@@ -152,13 +159,82 @@ export default async function ArticleDetailPage({ params }: PageProps) {
           </p>
         </div>
 
+        {/* Product recommendation from article data */}
+        {recommendation && (
+          <div className="mt-10 rounded-2xl bg-gradient-to-br from-amber-50 to-orange-50 border border-amber-100 p-6 md:p-8">
+            <div className="flex items-start gap-3 mb-5">
+              <span className="inline-block rounded-full bg-amber-400/20 px-3 py-1 text-xs font-semibold text-amber-700">
+                荣旺精選
+              </span>
+              <div>
+                {recommendation.planSlug ? (
+                  <a href={`/solutions/${recommendation.planSlug}`} className="block hover:opacity-80 transition">
+                    <h3 className="text-lg font-bold text-slate-900">{recommendation.title}</h3>
+                  </a>
+                ) : (
+                  <h3 className="text-lg font-bold text-slate-900">{recommendation.title}</h3>
+                )}
+                <p className="text-sm text-slate-500">{recommendation.subtitle}</p>
+              </div>
+            </div>
+            <p className="text-[15px] text-slate-600 leading-relaxed mb-6">
+              {recommendation.reason}
+            </p>
+            <div className="space-y-3">
+              {recommendation.products.map((product) => (
+                <div
+                  key={product.sku}
+                  className="flex items-center justify-between rounded-xl bg-white border border-amber-100 px-4 py-3 shadow-sm"
+                >
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-amber-400 to-orange-400 flex items-center justify-center">
+                      <span className="text-white text-sm font-bold">¥</span>
+                    </div>
+                    <div>
+                      <p className="text-[14px] font-semibold text-slate-800 leading-tight">{product.name}</p>
+                      <p className="text-[12px] text-slate-500">{product.tagline}</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <span className="text-[15px] font-bold text-amber-600">¥{product.price}</span>
+                    <a
+                      href="https://mobile.yangkeduo.com/mall_page.html?mall_id=516573367"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="rounded-full bg-amber-500 hover:bg-amber-600 text-white px-4 py-1.5 text-[12px] font-semibold transition"
+                    >
+                      咨询购买
+                    </a>
+                  </div>
+                </div>
+              ))}
+            </div>
+            {recommendation.planSlug && (
+              <div className="mt-4 pt-4 border-t border-amber-100 flex gap-3">
+                <a
+                  href={`/solutions/${recommendation.planSlug}`}
+                  className="flex-1 text-center rounded-xl border border-amber-300 bg-white hover:bg-amber-50 text-amber-700 px-4 py-2.5 text-[13px] font-semibold transition"
+                >
+                  瀏覽完整方案 →
+                </a>
+                <a
+                  href="/ai-consult"
+                  className="flex-1 text-center rounded-xl bg-teal-600 hover:bg-teal-700 text-white px-4 py-2.5 text-[13px] font-semibold transition"
+                >
+                  做AI評估匹配 →
+                </a>
+              </div>
+            )}
+          </div>
+        )}
+
         {/* Related plan CTA */}
         {relatedPlan && (
           <div className="mt-14 rounded-2xl bg-gradient-to-br from-teal-600 to-teal-700 p-8 text-white">
             <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
               <div>
                 <span className="inline-block rounded-full bg-white/20 px-3 py-1 text-xs font-medium mb-3">
-                  推荐方案
+                  推薦方案
                 </span>
                 <h3 className="text-2xl font-bold mb-2">{relatedPlan.name}</h3>
                 <p className="text-teal-100 mb-2">{relatedPlan.description}</p>
@@ -210,6 +286,41 @@ export default async function ArticleDetailPage({ params }: PageProps) {
             </Link>
           </div>
         )}
+
+        {/* 顾问微信入口 */}
+        <section className="mt-10 rounded-2xl bg-gradient-to-br from-orange-50 to-amber-50 border border-orange-100 p-6 md:p-8">
+          <div className="grid md:grid-cols-2 gap-8 items-center">
+            <div>
+              <span className="inline-block rounded-full bg-orange-400/20 px-3 py-1 text-xs font-semibold text-orange-700 mb-3">
+                顾问支援
+              </span>
+              <h2 className="text-xl font-bold text-slate-900">看完还有疑问？顾问来帮你判断</h2>
+              <p className="mt-3 text-sm leading-7 text-slate-600">
+                不知道自己适不适合文中的产品组合？扫描二维码，顾问根据你的具体情况推薦适合的剂型和服用周期。免费判断，不强制购买。
+              </p>
+              <div className="mt-5 flex flex-wrap gap-3">
+                <Link href="/ai-consult" className="btn-primary">
+                  先做AI評估
+                </Link>
+                <a
+                  href="https://u.wechat.com/E/rongwanghealth"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn-secondary"
+                >
+                  添加顾问微信
+                </a>
+              </div>
+            </div>
+            <div className="flex justify-center">
+              <WeChatCTA
+                title="扫码添加健康顾问"
+                description="领取專屬方案，1对1指导"
+                cardMode={false}
+              />
+            </div>
+          </div>
+        </section>
       </article>
 
       {/* Related articles */}
@@ -247,5 +358,5 @@ export default async function ArticleDetailPage({ params }: PageProps) {
  * 新的 CMS 文章通过 ISR 动态生成
  */
 export function generateStaticParams() {
-  return articles.map((article) => ({ slug: article.slug }));
+  return rawArticles.map((article) => ({ slug: article.slug }));
 }

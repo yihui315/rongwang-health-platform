@@ -36,7 +36,7 @@ export const landingPages: LandingPage[] = [
     keyword: '女性抗疲劳保健品',
     audience: '25-40 岁都市职场女性',
     content: {
-      metaTitle: '女性抗疲劳保健品怎么选？AI 科学方案 | 荣旺健康',
+      metaTitle: "女性抗疲劳保健品怎么选？AI 科学方案 | 1970 Uncle Darren's",
       metaDescription:
         '长期疲劳、月经后乏力、下午精力断层？荣旺 AI 3 分钟测评，基于你的身体状态匹配临床级抗疲劳方案。香港直邮，30 天无忧退款。',
       hero: {
@@ -92,7 +92,7 @@ export const landingPages: LandingPage[] = [
     keyword: '深度睡眠保健品',
     audience: '失眠困扰的都市白领',
     content: {
-      metaTitle: '深度睡眠保健品推荐 · AI 科学方案 | 荣旺健康',
+      metaTitle: "深度睡眠保健品推荐 · AI 科学方案 | 1970 Uncle Darren's",
       metaDescription:
         '入睡难、睡眠浅、夜醒多？荣旺深度睡眠方案含镁甘氨酸 + GABA + KSM-66 南非醉茄，临床研究验证，香港保税仓直邮。',
       hero: {

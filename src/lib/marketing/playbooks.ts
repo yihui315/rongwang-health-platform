@@ -99,7 +99,7 @@ const baseGuardrails: GrowthPlaybookGuardrail[] = [
   "utm_required",
 ];
 
-function solutionLabel(solution: SolutionSlug | null) {
+function solutionLabel(solution: SolutionSlug | null | undefined) {
   const labels: Record<SolutionSlug, string> = {
     sleep: "睡眠支持",
     fatigue: "疲劳恢复",
@@ -108,11 +108,10 @@ function solutionLabel(solution: SolutionSlug | null) {
     "male-health": "男性健康支持",
     "female-health": "女性健康支持",
   };
-
-  return solution ? labels[solution] : "AI 健康评估";
+  return solution ? `${labels[solution]}人群` : "通用健康人群";
 }
 
-function toolHref(solution: SolutionSlug | null) {
+function toolHref(solution: SolutionSlug | null | undefined) {
   const matchedTool = listFreeTools().find((item) => item.solutionSlug === solution);
   return matchedTool ? `/tools/${matchedTool.slug}` : "/tools/health-check";
 }
@@ -121,7 +120,7 @@ function playbookAsset(input: GrowthPlaybookAsset): GrowthPlaybookAsset {
   return input;
 }
 
-function createPlaybook(id: GrowthPlaybookId, solution: SolutionSlug | null): GrowthPlaybook {
+function createPlaybook(id: GrowthPlaybookId, solution: SolutionSlug | null | undefined): GrowthPlaybook {
   const primaryCta = {
     label: "立即开始 AI 评估",
     href: getAiConsultHrefForValue(solution),
@@ -259,7 +258,7 @@ function getRecommendationClickedCount(analytics: AnalyticsSummary) {
 
 function recommendation(
   id: GrowthPlaybookId,
-  solution: SolutionSlug | null,
+  solution: SolutionSlug | null | undefined,
   priority: GrowthPlaybookPriority,
   reason: string,
 ): GrowthPlaybookRecommendation {
@@ -273,7 +272,7 @@ function recommendation(
 }
 
 export function getGrowthPlaybooks(solution?: string | null): GrowthPlaybook[] {
-  const normalizedSolution = normalizeSolutionSlug(solution);
+  const normalizedSolution = solution ? normalizeSolutionSlug(solution) : undefined;
   return growthPlaybookIds.map((id) => createPlaybook(id, normalizedSolution));
 }
 
@@ -401,7 +400,7 @@ export function buildContentOpportunities(
       slug: "aeo-faq-cluster",
       title: `${solutionLabel(normalizedSolution)} FAQ 与 AI 搜索答案页`,
       intent: "aeo_geo",
-      solutionSlug: normalizedSolution,
+      solutionSlug: normalizedSolution ?? null,
       primaryCta,
     });
   }
@@ -411,7 +410,7 @@ export function buildContentOpportunities(
       slug: "social-listening-questions",
       title: "小红书/知乎/抖音高意图问题清单",
       intent: "social_listening",
-      solutionSlug: normalizedSolution,
+      solutionSlug: normalizedSolution ?? null,
       primaryCta,
     });
   }
@@ -421,7 +420,7 @@ export function buildContentOpportunities(
       slug: "solution-content-repurposing",
       title: `${solutionLabel(normalizedSolution)}内容再分发包`,
       intent: "distribution",
-      solutionSlug: normalizedSolution,
+      solutionSlug: normalizedSolution ?? null,
       primaryCta,
     });
   }

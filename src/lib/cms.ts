@@ -5,6 +5,8 @@
  * 负责从 GEOFlow 获取文章内容、分类信息等
  */
 
+import { readFileSync, existsSync } from 'fs';
+
 // ========================
 // Types
 // ========================
@@ -285,6 +287,29 @@ export function getCMSClient(): GEOFlowClient {
 // Helper: Fallback to static data
 // ========================
 
+// ========================
+// Cache reading (for GEOFlow sync script output)
+// ========================
+
+async function readCacheFile(): Promise<{ updated_at: string; count: number; articles: any[] } | null> {
+  try {
+    const path = '/app/public/_geoflow_cache/articles.json';
+    console.log('[CMS] readCacheFile: path=', path, 'exists=', existsSync(path));
+    if (existsSync(path)) {
+      const content = readFileSync(path, 'utf-8');
+      console.log('[CMS] readCacheFile: content length=', content.length);
+      const parsed = JSON.parse(content);
+      console.log('[CMS] readCacheFile: parsed keys=', Object.keys(parsed), 'articles count=', parsed.articles?.length);
+      return parsed;
+    } else {
+      console.log('[CMS] readCacheFile: file does not exist at path');
+    }
+  } catch (e) {
+    console.error('[CMS] readCacheFile ERROR:', e instanceof Error ? e.message : e);
+  }
+  return null;
+}
+
 export async function getArticlesWithFallback(params: {
   page?: number;
   per_page?: number;
@@ -295,6 +320,58 @@ export async function getArticlesWithFallback(params: {
   pagination: CMSPagination;
   source: 'cms' | 'static';
 }> {
+  // 1. Try reading from GEOFlow sync cache file (written by geoflow-sync.js)
+  try {
+    const cache = await readCacheFile();
+    if (cache && cache.articles && cache.articles.length > 0) {
+      let filtered = cache.articles;
+      if (params.category && params.category !== '全部') {
+        filtered = filtered.filter((a: any) => a.category === params.category);
+      }
+      if (params.search) {
+        const q = params.search.toLowerCase();
+        filtered = filtered.filter((a: any) =>
+          a.title.toLowerCase().includes(q) || (a.excerpt || '').toLowerCase().includes(q)
+        );
+      }
+      const page = params.page || 1;
+      const perPage = params.per_page || 20;
+      const start = (page - 1) * perPage;
+      const paged = filtered.slice(start, start + perPage);
+      return {
+        articles: paged.map((a: any) => ({
+          id: a.id,
+          title: a.title,
+          slug: a.slug || a.id.toString(),
+          content: a.content || '',
+          excerpt: a.excerpt || '',
+          status: 'published' as const,
+          review_status: 'approved' as const,
+          category_id: null,
+          category_name: a.category || '辅酶Q10科普',
+          category_slug: '',
+          author_id: null,
+          author_name: a.author || '运营官Darren',
+          published_at: a.published_at,
+          created_at: a.published_at || new Date().toISOString(),
+          updated_at: a.published_at || new Date().toISOString(),
+          read_time: a.read_time || '5分钟',
+          featured_image: a.coverImage || null,
+        })),
+        pagination: {
+          page,
+          per_page: perPage,
+          total: filtered.length,
+          total_pages: Math.ceil(filtered.length / perPage),
+        },
+        source: 'cms',
+      };
+    }
+  } catch {
+    // cache read failed, continue to fallback
+  }
+
+  // 2. Try GEOFlow API directly
   try {
     const client = getCMSClient();
     const result = await client.listArticles({
@@ -308,57 +385,58 @@ export async function getArticlesWithFallback(params: {
     };
   } catch (error) {
     console.warn('[CMS] GEOFlow unavailable, using static fallback:', error instanceof Error ? error.message : error);
-    // Fallback to static articles
-    const { articles: staticArticles } = await import('@/data/articles');
-
-    let filtered = [...staticArticles];
-    if (params.category && params.category !== '全部') {
-      filtered = filtered.filter(a => a.category === params.category);
-    }
-    if (params.search) {
-      const q = params.search.toLowerCase();
-      filtered = filtered.filter(a =>
-        a.title.toLowerCase().includes(q) ||
-        a.excerpt.toLowerCase().includes(q)
-      );
-    }
-
-    const page = params.page || 1;
-    const perPage = params.per_page || 20;
-    const start = (page - 1) * perPage;
-    const paged = filtered.slice(start, start + perPage);
-
-    return {
-      articles: paged.map((a, i) => ({
-        id: i + 1,
-        title: a.title,
-        slug: a.slug,
-        content: a.sections.map(s => s.content).join('\n\n'),
-        excerpt: a.excerpt,
-        status: 'published' as const,
-        review_status: 'approved' as const,
-        category_id: null,
-        category_name: a.category,
-        category_slug: '',
-        author_id: null,
-        author_name: a.author,
-        published_at: a.publishedAt,
-        created_at: a.publishedAt,
-        updated_at: a.publishedAt,
-        coverColor: a.coverColor,
-        read_time: a.readTime,
-        relatedPlan: a.relatedPlan,
-        sections: a.sections,
-      })),
-      pagination: {
-        page,
-        per_page: perPage,
-        total: filtered.length,
-        total_pages: Math.ceil(filtered.length / perPage),
-      },
-      source: 'static',
-    };
   }
+
+  // 3. Fallback to static articles
+  const { articles: staticArticles } = await import('@/data/articles');
+
+  let filtered = [...staticArticles];
+  if (params.category && params.category !== '全部') {
+    filtered = filtered.filter(a => a.category === params.category);
+  }
+  if (params.search) {
+    const q = params.search.toLowerCase();
+    filtered = filtered.filter(a =>
+      a.title.toLowerCase().includes(q) ||
+      a.excerpt.toLowerCase().includes(q)
+    );
+  }
+
+  const page = params.page || 1;
+  const perPage = params.per_page || 20;
+  const start = (page - 1) * perPage;
+  const paged = filtered.slice(start, start + perPage);
+
+  return {
+    articles: paged.map((a, i) => ({
+      id: i + 1,
+      title: a.title,
+      slug: a.slug,
+      content: a.sections.map((s: any) => s.content).join('\n\n'),
+      excerpt: a.excerpt,
+      status: 'published' as const,
+      review_status: 'approved' as const,
+      category_id: null,
+      category_name: a.category,
+      category_slug: '',
+      author_id: null,
+      author_name: a.author,
+      published_at: a.publishedAt,
+      created_at: a.publishedAt,
+      updated_at: a.publishedAt,
+      coverColor: a.coverColor,
+      read_time: a.readTime,
+      relatedPlan: a.relatedPlan,
+      sections: a.sections,
+    })),
+    pagination: {
+      page,
+      per_page: perPage,
+      total: filtered.length,
+      total_pages: Math.ceil(filtered.length / perPage),
+    },
+    source: 'static',
+  };
 }
 
 export async function getArticleBySlugWithFallback(

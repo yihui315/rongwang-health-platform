@@ -5,15 +5,18 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+      args:
+        NEXT_PUBLIC_SITE_URL: ${NEXT_PUBLIC_SITE_URL}
     env_file:
       - .env.production
+    network_mode: host
     environment:
       NODE_ENV: production
       PORT: 3000
-      HOSTNAME: 0.0.0.0
-      DATABASE_URL: postgresql://${POSTGRES_USER:-rongwang}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB:-rongwang}?schema=public
-      DIRECT_URL: postgresql://${POSTGRES_USER:-rongwang}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB:-rongwang}?schema=public
-      REDIS_REST_URL: http://redis-rest:80
+      HOSTNAME: 127.0.0.1
+      DATABASE_URL: postgresql://rongwang:rongwang_prod_2024@localhost:5432/rongwang?schema=public
+      DIRECT_URL: postgresql://rongwang:rongwang_prod_2024@localhost:5432/rongwang?schema=public
+      REDIS_REST_URL: http://localhost:8079
       REDIS_REST_TOKEN: ${REDIS_REST_TOKEN}
     depends_on:
       postgres:
@@ -22,9 +25,9 @@ services:
         condition: service_healthy
       redis-rest:
         condition: service_started
-    ports:
-      - "3000:3000"
     restart: unless-stopped
+    volumes:
+      - /root/rongwang-health-platform/public/_geoflow_cache:/app/public/_geoflow_cache:ro
     healthcheck:
       test:
         [

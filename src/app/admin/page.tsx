@@ -38,6 +38,36 @@ const cards = [
     href: "/admin/marketing",
   },
   {
+    title: "Platform Accounts",
+    description: "Manage social platform credentials — Xiaohongshu, Douyin, Zhihu, WeChat, and international platforms.",
+    href: "/admin/marketing/accounts",
+  },
+  {
+    title: "Content Calendar",
+    description: "Plan and schedule content across all platforms for the next 30 days.",
+    href: "/admin/marketing/calendar",
+  },
+  {
+    title: "SEO Center",
+    description: "Batch SEO reports, score articles, fix issues, and track JSON-LD / Wikipedia status.",
+    href: "/admin/marketing/seo",
+  },
+  {
+    title: "GEO Automation",
+    description: "GEOFlow sync, JSON-LD generation, Wikipedia drafts, and AI search citation tracking.",
+    href: "/admin/marketing/geo",
+  },
+  {
+    title: "Content Factory",
+    description: "Turn GEOFlow articles into multi-platform drafts — Xiaohongshu, Douyin, Zhihu, and more.",
+    href: "/admin/marketing/content-factory",
+  },
+  {
+    title: "Publishing Dashboard",
+    description: "Monitor all published content, track views/likes/comments, and manage the publish queue.",
+    href: "/admin/marketing/publishing",
+  },
+  {
     title: "Outbound Queue",
     description: "Review blocked outbound sends, manual gates, and compliance reasons before any provider can send.",
     href: "/admin/outbound-queue",
@@ -51,6 +81,16 @@ const cards = [
     title: "Health Knowledge Base",
     description: "Review health and OTC education entries, source status, and product education links.",
     href: "/admin/knowledge",
+  },
+  {
+    title: "Account Management",
+    description: "Manage team member accounts, roles, and access status.",
+    href: "/admin/accounts",
+  },
+  {
+    title: "Content Calendar",
+    description: "Plan and track marketing campaigns, product launches, and content schedules.",
+    href: "/admin/calendar",
   },
 ];
 

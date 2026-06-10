@@ -1,8 +1,7 @@
 /**
  * 荣旺健康 · 产品矩阵方案
  *
- * 三大核心矩阵 + 四大基础场景
- * 品牌：MISORILIFE (MSR) — 现代生物科技 | 彭寿堂 — 百年传承
+ * 四大基础场景 + 通用OTC引流方案
  */
 
 export const plans = [
@@ -12,7 +11,7 @@ export const plans = [
     name: "商务护肝组合",
     type: "应酬与熬夜护肝型",
     description: "适合经常应酬、加班熬夜、饮酒频繁的商务精英",
-    ingredients: ["MSR释酒片", "灵芝孢子油", "牛樟芝胶囊"],
+    ingredients: ["护肝片", "灵芝精华", "护肝草本"],
     price: 1466,
     matrix: "商务精英",
     icon: "🍷",
@@ -24,7 +23,7 @@ export const plans = [
     name: "内调抗衰组合",
     type: "内调抗衰与身材管理型",
     description: "适合追求由内而外美丽、关注代谢与抗衰的都市女性",
-    ingredients: ["MSR AKK益生菌", "东阿贡胶", "NAD+焕白片"],
+    ingredients: ["AKK益生菌", "阿胶片", "NAD+焕白片"],
     price: 1768,
     matrix: "都市女性",
     icon: "✨",

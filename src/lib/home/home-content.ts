@@ -24,6 +24,12 @@ export interface TrustPoint {
   title: string;
   description: string;
   icon: IconKey;
+  /** Optional certificate image URL — if set, badge becomes clickable */
+  certificateUrl?: string;
+  /** Label for the certificate trigger */
+  certificateLabel?: string;
+  /** Defaults to 'image' */
+  certificateType?: 'image' | 'pdf';
 }
 
 export interface StepItem {
@@ -68,6 +74,22 @@ export interface ExpertHighlight {
 }
 
 export const homeTrustPoints: TrustPoint[] = [
+  {
+    title: "美国进口·原产地直供",
+    description: "美国生产，原产地证明，跨境直邮。",
+    icon: "globe",
+    certificateUrl: "/certificates/origin-cert.jpg",
+    certificateLabel: "查看原产地证明",
+    certificateType: "image",
+  },
+  {
+    title: "注册营养顾问全程服务",
+    description: "持证顾问1对1健康指导，不强制推销。",
+    icon: "stethoscope",
+    certificateUrl: "/certificates/advisor-cert.jpg",
+    certificateLabel: "查看顾问资质",
+    certificateType: "image",
+  },
   {
     title: "先评估后购买",
     description: "先了解自身状况，再决定是否需要方案。",
@@ -133,7 +155,7 @@ export const homeHealthDirections: HealthDirection[] = [
   {
     title: "女性健康",
     description: "调节平衡，关爱女性",
-    href: "/solutions/female",
+    href: "/solutions/female-health",
     accent: "pink",
     icon: "venus",
     image: "/images/home/women-health.svg",

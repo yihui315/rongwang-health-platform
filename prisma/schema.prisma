@@ -407,7 +407,7 @@ model PddClick {
   destinationUrl String?
   ref            String?
   utm            Json?
-  metadata       Json?
+  metadata Json?
   createdAt      DateTime      @default(now())
   session        UserSession?  @relation(fields: [sessionId], references: [id], onDelete: SetNull)
   consultation   Consultation? @relation(fields: [consultationId], references: [id], onDelete: SetNull)
@@ -416,6 +416,124 @@ model PddClick {
   @@index([consultationId])
   @@index([productSlug])
   @@index([source])
+}
+
+// ─────────────────────────────────────────────
+//  Marketing Platform — Platform Accounts
+// ─────────────────────────────────────────────
+enum PlatformAccountStatus {
+  active
+  inactive
+  suspended
+  error
+}
+
+model PlatformAccount {
+  id          String               @id @default(cuid())
+  platform    String               // xiaohongshu | douyin | zhihu | wechat | facebook | instagram | linkedin | tiktok | pinterest | brightbean
+  accountName String
+  accountId String?              // platform-native account ID
+  credentials Json?                 // encrypted tokens/cookies
+  status      PlatformAccountStatus @default(active)
+  metadata    Json?
+  createdAt   DateTime             @default(now())
+  updatedAt   DateTime             @updatedAt
+  posts       MarketingPost[]
+
+  @@unique([platform, accountName])
+  @@index([platform])
+  @@index([status])
+}
+
+// ─────────────────────────────────────────────
+//  Marketing Platform — Posts & Scheduling
+// ─────────────────────────────────────────────
+enum PostStatus {
+  draft
+  scheduled
+  publishing
+  published
+  failed
+}
+
+model MarketingPost {
+  id String           @id @default(cuid())
+  platformAccountId String?
+  platform        String
+  title           String
+  content         String
+  mediaUrls String[]
+  status PostStatus      @default(draft)
+  scheduledAt     DateTime?
+  publishedAt     DateTime?
+  views Int             @default(0)
+  likes           Int             @default(0)
+  comments        Int             @default(0)
+  shares          Int             @default(0)
+  errorMessage String?
+  sourceArticleId String?         // linked GEOFlow article
+  seoScore Int?
+  geoTags String[]        // for geo-targeting
+  metadata Json?
+  createdAt       DateTime        @default(now())
+  updatedAt       DateTime        @updatedAt
+  platformAccount PlatformAccount? @relation(fields: [platformAccountId], references: [id], onDelete: SetNull)
+  seoReports SeoReport[]
+
+  @@index([platform])
+  @@index([status])
+  @@index([scheduledAt])
+  @@index([sourceArticleId])
+}
+
+// ─────────────────────────────────────────────
+//  SEO Reports
+// ─────────────────────────────────────────────
+model SeoReport {
+  id String   @id @default(cuid())
+  postId          String
+  title           String
+  metaDescription String?
+  keywords String[]
+  score Int      // 0-100
+  issues Json?    // array of {severity, message, field}
+  suggestions Json?    // array of improvement suggestions
+  jsonLdStatus String   @default("missing")
+  wikipediaStatus String   @default("not_started")
+  createdAt       DateTime @default(now())
+  post            MarketingPost @relation(fields: [postId], references: [id], onDelete: Cascade)
+
+  @@index([postId])
+}
+
+// ─────────────────────────────────────────────
+//  Content Calendar Events
+// ─────────────────────────────────────────────
+model ContentCalendarEvent {
+  id          String    @id @default(cuid())
+  date DateTime
+  platform String
+  contentType String // article | video | short_form | story | reel
+  title       String
+  brief String?
+  status String    @default("planned") // planned | in_progress | published | cancelled
+  postId      String?   // linked MarketingPost
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@index([date])
+  @@index([platform])
+}
+
+// ─────────────────────────────────────────────
+//  GEO Flow Sync Log
+// ─────────────────────────────────────────────
+model GeoFlowSyncLog {
+  id           String   @id @default(cuid())
+  articlesCount Int
+  status String   // success | partial | failed
+  details       Json?
+  createdAt     DateTime @default(now())
 }
 
 model AnalyticsEvent {

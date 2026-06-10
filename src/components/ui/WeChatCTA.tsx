@@ -1,21 +1,16 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 
 interface WeChatCTAProps {
-  /** 微信公众号客服二维码图片URL */
   qrCodeUrl?: string;
-  /** 微信公众号ID（用于网页版跳转） */
   wechatId?: string;
-  /** 自定义文案 */
   title?: string;
   description?: string;
-  /** 是否显示为卡片模式（带背景） */
   cardMode?: boolean;
 }
 
 const DEFAULT_WECHAT_ID = 'rongwanghealth';
-const DEFAULT_QR_URL = '';
 
 export default function WeChatCTA({
   qrCodeUrl,
@@ -25,8 +20,17 @@ export default function WeChatCTA({
   cardMode = true,
 }: WeChatCTAProps) {
   const wechatUrl = `https://u.wechat.com/E/${wechatId}`;
+  const [copied, setCopied] = useState(false);
 
-  const content = (
+  const handleCopy = () => {
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(wechatId);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    }
+  };
+
+  const inner = (
     <div className="flex flex-col items-center gap-4">
       {/* QR Code */}
       <div className="relative">
@@ -62,15 +66,11 @@ export default function WeChatCTA({
           <span className="text-lg">💬</span>
           <span className="text-sm font-mono text-slate-600">{wechatId}</span>
           <button
-            onClick={() => {
-              if (navigator.clipboard) {
-                navigator.clipboard.writeText(wechatId);
-              }
-            }}
-            className="text-xs text-teal-600 hover:text-teal-700 font-medium"
+            onClick={handleCopy}
+            className={`text-xs font-medium transition ${copied ? 'text-green-600' : 'text-teal-600 hover:text-teal-700'}`}
             title="复制微信号"
           >
-            复制
+            {copied ? '✓ 已复制' : '复制'}
           </button>
         </div>
       )}
@@ -89,11 +89,11 @@ export default function WeChatCTA({
     </div>
   );
 
-  if (!cardMode) return content;
+  if (!cardMode) return inner;
 
   return (
     <div className="bg-gradient-to-br from-orange-50 to-amber-50 border border-orange-100 rounded-2xl p-6">
-      {content}
+      {inner}
     </div>
   );
 }

@@ -7,7 +7,7 @@ import type { CMSArticle } from './cms';
 import { getSiteUrl } from "@/lib/site";
 
 const SITE_URL = getSiteUrl();
-const SITE_NAME = '香港荣旺健康';
+const SITE_NAME = "1970 Uncle Darren's";
 
 // ========================
 // JSON-LD 结构化数据

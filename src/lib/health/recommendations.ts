@@ -4,12 +4,16 @@ import type { HealthConsultationResult, SolutionType } from "@/schemas/ai-result
 import type { HealthProfile } from "@/schemas/health";
 
 export const solutionPlanMap: Record<SolutionType, string[]> = {
-  sleep: ["sleep", "stress"],
+  // sleep: no sleep-plan products; fall back to stress (Brain Boost Max has stress, has calming adaptogen profile)
+  sleep: ["stress"],
   fatigue: ["fatigue", "stress"],
-  liver: ["liver", "immune"],
+  // liver: no liver-plan products; use cardio (Heart Defender targets cardiovascular/lifestyle stress similar audience) + immune
+  liver: ["cardio", "immune"],
   immune: ["immune"],
-  male_health: ["fatigue", "liver", "stress"],
-  female_health: ["beauty", "fatigue", "sleep"],
+  // male_health: no liver plan; use cardio (heart/energy overlap), fatigue (energy), stress (lifestyle)
+  male_health: ["cardio", "fatigue", "stress"],
+  // female_health: no sleep plan; use beauty (skin/cycle), fatigue (energy), stress (adaptogens for cycle/mood)
+  female_health: ["beauty", "fatigue", "stress"],
   general: ["fatigue", "immune"],
 };
 
@@ -73,7 +77,7 @@ export interface RecommendationRulePreviewItem {
 export interface RecommendationRulePreview {
   solutionType: SolutionType;
   label: string;
-  solutionSlug: string;
+  solutionSlug: string | null;
   targetPlans: string[];
   notes: string[];
   previewProfileSummary: string[];
@@ -383,7 +387,7 @@ export function getRecommendationRulePreviews(catalog: Product[] = products, lim
     return {
       solutionType,
       label: solutionTypeLabels[solutionType],
-      solutionSlug: solutionTypeToSlug(solutionType),
+      solutionSlug: solutionTypeToSlug(solutionType) ?? null,
       targetPlans: solutionPlanMap[solutionType],
       notes: ruleNotesBySolutionType[solutionType],
       previewProfileSummary: buildPreviewProfileSummary(previewProfile),

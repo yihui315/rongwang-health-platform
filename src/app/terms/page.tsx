@@ -50,7 +50,7 @@ export default function TermsPage() {
           <p className="text-slate-700 leading-relaxed">
             所有價格以港幣（HKD）標示，除非另有說明。價格可能隨時變動，恕不另行通知。
             促銷價格僅在指定期間內有效。付款透過 Stripe 安全支付平台處理，
-            支持信用卡、Apple Pay、Google Pay 等方式。
+            支援信用卡、Apple Pay、Google Pay 等方式。
             跨境訂單可能涉及額外的關稅及進口稅，由買方自行承擔。
           </p>
         </section>

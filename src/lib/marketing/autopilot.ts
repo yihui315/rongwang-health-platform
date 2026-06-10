@@ -123,7 +123,7 @@ function safeCount(summary: AnalyticsSummary, key: keyof AnalyticsSummary["byNam
 }
 
 function makeRunId(request: MarketingAutopilotRequest) {
-  const solution = normalizeSolutionSlug(request.solution) ?? "general";
+  const solution = request.solution ? (normalizeSolutionSlug(request.solution) ?? "general") : "general";
   const timestamp = new Date().toISOString().replace(/[-:.TZ]/g, "").slice(0, 14);
   return `mauto-${solution}-${timestamp}`;
 }
@@ -358,7 +358,7 @@ function resolveExecution(input: {
 
 export function buildMarketingAutopilotRun(input: BuildMarketingAutopilotRunInput): MarketingAutopilotRun {
   const request = marketingAutopilotRequestSchema.parse(input.request);
-  const focusSolution = normalizeSolutionSlug(request.solution);
+  const focusSolution = (request.solution ? normalizeSolutionSlug(request.solution) : null) as SolutionSlug | null;
   const geoActions = geoFlowActions(input.geoFlow);
   const conversionActions = funnelActions(request, input.analytics, input.pddClicks);
   const campaign = buildMarketingCampaignPlan({

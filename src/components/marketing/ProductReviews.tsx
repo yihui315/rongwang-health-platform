@@ -51,16 +51,6 @@ const defaultReviews: Review[] = [
     product: 'NADH 释酒片',
   },
   {
-    id: '2',
-    author: '李女士',
-    rating: 5,
-    date: '2026-03-08',
-    verified: true,
-    content: '给妈妈买的东阿贡胶，吃了两个月气色明显好了很多。妈妈说睡眠也改善了不少。正宗东阿产地值得信赖。',
-    helpful: 18,
-    product: '彭寿堂 东阿贡胶',
-  },
-  {
     id: '3',
     author: '王先生',
     rating: 4,

@@ -8,9 +8,10 @@ import {
 function resolveCanonicalSolutionSlug(
   value: string | null | undefined,
 ): SolutionSlug | null {
+  if (!value) return null;
   const slug = normalizeSolutionSlug(value);
   if (slug) {
-    return slug;
+    return slug as SolutionSlug;
   }
 
   const solutionType = normalizeSolutionType(value);
@@ -18,13 +19,14 @@ function resolveCanonicalSolutionSlug(
     return null;
   }
 
-  return solutionTypeToSlug(solutionType);
+  const mapped = solutionTypeToSlug(solutionType);
+  return mapped ?? null;
 }
 
 export function getAiConsultHrefForValue(
-  value: string | null | undefined,
+  solution: string | null | undefined,
 ): string {
-  const slug = resolveCanonicalSolutionSlug(value);
+  const slug = resolveCanonicalSolutionSlug(solution);
   return slug ? `/ai-consult?focus=${slug}` : "/ai-consult";
 }
 

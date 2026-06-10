@@ -23,8 +23,6 @@ const categoryGradient: Record<ProductCategory, string> = {
 };
 
 const brandInfo: Record<string, { short: string; color: string; desc: string }> = {
-  'MISORILIFE': { short: 'MSR', color: 'bg-blue-600', desc: '现代生物科技' },
-  '彭寿堂': { short: '彭寿堂', color: 'bg-red-700', desc: '百年传承名方' },
   '荣旺 · Vital': { short: 'Vital', color: 'bg-teal-600', desc: '基础营养' },
   '荣旺 · Night': { short: 'Night', color: 'bg-indigo-600', desc: '深度睡眠' },
   '荣旺 · Shield': { short: 'Shield', color: 'bg-cyan-600', desc: '免疫防护' },
@@ -127,7 +125,7 @@ export default async function ProductDetailPage({ params }: Props) {
 
               {/* Decorative letter */}
               <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-white/[0.03] text-[200px] font-black select-none pointer-events-none">
-                {product.brand.includes('MISORILIFE') ? 'M' : product.brand.includes('彭寿堂') ? '彭' : 'R'}
+                {brand.short[0] ?? 'R'}
               </div>
             </div>
           )}
@@ -312,7 +310,7 @@ export default async function ProductDetailPage({ params }: Props) {
                     ) : (
                       <div className={`h-40 bg-gradient-to-br ${categoryGradient[r.category]} flex items-center justify-center`}>
                         <span className="text-white/10 text-6xl font-black">
-                          {r.brand.includes('MISORILIFE') ? 'M' : r.brand.includes('彭寿堂') ? '彭' : 'R'}
+                          {rBrand.short[0] ?? 'R'}
                         </span>
                       </div>
                     )}

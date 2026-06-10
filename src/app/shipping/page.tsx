@@ -3,8 +3,8 @@
  */
 
 export const metadata = {
-  title: "配送與退貨 | 荣旺健康",
-  description: "了解荣旺健康的配送方式、運費、跨境清關及退貨退款流程。",
+  title: "配送與退貨 | 1970 Uncle Darren's",
+  description: "了解1970 Uncle Darren's 恩科達倫的配送方式、運費、跨境清關及退貨退款流程。",
 };
 
 export default function ShippingPage() {
