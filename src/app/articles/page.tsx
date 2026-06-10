@@ -5,19 +5,21 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { articles } from '@/data/articles';
 
-const categories = ['全部', '抗疲劳', '深度睡眠', '免疫防护', '压力缓解', '营养科普'];
+const categories = ['全部', '抗疲勞', '深度睡眠', '免疫防护', '壓力緩解', '营养科普'];
 
 const categoryIcon: Record<string, string> = {
-  '抗疲劳': '01',
+  '抗疲勞': '01',
   '深度睡眠': '02',
   '免疫防护': '03',
-  '压力缓解': '04',
+  '壓力緩解': '04',
   '营养科普': '05',
 };
 
 const categoryCoverImage: Record<string, string> = {
-  '免疫防护': '/images/articles-cover/article-immune.png',
+  '抗疲勞': '/images/articles-cover/article-energy.png',
   '深度睡眠': '/images/articles-cover/article-sleep.png',
+  '免疫防护': '/images/articles-cover/article-immune.png',
+  '壓力緩解': '/images/articles-cover/article-stress.png',
   '营养科普': '/images/articles-cover/article-wellness.png',
 };
 
@@ -54,7 +56,7 @@ export default function ArticlesPage() {
             <svg className="h-3.5 w-3.5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
             </svg>
-            健康知识库
+            健康知識库
           </div>
           <h1 className="text-4xl md:text-5xl font-bold text-slate-900 tracking-tight leading-[1.1]">
             科学驱动的
@@ -152,7 +154,7 @@ export default function ArticlesPage() {
                       </div>
                     </div>
                     <div className="md:col-span-3 p-8 md:p-12 flex flex-col justify-center">
-                      <span className="text-[13px] text-teal-600 font-semibold mb-3 tracking-wide">精选文章</span>
+                      <span className="text-[13px] text-teal-600 font-semibold mb-3 tracking-wide">精選文章</span>
                       <h2 className="text-2xl md:text-3xl font-bold text-slate-900 mb-4 group-hover:text-teal-600 transition-colors tracking-tight leading-tight">
                         {filteredArticles[0].title}
                       </h2>
@@ -235,8 +237,8 @@ export default function ArticlesPage() {
       <section className="border-t border-slate-100">
         <div className="mx-auto max-w-7xl px-6 lg:px-8 py-20">
           <div className="mx-auto max-w-lg text-center">
-            <h2 className="text-2xl font-bold text-slate-900 tracking-tight">订阅健康周刊</h2>
-            <p className="mt-3 text-[15px] text-slate-500">每周精选最新健康研究和实用建议，直达你的邮箱</p>
+            <h2 className="text-2xl font-bold text-slate-900 tracking-tight">訂閱健康周刊</h2>
+            <p className="mt-3 text-[15px] text-slate-500">每周精選最新健康研究和实用建议，直达你的邮箱</p>
             <form className="mt-6 flex gap-2" onSubmit={(e) => e.preventDefault()}>
               <input
                 type="email"
@@ -247,7 +249,7 @@ export default function ArticlesPage() {
                 type="submit"
                 className="rounded-full bg-slate-900 text-white px-6 py-3 text-[14px] font-semibold hover:bg-slate-800 transition-all shadow-sm"
               >
-                订阅
+                訂閱
               </button>
             </form>
             <p className="mt-3 text-[12px] text-slate-400">随时可以退订，我们尊重你的隐私</p>

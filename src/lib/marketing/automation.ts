@@ -4,6 +4,11 @@ import {
   getSolutionHrefForValue,
 } from "@/lib/health/consult-entry";
 import { normalizeSolutionSlug, type SolutionSlug } from "@/lib/health/mappings";
+
+function toSlug(value: string | null | undefined): SolutionSlug | null {
+  if (!value) return null;
+  return normalizeSolutionSlug(value) ?? null;
+}
 import {
   buildGeoFlowTaskPayload,
   getGeoFlowAutomationStatus,
@@ -230,7 +235,7 @@ function createGeoFlowDraft(asset: MarketingAsset, plan: {
 
 export function buildMarketingCampaignPlan(input: MarketingCampaignRequestInput): MarketingCampaignPlan {
   const request = marketingCampaignRequestSchema.parse(input);
-  const solutionSlug = normalizeSolutionSlug(request.solution);
+  const solutionSlug = toSlug(request.solution);
   const keyword = request.keyword ?? (solutionSlug ? `${solutionSlug} support` : "AI 健康评估");
   const campaignSlug = request.campaignSlug ?? slugify(`${solutionSlug ?? request.objective}-${keyword}`);
   const primaryCtaHref = getAiConsultHrefForValue(solutionSlug);

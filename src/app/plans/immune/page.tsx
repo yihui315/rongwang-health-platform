@@ -129,7 +129,7 @@ export default function ImmunePlanPage() {
           <div className="grid gap-4 md:grid-cols-4">
             {plan.certifications.map((cert) => (
               <div key={cert} className="text-center rounded-lg bg-slate-50 p-4">
-                <div className="text-2xl mb-2">🛡️</div>
+                <div className="mb-2 flex justify-center"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#0d9488" className="w-7 h-7"><path d="M12 2L4 6v6c0 5.5 3.5 10 8 11 4.5-1 8-5.5 8-11V6L12 2z"/></svg></div>
                 <p className="text-sm font-semibold text-slate-700">{cert}</p>
               </div>
             ))}
@@ -164,17 +164,17 @@ export default function ImmunePlanPage() {
           <h2 className="text-2xl font-bold text-slate-900 mb-8">相关产品</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <Link href="/products" className="card-hover text-center">
-              <div className="text-3xl mb-3">💊</div>
+              <div className="mb-3 flex justify-center"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none" className="w-8 h-8 mx-auto"><rect x="4" y="10" width="24" height="12" rx="6" fill="#0d9488" opacity="0.2" stroke="#0d9488" stroke-width="2"/><path d="M16 10V22" stroke="#0d9488" stroke-width="2"/></svg></div>
               <h3 className="font-semibold text-slate-900 mb-2">浏览所有产品</h3>
               <p className="text-sm text-slate-600">发现更多健康补充方案</p>
             </Link>
             <Link href="/solutions/fatigue" className="card-hover text-center">
-              <div className="text-3xl mb-3">⚡</div>
+              <div className="mb-3 flex justify-center"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#f59e0b" className="w-7 h-7 mx-auto"><path d="M13 2L4 14h7l-1 8 9-12h-7l1-8z"/></svg></div>
               <h3 className="font-semibold text-slate-900 mb-2">疲劳恢复方案</h3>
               <p className="text-sm text-slate-600">查看恢复不足与精力支持方向</p>
             </Link>
             <Link href="/solutions/sleep" className="card-hover text-center">
-              <div className="text-3xl mb-3">🌙</div>
+              <div className="mb-3 flex justify-center"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#6366f1" className="w-8 h-8"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg></div>
               <h3 className="font-semibold text-slate-900 mb-2">睡眠支持方案</h3>
               <p className="text-sm text-slate-600">查看作息与恢复质量相关方案</p>
             </Link>

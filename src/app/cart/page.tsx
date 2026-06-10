@@ -31,7 +31,7 @@ export default function CartPage() {
           <p className="text-slate-600 mb-8">快去选择适合你的健康方案吧</p>
           <Link
             href="/ai-consult"
-            className="inline-block rounded-lg bg-orange px-8 py-3 font-semibold text-white hover:bg-orange/90 transition-colors"
+            className="inline-block rounded-lg bg-emerald-600 px-8 py-3 font-semibold text-white hover:bg-emerald-700 transition-colors"
           >
             去逛逛
           </Link>

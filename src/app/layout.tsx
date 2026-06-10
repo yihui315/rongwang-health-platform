@@ -10,48 +10,40 @@ import { generateOrganizationJsonLd } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: {
-    default: "荣旺健康 | AI健康评估与跨境营养支持",
-    template: "%s | 荣旺健康",
+    default: "1970 Uncle Darren's 恩科達倫 | 美国进口精准营养品牌",
+    template: "%s | 1970 Uncle Darren's 恩科達倫",
   },
   description:
-    "荣旺健康提供3分钟AI健康评估，帮助用户了解风险分层、生活方式建议与营养支持方向。内容仅供健康教育参考，不替代医生诊断。",
+    "1970 Uncle Darren's 恩科達倫 — 专注精准营养，美国进口。心脏健康、骨骼健康、肠道健康、脑力提升四大产品线，男女分开配方，科学支持。",
   keywords: [
-    "荣旺健康",
-    "AI健康评估",
+    "1970 Uncle Darren's",
+    "恩科達倫",
+    "精准营养",
+    "美国进口营养品",
+    "辅酶Q10",
+    "益生菌",
     "跨境保健品",
-    "营养支持",
-    "睡眠评估",
-    "疲劳评估",
-    "免疫支持",
-    "压力管理",
+    "心脏健康",
+    "骨骼健康",
   ],
-  authors: [{ name: "香港荣旺健康科技有限公司" }],
+  authors: [{ name: "荣旺健康" }],
   creator: "荣旺健康",
-  publisher: "香港荣旺健康科技有限公司",
+  publisher: "荣旺健康",
   icons: {
     icon: "/favicon.svg",
   },
   openGraph: {
-    title: "荣旺健康 | 先评估，再选择适合的健康支持方向",
+    title: "1970 Uncle Darren's 恩科達倫 | 美国进口精准营养",
     description:
-      "3分钟AI健康评估，生成教育型健康报告、风险提示和方案入口。内容仅供健康教育参考，不替代医生诊断。",
+      "专注精准营养，美国进口。心脏、骨骼、肠道、脑力四大健康产品线，男女分开配方。",
     locale: "zh_CN",
     type: "website",
-    siteName: "荣旺健康",
-    images: [
-      {
-        url: "/images/visual-v2/og-home.jpg",
-        width: 1200,
-        height: 630,
-        alt: "荣旺健康AI评估入口",
-      },
-    ],
+    siteName: "1970 Uncle Darren's",
   },
   twitter: {
     card: "summary_large_image",
-    title: "荣旺健康 | AI健康评估与跨境营养支持",
-    description: "先评估风险和生活方式，再查看对应健康方案与购买入口。",
-    images: ["/images/visual-v2/og-home.jpg"],
+    title: "1970 Uncle Darren's 恩科達倫 | 美国进口精准营养",
+    description: "专注精准营养，美国进口。心脏、骨骼、肠道、脑力四大健康产品线，男女分开配方。",
   },
   robots: {
     index: true,

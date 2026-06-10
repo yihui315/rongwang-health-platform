@@ -45,7 +45,9 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "点击日志参数无效。" }, { status: 400 });
   }
 
-  const solutionSlug = normalizeSolutionSlug(parsed.data.solutionSlug) ?? undefined;
+  const solutionSlug = parsed.data.solutionSlug
+    ? normalizeSolutionSlug(parsed.data.solutionSlug) ?? undefined
+    : undefined;
 
   await savePddClick({
     productId: parsed.data.productId,

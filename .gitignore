@@ -69,3 +69,4 @@ ai-mcp-server/nul
 
 # chanpinlu (product catalog source)
 chanpinlu/
+.gstack/

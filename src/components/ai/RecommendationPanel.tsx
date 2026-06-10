@@ -66,6 +66,14 @@ export default function RecommendationPanel({
                 >
                   查看购买入口
                 </Link>
+                <a
+                  href="/shop"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 rounded-full border border-amber-300 bg-amber-50 hover:bg-amber-100 text-amber-700 px-4 py-2 text-sm font-semibold transition"
+                >
+                  🛒 进店逛逛
+                </a>
               </div>
             </div>
           ))}

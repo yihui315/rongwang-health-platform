@@ -6,10 +6,11 @@ import { usePathname } from "next/navigation";
 import CartBadge from "@/components/ui/CartBadge";
 
 const publicNavLinks = [
-  { href: "/ai-consult", label: "AI评估", matchPrefix: "/ai-consult" },
+  { href: "/ai-consult", label: "AI評估", matchPrefix: "/ai-consult" },
   { href: "/solutions/sleep", label: "健康方案", matchPrefix: "/solutions" },
-  { href: "/products", label: "官网商城", matchPrefix: "/products" },
-  { href: "/articles", label: "健康内容", matchPrefix: "/articles" },
+  { href: "/shop", label: "購買渠道", matchPrefix: "/shop" },
+  { href: "/brand", label: "品牌故事", matchPrefix: "/brand" },
+  { href: "/articles", label: "健康內容", matchPrefix: "/articles" },
 ];
 
 const adminNavLink = { href: "/admin", label: "后台", matchPrefix: "/admin" };
@@ -65,10 +66,19 @@ export default function Header() {
           </span>
           <span className="flex flex-col leading-tight">
             <span className="text-base font-bold tracking-tight text-slate-900">
-              荣旺健康
+              香港荣旺健康
             </span>
             <span className="text-[9px] font-semibold tracking-[0.18em] text-slate-400">
               RONGWANG HEALTH
+            </span>
+          </span>
+          <span className="mx-2 h-5 w-px bg-slate-200" />
+          <span className="flex flex-col leading-tight">
+            <span className="text-base font-bold tracking-tight text-slate-900">
+              1970 Uncle Darren's
+            </span>
+            <span className="text-[9px] font-semibold tracking-[0.18em] text-slate-400">
+              恩科達倫
             </span>
           </span>
         </Link>
@@ -103,7 +113,7 @@ export default function Header() {
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-white opacity-75" />
               <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-white" />
             </span>
-            立即开始 AI 评估
+            立即開始 AI 評估
           </Link>
 
           <button
@@ -154,7 +164,7 @@ export default function Header() {
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-white opacity-75" />
                 <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-white" />
               </span>
-              立即开始 AI 评估
+              立即開始 AI 評估
             </Link>
           </div>
         </div>

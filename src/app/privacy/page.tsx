@@ -1,11 +1,11 @@
 /**
- * 隐私政策頁面
+ * 隱私政策頁面
  * 符合香港《個人資料（私隱）條例》
  */
 
 export const metadata = {
-  title: "隱私政策 | 荣旺健康",
-  description: "香港榮旺健康科技有限公司隱私政策，了解我們如何收集、使用及保護您的個人資料。",
+  title: "隱私政策 | 1970 Uncle Darren's",
+  description: "了解1970 Uncle Darren's 恩科達倫的隱私政策，包括信息收集、使用和跨境数据传输。"
 };
 
 export default function PrivacyPage() {

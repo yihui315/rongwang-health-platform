@@ -147,11 +147,29 @@ export default function ConsultResult({ response }: ConsultResultProps) {
             ? "当前优先根据就医提示尽快线下评估，暂不引导到方案或购买页面。"
             : result.productRecommendationReason}
         </p>
+        {canShowSolutionLink && (
+          <div className="mt-5 flex flex-wrap gap-3">
+            <a
+              href="/shop"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 rounded-full bg-amber-500 hover:bg-amber-600 text-white px-6 py-2.5 text-sm font-semibold transition"
+            >
+              🛒 进店购买正品
+            </a>
+            <a
+              href="/ai-consult"
+              className="inline-flex items-center gap-2 rounded-full border border-teal-300 text-teal-700 hover:bg-teal-50 px-6 py-2.5 text-sm font-semibold transition"
+            >
+              🔄 重新评估
+            </a>
+          </div>
+        )}
       </div>
 
       <RecommendationPanel
         response={response}
-        solutionSlug={solutionSlug}
+        solutionSlug={solutionSlug ?? ''}
         canShowSolutionLink={canShowSolutionLink}
       />
 

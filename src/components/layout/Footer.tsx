@@ -2,24 +2,30 @@ import Link from "next/link";
 import NewsletterSignup from "@/components/marketing/NewsletterSignup";
 
 const footerLinks = {
-  solutions: [
-    { href: "/solutions/fatigue", label: "疲劳恢复方案" },
-    { href: "/solutions/sleep", label: "睡眠支持方案" },
-    { href: "/solutions/immune", label: "免疫支持方案" },
-    { href: "/solutions/female-health", label: "女性健康支持" },
-    { href: "/solutions/male-health", label: "男性健康支持" },
+  products: [
+    { href: "/products/category/heart", label: "心臟與血管" },
+    { href: "/products/category/bone", label: "關節與骨骼" },
+    { href: "/products/category/gut", label: "腸道健康" },
+    { href: "/products/category/brain", label: "腦力與認知" },
+    { href: "/products/bundles", label: "營養包套裝" },
   ],
-  resources: [
+  brand: [
+    { href: "/brand", label: "品牌故事" },
+    { href: "/brand#story", label: "品牌起源" },
+    { href: "/brand#certifications", label: "認證資質" },
+    { href: "/trust-center", label: "信任中心" },
+    { href: "/shop", label: "購買渠道" },
+  ],
+  quick: [
     { href: "/ai-consult", label: "AI健康评估" },
-    { href: "/assessment/sleep", label: "免费自测入口" },
-    { href: "/articles", label: "健康内容" },
-    { href: "/products", label: "商品库" },
+    { href: "/shop", label: "正品購買入口" },
+    { href: "/articles", label: "健康知識" },
+    { href: "/solutions/sleep", label: "健康方案" },
   ],
   support: [
-    { href: "/shipping", label: "配送与售后" },
-    { href: "/privacy", label: "隐私政策" },
-    { href: "/terms", label: "服务条款" },
-    { href: "/family", label: "家庭健康档案" },
+    { href: "/shipping", label: "配送與售後" },
+    { href: "/privacy", label: "隱私政策" },
+    { href: "/terms", label: "服務條款" },
   ],
 };
 
@@ -33,19 +39,20 @@ export default function Footer() {
               <span className="inline-flex h-9 w-9 items-center justify-center rounded-lg bg-[var(--surface-strong)] text-sm font-bold text-white">
                 荣
               </span>
-              <span className="text-lg font-bold text-[var(--text-primary)]">荣旺健康</span>
+              <span className="text-lg font-bold text-[var(--text-primary)]">香港荣旺健康</span>
             </Link>
             <p className="mt-4 max-w-sm text-sm leading-7 text-[var(--text-secondary)]">
-              荣旺健康以AI评估为入口，帮助用户先理解风险、生活方式和营养支持方向，再谨慎查看方案与购买入口。
+              香港榮旺健康科技有限公司，專注精準營養，美国进口。1970 Uncle Darren's 恩科達倫授權戰略合作夥伴，男女分開配方，科學配比。
             </p>
             <p className="mt-4 max-w-sm text-xs leading-6 text-[var(--text-muted)]">
               本站内容仅用于健康教育和一般参考，不构成医学诊断、治疗建议或处方。症状严重或持续时，请优先咨询医生或药师。
             </p>
           </div>
 
-          <FooterColumn title="健康方案" links={footerLinks.solutions} />
-          <FooterColumn title="评估与内容" links={footerLinks.resources} />
-          <FooterColumn title="服务支持" links={footerLinks.support} />
+          <FooterColumn title="產品分類" links={footerLinks.products} />
+          <FooterColumn title="品牌故事" links={footerLinks.brand} />
+          <FooterColumn title="快速入口" links={footerLinks.quick} />
+          <FooterColumn title="服務支援" links={footerLinks.support} />
 
           <div className="md:col-span-3 lg:col-span-3">
             <NewsletterSignup variant="footer" />
@@ -53,7 +60,7 @@ export default function Footer() {
         </div>
 
         <div className="flex flex-col gap-3 border-t border-[var(--border-subtle)] py-6 text-xs text-[var(--text-muted)] md:flex-row md:items-center md:justify-between">
-          <p>&copy; 2026 香港荣旺健康科技有限公司. All rights reserved.</p>
+          <p>&copy; 2026 香港榮旺健康科技有限公司. All rights reserved.</p>
           <div className="flex flex-wrap gap-4">
             <a href="mailto:support@rongwang.health" className="hover:text-[var(--teal-dark)]">
               support@rongwang.health

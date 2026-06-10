@@ -12,9 +12,9 @@ const plan = {
   description: '适合长期紧绷、焦虑、状态不稳定的人群',
   price: 399,
   ingredients: [
-    { name: 'B族维生素', dosage: '每日1粒', detail: '活性甲基化B族，神经递质合成的关键辅酶，帮助血清素和多巴胺正常分泌' },
-    { name: '螯合镁', dosage: '每日1粒', detail: 'L-苏糖酸镁，唯一能有效穿过血脑屏障的镁形式，直接作用于中枢神经系统' },
-    { name: '适应原草本', dosage: '每日1粒', detail: '南非醉茄(Ashwagandha) KSM-66专利提取物，临床验证可降低皮质醇水平27%' }
+    { name: 'B族维生素', dosage: '每日1粒', detail: '活性甲基化B族，支持神经递质合成的日常营养补充' },
+    { name: '螯合镁', dosage: '每日1粒', detail: 'L-苏糖酸镁，支持神经系统日常营养管理' },
+    { name: '适应原草本', dosage: '每日1粒', detail: '南非醉茄(Ashwagandha) KSM-66专利提取物，支持日常压力管理的营养补充' }
   ],
   suitableFor: [
     '工作压力大，经常感到紧绷焦虑',
@@ -22,7 +22,7 @@ const plan = {
     '考试备考、项目冲刺等高压期',
     '长期处于高强度竞争环境中'
   ],
-  mechanism: 'B族维生素确保神经递质合成原料充足，苏糖酸镁穿过血脑屏障直接安抚过度兴奋的神经，KSM-66从HPA轴层面调节皮质醇分泌节律，三管齐下从根源降低压力反应强度。',
+  mechanism: 'B族维生素支持神经递质合成的日常营养，螯合镁支持神经系统日常放松，南非醉茄KSM-66支持日常压力管理，三管齐下帮助维持日常身心平衡状态。',
   usage: '建议每日随早餐服用。高压期可增加至每日两次（早、午餐后各一次）。持续8周以上效果更稳定。',
   certifications: ['GMP认证', 'FDA注册', '第三方纯度检测', '无重金属残留']
 };
@@ -128,7 +128,7 @@ export default function StressPlanPage() {
           <div className="grid gap-4 md:grid-cols-4">
             {plan.certifications.map((cert) => (
               <div key={cert} className="text-center rounded-lg bg-slate-50 p-4">
-                <div className="text-2xl mb-2">🛡️</div>
+                <div className="mb-2 flex justify-center"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#0d9488" className="w-7 h-7"><path d="M12 2L4 6v6c0 5.5 3.5 10 8 11 4.5-1 8-5.5 8-11V6L12 2z"/></svg></div>
                 <p className="text-sm font-semibold text-slate-700">{cert}</p>
               </div>
             ))}
@@ -163,17 +163,17 @@ export default function StressPlanPage() {
           <h2 className="text-2xl font-bold text-slate-900 mb-8">相关产品</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <Link href="/products" className="card-hover text-center">
-              <div className="text-3xl mb-3">💊</div>
+              <div className="mb-3 flex justify-center"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none" className="w-8 h-8 mx-auto"><rect x="4" y="10" width="24" height="12" rx="6" fill="#0d9488" opacity="0.2" stroke="#0d9488" stroke-width="2"/><path d="M16 10V22" stroke="#0d9488" stroke-width="2"/></svg></div>
               <h3 className="font-semibold text-slate-900 mb-2">浏览所有产品</h3>
               <p className="text-sm text-slate-600">发现更多健康补充方案</p>
             </Link>
             <Link href="/solutions/sleep" className="card-hover text-center">
-              <div className="text-3xl mb-3">🌙</div>
+              <div className="mb-3 flex justify-center"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#6366f1" className="w-8 h-8"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg></div>
               <h3 className="font-semibold text-slate-900 mb-2">睡眠支持方案</h3>
               <p className="text-sm text-slate-600">查看作息与恢复相关方案</p>
             </Link>
             <Link href="/solutions/immune" className="card-hover text-center">
-              <div className="text-3xl mb-3">🛡️</div>
+              <div className="mb-3 flex justify-center"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#0d9488" className="w-7 h-7"><path d="M12 2L4 6v6c0 5.5 3.5 10 8 11 4.5-1 8-5.5 8-11V6L12 2z"/></svg></div>
               <h3 className="font-semibold text-slate-900 mb-2">免疫支持方案</h3>
               <p className="text-sm text-slate-600">查看恢复和日常防护方向</p>
             </Link>
