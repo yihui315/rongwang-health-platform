@@ -6,9 +6,11 @@
 export interface BundleDetail {
   slug: string;
   name: string;
+  englishName: string;
   gender: "male" | "female";
   category: "heart" | "bone" | "gut" | "brain";
   tagline: string;
+  shortDesc: string; // 一句话描述
   spec: string;
   courseDays: number;
   price: number;
@@ -24,6 +26,14 @@ export interface BundleDetail {
   lightBg: string;
   accent: string;
   bgAccent: string;
+  // Product images
+  image: string;       // 主图路径 /images/bundles/bundle-xxx.jpg
+  heroImage: string;   // Hero section大图（可空，用gradient背景）
+  factsImage: string;  // 成分表图片（可空）
+  // Science section content
+  scienceHeadline: string; // e.g. "为什么选择辅酶Q10？"
+  scienceBody: string;      // 科学机理正文
+  certBadges: string[];    // 认证标签列表
 }
 
 export interface BundleIngredient {
@@ -46,9 +56,11 @@ export const bundleDetails: Record<string, BundleDetail> = {
   "heart-male": {
     slug: "heart-male",
     name: "男士心脏健康营养包",
+    englishName: "Men's Cardiovascular Health Bundle",
     gender: "male",
     category: "heart",
     tagline: "辅酶Q10 + Omega3 + 大蒜精 + 镁，四重守护心血管",
+    shortDesc: "四重成分协同守护心血管健康，适合熬夜高压及有心血管风险的人群",
     spec: "28袋/盒（每日1袋，每袋含4粒胶囊）",
     courseDays: 28,
     price: 399,
@@ -58,6 +70,12 @@ export const bundleDetails: Record<string, BundleDetail> = {
     lightBg: "bg-red-50",
     accent: "text-red-600",
     bgAccent: "bg-red-600",
+    image: "/images/bundles/bundle-heart-male.jpg",
+    heroImage: "/images/bundles/bundle-heart-male-hero.jpg",
+    factsImage: "/images/bundles/bundle-heart-male-facts.jpg",
+    scienceHeadline: "为什么辅酶Q10对心脏健康至关重要？",
+    scienceBody: "辅酶Q10是心肌细胞的「能量工厂」，参与ATP能量制造过程。随着年龄增长，人体辅酶Q10合成能力下降，心血管系统功能随之衰退。搭配Omega3脂肪酸的抗炎作用和大蒜精的抗氧化功效，形成对心血管系统的全面保护。",
+    certBadges: ["FDA认证工厂", "GMP认证", "IFOS五星鱼油认证", "Non-GMO认证"],
     ingredients: [
       {
         name: "辅酶Q10",
@@ -129,9 +147,11 @@ export const bundleDetails: Record<string, BundleDetail> = {
   "heart-female": {
     slug: "heart-female",
     name: "女士心脏健康营养包",
+    englishName: "Women's Cardiovascular Health Bundle",
     gender: "female",
     category: "heart",
     tagline: "辅酶Q10 + 胶原蛋白 + 铁 + B族，呵护女性心血健康",
+    shortDesc: "专为女性设计的护心配方，补充铁元素维护血红蛋白，胶原蛋白保护血管弹性",
     spec: "28袋/盒（每日1袋，每袋含4粒胶囊）",
     courseDays: 28,
     price: 399,
@@ -141,6 +161,12 @@ export const bundleDetails: Record<string, BundleDetail> = {
     lightBg: "bg-pink-50",
     accent: "text-pink-600",
     bgAccent: "bg-pink-600",
+    image: "/images/bundles/bundle-heart-female.jpg",
+    heroImage: "/images/bundles/bundle-heart-female-hero.jpg",
+    factsImage: "/images/bundles/bundle-heart-female-facts.jpg",
+    scienceHeadline: "女性心血管健康为何需要特别关注？",
+    scienceBody: "女性进入更年期后，雌激素水平下降，心血管保护机制减弱。同时女性缺铁概率高于男性，铁元素参与血红蛋白合成和氧气运输，对心脏能量供应至关重要。本配方特别添加铁元素和胶原蛋白，全方位呵护女性心血健康。",
+    certBadges: ["FDA认证工厂", "GMP认证", "NSF认证", "素食认证"],
     ingredients: [
       {
         name: "辅酶Q10",
@@ -212,9 +238,11 @@ export const bundleDetails: Record<string, BundleDetail> = {
   "bone-male": {
     slug: "bone-male",
     name: "男士骨骼健康营养包",
+    englishName: "Men's Bone Health Bundle",
     gender: "male",
     category: "bone",
     tagline: "钙片 + 胶原蛋白 + 软骨素 + 维生素D3，四合一全面护骨",
+    shortDesc: "四合一护骨配方，促进钙吸收，维护软骨和关节舒适度，适合久坐及中老年人",
     spec: "28袋/盒（每日1袋，每袋含4粒胶囊）",
     courseDays: 28,
     price: 389,
@@ -224,6 +252,12 @@ export const bundleDetails: Record<string, BundleDetail> = {
     lightBg: "bg-emerald-50",
     accent: "text-emerald-600",
     bgAccent: "bg-emerald-600",
+    image: "/images/bundles/bundle-joint-men.jpg",
+    heroImage: "",
+    factsImage: "",
+    scienceHeadline: "为什么男性骨骼健康需要四合一配方？",
+    scienceBody: "男性骨密度在50岁后加速下降，且因关节承重较大，软骨磨损更严重。碳酸钙提供基础钙源，维生素D3促进钙吸收，非变性II型胶原蛋白和软骨素共同维护软骨弹性，形成骨骼+软骨的双重保护。",
+    certBadges: ["FDA认证工厂", "GMP认证", "UC-II专利认证", "Non-GMO认证"],
     ingredients: [
       {
         name: "钙片（碳酸钙）",
@@ -295,9 +329,11 @@ export const bundleDetails: Record<string, BundleDetail> = {
   "bone-female": {
     slug: "bone-female",
     name: "女士骨骼健康营养包",
+    englishName: "Women's Bone Health Bundle",
     gender: "female",
     category: "bone",
     tagline: "钙片 + 胶原蛋白 + 铁 + 维生素D3，守护女性骨骼活力",
+    shortDesc: "专为更年期后女性设计，高含量胶原蛋白维护骨弹性，铁元素补充日常流失",
     spec: "28袋/盒（每日1袋，每袋含4粒胶囊）",
     courseDays: 28,
     price: 389,
@@ -307,6 +343,12 @@ export const bundleDetails: Record<string, BundleDetail> = {
     lightBg: "bg-teal-50",
     accent: "text-teal-600",
     bgAccent: "bg-teal-600",
+    image: "/images/bundles/bundle-joint-women.jpg",
+    heroImage: "",
+    factsImage: "",
+    scienceHeadline: "更年期后女性为何是骨质疏松高危人群？",
+    scienceBody: "女性更年期后雌激素骤降，破骨细胞活性增强，骨量流失速度是男性的2-3倍。更年期后5年内可能流失高达20%的骨密度。本配方添加1500mg高含量胶原蛋白和500mg钙，协同维护骨密度和骨骼弹性。",
+    certBadges: ["FDA认证工厂", "GMP认证", "NSF认证", "素食认证"],
     ingredients: [
       {
         name: "钙片（碳酸钙）",
@@ -378,9 +420,11 @@ export const bundleDetails: Record<string, BundleDetail> = {
   "gut-male": {
     slug: "gut-male",
     name: "男士肠胃调理营养包",
+    englishName: "Men's Gut Health Bundle",
     gender: "male",
     category: "gut",
     tagline: "15菌株益生菌 + 益生元 + 膳食纤维 + 消化酶，四维肠道调理",
+    shortDesc: "15菌株复合益生菌+300亿CFU+消化酶，应酬多饮食不规律人群的肠道救星",
     spec: "28袋/盒（每日1袋，每袋含4粒胶囊）",
     courseDays: 28,
     price: 349,
@@ -390,6 +434,12 @@ export const bundleDetails: Record<string, BundleDetail> = {
     lightBg: "bg-sky-50",
     accent: "text-sky-600",
     bgAccent: "bg-sky-600",
+    image: "/images/bundles/bundle-gut-male.jpg",
+    heroImage: "/images/bundles/bundle-gut-male-hero.jpg",
+    factsImage: "/images/bundles/bundle-gut-male-facts.jpg",
+    scienceHeadline: "为什么男性需要15菌株高含量益生菌？",
+    scienceBody: "男性应酬多、高脂饮食、酒精摄入都会破坏肠道菌群平衡。15菌株复合配方比单一菌株能更全面地重建肠道微生态，配合300亿CFU高活菌量和消化酶，帮助分解蛋白质、脂肪和碳水化合物，全面改善消化功能。",
+    certBadges: ["FDA认证工厂", "GMP认证", "DuPont专利菌株", "Non-GMO认证"],
     ingredients: [
       {
         name: "15菌株复合益生菌",
@@ -461,9 +511,11 @@ export const bundleDetails: Record<string, BundleDetail> = {
   "gut-female": {
     slug: "gut-female",
     name: "女士肠胃调理营养包",
+    englishName: "Women's Gut Health Bundle",
     gender: "female",
     category: "gut",
     tagline: "5大菌株益生菌 + 益生元 + 低聚果糖 + 果蔬纤维，温和调理女性肠胃",
+    shortDesc: "温和5菌株配方，添加果蔬纤维改善便秘，肠道健康由内而外焕活肌肤",
     spec: "28袋/盒（每日1袋，每袋含4粒胶囊）",
     courseDays: 28,
     price: 349,
@@ -473,6 +525,12 @@ export const bundleDetails: Record<string, BundleDetail> = {
     lightBg: "bg-emerald-50",
     accent: "text-emerald-600",
     bgAccent: "bg-emerald-600",
+    image: "/images/bundles/bundle-gut-female.jpg",
+    heroImage: "/images/bundles/bundle-gut-female-hero.jpg",
+    factsImage: "/images/bundles/bundle-gut-female-facts.jpg",
+    scienceHeadline: "为什么肠道健康对女性尤为重要？",
+    scienceBody: "女性肠道菌群受激素波动影响较大，便秘发生率是男性的1.5-2倍。肠道被称为「第二皮肤」，肠道健康直接反映在皮肤状态上。本配方特别添加低聚果糖和果蔬纤维，温和改善便秘，维护肠道酸性环境，由内而外改善皮肤状态。",
+    certBadges: ["FDA认证工厂", "GMP认证", "Culturelle认证", "素食认证"],
     ingredients: [
       {
         name: "5大菌株益生菌",
@@ -544,9 +602,11 @@ export const bundleDetails: Record<string, BundleDetail> = {
   "brain-male": {
     slug: "brain-male",
     name: "男士大脑活力营养包",
+    englishName: "Men's Brain Health Bundle",
     gender: "male",
     category: "brain",
     tagline: "DHA藻油 + PS磷脂酰丝氨酸 + NMN + 银杏叶，唤醒大脑潜力",
+    shortDesc: "四维健脑配方，DHA+PS改善记忆力，NMN提升细胞能量，银杏叶改善微循环",
     spec: "28袋/盒（每日1袋，每袋含4粒胶囊）",
     courseDays: 28,
     price: 429,
@@ -556,6 +616,12 @@ export const bundleDetails: Record<string, BundleDetail> = {
     lightBg: "bg-violet-50",
     accent: "text-violet-600",
     bgAccent: "bg-violet-600",
+    image: "/images/bundles/bundle-brain-men.jpg",
+    heroImage: "",
+    factsImage: "",
+    scienceHeadline: "为什么男性大脑更需要NMN和PS的支持？",
+    scienceBody: "男性大脑胼胝体纤维密度低于女性，信息整合能力相对较弱。NMN提升NAD+水平改善线粒体能量代谢，PS磷脂酰丝氨酸是脑细胞膜的主要成分，DHA藻油提供细胞膜必需脂肪酸。银杏叶提取物改善脑部微循环，确保营养输送到位。",
+    certBadges: ["FDA认证工厂", "GMP认证", "DSM藻油认证", "Elevant NMN认证"],
     ingredients: [
       {
         name: "DHA藻油",
@@ -627,9 +693,11 @@ export const bundleDetails: Record<string, BundleDetail> = {
   "brain-female": {
     slug: "brain-female",
     name: "女士大脑活力营养包",
+    englishName: "Women's Brain Health Bundle",
     gender: "female",
     category: "brain",
     tagline: "DHA藻油 + 胶原蛋白 + NMN + B族，呵护女性脑力与气色",
+    shortDesc: "专为更年期女性设计，DHA+胶原蛋白维护神经元健康，NMN延缓脑细胞衰老",
     spec: "28袋/盒（每日1袋，每袋含4粒胶囊）",
     courseDays: 28,
     price: 429,
@@ -639,6 +707,12 @@ export const bundleDetails: Record<string, BundleDetail> = {
     lightBg: "bg-purple-50",
     accent: "text-purple-600",
     bgAccent: "bg-purple-600",
+    image: "/images/bundles/bundle-brain-women.jpg",
+    heroImage: "",
+    factsImage: "",
+    scienceHeadline: "女性更年期后脑力衰退如何应对？",
+    scienceBody: "女性更年期雌激素下降导致神经递质合成减少，记忆力衰退比男性更明显。DHA藻油维护神经元膜健康，胶原蛋白支持脑部血管弹性确保营养输送，B族维生素参与甲基化循环保护神经细胞。NMN提升NAD+水平，从细胞能量层面延缓脑衰老。",
+    certBadges: ["FDA认证工厂", "GMP认证", "NSF认证", "素食认证"],
     ingredients: [
       {
         name: "DHA藻油",

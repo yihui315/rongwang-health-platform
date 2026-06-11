@@ -228,20 +228,13 @@ export default async function CategoryPage({ params }: Props) {
                   href={product.href}
                   className="group flex flex-col rounded-2xl border border-slate-200 bg-white p-4 hover:shadow-lg transition-all duration-300 h-full"
                 >
-                  {/* Product image placeholder */}
-                  <div className={`flex-shrink-0 w-20 h-20 rounded-xl bg-gradient-to-br ${config.gradient} flex items-center justify-center mx-auto`}>
-                   <div dangerouslySetInnerHTML={{ __html: (() => {
-                      const s = product.slug.toLowerCase();
-                      if (s.includes('coq10')||s.includes('q10')) return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none" class="w-8 h-8"><circle cx="16" cy="16" r="10" stroke="#0d9488" stroke-width="2" fill="none"/><path d="M16 10v12M10 16h12" stroke="#0d9488" stroke-width="2"/></svg>';
-                      if (s.includes('omega')) return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none" class="w-8 h-8"><path d="M6 16c4-4 6-8 10-8s6 4 10 8c-4 4-6 8-10 8s-6-4-10-8z" fill="#0d9488"/></svg>';
-                      if (s.includes('magnesium')||s.includes('mg')) return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none" class="w-8 h-8"><path d="M16 6l3 8h8l-6.5 5 2.5 7-7-5-7 5 2.5-7L5 14h8l3-8z" fill="#0d9488"/></svg>';
-                      if (s.includes('garlic')||s.includes('allicin')) return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none" class="w-8 h-8"><path d="M16 8c-4 0-7 3-7 7v9a7 7 0 0014 0v-9c0-4-3-7-7-7z" stroke="#0d9488" stroke-width="2" fill="none"/><path d="M12 8c0-2 2-4 4-4s4 2 4 4" stroke="#0d9488" stroke-width="2"/></svg>';
-                      if (s.includes('glucosamine')||s.includes('chondroitin')) return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none" class="w-8 h-8"><path d="M8 10h16v14H8z" stroke="#0d9488" stroke-width="2" fill="none"/><path d="M8 16h16M12 10v14M20 10v14" stroke="#0d9488" stroke-width="1.5"/></svg>';
-                      if (s.includes('collagen')||s.includes('msm')) return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none" class="w-8 h-8"><circle cx="16" cy="16" r="8" stroke="#0d9488" stroke-width="2" fill="none"/><path d="M16 10v12M10 16h12" stroke="#0d9488" stroke-width="1.5"/></svg>';
-                      if (s.includes('probiotic')||s.includes('ak k')||s.includes('fiber')||s.includes('enzyme')) return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none" class="w-8 h-8"><ellipse cx="16" cy="16" rx="8" ry="10" stroke="#0d9488" stroke-width="2" fill="none"/><path d="M13 12h6M13 16h6M13 20h6" stroke="#0d9488" stroke-width="1.5" stroke-linecap="round"/></svg>';
-                      if (s.includes('dha')||s.includes('ps')||s.includes('nmn')||s.includes('brain')||s.includes('memory')) return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none" class="w-8 h-8"><path d="M16 28c5.5 0 10-4.5 10-10S21.5 8 16 8 6 12.5 6 18s4.5 10 10 10z" stroke="#0d9488" stroke-width="2" fill="none"/><path d="M11 14h10M11 18h10M11 22h6" stroke="#0d9488" stroke-width="1.5" stroke-linecap="round"/></svg>';
-                      return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none" class="w-8 h-8"><path d="M16 28s-10-6.5-10-13a5 5 0 0110-2.4A5 5 0 0126 15c0 6.5-10 13-10 13z" fill="#0d9488"/></svg>';
-                    })() }} />
+                  {/* Product image */}
+                  <div className="flex-shrink-0 w-20 h-20 rounded-xl overflow-hidden bg-slate-100">
+                   <img
+                      src={product.image}
+                      alt={product.name}
+                      className="w-full h-full object-cover"
+                    />
                   </div>
 
                   <div className="flex-1 min-w-0 flex flex-col">
@@ -301,6 +294,7 @@ interface ProductItem {
   tags: string[];
   href: string;
   emoji: string;
+  image: string;
 }
 
 interface BundleItem {
@@ -318,44 +312,26 @@ function getCategoryProducts(direction: Direction): ProductItem[] {
   const allProducts: Record<Direction, ProductItem[]> = {
     heart: [
       {
-        slug: "coq10-100",
+        slug: "uncle-darrens-heart-defender-men",
         name: "1970 Uncle Darren's 高含量辅酶Q10胶囊 心血管养护 美国进口专利原料",
         category: "心臟健康",
         price: 69,
         originalPrice: 199,
         tags: ["辅酶Q10 100mg", "心血管", "美国进口"],
-        href: "/products/coq10-100",
+        href: "/products/uncle-darrens-heart-defender-men",
+        image: "/images/products/rw-coq10/main.jpg",
         emoji: "💊",
       },
       {
-        slug: "omega3-heart",
+        slug: "uncle-darrens-heart-defender-women",
         name: "Omega3深海鱼油软胶囊 EPA+DHA 心脑血管健康",
         category: "心臟健康",
         price: 89,
         originalPrice: 220,
         tags: ["Omega3", "EPA+DHA", "心脑血管"],
-        href: "/products/omega3-heart",
+        href: "/products/uncle-darrens-heart-defender-women",
+        image: "/images/products/rw-omega3/main.jpg",
         emoji: "🐟",
-      },
-      {
-        slug: "magnesium-tab",
-        name: "镁元素補充剂 心肌健康 血管舒张",
-        category: "心臟健康",
-        price: 79,
-        originalPrice: 180,
-        tags: ["镁", "心肌", "血管"],
-        href: "/products/magnesium-tab",
-        emoji: "⚡",
-      },
-      {
-        slug: "garlic精",
-        name: "大蒜精软胶囊 降低血脂 抗血小板聚集",
-        category: "心臟健康",
-        price: 69,
-        originalPrice: 160,
-        tags: ["大蒜精", "降血脂", "抗凝"],
-        href: "/products/garlic精",
-        emoji: "🧄",
       },
     ],
     bone: [
