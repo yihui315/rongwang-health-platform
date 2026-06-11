@@ -6,6 +6,8 @@ import AddToCartButton from '@/components/ui/AddToCartButton';
 import ProductImageGallery from '@/components/ui/ProductImageGallery';
 import { getProductBySlug, listProducts } from '@/lib/data/products';
 import { getAiConsultHrefForValues, getSolutionHrefForValues } from '@/lib/health/consult-entry';
+import TrackProductPageViewClient from '@/components/analytics/TrackProductPageViewClient';
+import { fireCTAClick } from '@/components/analytics/TrackCTAClicks';
 
 const categoryLabel: Record<ProductCategory, string> = {
   vitamin: '维生素', mineral: '矿物质', herbal: '草本', probiotic: '益生菌',
@@ -62,6 +64,10 @@ export default async function ProductDetailPage({ params }: Props) {
 
   return (
     <main className="min-h-screen bg-slate-50">
+
+      {/* ── Analytics: product page view ── */}
+      <TrackProductPageViewClient productId={product.sku} productName={product.name} />
+
       {/* Breadcrumb */}
       <div className="px-6 py-4 border-b border-slate-200 bg-white">
         <div className="mx-auto max-w-6xl text-sm text-slate-500">
@@ -204,6 +210,7 @@ export default async function ProductDetailPage({ params }: Props) {
                   name={product.name}
                   price={product.memberPrice}
                   className="rounded-full border border-slate-300 bg-white text-slate-700 hover:bg-slate-50"
+                  onClick={() => fireCTAClick('product_add_to_cart_clicked', { productId: product.sku, metadata: { productName: product.name } })}
                 />
               </div>
               {solutionHref && (

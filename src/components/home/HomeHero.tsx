@@ -1,6 +1,7 @@
 import Link from "next/link";
 import HomeIcon from "@/components/home/HomeIcon";
 import { heroBadges, heroReportSample } from "@/lib/home/home-content";
+import TrackHomepageCTA from "@/components/analytics/TrackHomepageCTA";
 
 /**
  * 首屏 Hero —— 左侧价值主张 + 右侧 AI 评估报告示例卡。
@@ -38,21 +39,7 @@ export default function HomeHero() {
               中高风险优先建议就医；内容仅作健康教育参考。
             </p>
 
-            <div className="mt-8 flex flex-wrap items-center gap-3">
-              <Link
-                href="/ai-consult"
-                className="inline-flex items-center gap-2 rounded-full bg-emerald-600 px-6 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-emerald-700 hover:shadow-md"
-              >
-                立即开始 AI 评估
-                <span aria-hidden>→</span>
-              </Link>
-              <Link
-                href="/solutions/sleep"
-                className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-6 py-3 text-sm font-semibold text-slate-700 transition hover:border-slate-300 hover:bg-slate-50"
-              >
-                查看健康方案
-              </Link>
-            </div>
+            <TrackHomepageCTA primaryHref="/ai-consult" secondaryHref="/solutions/sleep" />
 
             <div className="mt-7 flex flex-wrap items-center gap-x-6 gap-y-3 text-sm text-slate-500">
               {heroBadges.map((badge) => (

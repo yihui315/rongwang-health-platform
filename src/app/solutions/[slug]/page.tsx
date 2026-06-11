@@ -6,6 +6,8 @@ import WeChatCTA from '@/components/ui/WeChatCTA';
 import ProductTrustFooter from '@/components/home/ProductTrustFooter';
 import { MEDICAL_DISCLAIMER } from '@/lib/health/safety';
 import { canonicalSolutionSlugs, getSolutionGuideBySlug, buildSolutionJsonLd } from "@/lib/health/solutions";
+import TrackSolutionPageViewClient from '@/components/analytics/TrackSolutionPageViewClient';
+import { fireCTAClick } from '@/components/analytics/TrackCTAClicks';
 
 interface SolutionPageProps {
   params: Promise<{ slug: string }>;
@@ -92,6 +94,9 @@ export default async function SolutionPage({ params }: SolutionPageProps) {
       )}
       <main className="bg-[var(--bg)]">
 
+        {/* ── Analytics: solution page view ── */}
+        <TrackSolutionPageViewClient solutionSlug={slug ?? ''} />
+
         {/* ── Hero: 单一职责 — 引导进入AI评估 ── */}
         <section className="border-b border-[var(--border-subtle)] bg-[var(--surface)]">
           <div className="section-container py-14 md:py-18">
@@ -175,6 +180,7 @@ export default async function SolutionPage({ params }: SolutionPageProps) {
               <Link
                 href={`/ai-consult?focus=${guide.slug}`}
                 className="btn-primary text-base"
+                onClick={() => fireCTAClick('solution_cta_clicked', { solutionSlug: slug ?? '' })}
               >
                 先做 AI 评估 →
               </Link>
@@ -280,13 +286,15 @@ export default async function SolutionPage({ params }: SolutionPageProps) {
                     免费判断，不强制购买。
                   </p>
                   <div className="mt-5 flex flex-wrap gap-3">
-                    <Link href={`/ai-consult?focus=${guide.slug}`} className="btn-primary">
+                    <Link href={`/ai-consult?focus=${guide.slug}`} className="btn-primary"
+                      onClick={() => fireCTAClick('advisor_cta_clicked', { solutionSlug: slug ?? '' })}>
                       先做 AI 评估
                     </Link>
                     <WeChatCTA
                       title="扫码添加健康顾问"
                       description="领取專屬方案，1对1指导"
                       cardMode={false}
+                      onClick={() => fireCTAClick('advisor_cta_clicked', { solutionSlug: slug ?? '' })}
                     />
                   </div>
                 </div>

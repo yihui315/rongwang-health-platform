@@ -8,13 +8,15 @@ interface AddToCartButtonProps {
   name: string;
   price: number;
   className?: string;
+  onClick?: () => void;
 }
 
 export default function AddToCartButton({
   slug,
   name,
   price,
-  className = ''
+  className = '',
+  onClick,
 }: AddToCartButtonProps) {
   const { addItem } = useCart();
   const [isAdded, setIsAdded] = useState(false);
@@ -22,6 +24,7 @@ export default function AddToCartButton({
   const handleClick = () => {
     addItem(slug, name, price);
     setIsAdded(true);
+    onClick?.();
 
     // Reset success state after 2 seconds
     setTimeout(() => {

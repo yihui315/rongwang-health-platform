@@ -8,6 +8,7 @@ interface WeChatCTAProps {
   title?: string;
   description?: string;
   cardMode?: boolean;
+  onClick?: () => void;
 }
 
 const DEFAULT_WECHAT_ID = 'rongwanghealth';
@@ -18,6 +19,7 @@ export default function WeChatCTA({
   title = '添加健康顾问',
   description = '扫码领取你的专属健康方案，1对1指导',
   cardMode = true,
+  onClick,
 }: WeChatCTAProps) {
   const wechatUrl = `https://u.wechat.com/E/${wechatId}`;
   const [copied, setCopied] = useState(false);
@@ -82,6 +84,7 @@ export default function WeChatCTA({
           target="_blank"
           rel="noopener noreferrer"
           className="text-sm text-teal-600 hover:text-teal-700 font-medium underline underline-offset-2"
+          onClick={onClick}
         >
           在微信中打开 →
         </a>

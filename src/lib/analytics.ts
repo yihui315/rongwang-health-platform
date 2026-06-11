@@ -14,6 +14,13 @@ export const analyticsEventNames = [
   "miniprogram_pdd_clicked",
   "wechat_article_published",
   "wechat_article_cta_clicked",
+  // ── Stage 5: key conversion events ──────────────────────────
+  "solution_page_viewed",
+  "solution_cta_clicked",
+  "product_page_viewed",
+  "product_add_to_cart_clicked",
+  "advisor_cta_clicked",
+  "homepage_cta_clicked",
 ] as const;
 
 export const analyticsEventSchema = z.object({
