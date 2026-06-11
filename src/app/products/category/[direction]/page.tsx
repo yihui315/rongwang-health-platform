@@ -343,6 +343,7 @@ function getCategoryProducts(direction: Direction): ProductItem[] {
         originalPrice: 220,
         tags: ["钙片", "胶原蛋白", "软骨素"],
         href: "/products/calcium-complex",
+        image: "/images/products/calcium-complex/main.jpg",
         emoji: "🦷",
       },
       {
@@ -353,6 +354,7 @@ function getCategoryProducts(direction: Direction): ProductItem[] {
         originalPrice: 150,
         tags: ["维生素D3", "促進钙吸收", "骨密度"],
         href: "/products/vitamin-d3",
+        image: "/images/products/vitamin-d3/main.jpg",
         emoji: "☀️",
       },
       {
@@ -363,6 +365,7 @@ function getCategoryProducts(direction: Direction): ProductItem[] {
         originalPrice: 199,
         tags: ["胶原蛋白", "關節修复", "软骨"],
         href: "/products/collagen-tabs",
+        image: "/images/products/collagen-tabs/main.jpg",
         emoji: "💎",
       },
       {
@@ -373,6 +376,7 @@ function getCategoryProducts(direction: Direction): ProductItem[] {
         originalPrice: 250,
         tags: ["葡萄糖胺", "软骨素", "關節"],
         href: "/products/glucosamine",
+        image: "/images/products/glucosamine/main.jpg",
         emoji: "🦵",
       },
     ],
@@ -385,6 +389,7 @@ function getCategoryProducts(direction: Direction): ProductItem[] {
         originalPrice: 199,
         tags: ["15菌株", "益生菌", "润肠"],
         href: "/products/probiotic-15",
+        image: "/images/products/probiotic-15/main.jpg",
         emoji: "🦠",
       },
       {
@@ -395,6 +400,7 @@ function getCategoryProducts(direction: Direction): ProductItem[] {
         originalPrice: 299,
         tags: ["AKK", "益生菌", "抗衰"],
         href: "/products/akk-probiotic",
+        image: "/images/products/akk-probiotic/main.jpg",
         emoji: "🔬",
       },
       {
@@ -405,6 +411,7 @@ function getCategoryProducts(direction: Direction): ProductItem[] {
         originalPrice: 160,
         tags: ["膳食纤维", "润肠", "益生元"],
         href: "/products/fiber-complex",
+        image: "/images/products/fiber-complex/main.jpg",
         emoji: "🌾",
       },
       {
@@ -415,7 +422,8 @@ function getCategoryProducts(direction: Direction): ProductItem[] {
         originalPrice: 180,
         tags: ["消化酶", "胀气", "消化不良"],
         href: "/products/digestive-enzyme",
-        emoji:"💧",
+        image: "/images/products/digestive-enzyme/main.jpg",
+        emoji: "💧",
       },
     ],
     brain: [
@@ -427,6 +435,7 @@ function getCategoryProducts(direction: Direction): ProductItem[] {
         originalPrice: 180,
         tags: ["DHA", "PS", "记忆力"],
         href: "/products/dha-ps",
+        image: "/images/products/dha-ps/main.jpg",
         emoji: "🧠",
       },
       {
@@ -437,6 +446,7 @@ function getCategoryProducts(direction: Direction): ProductItem[] {
         originalPrice: 180,
         tags: ["NMN", "抗衰老", "NAD+"],
         href: "/products/nmn-60000",
+        image: "/images/products/nmn-60000/main.jpg",
         emoji: "🧬",
       },
       {
@@ -447,6 +457,7 @@ function getCategoryProducts(direction: Direction): ProductItem[] {
         originalPrice: 160,
         tags: ["银杏叶", "记忆力", "脑循环"],
         href: "/products/ginkgo-biloba",
+        image: "/images/products/ginkgo-biloba/main.jpg",
         emoji: "🍃",
       },
       {
@@ -457,6 +468,7 @@ function getCategoryProducts(direction: Direction): ProductItem[] {
         originalPrice: 220,
         tags: ["硫辛酸", "抗氧化", "神经"],
         href: "/products/alpha-lipoic",
+        image: "/images/products/alpha-lipoic/main.jpg",
         emoji: "⚡",
       },
     ],

@@ -62,3 +62,15 @@ export function solutionTypeToSlug(type: string): SolutionSlug | undefined {
   };
   return map[type.toLowerCase()] as SolutionSlug | undefined;
 }
+
+export function solutionSlugToType(slug: string): string | undefined {
+  const map: Record<string, string> = {
+    sleep: 'sleep',
+    fatigue: 'fatigue',
+    liver: 'liver',
+    immune: 'immune',
+    'male-health': 'male_health',
+    'female-health': 'female_health',
+  };
+  return map[slug.toLowerCase()];
+}
