@@ -2,12 +2,11 @@ import React from 'react';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import WeChatCTA from '@/components/ui/WeChatCTA';
 import ProductTrustFooter from '@/components/home/ProductTrustFooter';
 import { MEDICAL_DISCLAIMER } from '@/lib/health/safety';
 import { canonicalSolutionSlugs, getSolutionGuideBySlug, buildSolutionJsonLd } from "@/lib/health/solutions";
 import TrackSolutionPageViewClient from '@/components/analytics/TrackSolutionPageViewClient';
-import { fireCTAClick } from '@/components/analytics/TrackCTAClicks';
+import { SolutionHeroCTA, SolutionAdvisorCTA } from '@/components/analytics/SolutionPageCTA';
 
 interface SolutionPageProps {
   params: Promise<{ slug: string }>;
@@ -176,15 +175,7 @@ export default async function SolutionPage({ params }: SolutionPageProps) {
             })()}
 
             {/* 唯一主CTA */}
-            <div className="mt-8">
-              <Link
-                href={`/ai-consult?focus=${guide.slug}`}
-                className="btn-primary text-base"
-                onClick={() => fireCTAClick('solution_cta_clicked', { solutionSlug: slug ?? '' })}
-              >
-                先做 AI 评估 →
-              </Link>
-            </div>
+            <SolutionHeroCTA solutionSlug={guide.slug} />
           </div>
         </section>
 
@@ -285,18 +276,7 @@ export default async function SolutionPage({ params }: SolutionPageProps) {
                     顾问可以根据你的年龄、症状和体检报告，推荐最适合的产品组合和服用周期。
                     免费判断，不强制购买。
                   </p>
-                  <div className="mt-5 flex flex-wrap gap-3">
-                    <Link href={`/ai-consult?focus=${guide.slug}`} className="btn-primary"
-                      onClick={() => fireCTAClick('advisor_cta_clicked', { solutionSlug: slug ?? '' })}>
-                      先做 AI 评估
-                    </Link>
-                    <WeChatCTA
-                      title="扫码添加健康顾问"
-                      description="领取專屬方案，1对1指导"
-                      cardMode={false}
-                      onClick={() => fireCTAClick('advisor_cta_clicked', { solutionSlug: slug ?? '' })}
-                    />
-                  </div>
+                  <SolutionAdvisorCTA solutionSlug={guide.slug} />
                 </div>
               </div>
             </section>

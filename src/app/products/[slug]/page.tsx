@@ -210,7 +210,6 @@ export default async function ProductDetailPage({ params }: Props) {
                   name={product.name}
                   price={product.memberPrice}
                   className="rounded-full border border-slate-300 bg-white text-slate-700 hover:bg-slate-50"
-                  onClick={() => fireCTAClick('product_add_to_cart_clicked', { productId: product.sku, metadata: { productName: product.name } })}
                 />
               </div>
               {solutionHref && (
