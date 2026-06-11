@@ -16,7 +16,7 @@ const plans = [
     gradient: 'from-amber-400 to-orange-500',
     iconPath: 'M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z',
     badge: '热门方案',
-    image: '/images/bundles/bundle-fatigue.png',
+    image: '/images/bundles/bundle-heart-male.jpg',
   },
   {
     slug: 'sleep' as PlanSlug,
@@ -27,7 +27,7 @@ const plans = [
     gradient: 'from-indigo-400 to-violet-600',
     iconPath: 'M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z',
     badge: null,
-    image: '/images/bundles/bundle-sleep.png',
+    image: '/images/bundles/bundle-heart-female.jpg',
   },
   {
     slug: 'immune' as PlanSlug,
@@ -38,7 +38,7 @@ const plans = [
     gradient: 'from-emerald-400 to-teal-600',
     iconPath: 'M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z',
     badge: null,
-    image: '/images/bundles/bundle-immune.png',
+    image: '/images/bundles/bundle-gut-male.jpg',
   },
   {
     slug: 'stress' as PlanSlug,

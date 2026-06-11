@@ -81,7 +81,7 @@ const approvedStorefrontProductSeeds: ApprovedStorefrontSeed[] = [
     unit: "28袋/盒",
     servings: 28,
     tagline: "男士日常心血管营养关注场景的已审核展示商品",
-    image: "/images/products/one-bottle/heart-men.jpg",
+    image: "/images/bundles/bundle-heart-male.jpg",
     ingredientName: "男士心血管营养组合",
     hero: [
       "面向男士日常心血管营养关注场景的信息展示",
@@ -101,7 +101,7 @@ const approvedStorefrontProductSeeds: ApprovedStorefrontSeed[] = [
     unit: "28袋/盒",
     servings: 28,
     tagline: "女士日常心血管营养关注场景的已审核展示商品",
-    image: "/images/products/one-bottle/heart-women.jpg",
+    image: "/images/bundles/bundle-heart-female.jpg",
     ingredientName: "女士心血管营养组合",
     hero: [
       "面向女士日常心血管营养关注场景的信息展示",
@@ -121,7 +121,7 @@ const approvedStorefrontProductSeeds: ApprovedStorefrontSeed[] = [
     unit: "60粒/瓶",
     servings: 60,
     tagline: "儿童脑部营养关注场景的已审核展示商品",
-    image: "/images/products/one-bottle/brain-child.jpg",
+    image: "/images/bundles/bundle-heart-male.jpg",
     ingredientName: "儿童脑部营养组合",
     hero: [
       "面向儿童脑部营养关注场景的信息展示",
@@ -141,7 +141,7 @@ const approvedStorefrontProductSeeds: ApprovedStorefrontSeed[] = [
     unit: "28袋/盒",
     servings: 28,
     tagline: "女士脑部营养关注场景的已审核展示商品",
-    image: "/images/products/one-bottle/brain-women.jpg",
+    image: "/images/bundles/bundle-heart-female.jpg",
     ingredientName: "女士脑部营养组合",
     hero: [
       "面向女士日常脑部营养关注场景的信息展示",
@@ -161,7 +161,7 @@ const approvedStorefrontProductSeeds: ApprovedStorefrontSeed[] = [
     unit: "28袋/盒",
     servings: 28,
     tagline: "男士脑部营养关注场景的已审核展示商品",
-    image: "/images/products/one-bottle/brain-men.jpg",
+    image: "/images/bundles/bundle-heart-male.jpg",
     ingredientName: "男士脑部营养组合",
     hero: [
       "面向男士日常脑部营养关注场景的信息展示",
@@ -181,7 +181,7 @@ const approvedStorefrontProductSeeds: ApprovedStorefrontSeed[] = [
     unit: "28袋/盒",
     servings: 28,
     tagline: "女士骨骼关节营养关注场景的已审核展示商品",
-    image: "/images/products/one-bottle/joint-women.jpg",
+    image: "/images/bundles/bundle-heart-female.jpg",
     ingredientName: "女士骨骼关节营养组合",
     hero: [
       "面向女士骨骼与关节营养关注场景的信息展示",
@@ -201,7 +201,7 @@ const approvedStorefrontProductSeeds: ApprovedStorefrontSeed[] = [
     unit: "28袋/盒",
     servings: 28,
     tagline: "男士骨骼关节营养关注场景的已审核展示商品",
-    image: "/images/products/one-bottle/joint-men.jpg",
+    image: "/images/bundles/bundle-heart-male.jpg",
     ingredientName: "男士骨骼关节营养组合",
     hero: [
       "面向男士骨骼与关节营养关注场景的信息展示",
@@ -221,7 +221,7 @@ const approvedStorefrontProductSeeds: ApprovedStorefrontSeed[] = [
     unit: "60粒/瓶",
     servings: 60,
     tagline: "儿童骨骼营养关注场景的已审核展示商品",
-    image: "/images/products/one-bottle/bone-child.jpg",
+    image: "/images/bundles/bundle-heart-male.jpg",
     ingredientName: "儿童骨骼营养组合",
     hero: [
       "面向儿童骨骼营养关注场景的信息展示",
@@ -241,7 +241,7 @@ const approvedStorefrontProductSeeds: ApprovedStorefrontSeed[] = [
     unit: "28袋/盒",
     servings: 28,
     tagline: "男士肠道营养关注场景的已审核展示商品",
-    image: "/images/products/one-bottle/gut-men.jpg",
+    image: "/images/bundles/bundle-gut-male.jpg",
     ingredientName: "男士肠道营养组合",
     hero: [
       "面向男士日常肠道营养关注场景的信息展示",
@@ -261,7 +261,7 @@ const approvedStorefrontProductSeeds: ApprovedStorefrontSeed[] = [
     unit: "28袋/盒",
     servings: 28,
     tagline: "女士肠道营养关注场景的已审核展示商品",
-    image: "/images/products/one-bottle/gut-women.jpg",
+    image: "/images/bundles/bundle-gut-female.jpg",
     ingredientName: "女士肠道营养组合",
     hero: [
       "面向女士日常肠道营养关注场景的信息展示",
@@ -281,7 +281,7 @@ const approvedStorefrontProductSeeds: ApprovedStorefrontSeed[] = [
     unit: "60粒/瓶",
     servings: 60,
     tagline: "心脏营养关注场景的已审核展示商品",
-    image: "/images/products/one-bottle/unc45.jpg",
+    image: "/images/bundles/bundle-heart-male.jpg",
     ingredientName: "心脏营养组合",
     hero: [
       "面向心脏营养关注场景的信息展示",
@@ -301,7 +301,7 @@ const approvedStorefrontProductSeeds: ApprovedStorefrontSeed[] = [
     unit: "60粒/瓶",
     servings: 60,
     tagline: "细胞营养关注场景的已审核展示商品",
-    image: "/images/products/one-bottle/atp.jpg",
+    image: "/images/bundles/bundle-heart-male.jpg",
     ingredientName: "细胞营养组合",
     hero: [
       "面向细胞营养关注场景的信息展示",
