@@ -4,6 +4,9 @@ import type { HealthProfile } from "@/schemas/health";
 export const MEDICAL_DISCLAIMER =
   "本内容仅供健康教育和一般参考，不构成医学诊断、治疗建议或处方。若症状严重、持续或正在服药，请咨询医生或药师。";
 
+export const MEDICAL_DISCLAIMER_SHORT =
+  "本内容仅供健康教育参考，不构成医学诊断、治疗建议或处方。症状严重时请就医。";
+
 const urgentKeywordGroups: Array<{ label: string; keywords: string[] }> = [
   { label: "胸痛或胸闷", keywords: ["胸痛", "胸闷", "压榨样疼痛"] },
   { label: "呼吸困难", keywords: ["呼吸困难", "喘不过气", "气促"] },
