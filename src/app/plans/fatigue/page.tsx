@@ -75,7 +75,7 @@ export default function FatiguePlanPage() {
               </div>
             </div>
             <div className="w-full md:w-64 h-48 rounded-2xl overflow-hidden shadow-lg">
-              <Image src="/images/plans/fatigue.jpg" alt={plan.name} width={400} height={300} className="rounded-2xl object-cover w-full h-full" />
+              <Image src="/images/bundles/bundle-heart-male.jpg" alt={plan.name} width={400} height={300} className="rounded-2xl object-cover w-full h-full" />
             </div>
           </div>
         </div>
