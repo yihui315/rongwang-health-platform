@@ -30,6 +30,27 @@ export default function ConsultResult({ response }: ConsultResultProps) {
 
       <SaveAssessmentReportButton consultationId={response.consultationId} />
 
+      {result.riskLevel === "urgent" && (
+        <div className="rounded-2xl border-2 border-red-400 bg-red-50 p-5">
+          <div className="flex items-start gap-3">
+            <span className="text-2xl">🚨</span>
+            <div>
+              <h3 className="text-lg font-bold text-red-800">紧急风险提示</h3>
+              <p className="mt-2 text-sm leading-7 text-red-700">
+                当前评估结果显示症状存在紧急风险，请立即前往线下医疗机构进行面诊评估。
+                切勿仅依赖线上评估结果延误就医时机。
+              </p>
+              <a
+                href="/ai-consult"
+                className="mt-4 inline-flex items-center gap-2 rounded-full border border-red-300 text-red-700 hover:bg-red-100 px-6 py-2.5 text-sm font-semibold transition"
+              >
+                🔄 重新评估
+              </a>
+            </div>
+          </div>
+        </div>
+      )}
+
       {response.ai && (
         <div className="card-elevated">
           <div className="flex flex-wrap items-center justify-between gap-3">
@@ -176,11 +197,13 @@ export default function ConsultResult({ response }: ConsultResultProps) {
         </div>
       )}
 
-      <RecommendationPanel
-        response={response}
-        solutionSlug={solutionSlug ?? ''}
-        canShowSolutionLink={canShowSolutionLink}
-      />
+      {result.riskLevel !== "urgent" && (
+        <RecommendationPanel
+          response={response}
+          solutionSlug={solutionSlug ?? ''}
+          canShowSolutionLink={canShowSolutionLink}
+        />
+      )}
 
       <div className="rounded-3xl border border-slate-200 bg-white px-6 py-5 text-sm leading-7 text-slate-500">
         {result.disclaimer}
