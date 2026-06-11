@@ -144,12 +144,9 @@ function HeroBanner() {
                 立即 AI 評估健康
                 <span aria-hidden>→</span>
               </Link>
-              <Link
-                href="/solutions/sleep"
-                className="inline-flex items-center gap-2 px-3 py-3 text-sm font-medium text-slate-300 transition hover:text-white"
-              >
-                查看健康方案
-              </Link>
+              <span className="flex items-center gap-2 px-3 py-3 text-sm text-slate-400">
+                或 <Link href="/solutions" className="text-slate-300 underline hover:text-white">查看健康方案</Link>
+              </span>
             </div>
 
             {/* 信任徽章 */}
