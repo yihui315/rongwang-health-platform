@@ -75,6 +75,7 @@ export interface BundleProduct {
   marketPrice: number;
   href: string;
   accentColor: string;
+  image: string;
 }
 
 export const bundleProducts: BundleProduct[] = [
@@ -88,6 +89,7 @@ export const bundleProducts: BundleProduct[] = [
     marketPrice: 699,
     href: "/products/bundles/heart-male",
     accentColor: "#dc2626",
+    image: "/images/bundles/bundle-heart-male.jpg",
   },
   {
     slug: "heart-female",
@@ -99,6 +101,7 @@ export const bundleProducts: BundleProduct[] = [
     marketPrice: 699,
     href: "/products/bundles/heart-female",
     accentColor: "#be185d",
+    image: "/images/bundles/bundle-heart-female.jpg",
   },
   {
     slug: "gut-male",
@@ -110,6 +113,7 @@ export const bundleProducts: BundleProduct[] = [
     marketPrice: 599,
     href: "/products/bundles/gut-male",
     accentColor: "#7c3aed",
+    image: "/images/bundles/bundle-gut-male.jpg",
   },
   {
     slug: "gut-female",
@@ -121,6 +125,7 @@ export const bundleProducts: BundleProduct[] = [
     marketPrice: 599,
     href: "/products/bundles/gut-female",
     accentColor: "#059669",
+    image: "/images/bundles/bundle-gut-female.jpg",
   },
 ];
 

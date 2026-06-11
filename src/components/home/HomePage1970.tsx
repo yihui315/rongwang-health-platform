@@ -217,33 +217,6 @@ function HeroBanner() {
   );
 }
 
-/** 拼多多店铺导流Banner */
-function PinduoduoBanner() {
-  return (
-    <section className="bg-gradient-to-r from-red-50 to-orange-50 border-y border-red-100">
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8">
-        <div className="flex items-center gap-3">
-          <div className="flex h-9 w-9 items-center justify-center rounded-full bg-red-500">
-            <span className="text-white text-sm font-bold">拼</span>
-          </div>
-          <div>
-            <p className="text-sm font-semibold text-slate-800">榮旺健康海外專營店</p>
-            <p className="text-xs text-slate-500">正品保障 · 假一罰十</p>
-          </div>
-        </div>
-        <a
-          href="https://mobile.yangkeduo.com/mall_page.html?mall_id=516573367"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="rounded-full bg-red-500 hover:bg-red-600 text-white px-5 py-2 text-sm font-semibold transition shadow-sm"
-        >
-          进店逛逛 →
-        </a>
-      </div>
-    </section>
-  );
-}
-
 /** 首页信任区 —— Hero 下方 */
 function TrustSectionWrapper() {
   return <HomeTrustBar />;
@@ -360,6 +333,15 @@ function BundleSection() {
               href={bundle.href}
               className="group relative flex flex-col rounded-2xl border border-slate-200 bg-white p-5 transition hover:border-emerald-200 hover:shadow-lg hover:shadow-emerald-100"
             >
+              {/* 产品图 */}
+              <div className="mb-3 h-32 w-full flex-shrink-0 rounded-xl overflow-hidden bg-gradient-to-br from-slate-100 to-slate-200">
+                <img
+                  src={bundle.image}
+                  alt={bundle.name}
+                  className="h-full w-full object-cover"
+                />
+              </div>
+
               {/* 标签 */}
               <div className="mb-3 flex gap-2">
                 <span
@@ -829,7 +811,6 @@ export default function HomePage1970() {
     <div className="bg-white text-slate-900">
       <TopNav />
       <HeroBanner />
-      <PinduoduoBanner />
       <TrustSectionWrapper />
       <CategoryNav />
       <BundleSection />
