@@ -11,6 +11,22 @@ interface SolutionPageProps {
   params: Promise<{ slug: string }>;
 }
 
+// 阶段3：作者/审核/日期元数据
+interface SolutionMeta {
+  author: string;
+  reviewer: string;
+  lastReviewed: string;
+}
+
+const solutionMetaRecord: Record<string, SolutionMeta> = {
+  sleep: { author: "张明营养师", reviewer: "李医生", lastReviewed: "2025-11-15" },
+  fatigue: { author: "张明营养师", reviewer: "王医生", lastReviewed: "2025-11-15" },
+  liver: { author: "张明营养师", reviewer: "李医生", lastReviewed: "2025-11-20" },
+  immune: { author: "张明营养师", reviewer: "王医生", lastReviewed: "2025-11-15" },
+  "female-health": { author: "陈晓燕营养师", reviewer: "刘医生", lastReviewed: "2025-12-01" },
+  "male-health": { author: "张明营养师", reviewer: "李医生", lastReviewed: "2025-11-25" },
+};
+
 export async function generateMetadata({ params }: SolutionPageProps): Promise<Metadata> {
   const { slug } = await params;
   const guide = getSolutionGuideBySlug(slug);
@@ -114,6 +130,45 @@ export default async function SolutionPage({ params }: SolutionPageProps) {
                 </span>
               </div>
             )}
+
+            {/* 阶段3：证据等级标注 */}
+            {guide.evidenceLevel && (
+              <div className="mt-5 flex flex-wrap items-center gap-3 rounded-lg border border-[var(--border-subtle)] bg-[var(--surface)] px-4 py-3">
+                <span className="text-sm font-semibold text-[var(--text-primary)]">证据等级：</span>
+                <span className={`inline-flex items-center rounded-full px-3 py-1 text-xs font-bold ${
+                  guide.evidenceLevel === 'A' ? 'bg-green-100 text-green-700' :
+                  guide.evidenceLevel === 'B' ? 'bg-blue-100 text-blue-700' :
+                  'bg-amber-100 text-amber-700'
+                }`}>
+                  {guide.evidenceLevel === 'A' ? 'A 级（高质量证据）' :
+                   guide.evidenceLevel === 'B' ? 'B 级（中等质量证据）' :
+                   'C 级（低质量证据）'}
+                </span>
+                {guide.evidenceSource && (
+                  <details className="group">
+                    <summary className="cursor-pointer text-xs text-[var(--text-secondary)] hover:text-[var(--text-primary)]">
+                      查看证据来源 →
+                    </summary>
+                    <p className="mt-2 text-xs text-[var(--text-secondary)] leading-relaxed">
+                      {guide.evidenceSource}
+                    </p>
+                  </details>
+                )}
+              </div>
+            )}
+
+            {/* 阶段3：作者/审核/日期元数据 */}
+            {(() => {
+              const meta = solutionMetaRecord[slug ?? ''];
+              if (!meta) return null;
+              return (
+                <div className="mt-4 flex flex-wrap gap-4 text-xs text-[var(--text-tertiary)]">
+                  <span>作者：{meta.author}</span>
+                  <span>审核：{meta.reviewer}</span>
+                  <span>最近更新：{meta.lastReviewed}</span>
+                </div>
+              );
+            })()}
 
             {/* 唯一主CTA */}
             <div className="mt-8">

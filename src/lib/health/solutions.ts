@@ -16,6 +16,11 @@ export interface SolutionGuide {
   baselinePlan: string[];
   supplementDirections: string[];
   otcDirections: string[];
+  // 阶段3：证据等级标注
+  /** 证据等级：A=高质量随机对照试验，B=中等质量研究/专家共识，C=低质量研究/案例报告 */
+  evidenceLevel?: 'A' | 'B' | 'C';
+  /** 证据来源说明 */
+  evidenceSource?: string;
   // 阶段2.3：产品详情扩展字段
   /** 产品定位一句话（用于产品卡） */
   productTagline?: string;
@@ -63,6 +68,9 @@ export const solutionGuides: SolutionGuide[] = [
     baselinePlan: ["固定起床时间", "睡前 1 小时减少蓝光和酒精", "晚间避免大强度训练", "先观察 2 到 4 周睡眠趋势"],
     supplementDirections: ["镁 / 甘氨酸镁方向", "GABA 或茶氨酸方向", "低剂量褪黑素方向"],
     otcDirections: ["如伴鼻塞、咽痛、胃部不适，请先咨询药师确认是否有影响睡眠的 OTC 选择"],
+    // 阶段3：证据等级
+    evidenceLevel: "B",
+    evidenceSource: "GABA/茶氨酸：多项小型随机对照研究支持；褪黑素：大型荟萃分析支持；镁：专家共识",
     // 阶段2.3
     rating: { score: 4.8, reviewCount: 128 },
     ingredients: [
@@ -101,6 +109,9 @@ export const solutionGuides: SolutionGuide[] = [
     baselinePlan: ["先补足睡眠时长", "减少连续应酬和熬夜", "白天安排轻强度活动", "记录一周精力波动"],
     supplementDirections: ["B 族维生素方向", "辅酶 Q10 方向", "Omega-3 或恢复支持方向"],
     otcDirections: ["若伴头痛、胃部不适或感冒样症状，先咨询药师，不建议长期依赖提神类产品"],
+    // 阶段3：证据等级
+    evidenceLevel: "B",
+    evidenceSource: "B族维生素：多项随机对照研究支持；辅酶Q10：小型研究支持；Omega-3：荟萃分析支持",
     // 阶段2.3
     rating: { score: 4.7, reviewCount: 96 },
     ingredients: [
@@ -139,6 +150,9 @@ export const solutionGuides: SolutionGuide[] = [
     baselinePlan: ["先减少连续饮酒", "把睡眠恢复放到优先级第一", "多饮水并规律进食", "高风险信号优先就医"],
     supplementDirections: ["肝脏恢复支持方向", "抗氧化恢复方向", "饮酒后恢复方向"],
     otcDirections: ["如伴消化道不适、发热或明显疼痛，请先咨询医生或药师，不建议自行叠加多种产品"],
+    // 阶段3：证据等级
+    evidenceLevel: "B",
+    evidenceSource: "水飞蓟宾：多项随机对照研究支持；NAC：小型研究支持；硫辛酸：专家共识",
     // 阶段2.3
     rating: { score: 4.9, reviewCount: 84 },
     ingredients: [
@@ -177,6 +191,9 @@ export const solutionGuides: SolutionGuide[] = [
     baselinePlan: ["补足睡眠", "保持每周稳定活动量", "避免压力和熬夜双重叠加", "观察 2 到 4 周恢复趋势"],
     supplementDirections: ["维生素 D3 / K2 方向", "维生素 C 方向", "益生菌方向"],
     otcDirections: ["如已有感冒、过敏或呼吸道不适，先向药师确认是否适合 OTC 辅助处理"],
+    // 阶段3：证据等级
+    evidenceLevel: "B",
+    evidenceSource: "维生素D3：大型荟萃分析支持；益生菌：多项随机对照研究支持；维生素C：专家共识",
     // 阶段2.3
     rating: { score: 4.6, reviewCount: 72 },
     ingredients: [
@@ -249,6 +266,9 @@ export const solutionGuides: SolutionGuide[] = [
     otcDirections: [
       "如涉及痛经、异常出血、疑似感染、备孕孕期或正在服药，请先咨询医生或药师，不建议自行长期使用 OTC。",
     ],
+    // 阶段3：证据等级
+    evidenceLevel: "B",
+    evidenceSource: "铁/叶酸：大型随机对照研究支持；维生素D：荟萃分析支持；B族：专家共识",
     // 阶段2.3
     rating: { score: 4.8, reviewCount: 156 },
     ingredients: [
@@ -288,6 +308,9 @@ export const solutionGuides: SolutionGuide[] = [
     baselinePlan: ["先稳定睡眠和起床时间", "减少连续饮酒和熬夜", "增加轻到中等强度运动", "必要时优先线下评估"],
     supplementDirections: ["精力恢复方向", "应酬后恢复方向", "压力与睡眠支持方向"],
     otcDirections: ["如涉及疼痛、泌尿或其他明显不适，请先咨询医生或药师，不建议自行推断疾病"],
+    // 阶段3：证据等级
+    evidenceLevel: "C",
+    evidenceSource: "玛卡/南非醉茄：小型随机对照研究支持；锌：专家共识；缺乏大型研究",
     // 阶段2.3
     rating: { score: 4.7, reviewCount: 112 },
     ingredients: [
