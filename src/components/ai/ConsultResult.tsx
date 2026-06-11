@@ -83,9 +83,11 @@ export default function ConsultResult({ response }: ConsultResultProps) {
             )}
           </ul>
         </div>
-        <div className="card-elevated">
-          <h3 className="text-lg font-semibold text-slate-900">需要就医的信号</h3>
-          <ul className="mt-4 space-y-3 text-sm leading-7 text-slate-600">
+        <div className={`card-elevated ${result.riskLevel === "high" || result.riskLevel === "urgent" ? "border-red-300 bg-red-50/50" : ""}`}>
+          <h3 className={`text-lg font-semibold ${result.riskLevel === "high" || result.riskLevel === "urgent" ? "text-red-700" : "text-slate-900"}`}>
+            {result.riskLevel === "high" || result.riskLevel === "urgent" ? "⚠️ 需要就医的信号" : "需要就医的信号"}
+          </h3>
+          <ul className={`mt-4 space-y-3 text-sm leading-7 ${result.riskLevel === "high" || result.riskLevel === "urgent" ? "text-red-800 font-medium" : "text-slate-600"}`}>
             {result.redFlags.length > 0 ? (
               result.redFlags.map((item) => <li key={item}>{item}</li>)
             ) : (
@@ -128,44 +130,51 @@ export default function ConsultResult({ response }: ConsultResultProps) {
         </div>
       </div>
 
-      <div className="card-elevated">
-        <div className="flex flex-wrap items-center justify-between gap-3">
-          <div>
-            <p className="text-sm text-slate-500">方案页</p>
-            <h3 className="mt-1 text-xl font-semibold text-slate-900">
-              下一步先看问题方案
-            </h3>
-          </div>
-          {canShowSolutionLink && (
-            <Link href={`/solutions/${solutionSlug}`} className="btn-secondary">
+      {result.riskLevel !== "urgent" && (
+        <div className="card-elevated">
+          <div className="flex flex-wrap items-center justify-between gap-3">
+            <div>
+              <p className="text-sm text-slate-500">方案页</p>
+              <h3 className="mt-1 text-xl font-semibold text-slate-900">
+                下一步先看问题方案
+              </h3>
+            </div>
+            <Link href={`/solutions/${solutionSlug}`} className="btn-primary">
               查看对应方案页
             </Link>
-          )}
-        </div>
-        <p className="mt-4 text-sm leading-7 text-slate-600">
-          {result.riskLevel === "urgent"
-            ? "当前优先根据就医提示尽快线下评估，暂不引导到方案或购买页面。"
-            : result.productRecommendationReason}
-        </p>
-        {canShowSolutionLink && (
-          <div className="mt-5 flex flex-wrap gap-3">
-            <a
-              href="/shop"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-full bg-amber-500 hover:bg-amber-600 text-white px-6 py-2.5 text-sm font-semibold transition"
-            >
-              🛒 进店购买正品
-            </a>
-            <a
-              href="/ai-consult"
-              className="inline-flex items-center gap-2 rounded-full border border-teal-300 text-teal-700 hover:bg-teal-50 px-6 py-2.5 text-sm font-semibold transition"
-            >
-              🔄 重新评估
-            </a>
           </div>
-        )}
-      </div>
+          <p className="mt-4 text-sm leading-7 text-slate-600">
+            {result.productRecommendationReason}
+          </p>
+          <div className="mt-5 flex flex-wrap gap-3">
+            {result.riskLevel === "low" || result.riskLevel === "medium" ? (
+              <>
+                <a
+                  href="/shop"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 rounded-full bg-amber-500 hover:bg-amber-600 text-white px-6 py-2.5 text-sm font-semibold transition"
+                >
+                  🛒 进店购买正品
+                </a>
+                <a
+                  href="/ai-consult"
+                  className="inline-flex items-center gap-2 rounded-full border border-teal-300 text-teal-700 hover:bg-teal-50 px-6 py-2.5 text-sm font-semibold transition"
+                >
+                  🔄 重新评估
+                </a>
+              </>
+            ) : (
+              <a
+                href="/ai-consult"
+                className="inline-flex items-center gap-2 rounded-full border border-teal-300 text-teal-700 hover:bg-teal-50 px-6 py-2.5 text-sm font-semibold transition"
+              >
+                🔄 重新评估
+              </a>
+            )}
+          </div>
+        </div>
+      )}
 
       <RecommendationPanel
         response={response}

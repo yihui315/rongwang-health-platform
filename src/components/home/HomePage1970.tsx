@@ -146,7 +146,7 @@ function HeroBanner() {
               </Link>
               <Link
                 href="/solutions/sleep"
-                className="inline-flex items-center gap-2 rounded-full border border-slate-600 bg-white/5 px-6 py-3 text-sm font-semibold text-white transition hover:bg-white/10"
+                className="inline-flex items-center gap-2 px-3 py-3 text-sm font-medium text-slate-300 transition hover:text-white"
               >
                 查看健康方案
               </Link>

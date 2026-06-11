@@ -21,6 +21,13 @@ const riskLabels: Record<RiskLevel, string> = {
   urgent: "紧急风险",
 };
 
+const riskExplanations: Record<RiskLevel, string> = {
+  low: "症状较轻，可优先考虑生活方式调整或补充剂方案",
+  medium: "存在一定风险，建议结合方案页指导进行干预",
+  high: "风险较高，需要积极干预，请尽快查看方案并考虑就医",
+  urgent: "情况紧急，请立即线下就医，暂不引导至购买页面",
+};
+
 export default function RiskCard({ response }: RiskCardProps) {
   const { result, safety } = response;
 
@@ -37,6 +44,9 @@ export default function RiskCard({ response }: RiskCardProps) {
           风险等级：{riskLabels[result.riskLevel]}
         </span>
       </div>
+      <p className="mt-3 text-sm text-[var(--text-secondary)]">
+        {riskExplanations[result.riskLevel]}
+      </p>
 
       <p className="mt-5 text-sm leading-7 text-[var(--text-secondary)]">{result.summary}</p>
 
