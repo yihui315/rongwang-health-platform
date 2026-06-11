@@ -16,6 +16,8 @@ export interface SolutionGuide {
   baselinePlan: string[];
   supplementDirections: string[];
   otcDirections: string[];
+  /** 不适合人群（禁忌症） */
+  notSuitable?: string[];
   // 阶段3：证据等级标注
   /** 证据等级：A=高质量随机对照试验，B=中等质量研究/专家共识，C=低质量研究/案例报告 */
   evidenceLevel?: 'A' | 'B' | 'C';
@@ -65,6 +67,7 @@ export const solutionGuides: SolutionGuide[] = [
     commonSymptoms: ["入睡超过 30 分钟", "半夜醒来后不易再睡", "睡醒仍疲惫", "熬夜后睡眠节律紊乱"],
     commonCauses: ["作息不规律", "精神压力高", "睡前刺激过多", "运动与恢复节奏失衡"],
     seekCareSignals: ["胸闷气促伴失眠", "长期严重情绪低落", "连续数周几乎无法入睡", "伴明显心悸、晕厥"],
+    notSuitable: ["孕妇或哺乳期女性（需医生确认）", "正在服用镇静剂或安眠药物", "严重的抑郁症或焦虑症患者", "青少年及儿童"],
     baselinePlan: ["固定起床时间", "睡前 1 小时减少蓝光和酒精", "晚间避免大强度训练", "先观察 2 到 4 周睡眠趋势"],
     supplementDirections: ["镁 / 甘氨酸镁方向", "GABA 或茶氨酸方向", "低剂量褪黑素方向"],
     otcDirections: ["如伴鼻塞、咽痛、胃部不适，请先咨询药师确认是否有影响睡眠的 OTC 选择"],
@@ -106,6 +109,7 @@ export const solutionGuides: SolutionGuide[] = [
     commonSymptoms: ["午后明显犯困", "工作后恢复慢", "睡够也提不起劲", "熬夜或应酬后状态下滑明显"],
     commonCauses: ["睡眠债积累", "高压力输出", "运动不足", "营养摄入结构单一"],
     seekCareSignals: ["疲劳伴胸痛胸闷", "疲劳伴持续发热或体重骤降", "明显心悸、气短", "近期症状快速加重"],
+    notSuitable: ["严重心脏疾病患者", "正在服用抗凝药物", "甲状腺功能异常", "孕妇或哺乳期女性"],
     baselinePlan: ["先补足睡眠时长", "减少连续应酬和熬夜", "白天安排轻强度活动", "记录一周精力波动"],
     supplementDirections: ["B 族维生素方向", "辅酶 Q10 方向", "Omega-3 或恢复支持方向"],
     otcDirections: ["若伴头痛、胃部不适或感冒样症状，先咨询药师，不建议长期依赖提神类产品"],
@@ -147,6 +151,7 @@ export const solutionGuides: SolutionGuide[] = [
     commonSymptoms: ["饮酒后疲惫明显", "熬夜后恢复慢", "应酬后第二天状态差", "长期生活节律紊乱"],
     commonCauses: ["酒精负担", "睡眠不足", "持续高压输出", "恢复窗口不足"],
     seekCareSignals: ["黑便或呕血", "持续高热", "明显黄疸、意识异常", "腹痛剧烈并加重"],
+    notSuitable: ["严重肝病患者", "正在服用他汀类药物", "胆道梗阻患者", "孕妇或哺乳期女性"],
     baselinePlan: ["先减少连续饮酒", "把睡眠恢复放到优先级第一", "多饮水并规律进食", "高风险信号优先就医"],
     supplementDirections: ["肝脏恢复支持方向", "抗氧化恢复方向", "饮酒后恢复方向"],
     otcDirections: ["如伴消化道不适、发热或明显疼痛，请先咨询医生或药师，不建议自行叠加多种产品"],
@@ -188,6 +193,7 @@ export const solutionGuides: SolutionGuide[] = [
     commonSymptoms: ["换季时容易不适", "小问题恢复慢", "连续忙碌后容易倒下", "经常感觉状态虚弱"],
     commonCauses: ["睡眠不足", "活动量低", "压力高", "恢复周期不够"],
     seekCareSignals: ["持续高热", "呼吸困难", "咳血或黑便", "症状持续且明显加重"],
+    notSuitable: ["自身免疫性疾病患者", "正在服用免疫抑制剂", "器官移植患者", "孕妇或哺乳期女性"],
     baselinePlan: ["补足睡眠", "保持每周稳定活动量", "避免压力和熬夜双重叠加", "观察 2 到 4 周恢复趋势"],
     supplementDirections: ["维生素 D3 / K2 方向", "维生素 C 方向", "益生菌方向"],
     otcDirections: ["如已有感冒、过敏或呼吸道不适，先向药师确认是否适合 OTC 辅助处理"],
@@ -250,6 +256,7 @@ export const solutionGuides: SolutionGuide[] = [
       "持续发热、晕厥、黑便或呕血",
       "情绪低落明显并出现自伤想法",
     ],
+    notSuitable: ["孕期女性（所有营养补充均需医生确认）", "正在服用激素类药物", "有激素依赖性疾病", "青少年女性（需儿科医生指导）"],
     baselinePlan: [
       "先记录 2 到 4 周的周期、睡眠、疲劳和情绪变化",
       "保证规律进食和足够蛋白质摄入",
@@ -305,6 +312,7 @@ export const solutionGuides: SolutionGuide[] = [
     commonSymptoms: ["精力状态下降", "恢复效率变慢", "熬夜后更难回到状态", "长期压力影响日常表现"],
     commonCauses: ["高压力输出", "作息失衡", "饮酒和吸烟负担", "恢复与运动节奏不稳"],
     seekCareSignals: ["胸痛、呼吸困难", "明显头晕或晕厥", "持续剧烈疼痛", "伴持续发热或出血"],
+    notSuitable: ["严重心血管疾病患者", "正在服用 PDE5 抑制剂（伟哥类）", "严重肝肾功能异常", "孕期或哺乳期女性"],
     baselinePlan: ["先稳定睡眠和起床时间", "减少连续饮酒和熬夜", "增加轻到中等强度运动", "必要时优先线下评估"],
     supplementDirections: ["精力恢复方向", "应酬后恢复方向", "压力与睡眠支持方向"],
     otcDirections: ["如涉及疼痛、泌尿或其他明显不适，请先咨询医生或药师，不建议自行推断疾病"],

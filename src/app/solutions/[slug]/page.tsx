@@ -281,6 +281,49 @@ export default async function SolutionPage({ params }: SolutionPageProps) {
               </div>
             </section>
 
+            {/* 5b. 红旗指标 — 需线下就医信号 */}
+            {guide.seekCareSignals && guide.seekCareSignals.length > 0 && (
+              <div className="rounded-xl border border-red-200 bg-red-50 p-5">
+                <div className="flex items-start gap-3">
+                  <span className="mt-0.5 text-xl">🚨</span>
+                  <div>
+                    <h3 className="font-semibold text-red-800">出现以下情况，请先就医</h3>
+                    <p className="mt-1 text-sm text-red-600">
+                      以下情况可能提示需要专业医学评估，不适合自行选择营养支持方案：
+                    </p>
+                    <ul className="mt-3 space-y-1.5">
+                      {guide.seekCareSignals.map((signal) => (
+                        <li key={signal} className="flex items-start gap-2 text-sm text-red-700">
+                          <span className="mt-0.5 text-red-500">⚠</span>
+                          {signal}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* 5c. 不适合人群 */}
+            {guide.notSuitable && guide.notSuitable.length > 0 && (
+              <div className="rounded-xl border border-slate-200 bg-slate-50 p-5">
+                <div className="flex items-start gap-3">
+                  <span className="mt-0.5 text-xl">ℹ️</span>
+                  <div>
+                    <h3 className="font-semibold text-slate-700">这些人群请先咨询医生</h3>
+                    <ul className="mt-3 space-y-1.5">
+                      {guide.notSuitable.map((item) => (
+                        <li key={item} className="flex items-start gap-2 text-sm text-slate-600">
+                          <span className="mt-0.5 text-slate-400">•</span>
+                          {item}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            )}
+
             {/* 6. 产品信任栏 */}
             <ProductTrustFooter />
 
