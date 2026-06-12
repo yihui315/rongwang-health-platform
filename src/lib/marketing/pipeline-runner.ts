@@ -371,7 +371,7 @@ ${COMPLIANCE_RULES}
 
     this.log('info', 'seo_geo_gate', 'calculating SEO/GEO Ready Score');
 
-    const { calculateSeoReadyScore } = await import('./seo-ready-score');
+    const { calculateSeoReadyScore, toSeoReadyScoreDetail } = await import('./seo-ready-score');
     const score = calculateSeoReadyScore({
       title: content.title,
       content: content.content,
@@ -380,6 +380,7 @@ ${COMPLIANCE_RULES}
       schemaTypes: this.job.seo.schema_types ?? ['Article'],
       minScore: this.job.seo.min_ready_score ?? 70,
     });
+    const pipelineScore = toSeoReadyScoreDetail(score, content.title);
 
     const articlePath = join(this.evidenceDir, 'article.md');
     const reportPath = join(this.evidenceDir, 'seo-report.json');
@@ -389,7 +390,7 @@ ${COMPLIANCE_RULES}
       this.log('warn', 'seo_geo_gate', `SEO score ${score.total} below threshold ${score.blockers.join(', ')}`);
       return this.stepResult<SeoReadyScoreDetail>('seo_geo_gate', 'degraded', timer.ms(), {
         nextAction: 'manual_review',
-        output: score,
+        output: pipelineScore,
         errorMessage: `SEO score ${score.total}/${this.job.seo.min_ready_score ?? 70}: ${score.blockers.join(', ')}`,
         evidence: [
           { kind: 'markdown', path: articlePath },
@@ -401,7 +402,7 @@ ${COMPLIANCE_RULES}
     this.log('info', 'seo_geo_gate', `SEO score ${score.total} passed`);
     return this.stepResult<SeoReadyScoreDetail>('seo_geo_gate', 'success', timer.ms(), {
       nextAction: 'continue',
-      output: score,
+      output: pipelineScore,
       evidence: [
         { kind: 'markdown', path: articlePath },
         { kind: 'json', path: reportPath },

@@ -135,3 +135,26 @@ export function calculateSeoReadyScore(input: SEOScoreInput): SEOScoreDetail {
     minScore,
   };
 }
+
+// ── Pipeline adapter ────────────────────────────────────────────────────────────
+// Convert internal SEOScoreDetail (4-dim) to pipeline's SeoReadyScoreDetail (8-dim format).
+
+export function toSeoReadyScoreDetail(
+  score: SEOScoreDetail,
+  _title: string,
+): import('./job-types.js').SeoReadyScoreDetail {
+  // Map 4-dimension breakdown → 8-dimension pipeline format
+  const b = score.breakdown;
+  return {
+    title_h1: b.title === 25 ? 20 : Math.round(b.title * 0.8),
+    author_reviewer_sources: b.content === 25 ? 20 : Math.round(b.content * 0.8),
+    content_uniqueness: b.content >= 15 ? 15 : Math.round(b.content * 0.6),
+    article_jsonld: b.content >= 15 ? 15 : 0,
+    meta_canonical_date: b.meta,
+    internal_links_cta: 5,
+    image_alt_visibility: 5,
+    total: score.total,
+    passed: score.passed,
+    blockers: score.blockers,
+  };
+}
