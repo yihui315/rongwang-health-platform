@@ -134,7 +134,14 @@ export default function ArticlesClient() {
                 >
                   <div className="grid md:grid-cols-5">
                     <div className={`md:col-span-2 h-64 md:h-auto bg-gradient-to-br ${filteredArticles[0].coverColor} relative flex items-center justify-center min-h-[280px] overflow-hidden`}>
-                      {categoryCoverImage[filteredArticles[0].category] ? (
+                      {filteredArticles[0].coverImage ? (
+                        <Image
+                          src={filteredArticles[0].coverImage}
+                          alt={filteredArticles[0].title}
+                          fill
+                          className="object-cover group-hover:scale-105 transition-transform duration-700"
+                        />
+                      ) : categoryCoverImage[filteredArticles[0].category] ? (
                         <Image
                           src={categoryCoverImage[filteredArticles[0].category]}
                           alt={filteredArticles[0].category}
@@ -189,7 +196,14 @@ export default function ArticlesClient() {
                     style={{ animationDelay: `${Math.min(idx * 60, 360)}ms`, boxShadow: '0 1px 3px rgba(0,0,0,0.04)' }}
                   >
                     <div className={`h-44 bg-gradient-to-br ${article.coverColor} relative overflow-hidden`}>
-                      {categoryCoverImage[article.category] ? (
+                      {article.coverImage ? (
+                        <Image
+                          src={article.coverImage}
+                          alt={article.title}
+                          fill
+                          className="object-cover group-hover:scale-110 transition-transform duration-700"
+                        />
+                      ) : categoryCoverImage[article.category] ? (
                         <Image
                           src={categoryCoverImage[article.category]}
                           alt={article.category}

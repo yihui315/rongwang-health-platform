@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 import { articles as rawArticles, getArticleBySlug } from '@/data/articles';
@@ -71,6 +72,15 @@ export default async function ArticleDetailPage({ params }: PageProps) {
 
       {/* Cover — editorial hero */}
       <div className={`relative bg-gradient-to-br ${article.coverColor || 'from-teal-400 to-emerald-600'} overflow-hidden`}>
+        {article.coverImage && (
+          <Image
+            src={article.coverImage}
+            alt={article.title}
+            fill
+            className="object-cover opacity-40"
+            priority
+          />
+        )}
         {/* Decorative background */}
         <div className="absolute inset-0">
           <div className="absolute top-0 right-0 w-96 h-96 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/2" />
