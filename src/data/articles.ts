@@ -39,7 +39,7 @@ export const articles: Article[] = [
     publishedAt: "2026-06-08",
     coverColor: "from-emerald-400 to-teal-500",
 
-    coverImage: "/images/articles/1-跨境保健品.jpg",    author: "运营官Darren",
+    coverImage: "/images/articles/article-01.jpg",    author: "运营官Darren",
     sections: [
       {
         heading: "跨境保健品怎么买才不被坑？",
@@ -94,7 +94,7 @@ export const articles: Article[] = [
     publishedAt: "2026-06-08",
     coverColor: "from-orange-400 to-red-400",
 
-    coverImage: "/images/articles/2-老公应酬辅酶Q10.jpg",    author: "健康顾问",
+    coverImage: "/images/articles/article-02.jpg",    author: "健康顾问",
     sections: [
       {
         heading: "酒精和辅酶Q10的关系",
@@ -141,7 +141,7 @@ export const articles: Article[] = [
     publishedAt: "2026-06-08",
     coverColor: "from-purple-400 to-pink-500",
 
-    coverImage: "/images/articles/3-心脏健康辅酶Q10.jpg",    author: "健康顾问",
+    coverImage: "/images/articles/article-03.jpg",    author: "健康顾问",
     sections: [
       {
         heading: "为什么心脏最需要辅酶Q10",
@@ -196,7 +196,7 @@ export const articles: Article[] = [
     publishedAt: "2026-06-08",
     coverColor: "from-blue-400 to-indigo-500",
 
-    coverImage: "/images/articles/4-高纯度辅酶Q10.jpg",    author: "运营官Darren",
+    coverImage: "/images/articles/article-04.jpg",    author: "运营官Darren",
     sections: [
       {
         heading: "纯度是基础，但远不是全部",
@@ -243,7 +243,7 @@ export const articles: Article[] = [
     publishedAt: "2026-06-08",
     coverColor: "from-emerald-400 to-teal-500",
 
-    coverImage: "/images/articles/5-进口vs国产辅酶Q10.jpg",    author: "健康顾问",
+    coverImage: "/images/articles/article-05.jpg",    author: "健康顾问",
     sections: [
       {
         heading: "原料来源差距不大，核心在工艺",
@@ -290,7 +290,7 @@ export const articles: Article[] = [
     publishedAt: "2026-06-08",
     coverColor: "from-teal-400 to-cyan-500",
 
-    coverImage: "/images/articles/6-加班族辅酶Q10.jpg",    author: "健康顾问",
+    coverImage: "/images/articles/article-06.jpg",    author: "健康顾问",
     sections: [
       {
         heading: "加班对心脏的真实消耗",
@@ -337,7 +337,7 @@ export const articles: Article[] = [
     publishedAt: "2026-06-08",
     coverColor: "from-orange-400 to-red-400",
 
-    coverImage: "/images/articles/7-辅酶Q10适合人群.jpg",    author: "运营官Darren",
+    coverImage: "/images/articles/article-07.jpg",    author: "运营官Darren",
     sections: [
       {
         heading: "30岁是个分水岭",
@@ -384,7 +384,7 @@ export const articles: Article[] = [
     publishedAt: "2026-06-08",
     coverColor: "from-purple-400 to-pink-500",
 
-    coverImage: "/images/articles/8-跨境健康品合规.jpg",    author: "运营官Darren",
+    coverImage: "/images/articles/article-08.jpg",    author: "运营官Darren",
     sections: [
       {
         heading: "三种跨境渠道的风险等级完全不同",
@@ -431,7 +431,7 @@ export const articles: Article[] = [
     publishedAt: "2026-06-08",
     coverColor: "from-blue-400 to-indigo-500",
 
-    coverImage: "/images/articles/9-fatigue-immune.jpg",    author: "运营官Darren",
+    coverImage: "/images/articles/article-09.jpg",    author: "运营官Darren",
     sections: [
       {
         heading: "疲劳和免疫力为什么狼狈为奸",
@@ -478,7 +478,7 @@ export const articles: Article[] = [
     publishedAt: "2026-06-08",
     coverColor: "from-indigo-400 to-purple-500",
 
-    coverImage: "/images/articles/10-sleep-support.jpg",    author: "运营官Darren",
+    coverImage: "/images/articles/article-10.jpg",    author: "运营官Darren",
     sections: [
       {
         heading: "失眠不是一种病，是很多种病的症状",
@@ -524,7 +524,7 @@ export const articles: Article[] = [
     publishedAt: "2026-06-08",
     coverColor: "from-amber-400 to-orange-500",
 
-    coverImage: "/images/articles/11-liver-guide.jpg",    author: "运营官Darren",
+    coverImage: "/images/articles/article-11.jpg",    author: "运营官Darren",
     sections: [
       {
         heading: "为什么996应酬族的肝脏压力山大",
@@ -567,7 +567,7 @@ export const articles: Article[] = [
     publishedAt: "2026-06-08",
     coverColor: "from-rose-400 to-pink-500",
 
-    coverImage: "/images/articles/12-35plus-nutrition.jpg",    author: "健康顾问",
+    coverImage: "/images/articles/article-12.jpg",    author: "健康顾问",
     sections: [
       {
         heading: "35岁后，身体在悄悄变化",
@@ -610,7 +610,7 @@ export const articles: Article[] = [
     publishedAt: "2026-06-08",
     coverColor: "from-amber-400 to-orange-500",
 
-    coverImage: "/images/articles/13-milk-thistle.jpg",    author: "运营官Darren",
+    coverImage: "/images/articles/article-13.jpg",    author: "运营官Darren",
     sections: [
       {
         heading: "奶蓟草为什么被认为是护肝神器",
@@ -652,7 +652,7 @@ export const articles: Article[] = [
     publishedAt: "2026-06-08",
     coverColor: "from-blue-400 to-cyan-500",
 
-    coverImage: "/images/articles/14-immune-vitamins.jpg",    author: "运营官Darren",
+    coverImage: "/images/articles/article-14.jpg",    author: "运营官Darren",
     sections: [
       {
         heading: "免疫力不是一个东西，是一套系统",
@@ -703,7 +703,7 @@ export const articles: Article[] = [
     publishedAt: "2026-06-08",
     coverColor: "from-pink-400 to-rose-500",
 
-    coverImage: "/images/articles/15-nad-nmn.jpg",    author: "运营官Darren",
+    coverImage: "/images/articles/article-15.jpg",    author: "运营官Darren",
     sections: [
       {
         heading: "NAD+为什么被和抗衰老绑在一起",
@@ -750,7 +750,7 @@ export const articles: Article[] = [
     publishedAt: "2026-06-08",
     coverColor: "from-indigo-400 to-purple-500",
 
-    coverImage: "/images/articles/16-gaba-melatonin.jpg",    author: "运营官Darren",
+    coverImage: "/images/articles/article-16.jpg",    author: "运营官Darren",
     sections: [
       {
         heading: "褪黑素：适合倒班和时差，不适合焦虑型失眠",
@@ -792,7 +792,7 @@ export const articles: Article[] = [
     publishedAt: "2026-06-08",
     coverColor: "from-yellow-400 to-amber-500",
 
-    coverImage: "/images/articles/17-b-vitamins.jpg",    author: "运营官Darren",
+    coverImage: "/images/articles/article-17.jpg",    author: "运营官Darren",
     sections: [
       {
         heading: "B族为什么容易缺乏",
@@ -835,7 +835,7 @@ export const articles: Article[] = [
     publishedAt: "2026-06-08",
     coverColor: "from-teal-400 to-cyan-500",
 
-    coverImage: "/images/articles/18-omega3-fishoil.jpg",    author: "运营官Darren",
+    coverImage: "/images/articles/article-18.jpg",    author: "运营官Darren",
     sections: [
       {
         heading: "EPA和DHA：不是一回事",
@@ -878,7 +878,7 @@ export const articles: Article[] = [
     publishedAt: "2026-06-08",
     coverColor: "from-slate-400 to-slate-600",
 
-    coverImage: "/images/articles/19-joint-glucosamine.jpg",    author: "运营官Darren",
+    coverImage: "/images/articles/article-19.jpg",    author: "运营官Darren",
     sections: [
       {
         heading: "氨基葡萄糖是什么，原理是什么",
