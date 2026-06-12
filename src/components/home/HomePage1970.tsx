@@ -44,10 +44,10 @@ function TopNav() {
         {/* 一级导航 */}
         <nav className="hidden items-center gap-1 md:flex">
           {[
-            { label: "心臟健康", href: "/products/heart" },
-            { label: "骨骼健康", href: "/products/bone" },
-            { label: "腸道健康", href: "/products/gut" },
-            { label: "腦力提升", href: "/products/brain" },
+            { label: "心臟健康", href: "/products/category/heart" },
+            { label: "骨骼健康", href: "/products/category/bone" },
+            { label: "腸道健康", href: "/products/category/gut" },
+            { label: "腦力提升", href: "/products/category/brain" },
             { label: "全部產品", href: "/products" },
             { label: "品牌故事", href: "/brand" },
           ].map((item) => (
@@ -713,10 +713,10 @@ function Footer() {
             <p className="font-semibold text-slate-900">產品分類</p>
             <ul className="mt-3 space-y-2 text-sm text-slate-500">
               {[
-                { label: "心臟健康", href: "/products/heart" },
-                { label: "骨骼健康", href: "/products/bone" },
-                { label: "腸道健康", href: "/products/gut" },
-                { label: "腦力提升", href: "/products/brain" },
+                { label: "心臟健康", href: "/products/category/heart" },
+                { label: "骨骼健康", href: "/products/category/bone" },
+                { label: "腸道健康", href: "/products/category/gut" },
+                { label: "腦力提升", href: "/products/category/brain" },
                 { label: "全部產品", href: "/products" },
               ].map((item) => (
                 <li key={item.href}>
