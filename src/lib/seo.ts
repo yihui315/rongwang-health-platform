@@ -14,7 +14,8 @@ const SITE_NAME = "1970 Uncle Darren's";
 // ========================
 
 export function generateArticleJsonLd(article: CMSArticle): object {
-  return {
+  const faqs = extractFAQsFromArticle(article);
+  const schema: Record<string, unknown> = {
     '@context': 'https://schema.org',
     '@type': 'Article',
     headline: article.meta_title || article.title,
@@ -42,6 +43,51 @@ export function generateArticleJsonLd(article: CMSArticle): object {
     articleSection: article.category_name,
     keywords: article.keywords,
   };
+  if (faqs.length > 0) {
+    schema.mainEntity = {
+      '@type': 'FAQPage',
+      mainEntity: faqs.map((faq) => ({
+        '@type': 'Question',
+        name: faq.question,
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: faq.answer,
+        },
+      })),
+    };
+  }
+  return schema;
+}
+
+/**
+ * 从文章内容中提取 FAQ
+ * 策略：从 sections 的 highlight 块和 content 中抽取"是什么/有用吗/怎么吃"类问题
+ */
+function extractFAQsFromArticle(article: CMSArticle): Array<{ question: string; answer: string }> {
+  const faqs: Array<{ question: string; answer: string }> = [];
+  if (article.excerpt) {
+    faqs.push({
+      question: `${article.title}是什么？`,
+      answer: article.excerpt,
+    });
+  }
+  const sections = article.sections ?? [];
+  for (const section of sections.slice(0, 3)) {
+    if (section.highlight) {
+      faqs.push({
+        question: section.heading,
+        answer: section.highlight.text || section.content.slice(0, 200),
+      });
+    }
+    // 追加 content 片段作为补充答案
+    if (faqs.length < 5 && section.content.length > 50) {
+      faqs.push({
+        question: `${section.heading}有用吗？`,
+        answer: section.content.slice(0, 300),
+      });
+    }
+  }
+  return faqs.slice(0, 5);
 }
 
 export function generateProductJsonLd(product: {
@@ -102,7 +148,11 @@ export function generateOrganizationJsonLd(): object {
     url: SITE_URL,
     logo: `${SITE_URL}/logo.png`,
     description: 'AI驱动的跨境健康保健品电商平台，科学配方，品质直达。',
-    sameAs: [],
+    sameAs: [
+      'https://xiaohongshu.com/@rongwanghealth',
+      'https://www.douyin.com/user/MSD4M2ZhZGFi',
+      'https://www.zhihu.com/people/rongwang-health',
+    ],
     contactPoint: {
       '@type': 'ContactPoint',
       contactType: 'customer service',

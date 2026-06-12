@@ -9,6 +9,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "購買渠道 | 荣旺健康",
   description: "正品保障 · 官方授权渠道购买1970 Uncle Darren's营养保健品，认准拼多多榮旺健康海外專營店。",
+  alternates: { canonical: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://rongwang.hk'}/shop` },
 };
 
 const platforms = [
