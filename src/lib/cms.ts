@@ -451,6 +451,7 @@ export async function getArticleBySlugWithFallback(
     // fall through to static
   }
 
+  // CMS returned null → still try static fallback
   const { getArticleBySlug } = await import('@/data/articles');
   const staticArticle = getArticleBySlug(slug);
   if (!staticArticle) return { article: null, source: 'static' };
