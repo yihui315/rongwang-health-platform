@@ -72,9 +72,9 @@ export default async function ArticleDetailPage({ params }: PageProps) {
 
       {/* Cover — editorial hero */}
       <div className={`relative bg-gradient-to-br ${article.coverColor || 'from-teal-400 to-emerald-600'} overflow-hidden`}>
-        {'coverImage' in article && article.coverImage && (
+        {(article as any).coverImage && (
           <Image
-            src={article.coverImage}
+            src={(article as any).coverImage}
             alt={article.title}
             fill
             className="object-cover opacity-40"
