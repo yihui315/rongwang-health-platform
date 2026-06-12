@@ -368,5 +368,5 @@ export default async function ArticleDetailPage({ params }: PageProps) {
  * 新的 CMS 文章通过 ISR 动态生成
  */
 export function generateStaticParams() {
-  return rawArticles.map((article) => ({ slug: article.slug }));
+  return rawArticles.filter(Boolean).map((article) => ({ slug: article.slug }));
 }
