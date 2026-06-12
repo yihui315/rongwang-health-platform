@@ -34,6 +34,7 @@ export interface CMSArticle {
   featured_image?: string;
   // 荣旺扩展 (静态回退用)
   coverColor?: string;
+  coverImage?: string;
   relatedPlan?: string;
   sections?: ArticleSection[];
 }
@@ -472,6 +473,7 @@ export async function getArticleBySlugWithFallback(
       created_at: staticArticle.publishedAt,
       updated_at: staticArticle.publishedAt,
       coverColor: staticArticle.coverColor,
+      coverImage: staticArticle.coverImage ?? undefined,
       read_time: staticArticle.readTime,
       relatedPlan: staticArticle.relatedPlan,
       sections: staticArticle.sections,
