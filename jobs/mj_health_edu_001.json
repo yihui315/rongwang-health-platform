@@ -1,0 +1,43 @@
+{
+  "job_id": "mj_health_edu_001",
+  "trigger": "cron",
+  "locale": "zh-CN",
+  "source": {
+    "type": "topic",
+    "topic": "睡眠质量改善"
+  },
+  "content": {
+    "template_key": "health_education",
+    "max_words": 1200,
+    "human_review_required": true,
+    "reviewer_role": "medical_editor",
+    "min_source_count": 3
+  },
+  "seo": {
+    "primary_keyword": "睡眠质量改善",
+    "secondary_keywords": [
+      "如何改善睡眠",
+      "睡眠障碍调理",
+      "褪黑素的作用"
+    ],
+    "schema_types": ["Article"],
+    "min_ready_score": 70
+  },
+  "distribution": {
+    "publish_mode": "draft",
+    "channels": [
+      { "platform": "wechat", "required": true },
+      { "platform": "toutiao", "required": false }
+    ]
+  },
+  "tracking": {
+    "utm_campaign": "health_edu_weekly",
+    "utm_medium": "content_ai",
+    "conversion_event": "wechat_article_cta_clicked"
+  },
+  "runtime": {
+    "timeout_seconds": 300,
+    "max_retries": 2,
+    "shadow_mode": true
+  }
+}
