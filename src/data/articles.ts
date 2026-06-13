@@ -974,7 +974,6 @@ export const articles: Article[] = [
     readTime: "7分钟",
     publishedAt: "2026-06-12",
     coverColor: "from-orange-500 to-red-500",
-    coverImage: "/images/articles/article-freque.jpg",
     author: "运营官Darren",
     sections: [
       {
@@ -1028,7 +1027,6 @@ export const articles: Article[] = [
     readTime: "5分钟",
     publishedAt: "2026-06-12",
     coverColor: "from-amber-600 to-orange-600",
-    coverImage: "/images/articles/article-antrod.jpg",
     author: "健康顾问",
     sections: [
       {
@@ -1073,7 +1071,6 @@ export const articles: Article[] = [
     readTime: "6分钟",
     publishedAt: "2026-06-12",
     coverColor: "from-yellow-500 to-orange-500",
-    coverImage: "/images/articles/article-hangov.jpg",
     author: "运营官Darren",
     sections: [
       {
@@ -1123,7 +1120,6 @@ export const articles: Article[] = [
     readTime: "7分钟",
     publishedAt: "2026-06-12",
     coverColor: "from-rose-400 to-pink-500",
-    coverImage: "/images/articles/article-women-.jpg",
     author: "健康顾问",
     sections: [
       {
@@ -1177,7 +1173,6 @@ export const articles: Article[] = [
     readTime: "5分钟",
     publishedAt: "2026-06-12",
     coverColor: "from-red-400 to-rose-500",
-    coverImage: "/images/articles/article-iron-m.jpg",
     author: "健康顾问",
     sections: [
       {
