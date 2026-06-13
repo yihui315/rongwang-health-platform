@@ -6,6 +6,7 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { bundleDetails, allBundleSlugs } from "@/lib/data/bundles";
+import { getPurchaseLink } from "@/data/pinduoduo-links";
 
 export async function generateStaticParams() {
   return allBundleSlugs.map((slug) => ({ slug }));
@@ -203,12 +204,23 @@ export default async function BundleDetailPage({ params }: Props) {
 
                 {/* CTA buttons */}
                 <div className="space-y-3">
-                  <Link
-                    href="/shop"
+                  <a
+                    href={(() => {
+                      // Map bundle category to best purchase link
+                      const categoryMap: Record<string, string> = {
+                        heart: getPurchaseLink('cardio'),
+                        bone: getPurchaseLink('immune'),
+                        gut: getPurchaseLink('stress'),
+                        brain: getPurchaseLink('sleep'),
+                      };
+                      return categoryMap[bundle.category] ?? '/shop';
+                    })()}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className={`block w-full rounded-full ${bgAccentClass} py-4 text-center font-bold text-white hover:opacity-90 transition-opacity`}
                   >
                     立即购买
-                  </Link>
+                  </a>
                   <Link
                     href={`/products/category/${categoryPath[bundle.category]}`}
                     className="block w-full rounded-full border border-slate-300 bg-white py-3.5 text-center font-semibold text-slate-700 hover:bg-slate-50 transition-colors"

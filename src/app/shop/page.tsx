@@ -55,6 +55,27 @@ const platforms = [
       "京东售后 · 7天无忧退",
     ],
   },
+  {
+    id: "tmall",
+    name: "天猫国际",
+    storeName: "榮旺健康海外旗舰店",
+    badge: "官方直营",
+    color: "orange",
+    colorFrom: "from-orange-50",
+    colorTo: "to-yellow-50",
+    borderColor: "border-orange-100",
+    iconBg: "bg-orange-500",
+    iconText: "猫",
+    rating: "4.9",
+    sales: "2,000+",
+    cta: "进店购买",
+    url: "https://chaoshi.tmall.com/search",
+    features: [
+      "天猫官方保障 · 正品溯源",
+      "支付宝担保交易 · 安全支付",
+      "7天无理由退换货",
+    ],
+  },
 ];
 
 function ShieldBadgeIcon() {

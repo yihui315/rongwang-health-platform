@@ -10,6 +10,9 @@
  *   - 活动/优惠券页（最高转化）
  *   - 单品页（高转化）
  *   - 店铺首页（多产品曝光）
+ *
+ * 当前策略：由于尚未开通拼多多联盟账号，暂使用店铺内分类搜索链接作为过渡。
+ * 后续步骤：申请拼多多联盟MCN → 获取商品推广链接 → 替换下方 PLACEHOLDER
  */
 
 export interface PlanLink {
@@ -21,57 +24,60 @@ export interface PlanLink {
   store?: string;
 }
 
+const STORE_URL = 'https://mobile.yangkeduo.com/mall_page.html?mall_id=516573367';
+const STORE_SEARCH = 'https://mobile.yangkeduo.com/proxy/api/search?search_src_url=&search_key=&search_id=&source=search_result&activity_id=';
+
 export const pinduoduoLinks: Record<string, PlanLink> = {
   // ===== 三大核心矩阵 =====
   liver: {
-    // TODO: 替换为真实商务护肝组合链接
-    campaign: 'https://youpin.pinduoduo.com/goods.html?goods_id=PLACEHOLDER',
-    product: 'https://mobile.pinduoduo.com/goods.html?goods_id=PLACEHOLDER',
-    store: 'https://youpin.pinduoduo.com/?pid=PLACEHOLDER',
+    // 护肝 = NADH解酒片 + 奶蓟草组合
+    campaign: `${STORE_URL}&search_key=护肝`,
+    product: `${STORE_URL}&search_key=NADH`,
+    store: STORE_URL,
   },
   beauty: {
-    // TODO: 替换为真实内调抗衰组合链接
-    campaign: 'https://youpin.pinduoduo.com/goods.html?goods_id=PLACEHOLDER',
-    product: 'https://mobile.pinduoduo.com/goods.html?goods_id=PLACEHOLDER',
-    store: 'https://youpin.pinduoduo.com/?pid=PLACEHOLDER',
+    // 美容抗衰 = 胶原蛋白 + AKK菌 + NMN
+    campaign: `${STORE_URL}&search_key=胶原蛋白`,
+    product: `${STORE_URL}&search_key=NMN`,
+    store: STORE_URL,
   },
   cardio: {
-    // TODO: 替换为真实心脑调理组合链接
-    campaign: 'https://youpin.pinduoduo.com/goods.html?goods_id=PLACEHOLDER',
-    product: 'https://mobile.pinduoduo.com/goods.html?goods_id=PLACEHOLDER',
-    store: 'https://youpin.pinduoduo.com/?pid=PLACEHOLDER',
+    // 心脑调理 = 辅酶Q10 + Omega3
+    campaign: `${STORE_URL}&search_key=辅酶Q10`,
+    product: `${STORE_URL}&search_key=辅酶Q10`,
+    store: STORE_URL,
   },
 
   // ===== 四大基础OTC引流产品 =====
   fatigue: {
-    // TODO: 替换为真实抗疲劳组合链接
-    campaign: 'https://youpin.pinduoduo.com/goods.html?goods_id=PLACEHOLDER',
-    product: 'https://mobile.pinduoduo.com/goods.html?goods_id=PLACEHOLDER',
-    store: 'https://youpin.pinduoduo.com/?pid=PLACEHOLDER',
+    // 抗疲劳 = NADH + 维生素B族
+    campaign: `${STORE_URL}&search_key=NADH`,
+    product: `${STORE_URL}&search_key=维生素B`,
+    store: STORE_URL,
   },
   sleep: {
-    // TODO: 替换为真实深度睡眠组合链接
-    campaign: 'https://youpin.pinduoduo.com/goods.html?goods_id=PLACEHOLDER',
-    product: 'https://mobile.pinduoduo.com/goods.html?goods_id=PLACEHOLDER',
-    store: 'https://youpin.pinduoduo.com/?pid=PLACEHOLDER',
+    // 睡眠支持 = 甘氨酸镁 + GABA + 褪黑素
+    campaign: `${STORE_URL}&search_key=睡眠`,
+    product: `${STORE_URL}&search_key=褪黑素`,
+    store: STORE_URL,
   },
   immune: {
-    // TODO: 替换为真实免疫防护组合链接
-    campaign: 'https://youpin.pinduoduo.com/goods.html?goods_id=PLACEHOLDER',
-    product: 'https://mobile.pinduoduo.com/goods.html?goods_id=PLACEHOLDER',
-    store: 'https://youpin.pinduoduo.com/?pid=PLACEHOLDER',
+    // 免疫防护 = 维生素D3 + K2
+    campaign: `${STORE_URL}&search_key=维生素D3`,
+    product: `${STORE_URL}&search_key=维生素D3`,
+    store: STORE_URL,
   },
   stress: {
-    // TODO: 替换为真实压力缓解组合链接
-    campaign: 'https://youpin.pinduoduo.com/goods.html?goods_id=PLACEHOLDER',
-    product: 'https://mobile.pinduoduo.com/goods.html?goods_id=PLACEHOLDER',
-    store: 'https://youpin.pinduoduo.com/?pid=PLACEHOLDER',
+    // 压力缓解 = 镁元素 + L-茶氨酸
+    campaign: `${STORE_URL}&search_key=镁`,
+    product: `${STORE_URL}&search_key=茶氨酸`,
+    store: STORE_URL,
   },
 };
 
 /** 获取最优购买链接（优先campaign > product > store） */
 export function getPurchaseLink(planSlug: string): string {
   const link = pinduoduoLinks[planSlug];
-  if (!link) return '#';
-  return link.campaign || link.product || link.store || '#';
+  if (!link) return STORE_URL;
+  return link.campaign || link.product || link.store || STORE_URL;
 }

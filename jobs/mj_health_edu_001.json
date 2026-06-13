@@ -38,6 +38,6 @@
   "runtime": {
     "timeout_seconds": 300,
     "max_retries": 2,
-    "shadow_mode": true
+    "shadow_mode": false,
   }
 }
