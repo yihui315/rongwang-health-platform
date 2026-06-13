@@ -69,15 +69,12 @@ export default function ArticlesClient() {
 
           {/* Search */}
           <div className="mt-8 mx-auto max-w-md relative">
-            <svg className="absolute left-4 top-1/2 -translate-y-1/2 h-4.5 w-4.5 text-slate-400" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
-            </svg>
             <input
               type="text"
               placeholder="搜索文章..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-11 pr-4 py-3 rounded-full border border-slate-200 bg-white text-[15px] text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-teal-500/40 focus:border-teal-500 transition-all"
+              className="w-full px-6 pr-4 py-3 rounded-full border border-slate-200 bg-white text-[15px] text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-teal-500/40 focus:border-teal-500 transition-all"
               style={{ boxShadow: '0 1px 3px rgba(0,0,0,0.04)' }}
             />
           </div>
