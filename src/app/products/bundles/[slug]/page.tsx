@@ -133,7 +133,7 @@ export default async function BundleDetailPage({ params }: Props) {
                 {/* Course badge */}
                 <div className="absolute top-4 right-4">
                   <span className="rounded-full bg-white/90 px-3 py-1 text-xs font-semibold text-slate-700 shadow-sm">
-                    {bundle.courseDays}天疗程
+                    {bundle.courseDays}天持续补充
                   </span>
                 </div>
               </div>
@@ -411,7 +411,7 @@ export default async function BundleDetailPage({ params }: Props) {
                 服用提示
               </p>
               <p className="text-xs text-amber-700 leading-relaxed">
-                营养补充剂不是药物，效果需要积累。建议坚持服用一个完整疗程
+                营养补充剂不是药物，效果需要积累。建议坚持服用一个完整补充周期
                 （{bundle.courseDays === 28 ? "3个月（12盒）" : "6个月（26盒）"}）
                 再评估效果。
               </p>

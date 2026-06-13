@@ -102,7 +102,7 @@ export const bundleDetails: Record<string, BundleDetail> = {
         source: "美国 Albion 氨基酸螯合镁",
       },
     ],
-    howToUse: "每日1袋，早餐后30分钟服用（4粒胶囊一起服用，不影响吸收）。建议连续服用3个月（12盒）为一个完整疗程。",
+    howToUse: "每日1袋，早餐后30分钟服用（4粒胶囊一起服用，不影响吸收）。建议连续服用3个月（12盒）作为完整补充周期。",
     targetUsers: [
       "长期熬夜、加班、高压力人群",
       "有家族心脏病史者",
@@ -137,7 +137,7 @@ export const bundleDetails: Record<string, BundleDetail> = {
         initial: "陈",
         meta: "55岁 · 深圳 · 企业管理者",
         rating: 5,
-        quote: "经常应酬喝酒，吃了两个疗程，整体状态比之前好。顾问服务专业，正品保障。",
+        quote: "经常应酬喝酒，吃了三个月，整体状态比之前好。顾问服务专业，正品保障。",
         accent: "green",
       },
     ],
@@ -193,7 +193,7 @@ export const bundleDetails: Record<string, BundleDetail> = {
         source: "美国 Vitamin B复合配方",
       },
     ],
-    howToUse: "每日1袋，早餐后30分钟服用。建议连续服用3个月为一个完整疗程。",
+    howToUse: "每日1袋，早餐后30分钟服用。建议连续服用3个月作为完整补充周期。",
     targetUsers: [
       "有心脏欠佳家族史的女性",
       "长期节食、贫血女性",
@@ -284,7 +284,7 @@ export const bundleDetails: Record<string, BundleDetail> = {
         source: "美国 DSM D3 原料",
       },
     ],
-    howToUse: "每日1袋，晚餐后30分钟服用。建议连续服用6个月为一个完整疗程（骨代谢周期较慢）。",
+    howToUse: "每日1袋，晚餐后30分钟服用。建议连续服用6个月作为完整补充周期（骨代谢周期较慢）。",
     targetUsers: [
       "50岁以上男性",
       "久坐不动、关节不适者",
@@ -375,7 +375,7 @@ export const bundleDetails: Record<string, BundleDetail> = {
         source: "美国 DSM D3",
       },
     ],
-    howToUse: "每日1袋，晚餐后30分钟服用。建议连续服用6个月为一个完整疗程。",
+    howToUse: "每日1袋，晚餐后30分钟服用。建议连续服用6个月作为完整补充周期。",
     targetUsers: [
       "更年期后女性（骨量流失加速）",
       "长期节食、钙摄入不足女性",
@@ -466,7 +466,7 @@ export const bundleDetails: Record<string, BundleDetail> = {
         source: "美国 National Enzyme Company 消化酶复合配方",
       },
     ],
-    howToUse: "每日1袋，早餐后或睡前服用（胃酸较低时服用更利于益生菌到达肠道）。建议连续服用3个月为一个完整疗程（肠道菌群重建需要时间）。",
+    howToUse: "每日1袋，早餐后或睡前服用（胃酸较低时服用更利于益生菌到达肠道）。建议连续服用3个月作为完整补充周期（肠道菌群重建需要时间）。",
     targetUsers: [
       "经常便秘或腹泻者",
       "应酬多、饮食不规律者",
@@ -557,7 +557,7 @@ export const bundleDetails: Record<string, BundleDetail> = {
         source: "美国 Beneo 果蔬复合纤维",
       },
     ],
-    howToUse: "每日1袋，早餐后或睡前服用。建议连续服用3个月为一个完整疗程。",
+    howToUse: "每日1袋，早餐后或睡前服用。建议连续服用3个月作为完整补充周期。",
     targetUsers: [
       "经常便秘或大便不规律的女性",
       "长期节食、纤维摄入不足者",
@@ -648,7 +648,7 @@ export const bundleDetails: Record<string, BundleDetail> = {
         source: "美国 Euromed银杏叶标准化提取物",
       },
     ],
-    howToUse: "每日1袋，早餐后服用。建议连续服用3个月为一个完整疗程（神经细胞修复需要时间）。",
+    howToUse: "每日1袋，早餐后服用。建议连续服用3个月作为完整补充周期（神经细胞修复需要时间）。",
     targetUsers: [
       "经常用脑过度、记忆力下降者",
       "中老年认知功能下降者",
@@ -739,7 +739,7 @@ export const bundleDetails: Record<string, BundleDetail> = {
         source: "美国 Vitamin B 复合配方",
       },
     ],
-    howToUse: "每日1袋，早餐后服用。建议连续服用3个月为一个完整疗程。",
+    howToUse: "每日1袋，早餐后服用。建议连续服用3个月作为完整补充周期。",
     targetUsers: [
       "进入更年期脑力下降的女性",
       "长期睡眠不好、记忆力衰退者",

@@ -311,7 +311,7 @@ function BundleSection() {
             </h2>
             <p className="mt-2 max-w-md text-sm text-slate-500">
               基於 decades of research 研發的黃金配比組合，
-              针对男女不同體質定制，每日一袋，28天完整療程。
+              针对男女不同體質定制，每日一袋，28天持续补充周期。
             </p>
           </div>
           <Link

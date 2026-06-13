@@ -163,7 +163,7 @@ export default async function CategoryPage({ params }: Props) {
           <section className="mb-12">
             <div className="mb-6 flex items-center justify-between">
               <div>
-                <h2 className="text-xl font-bold text-slate-900">營養包套裝 · 28天疗程</h2>
+                <h2 className="text-xl font-bold text-slate-900">營養包套裝 · 28天持续补充</h2>
                 <p className="mt-1 text-sm text-slate-500">单品组合更划算，每日一袋方便高效</p>
               </div>
               <span className={`rounded-full ${config.lightBg} ${config.accent} px-3 py-1 text-xs font-bold`}>
