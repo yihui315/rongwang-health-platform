@@ -16,9 +16,9 @@ type PageProps = {
 };
 
 // ISR disabled — articles checked directly from GEOFlow DB for accurate 404
-// dynamicParams=false means unlisted slugs return a proper 404
+// dynamicParams=true allows CMS/cache articles to be served (not just static pre-generated list)
 export const revalidate = 0;
-export const dynamicParams = false;
+export const dynamicParams = true;
 
 /**
  * 动态 SEO 元数据

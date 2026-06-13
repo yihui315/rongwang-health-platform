@@ -443,6 +443,41 @@ export async function getArticlesWithFallback(params: {
 export async function getArticleBySlugWithFallback(
   slug: string
 ): Promise<{ article: CMSArticle | null; source: 'cms' | 'static' }> {
+  // Step 1: Try GEOFlow cache file (written by geoflow-sync.js, holds 46 articles)
+  try {
+    const cache = await readCacheFile();
+    if (cache && cache.articles && cache.articles.length > 0) {
+      const found = cache.articles.find((a: any) => a.slug === slug);
+      if (found) {
+        return {
+          article: {
+            id: found.id,
+            title: found.title,
+            slug: found.slug,
+            content: found.content || '',
+            excerpt: found.excerpt || '',
+            status: 'published' as const,
+            review_status: 'approved' as const,
+            category_id: null,
+            category_name: found.category || '辅酶Q10科普',
+            category_slug: '',
+            author_id: null,
+            author_name: found.author || '运营官Darren',
+            published_at: found.published_at,
+            created_at: found.published_at || new Date().toISOString(),
+            updated_at: found.published_at || new Date().toISOString(),
+            read_time: found.read_time || '5分钟',
+            featured_image: found.coverImage || null,
+          },
+          source: 'cms',
+        };
+      }
+    }
+  } catch {
+    // cache read failed, continue
+  }
+
+  // Step 2: Try GEOFlow API directly (slow path, 3s timeout)
   try {
     const client = getCMSClient();
     const article = await client.getArticleBySlug(slug);
@@ -451,7 +486,7 @@ export async function getArticleBySlugWithFallback(
     // fall through to static
   }
 
-  // CMS returned null → still try static fallback
+  // Step 3: Static fallback for slugs defined in articles.ts
   const { getArticleBySlug } = await import('@/data/articles');
   const staticArticle = getArticleBySlug(slug);
   if (!staticArticle) return { article: null, source: 'static' };
