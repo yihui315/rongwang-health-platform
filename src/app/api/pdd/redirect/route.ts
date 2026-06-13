@@ -44,20 +44,24 @@ export async function GET(request: Request) {
   }
 
   // Save click to DB for attribution
-  await savePddClick({
-    productId: parsed.data.plan ?? "unknown",
-    sessionId: parsed.data.sessionId ?? undefined,
-    consultationId: parsed.data.consultationId ?? undefined,
-    source: `affiliate_${parsed.data.ch ?? "direct"}`,
-    solutionSlug: parsed.data.plan
-      ? (normalizeSolutionSlug(parsed.data.plan) ?? undefined)
-      : undefined,
-    ref: "affiliate",
-    utm: parsed.data.ch
-      ? { source: parsed.data.ch, medium: "affiliate", campaign: parsed.data.plan ?? undefined }
-      : undefined,
-    destinationUrl,
-  });
+  try {
+    await savePddClick({
+      productId: parsed.data.plan ?? "unknown",
+      sessionId: parsed.data.sessionId ?? undefined,
+      consultationId: parsed.data.consultationId ?? undefined,
+      source: `affiliate_${parsed.data.ch ?? "direct"}`,
+      solutionSlug: parsed.data.plan
+        ? (normalizeSolutionSlug(parsed.data.plan) ?? undefined)
+        : undefined,
+      ref: "affiliate",
+      utm: parsed.data.ch
+        ? { source: parsed.data.ch, medium: "affiliate", campaign: parsed.data.plan ?? undefined }
+        : undefined,
+      destinationUrl,
+    });
+  } catch (err) {
+    console.error("pdd-redirect savePddClick failed:", err);
+  }
 
   // Redirect to destination
   return NextResponse.redirect(destinationUrl, 302);
