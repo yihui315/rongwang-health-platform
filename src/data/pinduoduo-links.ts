@@ -1,33 +1,24 @@
 /**
  * 荣旺健康 · 拼多多购买链接配置
  *
- * 使用说明：
- * 1. 登录拼多多联盟 (pub.pinduoduo.com) 获取商品推广链接
- * 2. 推广链接格式：https://apivincible.pinduoduo.com/...?__dp_pid=XXXX&duoduo_type=XX
- * 3. 将真实推广链接替换下方 PLACEHOLDER_CPS 字段
- *
- * 链接优先级：campaign(CPS推广页) > product(单品) > store(店铺)
- * 每次点击自动记录到 /api/pdd/click 并附加 UTM 归因参数
+ * 说明：自有拼多多店铺，链接格式为 mobile.yangkeduo.com 移动端 Mall 页
+ * UTM 归因：追踪用户从哪个渠道（抖音/小红书/文章/方案/bundle）点击进入店铺
+ * 点击流程：前端 → /api/pdd/redirect（记录UTM到DB）→ 拼多多店铺
  */
 
-// ===== CPS 联盟配置 =====
-// TODO: 替换为真实拼多多联盟推广链接 (pub.pinduoduo.com)
-// 格式: https://apivincible.pinduoduo.com/...?__dp_pid=XXXXX&duoduo_type=2&...
-// 开通MCN: 拼多多开放平台 → 联盟 → MCN管理 → 申请入驻
-const CPS_AFFILIATE_PREFIX = 'https://apivincible.pinduoduo.com';
+// ===== 拼多多自有店铺链接 =====
+const STORE_URL = 'https://mobile.yangkeduo.com/mall_page.html?ps=Ae4rFwpBRF';
 
 export interface PlanLink {
-  /** 拼多多CPS推广链接（佣金追踪，需从pub.pinduoduo.com获取） */
+  /** 拼多多店铺首页链接（带 UTM 归因追踪） */
   campaign?: string;
-  /** 拼多多单品推广链接 */
+  /** 拼多多品类/搜索链接 */
   product?: string;
-  /** 拼多多旗舰店/店铺首页 */
+  /** 拼多多店铺主页 */
   store?: string;
   /** UTM来源标识（用于归因：douyin/xiaohongshu/articles/solutions/bundle） */
   utmSource?: string;
 }
-
-const STORE_URL = 'https://mobile.yangkeduo.com/mall_page.html?mall_id=516573367';
 
 // ===== UTM 归因参数 =====
 export type UtmChannel = 'douyin' | 'xiaohongshu' | 'articles' | 'solutions' | 'bundle' | 'shop' | 'direct';
@@ -55,7 +46,6 @@ export const pinduoduoLinks: Record<string, PlanLink> = {
   // ===== 三大核心矩阵 =====
   liver: {
     // 护肝 = NADH解酒片 + 奶蓟草组合
-    // TODO: 替换为真实CPS推广链接
     campaign: `${STORE_URL}&search_key=护肝`,
     product: `${STORE_URL}&search_key=NADH`,
     store: STORE_URL,
