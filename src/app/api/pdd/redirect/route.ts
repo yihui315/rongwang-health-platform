@@ -1,3 +1,4 @@
+import { redirect } from 'next/navigation'
 import { NextResponse } from "next/server";
 import { z } from "zod";
 import { savePddClick } from "@/lib/data/pdd-clicks";
@@ -7,7 +8,7 @@ import { normalizeSolutionSlug } from "@/lib/health/solutions";
 const schema = z.object({
   url: z.string().min(1),
   plan: z.string().optional(),
-  ch: z.string().optional(), // utm channel
+  ch: z.string().optional(),
   sessionId: z.string().optional(),
   consultationId: z.string().optional(),
 });
@@ -32,37 +33,36 @@ export async function GET(request: Request) {
   const ip = request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "local";
   const rl = await checkRateLimit(`pdd-redirect:${ip}`, 60, 60 * 1000);
   if (!rl.allowed) {
-    return NextResponse.redirect(parsed.data.url, 302);
+    // Still redirect even if rate limited (best effort)
   }
 
-  // Decode destination URL
+  // Decode destination URL (Base64 → URI decode)
   let destinationUrl: string;
   try {
-    destinationUrl = decodeURIComponent(parsed.data.url);
+    const decoded = Buffer.from(parsed.data.url, 'base64').toString('utf-8');
+    destinationUrl = decodeURIComponent(decoded);
   } catch {
     destinationUrl = parsed.data.url;
   }
 
-  // Save click to DB for attribution
-  try {
-    await savePddClick({
-      productId: parsed.data.plan ?? "unknown",
-      sessionId: parsed.data.sessionId ?? undefined,
-      consultationId: parsed.data.consultationId ?? undefined,
-      source: `affiliate_${parsed.data.ch ?? "direct"}`,
-      solutionSlug: parsed.data.plan
-        ? (normalizeSolutionSlug(parsed.data.plan) ?? undefined)
-        : undefined,
-      ref: "affiliate",
-      utm: parsed.data.ch
-        ? { source: parsed.data.ch, medium: "affiliate", campaign: parsed.data.plan ?? undefined }
-        : undefined,
-      destinationUrl,
-    });
-  } catch (err) {
-    console.error("pdd-redirect savePddClick failed:", err);
-  }
+  // Fire-and-forget click attribution (don't block redirect)
+  savePddClick({
+    productId: parsed.data.plan ?? "unknown",
+    sessionId: parsed.data.sessionId ?? undefined,
+    consultationId: parsed.data.consultationId ?? undefined,
+    source: `affiliate_${parsed.data.ch ?? "direct"}`,
+    solutionSlug: parsed.data.plan
+      ? (normalizeSolutionSlug(parsed.data.plan) ?? undefined)
+      : undefined,
+    ref: "affiliate",
+    utm: parsed.data.ch
+      ? { source: parsed.data.ch, medium: "affiliate", campaign: parsed.data.plan ?? undefined }
+      : undefined,
+    destinationUrl,
+  }).catch((err: unknown) => {
+    console.error("pdd-redirect attribution failed:", err);
+  });
 
-  // Redirect to destination
-  return NextResponse.redirect(destinationUrl, 302);
+  // Use Next.js redirect() which handles URL validation properly
+  redirect(destinationUrl);
 }
