@@ -166,6 +166,7 @@ export function generateOrganizationJsonLd(): object {
 // ========================
 
 export function generateArticleMetadata(article: CMSArticle) {
+  const ogImageUrl = `${SITE_URL}/og-image.jpg`;
   return {
     title: article.meta_title || `${article.title} | ${SITE_NAME}`,
     description: article.meta_description || article.excerpt,
@@ -182,11 +183,13 @@ export function generateArticleMetadata(article: CMSArticle) {
       authors: [article.author_name || SITE_NAME],
       section: article.category_name,
       tags: article.keywords?.split(',').map((k: string) => k.trim()),
+      images: [{ url: ogImageUrl, width: 1024, height: 1024, alt: article.title }],
     },
     twitter: {
       card: 'summary_large_image' as const,
       title: article.meta_title || article.title,
       description: article.meta_description || article.excerpt,
+      images: [ogImageUrl],
     },
     alternates: {
       canonical: `${SITE_URL}/articles/${article.slug}`,
