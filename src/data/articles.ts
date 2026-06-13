@@ -33,7 +33,7 @@ export const articles: Article[] = [
   {
     title: "跨境保健品怎么买才不被坑？",
     slug: "8b5ybrio",
-    excerpt: "跨境保健品水很深——同样的成分，价格差几倍，选购前搞清这5点，能避开90%的坑。",
+    excerpt: "跨境保健品怎么买才不被坑？天猫国际、京东全球购、拼多多上品牌鱼龙混杂，同样成分价格差几倍。教你5招选购要点，避开90%的坑——认准蓝帽子、看批准文号、查含量纯度。",
     category: "营养科普",
     readTime: "5分钟",
     publishedAt: "2026-06-08",
@@ -88,7 +88,7 @@ export const articles: Article[] = [
   {
     title: "老公经常应酬喝酒，吃辅酶Q10有用吗？",
     slug: "wl6zzw4a",
-    excerpt: "酒精消耗辅酶Q10是明确机制，但护肝不能只靠辅酶Q10——讲清楚原理，给家属一个客观答案。",
+    excerpt: "酒精如何消耗辅酶Q10？护肝不只是吃辅酶Q10——讲清楚酒精与辅酶Q10的真实关系，给经常饮酒人群一个科学的护肝方案。",
     category: "抗疲劳",
     readTime: "5分钟",
     publishedAt: "2026-06-08",
@@ -135,7 +135,7 @@ export const articles: Article[] = [
   {
     title: "心脏健康与辅酶Q10：营养支持你需要知道的事",
     slug: "ejazfw2h",
-    excerpt: "心脏是人体耗能最高的器官之一，当它开始喊累，身体会发出这些信号。",
+    excerpt: "心脏在发出疲劳信号时，身体会有这些表现：胸闷、心悸、996后体力恢复慢。辅酶Q10如何帮助心脏抗疲劳？一篇讲透原理与使用指南。",
     category: "抗疲劳",
     readTime: "5分钟",
     publishedAt: "2026-06-08",
@@ -190,7 +190,7 @@ export const articles: Article[] = [
   {
     title: "95%高纯度辅酶Q10，每日一粒够吗？",
     slug: "pimu4agd",
-    excerpt: "纯度高不等于效果好——吸收型态、剂型、随餐服用方式，都会影响实际利用率。",
+    excerpt: "辅酶Q10纯度高不等于效果好——吸收型态（还原型vs氧化型）、剂型、随餐服用方式，决定实际利用率。选购前必看的4个关键指标，避免花冤枉钱。",
     category: "营养科普",
     readTime: "5分钟",
     publishedAt: "2026-06-08",
@@ -237,7 +237,7 @@ export const articles: Article[] = [
   {
     title: "进口辅酶Q10和国产有什么区别？了解真相做出选择",
     slug: "3giuwn20",
-    excerpt: "原料、工艺、监管标准——三维度拆解进口和国产辅酶Q10的真实差距。",
+    excerpt: "进口辅酶Q10和国产辅酶Q10差别在哪？从原料来源（Kaneka/Mitsubishi）、生产工艺、监管标准三维度拆解，帮你判断贵的有没有道理。",
     category: "营养科普",
     readTime: "6分钟",
     publishedAt: "2026-06-08",
@@ -284,7 +284,7 @@ export const articles: Article[] = [
   {
     title: "为什么加班族需要补充辅酶Q10？",
     slug: "fi9s05my",
-    excerpt: "996工作制下，心脏长期高负荷运转。辅酶Q10是少数有科学依据的心脏省力工具。",
+    excerpt: "996工作制下心脏长期高负荷，辅酶Q10是少数有科学依据的心脏减负工具。每天一粒辅酶Q10对熬夜党真的有用吗？心脏科角度的深度解析。",
     category: "抗疲劳",
     readTime: "5分钟",
     publishedAt: "2026-06-08",
@@ -331,7 +331,7 @@ export const articles: Article[] = [
   {
     title: "辅酶Q10适合什么人？30岁+熬夜人群的营养支持参考",
     slug: "31jy5wfm",
-    excerpt: "辅酶Q10不是有病才吃的药，而是30岁以后每个人都应该了解的营养素。",
+    excerpt: "辅酶Q10不是有病才吃的药——30岁以后自身合成能力下降，每个中国人都可能缺乏。哪些人群最需要补？每天补多少？一文说清楚。",
     category: "抗疲劳",
     readTime: "5分钟",
     publishedAt: "2026-06-08",
@@ -378,7 +378,7 @@ export const articles: Article[] = [
   {
     title: "跨境健康品选购前需要确认的合规与标准差异",
     slug: "h8q9vnxo",
-    excerpt: "保税仓、直邮、个人代购——不同渠道的合规风险完全不同，买之前搞清楚。",
+    excerpt: "保税仓、直邮、个人代购——跨境保健品的三个主要渠道，合规风险完全不同。哪个渠道最安全？买跨境保健品前必须搞清的3件事。",
     category: "营养科普",
     readTime: "6分钟",
     publishedAt: "2026-06-08",
@@ -425,7 +425,7 @@ export const articles: Article[] = [
   {
     title: "疲劳与免疫支持：荣旺 AI 健康顾问的教育参考路径",
     slug: "jm7ns5da",
-    excerpt: "疲劳和免疫力低下经常同时出现，背后有共同的生理机制——线粒体功能和氧化应激。",
+    excerpt: "疲劳和免疫力低下经常同时出现，背后有共同的生理机制——线粒体能量不足和氧化应激过高。辅酶Q10如何同时改善这两大问题？科学原理解析。",
     category: "免疫防护",
     readTime: "5分钟",
     publishedAt: "2026-06-08",
@@ -472,7 +472,7 @@ export const articles: Article[] = [
   {
     title: "睡眠支持怎么做：先评估，再选择健康教育方案",
     slug: "bvtrhw4l",
-    excerpt: "失眠的原因完全不同，改善方法也完全不同——没有搞清楚原因之前，别急着买助眠产品。",
+    excerpt: "失眠的原因完全不同，助眠方法也完全不同——没有搞清楚失眠原因之前，别急着买褪黑素。入睡困难、早醒、浅睡，背后的原因和处理方式全解析。",
     category: "深度睡眠",
     readTime: "6分钟",
     publishedAt: "2026-06-08",
@@ -518,7 +518,7 @@ export const articles: Article[] = [
   {
     title: "996应酬族护肝指南：不止辅酶Q10",
     slug: "h9q0znbq",
-    excerpt: "喝酒熬夜党除了辅酶Q10，还需要哪些护肝营养支持？这份组合方案请收藏。",
+    excerpt: "喝酒熬夜党护肝只吃辅酶Q10够吗？水飞蓟、复合维生素B、NAC——科学的护肝营养组合方案，常喝酒熬夜人群的完整保护策略。",
     category: "压力缓解",
     readTime: "6分钟",
     publishedAt: "2026-06-08",
@@ -561,7 +561,7 @@ export const articles: Article[] = [
   {
     title: "35岁后营养需求变化：辅酶Q10的科学认知",
     slug: "m1l7r7u7",
-    excerpt: "35岁是个坎——皱纹看得见，内在损耗看不见。辅酶Q10是少数能实实在在延缓内在衰老的营养素。",
+    excerpt: "35岁是个坎——皱纹看得见，内在损耗看不见。辅酶Q10是少数能实实在在延缓内在衰老的营养素，30岁后每天流失1%，科学补充指南。",
     category: "压力缓解",
     readTime: "5分钟",
     publishedAt: "2026-06-08",
@@ -604,7 +604,7 @@ export const articles: Article[] = [
   {
     title: "奶蓟草护肝：科学真相与选购参考",
     slug: "milk-thistle-truth",
-    excerpt: "水飞蓟宾是护肝明星成分，但市面上产品质量参差不齐，有效成分含量差异高达10倍。",
+    excerpt: "水飞蓟宾是护肝明星成分，但市面上产品质量参差不齐，有效成分含量差异高达10倍。选购水飞蓟素前，必须看这3个关键指标，避免花高价买安慰剂。",
     category: "营养科普",
     readTime: "6分钟",
     publishedAt: "2026-06-08",
@@ -646,7 +646,7 @@ export const articles: Article[] = [
   {
     title: "免疫力最该补什么？维C、维D、锌、β-葡聚糖全解析",
     slug: "immune-support-complete",
-    excerpt: "免疫力是个系统，不是单一成分能撑起来的。讲清楚四种关键免疫营养素的作用与搭配。",
+    excerpt: "免疫力是个系统，不是单一成分能撑起来的。维生素C、锌、维生素D、辅酶Q10——四种关键免疫营养素的作用机制与科学搭配方案，增强抵抗力必看。",
     category: "免疫防护",
     readTime: "6分钟",
     publishedAt: "2026-06-08",
@@ -697,7 +697,7 @@ export const articles: Article[] = [
   {
     title: "NAD+和NMN：科学进展与实际应用参考",
     slug: "nmn-anti-aging-truth",
-    excerpt: "NMN是近两年最火的抗衰老补充剂，价格不菲。讲清楚它的机制、证据等级、和真实期望值。",
+    excerpt: "NMN是近两年最火的抗衰老补充剂，价格不菲。讲清楚NMN的机制、临床证据等级、和真实期望值——花大钱之前，先搞清楚原理，避免交智商税。",
     category: "压力缓解",
     readTime: "7分钟",
     publishedAt: "2026-06-08",
@@ -744,7 +744,7 @@ export const articles: Article[] = [
   {
     title: "GABA和褪黑素：失眠首选哪个？一文说清楚",
     slug: "gaba-melatonin-sleep",
-    excerpt: "都是助眠成分，但作用机制完全不同，适用人群也不同。选错可能没效果，还可能干扰睡眠。",
+    excerpt: "GABA和褪黑素都是助眠成分，但作用机制完全不同，适用人群也不同。选错可能没效果还可能干扰睡眠——入睡困难 vs 浅睡早醒，应该选哪个？",
     category: "深度睡眠",
     readTime: "5分钟",
     publishedAt: "2026-06-08",
