@@ -524,7 +524,7 @@ export const articles: Article[] = [
     publishedAt: "2026-06-08",
     coverColor: "from-amber-400 to-orange-500",
 
-    coverImage: "/images/articles/article-11.jpg",    author: "运营官Darren",
+    coverImage: "/images/articles/article-38.jpg",    author: "运营官Darren",
     sections: [
       {
         heading: "为什么996应酬族的肝脏压力山大",
@@ -567,7 +567,7 @@ export const articles: Article[] = [
     publishedAt: "2026-06-08",
     coverColor: "from-rose-400 to-pink-500",
 
-    coverImage: "/images/articles/article-12.jpg",    author: "健康顾问",
+    coverImage: "/images/articles/article-42.jpg",    author: "健康顾问",
     sections: [
       {
         heading: "35岁后，身体在悄悄变化",
@@ -703,7 +703,7 @@ export const articles: Article[] = [
     publishedAt: "2026-06-08",
     coverColor: "from-pink-400 to-rose-500",
 
-    coverImage: "/images/articles/article-15.jpg",    author: "运营官Darren",
+    coverImage: "/images/articles/article-26.jpg",    author: "运营官Darren",
     sections: [
       {
         heading: "NAD+为什么被和抗衰老绑在一起",
@@ -792,7 +792,7 @@ export const articles: Article[] = [
     publishedAt: "2026-06-08",
     coverColor: "from-yellow-400 to-amber-500",
 
-    coverImage: "/images/articles/article-17.jpg",    author: "运营官Darren",
+    coverImage: "/images/articles/article-37.jpg",    author: "运营官Darren",
     sections: [
       {
         heading: "B族为什么容易缺乏",
@@ -878,7 +878,7 @@ export const articles: Article[] = [
     publishedAt: "2026-06-08",
     coverColor: "from-slate-400 to-slate-600",
 
-    coverImage: "/images/articles/article-19.jpg",    author: "运营官Darren",
+    coverImage: "/images/articles/article-47.jpg",    author: "运营官Darren",
     sections: [
       {
         heading: "氨基葡萄糖是什么，原理是什么",
@@ -919,12 +919,12 @@ export const articles: Article[] = [
   {
     title: "NADH解酒真相：为什么它比奶蓟草更有效？",
     slug: "nadh-hangover-truth",
-    excerpt: "NADH是人体内关键的还原型辅酶，直接参与酒精代谢。比起传统奶蓟草，NADH在细胞能量层面的支持机制有何不同？这篇讲清楚。",
-    category: "抗疲劳",
+    excerpt: "NADH是还原型辅酶1",
+    category: "护肝解酒",
     readTime: "6分钟",
     publishedAt: "2026-06-12",
-    coverColor: "from-orange-400 to-amber-500",
-    coverImage: "/images/articles/article-15.jpg",
+    coverColor: "from-amber-400 to-orange-500",
+    coverImage: "/images/articles/article-59.jpg",
     author: "健康顾问",
     sections: [
       {
@@ -974,7 +974,7 @@ export const articles: Article[] = [
     readTime: "7分钟",
     publishedAt: "2026-06-12",
     coverColor: "from-orange-500 to-red-500",
-    coverImage: "/images/articles/article-15.jpg",
+    coverImage: "/images/articles/article-27.jpg",
     author: "运营官Darren",
     sections: [
       {
@@ -1023,12 +1023,12 @@ export const articles: Article[] = [
   {
     title: "牛樟芝护肝功效深度解析：科学证据一览",
     slug: "antrodia-liver-efficacy",
-    excerpt: "牛樟芝是台湾特有的珍稀药用真菌，被宣称有强大护肝功效。科学证据到底如何？这篇系统梳理。",
-    category: "营养科普",
-    readTime: "5分钟",
+    excerpt: "牛樟芝（Antrodia cinnamomea）是台湾特有的珍稀药用真菌",
+    category: "护肝解酒",
+    readTime: "6分钟",
     publishedAt: "2026-06-12",
-    coverColor: "from-amber-600 to-orange-600",
-    coverImage: "/images/articles/article-15.jpg",
+    coverColor: "from-amber-400 to-orange-500",
+    coverImage: "/images/articles/article-31.jpg",
     author: "健康顾问",
     sections: [
       {
@@ -1073,7 +1073,7 @@ export const articles: Article[] = [
     readTime: "6分钟",
     publishedAt: "2026-06-12",
     coverColor: "from-yellow-500 to-orange-500",
-    coverImage: "/images/articles/article-11.jpg",
+    coverImage: "/images/articles/article-41.jpg",
     author: "运营官Darren",
     sections: [
       {
@@ -1123,7 +1123,7 @@ export const articles: Article[] = [
     readTime: "7分钟",
     publishedAt: "2026-06-12",
     coverColor: "from-rose-400 to-pink-500",
-    coverImage: "/images/articles/article-12.jpg",
+    coverImage: "/images/articles/article-44.jpg",
     author: "健康顾问",
     sections: [
       {
@@ -1177,7 +1177,7 @@ export const articles: Article[] = [
     readTime: "5分钟",
     publishedAt: "2026-06-12",
     coverColor: "from-red-400 to-rose-500",
-    coverImage: "/images/articles/article-12.jpg",
+    coverImage: "/images/articles/article-60.jpg",
     author: "健康顾问",
     sections: [
       {
@@ -1223,7 +1223,7 @@ export const articles: Article[] = [
     readTime: "6分钟",
     publishedAt: "2026-06-12",
     coverColor: "from-yellow-400 to-amber-500",
-    coverImage: "/images/articles/article-17.jpg",
+    coverImage: "/images/articles/article-46.jpg",
     author: "运营官Darren",
     sections: [
       {
@@ -1267,12 +1267,12 @@ export const articles: Article[] = [
   {
     title: "女性疲劳完整方案：从营养到生活的系统应对",
     slug: "women-fatigue-complete-plan",
-    excerpt: "单一营养补充解决不了女性疲劳。系统评估甲状腺、肾上腺、肠道、月经周期等多因素，才能找到疲劳根源并有效改善。",
+    excerpt: "女性疲劳的全方位解决方案",
     category: "抗疲劳",
-    readTime: "7分钟",
+    readTime: "6分钟",
     publishedAt: "2026-06-12",
-    coverColor: "from-pink-400 to-rose-500",
-    coverImage: "/images/articles/article-12.jpg",
+    coverColor: "from-rose-400 to-pink-500",
+    coverImage: "/images/articles/article-43.jpg",
     author: "健康顾问",
     sections: [
       {
@@ -1320,12 +1320,12 @@ export const articles: Article[] = [
   {
     title: "深度睡眠的科学：为什么你总是睡不沉？",
     slug: "deep-sleep-science",
-    excerpt: "睡眠不仅仅是闭眼休息。深度睡眠时，大脑在进行废物清除，免疫系统在修复，生长激素在分泌。讲清楚睡眠生理，以及如何提高深度睡眠比例。",
+    excerpt: "深度睡眠时，大脑在进行废物清除",
     category: "深度睡眠",
     readTime: "6分钟",
     publishedAt: "2026-06-12",
     coverColor: "from-indigo-400 to-purple-500",
-    coverImage: "/images/articles/article-16.jpg",
+    coverImage: "/images/articles/article-33.jpg",
     author: "健康顾问",
     sections: [
       {
@@ -1370,12 +1370,12 @@ export const articles: Article[] = [
   {
     title: "GABA助眠效果深度分析：有效vs无效人群",
     slug: "gaba-sleep-effectiveness",
-    excerpt: "GABA是大脑最重要的抑制性神经递质，口服GABA补充剂能不能真正助眠？有效的人群特点是什么？一篇说清楚科学证据和使用建议。",
+    excerpt: "GABA是大脑最重要的抑制性神经递质",
     category: "深度睡眠",
     readTime: "5分钟",
     publishedAt: "2026-06-12",
     coverColor: "from-violet-400 to-indigo-500",
-    coverImage: "/images/articles/article-16.jpg",
+    coverImage: "/images/articles/article-34.jpg",
     author: "运营官Darren",
     sections: [
       {
@@ -1416,12 +1416,12 @@ export const articles: Article[] = [
   {
     title: "褪黑素副作用完整盘点：能不能长期吃？",
     slug: "melatonin-side-effects-complete",
-    excerpt: "褪黑素是激素，不是营养素。长期服用可能影响自身褪黑素分泌，还可能干扰性激素。它和GABA、甘氨酸镁的区别是什么？",
+    excerpt: "褪黑素是激素，不是营养素",
     category: "深度睡眠",
     readTime: "6分钟",
     publishedAt: "2026-06-12",
     coverColor: "from-slate-500 to-slate-700",
-    coverImage: "/images/articles/article-16.jpg",
+    coverImage: "/images/articles/article-35.jpg",
     author: "健康顾问",
     sections: [
       {
@@ -1466,12 +1466,12 @@ export const articles: Article[] = [
   {
     title: "睡眠障碍完整方案：从GABA到南非醉茄",
     slug: "sleep-disorder-complete-solution",
-    excerpt: "失眠原因不同，解决方案也不同。入睡困难、夜醒早醒、浅睡眠——三种睡眠问题对应不同的营养支持策略。",
+    excerpt: "失眠原因不同，解决方案也不同",
     category: "深度睡眠",
     readTime: "7分钟",
     publishedAt: "2026-06-12",
     coverColor: "from-indigo-500 to-purple-600",
-    coverImage: "/images/articles/article-16.jpg",
+    coverImage: "/images/articles/article-36.jpg",
     author: "健康顾问",
     sections: [
       {
@@ -1521,12 +1521,12 @@ export const articles: Article[] = [
   {
     title: "AKK菌减肥真相：科学证据vs营销炒作",
     slug: "akkermansia-weight-loss-truth",
-    excerpt: "AKKermansia muciniphila（AKK菌）是近年最火的减肥益生菌，被称作'下一代益生菌'。但科学证据到底多强？营销宣传有哪些水分？",
+    excerpt: "AKKermansia muciniphila（AKK菌）是近年最火的减肥益生菌",
     category: "免疫防护",
     readTime: "7分钟",
     publishedAt: "2026-06-12",
     coverColor: "from-emerald-400 to-teal-500",
-    coverImage: "/images/articles/article-14.jpg",
+    coverImage: "/images/articles/article-21.jpg",
     author: "运营官Darren",
     sections: [
       {
@@ -1575,12 +1575,12 @@ export const articles: Article[] = [
   {
     title: "肠脑轴：肠道健康如何影响情绪和认知？",
     slug: "gut-brain-axis-emotion",
-    excerpt: "肠道被称为'第二大脑'。95%的血清素由肠道产生，肠道菌群紊乱与焦虑、抑郁、认知下降密切相关。肠脑轴是如何工作的？如何通过肠道改善情绪？",
+    excerpt: "肠道被称为'第二大脑'",
     category: "营养科普",
     readTime: "6分钟",
     publishedAt: "2026-06-12",
     coverColor: "from-teal-400 to-cyan-500",
-    coverImage: "/images/articles/article-14.jpg",
+    coverImage: "/images/articles/article-22.jpg",
     author: "健康顾问",
     sections: [
       {
@@ -1625,12 +1625,12 @@ export const articles: Article[] = [
   {
     title: "GLP-1激活剂：益生菌的新方向",
     slug: "glp-1-activator-probiotic",
-    excerpt: "GLP-1（胰高血糖素样肽-1）是控制食欲和血糖的关键激素。某些益生菌菌株可以激活GLP-1分泌，这为减肥和代谢健康提供了新思路。",
+    excerpt: "GLP-1（胰高血糖素样肽-1）是控制食欲和血糖的关键激素",
     category: "营养科普",
     readTime: "5分钟",
     publishedAt: "2026-06-12",
     coverColor: "from-green-400 to-emerald-500",
-    coverImage: "/images/articles/article-14.jpg",
+    coverImage: "/images/articles/article-23.jpg",
     author: "运营官Darren",
     sections: [
       {
@@ -1670,12 +1670,12 @@ export const articles: Article[] = [
   {
     title: "AKK菌完整指南：什么人适合？怎么选？",
     slug: "akkermansia-complete-guide",
-    excerpt: "AKKermansia muciniphila适合什么人群？服用方法是什么？目前市场上产品参差不齐，选购时要看哪些指标？这篇给你完整的科学选购指南。",
+    excerpt: "AKKermansia muciniphila适合什么人群",
     category: "免疫防护",
     readTime: "6分钟",
     publishedAt: "2026-06-12",
-    coverColor: "from-emerald-500 to-green-600",
-    coverImage: "/images/articles/article-14.jpg",
+    coverColor: "from-emerald-400 to-teal-500",
+    coverImage: "/images/articles/article-24.jpg",
     author: "健康顾问",
     sections: [
       {
@@ -1723,12 +1723,12 @@ export const articles: Article[] = [
   {
     title: "维生素D3：被低估的免疫核心营养素",
     slug: "vitamin-d3-k2-immune-master",
-    excerpt: "维生素D3不只是补钙。它在先天免疫（抗菌肽）和适应性免疫（T细胞调节）中都扮演核心角色。讲清楚D3的免疫机制、K2的协同作用，以及为什么中国人普遍缺乏。",
+    excerpt: "维生素D3不只是补钙",
     category: "免疫防护",
     readTime: "6分钟",
     publishedAt: "2026-06-12",
     coverColor: "from-orange-400 to-yellow-500",
-    coverImage: "/images/articles/article-14.jpg",
+    coverImage: "/images/articles/article-25.jpg",
     author: "健康顾问",
     sections: [
       {
@@ -1772,12 +1772,12 @@ export const articles: Article[] = [
   {
     title: "益生菌如何增强免疫力：从肠脑轴到全身免疫",
     slug: "probiotics-immune-mechanism",
-    excerpt: "70%的免疫系统在肠道。益生菌通过平衡肠道菌群、巩固肠屏障、调节肠道免疫来影响全身免疫。讲清楚机制，让你选择益生菌不再盲从。",
+    excerpt: "70%的免疫系统在肠道",
     category: "免疫防护",
     readTime: "6分钟",
     publishedAt: "2026-06-12",
     coverColor: "from-teal-400 to-emerald-500",
-    coverImage: "/images/articles/article-14.jpg",
+    coverImage: "/images/articles/article-51.jpg",
     author: "运营官Darren",
     sections: [
       {
@@ -1821,12 +1821,12 @@ export const articles: Article[] = [
   {
     title: "锌：免疫系统的关键矿物质",
     slug: "zinc-immune-critical-mineral",
-    excerpt: "锌参与超过300种酶的活性，是免疫细胞（特别是T细胞和自然杀伤细胞）正常功能所必需的。缺锌在老年人中极为普遍，后果也最严重。",
+    excerpt: "锌参与超过300种酶的活性",
     category: "免疫防护",
     readTime: "5分钟",
     publishedAt: "2026-06-12",
     coverColor: "from-slate-400 to-slate-600",
-    coverImage: "/images/articles/article-14.jpg",
+    coverImage: "/images/articles/article-54.jpg",
     author: "健康顾问",
     sections: [
       {
@@ -1866,12 +1866,12 @@ export const articles: Article[] = [
   {
     title: "接骨木莓：流感季节的天然防御？",
     slug: "elderberry-flu-defense",
-    excerpt: "接骨木莓（Elderberry）被广泛用于预防和治疗感冒和流感。科学证据如何？和维生素C、紫锥菊相比有什么优势？一篇说清楚。",
+    excerpt: "接骨木莓（Elderberry）被广泛用于预防和治疗感冒和流感",
     category: "免疫防护",
     readTime: "5分钟",
     publishedAt: "2026-06-12",
     coverColor: "from-purple-400 to-indigo-500",
-    coverImage: "/images/articles/article-14.jpg",
+    coverImage: "/images/articles/article-53.jpg",
     author: "运营官Darren",
     sections: [
       {
@@ -1911,12 +1911,12 @@ export const articles: Article[] = [
   {
     title: "NMN与NAD+：细胞抗衰老的核心机制",
     slug: "nmn-nad-restoration-anti-aging",
-    excerpt: "NAD+是细胞能量代谢和DNA修复的关键辅酶，随年龄增长急剧下降。补充NMN被研究作为恢复NAD+水平、延缓衰老的策略。但证据有多强？",
-    category: "营养科普",
-    readTime: "7分钟",
+    excerpt: "NMN是NAD+的直接前体",
+    category: "抗衰老",
+    readTime: "6分钟",
     publishedAt: "2026-06-12",
     coverColor: "from-rose-400 to-pink-500",
-    coverImage: "/images/articles/article-15.jpg",
+    coverImage: "/images/articles/article-52.jpg",
     author: "健康顾问",
     sections: [
       {
@@ -1964,12 +1964,12 @@ export const articles: Article[] = [
   {
     title: "白藜芦醇与NMN：抗衰老的明星组合？",
     slug: "resveratrol-nmn-synergy",
-    excerpt: "白藜芦醇是SIRT1基因激活剂，和NMN在抗衰老通路中有协同作用。但口服白藜芦醇的吸收率极低，真正的科学支持有多少？",
-    category: "营养科普",
+    excerpt: "白藜芦醇与NMN的协同作用",
+    category: "抗衰老",
     readTime: "5分钟",
     publishedAt: "2026-06-12",
-    coverColor: "from-red-400 to-orange-500",
-    coverImage: "/images/articles/article-15.jpg",
+    coverColor: "from-rose-400 to-red-500",
+    coverImage: "/images/articles/article-28.jpg",
     author: "运营官Darren",
     sections: [
       {
@@ -2009,12 +2009,12 @@ export const articles: Article[] = [
   {
     title: "亚精胺：激活细胞自噬的天然成分",
     slug: "spermidine-autophagy-longevity",
-    excerpt: "亚精胺（Spermidine）是一种天然多胺，可激活细胞自噬（autophagy）——清理受损蛋白质和细胞器的过程。随着年龄增长体内亚精胺下降，补充被视为抗衰老策略。",
-    category: "营养科普",
-    readTime: "5分钟",
+    excerpt: "亚精胺：激活细胞自噬的天然成分",
+    category: "抗衰老",
+    readTime: "6分钟",
     publishedAt: "2026-06-12",
-    coverColor: "from-amber-400 to-yellow-500",
-    coverImage: "/images/articles/article-11.jpg",
+    coverColor: "from-amber-400 to-orange-500",
+    coverImage: "/images/articles/article-39.jpg",
     author: "健康顾问",
     sections: [
       {
@@ -2054,12 +2054,12 @@ export const articles: Article[] = [
   {
     title: "NMN安全剂量指南：谁适合？吃多少？",
     slug: "nmn-dosage-safety-guide",
-    excerpt: "NMN被追捧的同时，也有很多疑问：安全剂量是多少？长期服用安全吗？有什么副作用？这篇给你一个基于证据的答案。",
-    category: "营养科普",
-    readTime: "6分钟",
+    excerpt: "NMN安全剂量指南",
+    category: "抗衰老",
+    readTime: "5分钟",
     publishedAt: "2026-06-12",
-    coverColor: "from-rose-500 to-pink-600",
-    coverImage: "/images/articles/article-15.jpg",
+    coverColor: "from-rose-400 to-pink-600",
+    coverImage: "/images/articles/article-29.jpg",
     author: "健康顾问",
     sections: [
       {
@@ -2108,7 +2108,7 @@ export const articles: Article[] = [
     readTime: "6分钟",
     publishedAt: "2026-06-12",
     coverColor: "from-slate-600 to-slate-800",
-    coverImage: "/images/articles/article-19.jpg",
+    coverImage: "/images/articles/article-48.jpg",
     author: "运营官Darren",
     sections: [
       {
@@ -2158,7 +2158,7 @@ export const articles: Article[] = [
     readTime: "7分钟",
     publishedAt: "2026-06-12",
     coverColor: "from-green-500 to-emerald-600",
-    coverImage: "/images/articles/article-17.jpg",
+    coverImage: "/images/articles/article-49.jpg",
     author: "健康顾问",
     sections: [
       {
@@ -2212,7 +2212,7 @@ export const articles: Article[] = [
     readTime: "6分钟",
     publishedAt: "2026-06-12",
     coverColor: "from-pink-400 to-rose-500",
-    coverImage: "/images/articles/article-12.jpg",
+    coverImage: "/images/articles/article-45.jpg",
     author: "健康顾问",
     sections: [
       {
@@ -2256,12 +2256,12 @@ export const articles: Article[] = [
   {
     title: "肠道健康与皮肤：肠-皮轴的科学",
     slug: "gut-health-skin-appearance",
-    excerpt: "皮肤是肠道健康的一面镜子。肠漏综合征（肠道屏障通透性增加）会导致系统性炎症，表现为痤疮、湿疹、银屑病等皮肤问题。讲清楚肠-皮轴的机制。",
+    excerpt: "肠道被称为第二个大脑",
     category: "营养科普",
     readTime: "5分钟",
     publishedAt: "2026-06-12",
     coverColor: "from-cyan-400 to-teal-500",
-    coverImage: "/images/articles/article-14.jpg",
+    coverImage: "/images/articles/article-61.jpg",
     author: "运营官Darren",
     sections: [
       {
@@ -2302,12 +2302,12 @@ export const articles: Article[] = [
   {
     title: "压力管理中的营养角色：适应原、镁和B族",
     slug: "stress-management-nutrition",
-    excerpt: "现代人压力无处不在。营养在压力管理中能做什么？适应原（南非醉茄、红景天）、镁、B族维生素——这些成分如何支持身体的压力反应系统（HPA轴）？",
-    category: "抗疲劳",
+    excerpt: "适应原、镁和B族在压力管理中的作用",
+    category: "壓力緩解",
     readTime: "6分钟",
     publishedAt: "2026-06-12",
     coverColor: "from-violet-400 to-purple-500",
-    coverImage: "/images/articles/article-16.jpg",
+    coverImage: "/images/articles/article-56.jpg",
     author: "健康顾问",
     sections: [
       {
@@ -2356,12 +2356,12 @@ export const articles: Article[] = [
   {
     title: "2023-2024全球保健品成分市场报告：哪些成分正在崛起",
     slug: "global-supplement-ingredient-market-report-2024",
-    excerpt: "全球保健品市场正在经历成分革命。NAD+前体、适应原、精准益生菌——哪些成分在2024年真正爆发？为什么消费者从'跟风购买'转向'科学选择'？基于Euromonitor、SPINS、Grand View Research数据的市场深度分析。",
+    excerpt: "2023-2024全球保健品成分市场报告",
     category: "行业洞察",
-    readTime: "8分钟",
+    readTime: "7分钟",
     publishedAt: "2026-06-12",
-    coverColor: "from-blue-500 to-indigo-600",
-    coverImage: "/images/articles/article-11.jpg",
+    coverColor: "from-teal-400 to-cyan-500",
+    coverImage: "/images/articles/article-40.jpg",
     author: "运营官Darren",
     sections: [
       {
@@ -2410,12 +2410,12 @@ export const articles: Article[] = [
   {
     title: "护肝产品横评：荣旺 vs 竞品（2024年完整版）",
     slug: "liver-protection-products-comparison-2024",
-    excerpt: "护肝片是保健品第二大品类（水是第一），但产品质量参差不齐。我们从成分配方、临床证据、价格三个维度，对比荣旺护肝方案与市场主要竞品，帮助你做出科学选择。",
+    excerpt: "护肝产品横评：荣旺 vs 竞品",
     category: "产品横评",
-    readTime: "7分钟",
+    readTime: "6分钟",
     publishedAt: "2026-06-12",
-    coverColor: "from-emerald-500 to-teal-600",
-    coverImage: "/images/articles/article-11.jpg",
+    coverColor: "from-amber-400 to-yellow-500",
+    coverImage: "/images/articles/article-58.jpg",
     author: "健康顾问",
     sections: [
       {
@@ -2465,12 +2465,12 @@ export const articles: Article[] = [
   {
     title: "NMN产品横评：贵价vs平价，差距有多大？",
     slug: "nmn-products-comparison-2024",
-    excerpt: "NMN市场价格从200元到2000元不等，差距10倍。它们真的差异那么大吗？从纯度、剂型、第三方检测三个维度，拆解市场上主要NMN产品的真实差距。",
+    excerpt: "2024年NMN产品横评",
     category: "产品横评",
     readTime: "6分钟",
     publishedAt: "2026-06-12",
     coverColor: "from-rose-400 to-pink-500",
-    coverImage: "/images/articles/article-15.jpg",
+    coverImage: "/images/articles/article-57.jpg",
     author: "运营官Darren",
     sections: [
       {
@@ -2518,12 +2518,12 @@ export const articles: Article[] = [
   {
     title: "益生菌产品横评：从10亿到1000亿CFU，我们真的需要那么多吗？",
     slug: "probiotics-products-comparison-2024",
-    excerpt: "益生菌市场最常见的营销噱头是'活菌数量'——100亿CFU、500亿CFU、1000亿CFU。但活菌数量真的是衡量益生菌效果的唯一标准吗？菌株、活性、定植率——那些被忽视的更重要因素。",
-    category: "产品横评",
+    excerpt: "益生菌产品参差不齐",
+    category: "免疫防护",
     readTime: "6分钟",
     publishedAt: "2026-06-12",
     coverColor: "from-teal-400 to-emerald-500",
-    coverImage: "/images/articles/article-14.jpg",
+    coverImage: "/images/articles/article-50.jpg",
     author: "健康顾问",
     sections: [
       {
@@ -2571,12 +2571,12 @@ export const articles: Article[] = [
   {
     title: "2024年抗衰老营养科学进展综述：哪些干预真正有证据",
     slug: "anti-aging-science-2024-review",
-    excerpt: "抗衰老领域每年有数千篇新研究发表，但哪些干预从'有希望'升级为'有证据'？2024年的重大进展：NAD+前体大型临床、Senolytics人体试验、亚精胺延寿证据更新。",
-    category: "行业洞察",
-    readTime: "8分钟",
+    excerpt: "2024年抗衰老营养科学进展综述",
+    category: "抗衰老",
+    readTime: "6分钟",
     publishedAt: "2026-06-12",
-    coverColor: "from-amber-400 to-orange-500",
-    coverImage: "/images/articles/article-15.jpg",
+    coverColor: "from-rose-400 to-pink-500",
+    coverImage: "/images/articles/article-30.jpg",
     author: "健康顾问",
     sections: [
       {
@@ -2625,12 +2625,12 @@ export const articles: Article[] = [
   {
     title: "褪黑素产品选购指南：不是所有褪黑素都一样",
     slug: "melatonin-products-guide-2024",
-    excerpt: "褪黑素是失眠最常见的非处方干预之一。但市面上的褪黑素产品从1mg到10mg不等，有缓释型、速溶型、舌下含服型——它们有什么区别？你真的需要褪黑素吗？",
-    category: "产品横评",
+    excerpt: "不是所有褪黑素都一样",
+    category: "深度睡眠",
     readTime: "5分钟",
     publishedAt: "2026-06-12",
     coverColor: "from-indigo-400 to-purple-600",
-    coverImage: "/images/articles/article-16.jpg",
+    coverImage: "/images/articles/article-55.jpg",
     author: "运营官Darren",
     sections: [
       {
