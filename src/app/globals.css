@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 :root {
-  --font-inter: var(--font-noto-sc), "PingFang SC", "Microsoft YaHei", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+  --font-inter: "Noto Sans SC", "PingFang SC", "Microsoft YaHei", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
 
   --bg: #fbfaf7;
   --bg-soft: #f4efe7;

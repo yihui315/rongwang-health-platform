@@ -1,6 +1,5 @@
 import "./globals.css";
 import type { Metadata, Viewport } from "next";
-import { Noto_Sans_SC } from "next/font/google";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import Analytics from "@/components/layout/Analytics";
@@ -8,13 +7,6 @@ import ChatWidget from "@/components/marketing/ChatWidget";
 import ExitIntentPopup from "@/components/marketing/ExitIntentPopup";
 import { CartProvider } from "@/lib/cart-context";
 import { generateOrganizationJsonLd } from "@/lib/seo";
-
-const notoSansSC = Noto_Sans_SC({
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
-  variable: "--font-noto-sc",
-  display: "swap",
-});
 
 export const metadata: Metadata = {
   title: {
@@ -74,6 +66,12 @@ export default function RootLayout({
   return (
     <html lang="zh-CN">
       <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap"
+          rel="stylesheet"
+        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -81,7 +79,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className={`font-sans antialiased ${notoSansSC.variable}`}>
+      <body className="font-sans antialiased">
         <Analytics />
         <CartProvider>
           <Header />
