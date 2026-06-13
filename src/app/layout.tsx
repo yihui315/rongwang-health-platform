@@ -1,5 +1,6 @@
 import "./globals.css";
 import type { Metadata, Viewport } from "next";
+import { Noto_Sans_SC } from "next/font/google";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import Analytics from "@/components/layout/Analytics";
@@ -7,6 +8,13 @@ import ChatWidget from "@/components/marketing/ChatWidget";
 import ExitIntentPopup from "@/components/marketing/ExitIntentPopup";
 import { CartProvider } from "@/lib/cart-context";
 import { generateOrganizationJsonLd } from "@/lib/seo";
+
+const notoSansSC = Noto_Sans_SC({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
+  variable: "--font-noto-sc",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   title: {
@@ -73,7 +81,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className="font-sans antialiased">
+      <body className={`font-sans antialiased ${notoSansSC.variable}`}>
         <Analytics />
         <CartProvider>
           <Header />

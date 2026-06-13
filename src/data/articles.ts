@@ -924,7 +924,7 @@ export const articles: Article[] = [
     readTime: "6分钟",
     publishedAt: "2026-06-12",
     coverColor: "from-orange-400 to-amber-500",
-    coverImage: "/images/articles/article-nadh-h.jpg",
+    coverImage: "/images/articles/article-15.jpg",
     author: "健康顾问",
     sections: [
       {
