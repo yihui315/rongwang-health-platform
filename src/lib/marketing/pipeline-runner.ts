@@ -232,10 +232,13 @@ export class MarketingPipelineRunner {
     try {
       const { generateTextWithProvider } = await import('@/lib/ai/provider');
 
+      const hasDeepSeek = Boolean(process.env.DEEPSEEK_API_KEY);
+      const hasMiniMax = Boolean(process.env.MINIMAX_API_KEY);
+      const provider = hasDeepSeek ? 'deepseek' : hasMiniMax ? 'minimax' : 'deepseek';
       const prompt = this.buildContentPrompt(context);
       const result = await generateTextWithProvider({
         prompt,
-        model: 'deepseek',
+        provider,
         maxTokens: Math.min(context.maxWords * 2, 2000),
       });
 
