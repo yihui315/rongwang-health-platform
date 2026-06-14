@@ -27,6 +27,7 @@ export function middleware(request: NextRequest) {
   const isAdminPath = url.pathname === '/admin' || url.pathname.startsWith('/admin/');
   const isAdminLoginPath = url.pathname === '/admin/login';
   const isCustomerPath = isCustomerProtectedPath(url.pathname);
+  const isMarketingPath = url.pathname === '/marketing' || url.pathname.startsWith('/marketing/');
   const adminToken = getAdminTokenFromRequest({
     cookieToken: request.cookies.get(ADMIN_COOKIE_NAME)?.value,
     headerToken: request.headers.get('x-admin-token'),
@@ -37,6 +38,10 @@ export function middleware(request: NextRequest) {
   }
 
   if (isCustomerPath && !request.cookies.has(CUSTOMER_SESSION_COOKIE_NAME)) {
+    return NextResponse.redirect(getCustomerLoginRedirectUrl(request.url), 307);
+  }
+
+  if (isMarketingPath && !request.cookies.has(CUSTOMER_SESSION_COOKIE_NAME)) {
     return NextResponse.redirect(getCustomerLoginRedirectUrl(request.url), 307);
   }
 
