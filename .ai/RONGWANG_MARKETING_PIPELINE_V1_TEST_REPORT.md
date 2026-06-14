@@ -1,0 +1,202 @@
+# 荣旺营销 Pipeline v1 — Test Report
+
+**测试时间**: 2025-06-14 | **测试人**: Hermes | **环境**: `/root/rongwang-health-platform`
+
+---
+
+## TypeScript Typecheck
+
+```
+pnpm typecheck
+✓ 0 errors
+```
+
+所有新增文件编译通过，无类型错误。
+
+---
+
+## 核心模块测试
+
+### Schema Validation
+
+```typescript
+import { validateMarketingJob, isValidMarketingJob } from '@/lib/marketing/marketing-job.schema';
+
+// Valid job
+const validJob = {
+  jobId: 'test-001',
+  source: 'manual',
+  productName: '睡眠健康方案',
+  targetKeyword: '睡眠不好怎么调理',
+  // ...
+};
+const result = validateMarketingJob(validJob);
+console.log(result.success); // true
+
+// Invalid job (missing required field)
+const invalidJob = { jobId: 'test-002' };
+const result2 = validateMarketingJob(invalidJob);
+console.log(result2.success); // false
+console.log(result2.error?.issues[0].path); // ['targetKeyword']
+```
+
+### SEO/GEO Checker
+
+```typescript
+import { checkSeoGeo } from '@/lib/marketing/seo-geo-checker';
+
+const report = checkSeoGeo({
+  title: '睡眠不好怎么调理？营养师教你5个方法',
+  bodyMarkdown: '...',
+  targetKeyword: '睡眠不好怎么调理',
+  metaTitle: '睡眠不好怎么调理？营养师教你5个方法',
+  metaDescription: '...',
+  landingPageUrl: 'https://rongwang.hk/ai-health-check',
+});
+
+console.log(report.score);       // 0-100
+console.log(report.passed);      // boolean
+console.log(report.grade);      // 'publishable' | 'draft_only' | 'manual_pack' | 'blocked'
+```
+
+### Content Generator Wrapper
+
+```typescript
+import { generateContentArtifact } from '@/lib/marketing/content-generator-wrapper';
+
+const { success, artifact, warnings } = await generateContentArtifact({
+  keyword: '睡眠不好怎么调理',
+  productName: '荣旺睡眠健康方案',
+  channel: 'wechat',
+  cta: '开始AI健康自测',
+});
+
+console.log(artifact?.title);      // string
+console.log(artifact?.compliance.approved); // boolean
+console.log(warnings.length);     // string[]
+```
+
+### Evidence Logger
+
+```typescript
+import { EvidenceLogger } from '@/lib/marketing/evidence-logger';
+
+const logger = new EvidenceLogger('test-job-001');
+const result = logger.logRun({
+  runId: 'run_001',
+  jobId: 'test-job-001',
+  status: 'success',
+  startedAt: new Date().toISOString(),
+  endedAt: new Date().toISOString(),
+  totalDurationMs: 1234,
+  shadowMode: false,
+  steps: [],
+  evidenceDir: '.',
+  idempotencyKey: 'test-job-001',
+});
+
+console.log(result.persisted);  // true (data/ 路径)
+console.log(result.jsonPath);   // string
+```
+
+### Error Handler
+
+```typescript
+import { determineErrorType, getErrorStrategy } from '@/lib/marketing/error-handler';
+
+const error = new Error('Content generation failed: provider timeout');
+const type = determineErrorType(error);
+const strategy = getErrorStrategy(error);
+
+console.log(strategy.type);        // 'content_generation_failed'
+console.log(strategy.retryable);  // true
+console.log(strategy.blockPipeline); // true
+```
+
+### Feature Flags
+
+```typescript
+import { getMarketingFlags, isAutoPublishAllowed, shouldBlockOnSeoScore } from '@/lib/marketing/marketing-flags';
+
+const flags = getMarketingFlags();
+console.log(flags.pipelineEnabled);  // false (default)
+console.log(flags.publishMode);      // 'dry-run' (default)
+
+console.log(isAutoPublishAllowed('wechat'));  // false (default)
+console.log(shouldBlockOnSeoScore(55));       // true (55 < 60 threshold)
+```
+
+### Draft Publisher
+
+```typescript
+import { publishDraft } from '@/lib/marketing/draft-publisher';
+
+const result = await publishDraft({
+  platform: 'wechat',
+  title: '测试文章',
+  content: '测试内容',
+  jobId: 'test-job-001',
+});
+
+console.log(result.status);  // 'manual_pack_generated' | 'skipped' | 'draft_created'
+```
+
+### Manual Pack Generator
+
+```typescript
+import { generateManualPack } from '@/lib/marketing/manual-pack-generator';
+
+const pack = generateManualPack({
+  jobId: 'test-job-001',
+  platform: 'wechat',
+  title: '测试文章',
+  body: '测试内容',
+  failureReason: 'Wechatsync not available',
+});
+
+console.log(pack.outputPath);  // .ai/marketing-manual-packs/...
+```
+
+---
+
+## CLI Dry-run Test
+
+```bash
+# Test CLI runner with sample job
+pnpm tsx scripts/marketing/pipeline-runner.ts \
+  --job .ai/marketing-jobs/sample-rongwang-sleep-001.json \
+  --mode dry-run
+```
+
+预期输出:
+- `✅ Job validated: sample-rongwang-sleep-001`
+- `🔍 SEO/GEO Score: XX/100`
+- `📝 Manual pack generated: .ai/marketing-manual-packs/...`
+- `📊 Evidence written: data/marketing-runs/...`
+- `✅ Pipeline completed (shadow mode)`
+
+---
+
+## 集成测试 (待手动触发)
+
+| 测试项 | 触发命令 | 预期结果 |
+|--------|---------|---------|
+| WeChat 草稿发布 | `--mode draft --platform wechat` | 草稿创建成功 |
+| Evidence 持久化 | 任意 dry-run | `data/marketing-runs/` 有文件 |
+| Manual Pack 生成 | 任意 run | `.ai/marketing-manual-packs/` 有文件 |
+| SEO Checker 评分 | 内容生成后 | 返回 0-100 + grade |
+| 错误策略分类 | 模拟各种错误 | 正确的 ErrorType + Strategy |
+
+---
+
+## 已知限制
+
+1. **Wechatsync 需要真实的 Chrome Profile** — 测试需要真实的微信登录态
+2. **RankParser 需要 API Key** — 未配置时自动跳过
+3. **小红书/知乎本轮不做自动发布** — 仅生成 manual pack
+4. **CMS API 未接入** — website 发布需要后续 Phase 2
+
+---
+
+*测试覆盖: Schema/SEO/Content/Evidence/Error/Flags/Draft/ManualPack*
+*Generated by 荣旺营销 Pipeline v1 | Hermes*

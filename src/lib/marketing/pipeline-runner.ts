@@ -41,7 +41,8 @@ import type { ContentGenerationResult } from './ai-content-generator';
 // ─────────────────────────────────────────────────────────────────────────────
 
 export const PIPELINE_VERSION = 'v1';
-const EVIDENCE_BASE = '/tmp/marketing-pipeline/evidence';
+const EVIDENCE_BASE = process.env.MARKETING_EVIDENCE_DIR
+  || join(process.cwd(), 'data', 'marketing-runs');
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Pipeline Runner (main class)
