@@ -145,22 +145,25 @@ export default function MarketingAccountsPage() {
           </div>
 
           <div className="mt-4 flex gap-2 overflow-x-auto">
-            {tabs.map((tab) => (
-              <button
-                key={tab.key}
-                onClick={() => setActiveTab(tab.key)}
-                className={`shrink-0 rounded-full px-4 py-1.5 text-sm font-medium transition ${
-                  activeTab === tab.key
-                    ? "bg-teal-600 text-white"
-                    : "bg-slate-100 text-slate-600 hover:bg-slate-200"
-                }`}
-              >
-                {tab.label}
-                {(tab.count ?? 0) > 0 && (
-                  <span className="ml-1.5 rounded-full bg-slate-200 px-1.5 py-0.5 text-xs">{tab.count}</span>
-                )}
-              </button>
-            ))}
+            {tabs.map((tab) => {
+              const tabCount = 'count' in tab ? tab.count : undefined;
+              return (
+                <button
+                  key={tab.key}
+                  onClick={() => setActiveTab(tab.key)}
+                  className={`shrink-0 rounded-full px-4 py-1.5 text-sm font-medium transition ${
+                    activeTab === tab.key
+                      ? "bg-teal-600 text-white"
+                      : "bg-slate-100 text-slate-600 hover:bg-slate-200"
+                  }`}
+                >
+                  {tab.label}
+                  {typeof tabCount === 'number' && tabCount > 0 && (
+                    <span className="ml-1.5 rounded-full bg-white/30 px-1.5 py-0.5 text-xs">{tabCount}</span>
+                  )}
+                </button>
+              );
+            })}
           </div>
         </div>
       </div>

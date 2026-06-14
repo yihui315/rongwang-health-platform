@@ -145,12 +145,12 @@ export default function MarketingHubPage() {
             />
             <StatusCard
               label="平台账号"
-              value={stats?.accounts_total ?? "—"}
+              value={String(stats?.accounts_total ?? "—")}
               ready={true}
             />
             <StatusCard
               label="总帖子数"
-              value={stats?.posts_total ?? "—"}
+              value={String(stats?.posts_total ?? "—")}
               ready={true}
             />
           </div>
