@@ -12,6 +12,10 @@ import {
   getCustomerLoginRedirectUrl,
   isCustomerProtectedPath,
 } from '@/lib/auth/customer-shared';
+import {
+  MARKETING_SESSION_COOKIE_NAME,
+  getMarketingLoginRedirectUrl,
+} from '@/lib/auth/marketing-session';
 import { getAiConsultHrefForValue } from '@/lib/health/consult-entry';
 
 function getTrackingCookieOptions() {
@@ -41,8 +45,8 @@ export function middleware(request: NextRequest) {
     return NextResponse.redirect(getCustomerLoginRedirectUrl(request.url), 307);
   }
 
-  if (isMarketingPath && !request.cookies.has(CUSTOMER_SESSION_COOKIE_NAME)) {
-    return NextResponse.redirect(getCustomerLoginRedirectUrl(request.url), 307);
+  if (isMarketingPath && !request.cookies.has(MARKETING_SESSION_COOKIE_NAME)) {
+    return NextResponse.redirect(getMarketingLoginRedirectUrl(request.url), 307);
   }
 
   const response = url.pathname === '/quiz'

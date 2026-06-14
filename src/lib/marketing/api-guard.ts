@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { isAdminRequestAuthorized } from "@/lib/auth/admin";
+import { MARKETING_SESSION_COOKIE_NAME, isMarketingSessionValid } from "@/lib/auth/marketing-session";
 import { checkRateLimit } from "@/lib/health/rate-limit";
 import { logApiWarning } from "@/lib/observability";
 
@@ -30,8 +31,13 @@ export async function enforceMarketingAdminGuard(
   options: MarketingApiGuardOptions,
 ) {
   const ip = getClientIp(request);
+  const cookieHeader = request.headers.get("cookie") ?? null;
 
-  if (!isAdminRequestAuthorized(request)) {
+  // Accept admin token OR marketing session cookie
+  const isAdmin = isAdminRequestAuthorized(request);
+  const isMarketingSession = isMarketingSessionValid(cookieHeader);
+
+  if (!isAdmin && !isMarketingSession) {
     logApiWarning(`${options.eventPrefix}.unauthorized`, { ip });
     return NextResponse.json({ success: false, error: "admin_required" }, { status: 401 });
   }
