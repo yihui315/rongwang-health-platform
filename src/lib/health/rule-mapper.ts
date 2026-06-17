@@ -1,5 +1,6 @@
 import type { Product } from "@/lib/data/products";
 import { buildProductRecommendation, type ProductRecommendation } from "@/lib/health/recommendations";
+import { canShowProductPath } from "@/lib/health/risk-triage";
 import type { HealthConsultationResult } from "@/schemas/ai-result";
 import type { HealthProfile } from "@/schemas/health";
 import type { RecommendationCondition, RecommendationRuleRecord } from "@/schemas/recommendation-rule";
@@ -77,7 +78,7 @@ export function doesRecommendationRuleMatch(
   result: HealthConsultationResult,
   profile: HealthProfile,
 ) {
-  if (!rule.active || result.riskLevel === "urgent") {
+  if (!rule.active || !canShowProductPath(result.riskLevel)) {
     return false;
   }
 
@@ -95,7 +96,7 @@ export function getRecommendationsFromRules(
   profile: HealthProfile,
   limit = 3,
 ): ProductRecommendation[] {
-  if (result.riskLevel === "urgent") {
+  if (!canShowProductPath(result.riskLevel)) {
     return [];
   }
 

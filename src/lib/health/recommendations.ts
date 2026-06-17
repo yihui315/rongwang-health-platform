@@ -1,5 +1,6 @@
 import { products, type Product } from "@/data/products";
 import { solutionTypeToSlug } from "@/lib/health/mappings";
+import { canShowProductPath } from "@/lib/health/risk-triage";
 import type { HealthConsultationResult, SolutionType } from "@/schemas/ai-result";
 import type { HealthProfile } from "@/schemas/health";
 
@@ -342,7 +343,7 @@ export function getRecommendationsFromCatalog(
   profile: HealthProfile,
   limit = 3,
 ): ProductRecommendation[] {
-  if (result.riskLevel === "urgent") {
+  if (!canShowProductPath(result.riskLevel)) {
     return [];
   }
 

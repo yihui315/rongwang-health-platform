@@ -24,7 +24,7 @@ const profile: HealthProfile = {
 
 const fatigueResult: HealthConsultationResult = {
   summary: "当前更像是恢复不足和睡眠债。",
-  riskLevel: "medium",
+  riskLevel: "low",
   possibleFactors: ["睡眠恢复不足"],
   redFlags: [],
   lifestyleAdvice: ["先稳定作息"],
@@ -48,7 +48,7 @@ test("recommendation rules match consultation result and profile conditions", ()
     priority: 10,
     condition: {
       solutionTypes: ["fatigue"],
-      riskLevels: ["medium"],
+      riskLevels: ["low"],
       genders: ["male"],
       minAge: 30,
       maxAge: 45,
@@ -123,4 +123,12 @@ test("urgent results never return rule-based product recommendations", () => {
   };
 
   assert.deepEqual(getRecommendationsFromRules(products, [rule], urgentResult, profile), []);
+  assert.deepEqual(
+    getRecommendationsFromRules(products, [rule], { ...urgentResult, riskLevel: "high" }, profile),
+    [],
+  );
+  assert.deepEqual(
+    getRecommendationsFromRules(products, [rule], { ...urgentResult, riskLevel: "medium" }, profile),
+    [],
+  );
 });

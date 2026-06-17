@@ -2,10 +2,20 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import type { ProductCategory } from '@/lib/data/products';
-import AddToCartButton from '@/components/ui/AddToCartButton';
 import ProductImageGallery from '@/components/ui/ProductImageGallery';
+import {
+  ProductSuitabilityDetailActions,
+} from '@/components/product/ProductSuitabilityActions';
 import { getProductBySlug, listProducts } from '@/lib/data/products';
 import { getAiConsultHrefForValues, getSolutionHrefForValues } from '@/lib/health/consult-entry';
+import {
+  getProductAssessmentHref,
+  getProductAssessmentScenario,
+  getProductEvidenceHref,
+  getProductScenarioLabel,
+  getProductSuitableForCopy,
+  getProductUnsuitableWarnings,
+} from '@/lib/product-suitability';
 
 const categoryLabel: Record<ProductCategory, string> = {
   vitamin: '维生素', mineral: '矿物质', herbal: '草本', probiotic: '益生菌',
@@ -57,6 +67,10 @@ export default async function ProductDetailPage({ params }: Props) {
   const discount = Math.round((1 - product.memberPrice / product.price) * 100);
   const consultHref = getAiConsultHrefForValues(product.plans);
   const solutionHref = getSolutionHrefForValues(product.plans);
+  const productScenario = getProductAssessmentScenario(product);
+  const assessmentHref = getProductAssessmentHref(product);
+  const evidenceHref = getProductEvidenceHref(product.slug);
+  const unsuitableWarnings = getProductUnsuitableWarnings(product.warnings);
 
   const related = products
     .filter((p) => p.sku !== product.sku && p.plans.some((pl) => product.plans.includes(pl)))
@@ -189,25 +203,43 @@ export default async function ProductDetailPage({ params }: Props) {
               ))}
             </ul>
 
-            <div className="mt-8 rounded-2xl border border-teal-200 bg-teal-50 px-5 py-5">
-              <p className="text-sm font-semibold text-teal-800">建议先完成 AI 评估</p>
-              <p className="mt-2 text-sm leading-7 text-teal-700">
-                先评估，再看方案，再决定是否进入购买入口。系统会先判断风险等级和支持方向，避免直接按商品做选择。
-              </p>
-              <div className="mt-5 flex flex-wrap gap-3">
-                <Link
-                  href={consultHref}
-                  className="btn-primary"
-                >
-                  先做 AI 评估
-                </Link>
-                <AddToCartButton
-                  slug={product.slug}
-                  name={product.name}
-                  price={product.memberPrice}
-                  className="rounded-full border border-slate-300 bg-white text-slate-700 hover:bg-slate-50"
-                />
+            <div
+              id="product-suitability"
+              className="mt-8 rounded-2xl border border-teal-200 bg-teal-50 px-5 py-5"
+            >
+              <div className="flex flex-wrap items-center gap-2">
+                <span className="rounded-full bg-white px-3 py-1 text-xs font-semibold text-teal-800 ring-1 ring-teal-100">
+                  Scenario：{getProductScenarioLabel(productScenario)}
+                </span>
+                <span className="rounded-full bg-white px-3 py-1 text-xs font-semibold text-slate-600 ring-1 ring-teal-100">
+                  评估优先
+                </span>
               </div>
+              <p className="mt-4 text-sm font-semibold text-teal-800">购买前适用性边界</p>
+              <p className="mt-2 text-sm leading-7 text-teal-700">
+                {getProductSuitableForCopy(productScenario)}
+              </p>
+              <div className="mt-4 rounded-xl border border-teal-100 bg-white/80 px-4 py-4">
+                <p className="text-sm font-semibold text-slate-900">Not suitable for</p>
+                <div className="mt-3 flex flex-wrap gap-2">
+                  {unsuitableWarnings.map((warning) => (
+                    <span
+                      key={warning}
+                      className="rounded-full bg-slate-100 px-3 py-1 text-xs font-medium text-slate-600"
+                    >
+                      {warning}
+                    </span>
+                  ))}
+                </div>
+              </div>
+              <ProductSuitabilityDetailActions
+                productSlug={product.slug}
+                productName={product.name}
+                productPrice={product.memberPrice}
+                productScenario={productScenario}
+                assessmentHref={assessmentHref}
+                evidenceHref={evidenceHref}
+              />
               {solutionHref && (
                 <p className="mt-4 text-sm leading-6 text-slate-500">
                   如果你已经明确问题方向，也可以先看
@@ -236,7 +268,7 @@ export default async function ProductDetailPage({ params }: Props) {
       </section>
 
       {/* Ingredients */}
-      <section className="px-6 py-12 bg-white border-y border-slate-200">
+      <section id="product-evidence" className="px-6 py-12 bg-white border-y border-slate-200">
         <div className="mx-auto max-w-6xl">
           <h2 className="text-2xl font-bold text-slate-900 mb-2">核心成分</h2>
           <p className="text-slate-500 mb-8">每份含量与作用机理</p>

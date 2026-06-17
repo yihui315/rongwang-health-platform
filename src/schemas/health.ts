@@ -1,4 +1,6 @@
 import { z } from "zod";
+import { assessmentConsentSchema } from "@/schemas/assessment-consent";
+import { assessmentRouterContextSchema } from "@/schemas/assessment-router";
 
 const optionalNote = z
   .string()
@@ -35,6 +37,8 @@ export type HealthProfile = z.infer<typeof healthProfileSchema>;
 
 export const consultationRequestSchema = z.object({
   profile: healthProfileSchema,
+  assessment: assessmentRouterContextSchema.optional(),
+  consent: assessmentConsentSchema.optional(),
 });
 
 export const symptomOptions = [

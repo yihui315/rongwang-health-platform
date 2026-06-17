@@ -5,7 +5,17 @@ import { getSupabase } from "@/lib/supabase";
 import type { ProductRecommendation } from "@/lib/health/recommendations";
 import type { SafetyAssessment } from "@/lib/health/safety";
 import type { AiLogRecord } from "@/schemas/ai-log";
+import {
+  assessmentConsentSchema,
+  type AssessmentConsent,
+} from "@/schemas/assessment-consent";
 import type { HealthConsultationResult } from "@/schemas/ai-result";
+import {
+  ASSESSMENT_RULE_VERSION,
+  ASSESSMENT_VERSION,
+  assessmentRouterContextSchema,
+  type AssessmentRouterContext,
+} from "@/schemas/assessment-router";
 import { aiLogSchema } from "@/schemas/ai-log";
 import { healthConsultationResultSchema } from "@/schemas/ai-result";
 import { productRecommendationSchema, safetyResponseSchema } from "@/schemas/consultation-response";
@@ -48,6 +58,19 @@ export interface ConsultationLogDetail extends ConsultationListItem {
     ipHash?: string | null;
     userAgent?: string | null;
   };
+  assessment?: AssessmentRouterContext;
+  consent?: AssessmentConsent;
+  resultTracking?: ConsultationResultTracking;
+}
+
+export interface ConsultationResultTracking {
+  generated_at: string;
+  assessment_version: string;
+  rule_version: string;
+  entry_scenario?: string;
+  selected_scenario?: string;
+  entry_source?: string;
+  risk_level: string;
 }
 
 export interface PersistConsultationInput {
@@ -60,6 +83,9 @@ export interface PersistConsultationInput {
   ipHash?: string;
   userAgent?: string;
   aiLog?: AiLogRecord | null;
+  assessment?: AssessmentRouterContext;
+  consent?: AssessmentConsent;
+  generatedAt?: string;
 }
 
 function readProfileValue<T>(value: unknown, key: string): T | undefined {
@@ -88,6 +114,69 @@ function readNestedValue<T>(value: unknown, keys: string[]): T | undefined {
 function parseWithSchema<T>(schema: { safeParse: (value: unknown) => { success: true; data: T } | { success: false } }, value: unknown) {
   const parsed = schema.safeParse(value);
   return parsed.success ? parsed.data : undefined;
+}
+
+function isStringRecord(value: unknown): value is Record<string, unknown> {
+  return Boolean(value) && typeof value === "object" && !Array.isArray(value);
+}
+
+function readResultTrackingFromMetadata(
+  metadata: unknown,
+  fallback: {
+    createdAt: string;
+    riskLevel: string;
+    assessment?: AssessmentRouterContext;
+  },
+): ConsultationResultTracking {
+  const stored = readNestedValue<Record<string, unknown>>(metadata, ["resultTracking"]);
+  const resultTracking = isStringRecord(stored) ? stored : {};
+
+  return {
+    generated_at:
+      typeof resultTracking.generated_at === "string"
+        ? resultTracking.generated_at
+        : fallback.createdAt,
+    assessment_version:
+      typeof resultTracking.assessment_version === "string"
+        ? resultTracking.assessment_version
+        : fallback.assessment?.assessment_version ?? ASSESSMENT_VERSION,
+    rule_version:
+      typeof resultTracking.rule_version === "string"
+        ? resultTracking.rule_version
+        : fallback.assessment?.rule_version ?? ASSESSMENT_RULE_VERSION,
+    entry_scenario:
+      typeof resultTracking.entry_scenario === "string"
+        ? resultTracking.entry_scenario
+        : fallback.assessment?.entry_scenario,
+    selected_scenario:
+      typeof resultTracking.selected_scenario === "string"
+        ? resultTracking.selected_scenario
+        : fallback.assessment?.selected_scenario,
+    entry_source:
+      typeof resultTracking.entry_source === "string"
+        ? resultTracking.entry_source
+        : fallback.assessment?.entry_source,
+    risk_level:
+      typeof resultTracking.risk_level === "string"
+        ? resultTracking.risk_level
+        : fallback.riskLevel,
+  };
+}
+
+export function buildConsultationResultTracking(input: {
+  generatedAt?: string;
+  riskLevel: string;
+  assessment?: AssessmentRouterContext;
+}): ConsultationResultTracking {
+  return {
+    generated_at: input.generatedAt ?? new Date().toISOString(),
+    assessment_version: input.assessment?.assessment_version ?? ASSESSMENT_VERSION,
+    rule_version: input.assessment?.rule_version ?? ASSESSMENT_RULE_VERSION,
+    entry_scenario: input.assessment?.entry_scenario,
+    selected_scenario: input.assessment?.selected_scenario,
+    entry_source: input.assessment?.entry_source,
+    risk_level: input.riskLevel,
+  };
 }
 
 export function filterConsultationListItems(
@@ -263,6 +352,19 @@ async function queryLogDetailFromPrisma(id: string): Promise<ConsultationLogDeta
       row.metadata,
       ["requestMeta"],
     );
+    const assessment = parseWithSchema(
+      assessmentRouterContextSchema,
+      readNestedValue(row.metadata, ["assessment"]),
+    );
+    const consent = parseWithSchema(
+      assessmentConsentSchema,
+      readNestedValue(row.metadata, ["consent"]),
+    );
+    const resultTracking = readResultTrackingFromMetadata(row.metadata, {
+      createdAt: row.createdAt.toISOString(),
+      riskLevel: row.riskLevel,
+      assessment,
+    });
 
     return {
       id: row.id,
@@ -285,6 +387,9 @@ async function queryLogDetailFromPrisma(id: string): Promise<ConsultationLogDeta
       aiLog,
       rawResponse: row.rawResponse,
       requestMeta,
+      assessment,
+      consent,
+      resultTracking,
     };
   } catch {
     return null;
@@ -320,6 +425,19 @@ async function queryLogDetailFromSupabase(id: string): Promise<ConsultationLogDe
       row.metadata,
       ["requestMeta"],
     );
+    const assessment = parseWithSchema(
+      assessmentRouterContextSchema,
+      readNestedValue(row.metadata, ["assessment"]),
+    );
+    const consent = parseWithSchema(
+      assessmentConsentSchema,
+      readNestedValue(row.metadata, ["consent"]),
+    );
+    const resultTracking = readResultTrackingFromMetadata(row.metadata, {
+      createdAt: String(row.created_at ?? ""),
+      riskLevel: String(row.risk_level ?? "unknown"),
+      assessment,
+    });
 
     return {
       id: String(row.id ?? ""),
@@ -342,6 +460,9 @@ async function queryLogDetailFromSupabase(id: string): Promise<ConsultationLogDe
       aiLog,
       rawResponse: row.raw_response,
       requestMeta,
+      assessment,
+      consent,
+      resultTracking,
     };
   } catch {
     return null;
@@ -367,6 +488,19 @@ function queryLogDetailFromMemory(id: string): ConsultationLogDetail | null {
     row.metadata,
     ["requestMeta"],
   );
+  const assessment = parseWithSchema(
+    assessmentRouterContextSchema,
+    readNestedValue(row.metadata, ["assessment"]),
+  );
+  const consent = parseWithSchema(
+    assessmentConsentSchema,
+    readNestedValue(row.metadata, ["consent"]),
+  );
+  const resultTracking = readResultTrackingFromMetadata(row.metadata, {
+    createdAt: String(row.createdAt ?? ""),
+    riskLevel: String(row.riskLevel ?? "unknown"),
+    assessment,
+  });
 
   return {
     id: String(row.id ?? ""),
@@ -389,6 +523,9 @@ function queryLogDetailFromMemory(id: string): ConsultationLogDetail | null {
     aiLog,
     rawResponse: row.rawResponse,
     requestMeta,
+    assessment,
+    consent,
+    resultTracking,
   };
 }
 
@@ -407,6 +544,12 @@ async function persistToPrisma(input: PersistConsultationInput): Promise<boolean
   }
 
   try {
+    const resultTracking = buildConsultationResultTracking({
+      generatedAt: input.generatedAt,
+      riskLevel: input.result.riskLevel,
+      assessment: input.assessment,
+    });
+
     await prisma.consultation.create({
       data: {
         id: input.id,
@@ -424,6 +567,9 @@ async function persistToPrisma(input: PersistConsultationInput): Promise<boolean
         metadata: toJson({
           safety: input.safety,
           aiLog: input.aiLog ?? null,
+          assessment: input.assessment ?? null,
+          consent: input.consent ?? null,
+          resultTracking,
           requestMeta: {
             ipHash: input.ipHash ?? null,
             userAgent: input.userAgent ?? null,
@@ -440,6 +586,12 @@ async function persistToPrisma(input: PersistConsultationInput): Promise<boolean
 
 async function persistToSupabase(input: PersistConsultationInput): Promise<void> {
   try {
+    const resultTracking = buildConsultationResultTracking({
+      generatedAt: input.generatedAt,
+      riskLevel: input.result.riskLevel,
+      assessment: input.assessment,
+    });
+
     await getSupabase().from("consultations").insert({
       id: input.id,
       profile_json: input.profile,
@@ -449,6 +601,11 @@ async function persistToSupabase(input: PersistConsultationInput): Promise<void>
       ip_hash: input.ipHash ?? null,
       user_agent: input.userAgent ?? "",
       source: input.source,
+      metadata: {
+        assessment: input.assessment ?? null,
+        consent: input.consent ?? null,
+        resultTracking,
+      },
     });
   } catch {
     // Best-effort persistence only for the MVP.
@@ -459,6 +616,12 @@ function persistToMemory(input: PersistConsultationInput) {
   if (!isMemoryStoreEnabled()) {
     return;
   }
+
+  const resultTracking = buildConsultationResultTracking({
+    generatedAt: input.generatedAt,
+    riskLevel: input.result.riskLevel,
+    assessment: input.assessment,
+  });
 
   getMemoryStore().consultations.set(input.id, {
     id: input.id,
@@ -476,6 +639,9 @@ function persistToMemory(input: PersistConsultationInput) {
     metadata: {
       safety: input.safety,
       aiLog: input.aiLog ?? null,
+      assessment: input.assessment ?? null,
+      consent: input.consent ?? null,
+      resultTracking,
       requestMeta: {
         ipHash: input.ipHash ?? null,
         userAgent: input.userAgent ?? null,

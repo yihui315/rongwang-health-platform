@@ -1,4 +1,8 @@
-import { analyticsEventNames, type AnalyticsEvent } from "@/lib/analytics";
+import {
+  analyticsEventNames,
+  createAnalyticsEvent,
+  type AnalyticsEvent,
+} from "@/lib/analytics";
 import type { Prisma } from "@prisma/client";
 import { getPrisma } from "@/lib/prisma";
 import { getSupabase } from "@/lib/supabase";
@@ -10,7 +14,7 @@ export interface AnalyticsEventListItem extends AnalyticsEvent {
 
 export interface AnalyticsSummary {
   total: number;
-  byName: Record<(typeof analyticsEventNames)[number], number>;
+  byName: Partial<Record<(typeof analyticsEventNames)[number], number>>;
   bySource: Array<{ key: string; count: number }>;
   completionRate: number;
   recommendationClickRate: number;
@@ -51,17 +55,17 @@ export function summarizeAnalyticsEvents(rows: AnalyticsEventListItem[]): Analyt
   const byName = emptyNameCounts();
 
   for (const row of rows) {
-    byName[row.name] += 1;
+    byName[row.name] = (byName[row.name] ?? 0) + 1;
   }
 
   return {
     total: rows.length,
     byName,
     bySource: countBy(rows, "source"),
-    completionRate: safeRate(byName.assessment_completed, byName.assessment_started),
-    recommendationClickRate: safeRate(byName.recommendation_clicked, byName.assessment_completed),
-    pddRedirectRate: safeRate(byName.pdd_redirect_clicked, byName.recommendation_clicked),
-    toolToAssessmentRate: safeRate(byName.assessment_started, byName.tool_completed),
+    completionRate: safeRate(byName.assessment_completed ?? 0, byName.assessment_started ?? 0),
+    recommendationClickRate: safeRate(byName.recommendation_clicked ?? 0, byName.assessment_completed ?? 0),
+    pddRedirectRate: safeRate(byName.pdd_redirect_clicked ?? 0, byName.recommendation_clicked ?? 0),
+    toolToAssessmentRate: safeRate(byName.assessment_started ?? 0, byName.tool_completed ?? 0),
     recent: rows.slice(0, 20),
   };
 }
@@ -107,9 +111,10 @@ async function saveToSupabase(event: AnalyticsEvent) {
 }
 
 export async function saveAnalyticsEvent(event: AnalyticsEvent) {
-  const saved = await saveToPrisma(event);
+  const parsed = createAnalyticsEvent(event);
+  const saved = await saveToPrisma(parsed);
   if (!saved) {
-    await saveToSupabase(event);
+    await saveToSupabase(parsed);
   }
 }
 

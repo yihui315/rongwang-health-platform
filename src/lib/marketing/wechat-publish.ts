@@ -19,6 +19,7 @@ export interface WeChatPublicationDecision {
 }
 
 const riskyPublishPatterns = [
+  // compliance-copy-allow: this regex blocks a prohibited claim before publishing.
   /治愈/,
   /保证/,
   /100%/,

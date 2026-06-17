@@ -40,8 +40,21 @@ export async function POST(request: Request) {
   }
 
   const consultationId = randomUUID();
-  const { profile } = parsed.data;
+  const { profile, assessment, consent } = parsed.data;
+  if (assessment && !consent) {
+    return NextResponse.json(
+      { error: "assessment_consent_required" },
+      { status: 400 },
+    );
+  }
+  if (assessment && consent && consent.assessment_id !== assessment.assessment_id) {
+    return NextResponse.json(
+      { error: "assessment_consent_mismatch" },
+      { status: 400 },
+    );
+  }
   const consultation = await createHealthConsultation(profile);
+  const generatedAt = new Date().toISOString();
   const ipHash = createHash("sha256").update(ip).digest("hex");
   const userAgent = request.headers.get("user-agent") || "";
 
@@ -51,15 +64,18 @@ export async function POST(request: Request) {
     result: consultation.result,
     safety: consultation.safety,
     recommendations: consultation.recommendations,
-    source: "ai-consult",
+    source: assessment ? "assessment-router" : "ai-consult",
     ipHash,
     userAgent,
     aiLog: consultation.aiLog,
+    assessment,
+    consent,
+    generatedAt,
   });
 
   const responsePayload = consultationResponseSchema.parse({
     consultationId,
-    generatedAt: new Date().toISOString(),
+    generatedAt,
     profile,
     result: consultation.result,
     recommendations: consultation.recommendations,
