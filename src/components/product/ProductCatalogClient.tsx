@@ -2,11 +2,24 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useMemo, useState, type ReactNode } from "react";
+import { useEffect, useMemo, useState, type ReactNode } from "react";
 import type { Product, ProductCategory } from "@/lib/data/products";
 import { getAiConsultHrefForValue } from "@/lib/health/consult-entry";
 import { solutionGuides } from "@/lib/health/solutions";
-import type { PlanSlug } from "@/types";
+import {
+  ProductEvidenceLink,
+  ProductSuitabilityCardCta,
+} from "@/components/product/ProductSuitabilityActions";
+import {
+  getProductAssessmentHref,
+  getProductAssessmentScenario,
+  getProductEvidenceHref,
+  getProductScenarioLabel,
+  getProductSuitableForCopy,
+  getProductUnsuitableWarnings,
+  readStoredProductSuitabilityAssessment,
+  type ProductSuitabilityAssessment,
+} from "@/lib/product-suitability";
 
 const categoryLabel: Record<ProductCategory, string> = {
   vitamin: "维生素",
@@ -34,16 +47,6 @@ const categoryTone: Record<ProductCategory, string> = {
   liver: "bg-orange-50 text-orange-700",
   beauty: "bg-rose-50 text-rose-700",
   traditional: "bg-red-50 text-red-700",
-};
-
-const planLabel: Record<PlanSlug, string> = {
-  fatigue: "疲劳恢复",
-  sleep: "睡眠支持",
-  immune: "免疫支持",
-  stress: "压力舒缓",
-  liver: "应酬恢复",
-  beauty: "内调养护",
-  cardio: "长辈养护",
 };
 
 const matrixCards = [
@@ -76,6 +79,11 @@ export function ProductCatalogClient({ products }: ProductCatalogClientProps) {
   const [brandFilter, setBrandFilter] = useState("all");
   const [searchQuery, setSearchQuery] = useState("");
   const [sortBy, setSortBy] = useState<SortKey>("default");
+  const [assessment, setAssessment] = useState<ProductSuitabilityAssessment | null>(null);
+
+  useEffect(() => {
+    setAssessment(readStoredProductSuitabilityAssessment());
+  }, []);
 
   const brands = useMemo(
     () => Array.from(new Set(products.map((product) => product.brand))).sort((a, b) => a.localeCompare(b, "zh")),
@@ -281,7 +289,7 @@ export function ProductCatalogClient({ products }: ProductCatalogClientProps) {
             </button>
           </div>
         ) : (
-          <ProductGrid products={filteredProducts} />
+          <ProductGrid products={filteredProducts} assessment={assessment} />
         )}
       </section>
     </main>
@@ -312,26 +320,40 @@ function FilterButton({
   );
 }
 
-function ProductGrid({ products }: { products: Product[] }) {
+function ProductGrid({
+  products,
+  assessment,
+}: {
+  products: Product[];
+  assessment: ProductSuitabilityAssessment | null;
+}) {
   return (
     <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
       {products.map((product) => (
-        <ProductCard key={product.sku} product={product} />
+        <ProductCard key={product.sku} product={product} assessment={assessment} />
       ))}
     </div>
   );
 }
 
-function ProductCard({ product }: { product: Product }) {
-  const consultHref = getAiConsultHrefForValue(product.plans[0]);
+function ProductCard({
+  product,
+  assessment,
+}: {
+  product: Product;
+  assessment: ProductSuitabilityAssessment | null;
+}) {
   const image = product.images?.[0];
+  const productScenario = getProductAssessmentScenario(product);
+  const assessmentHref = getProductAssessmentHref(product);
+  const evidenceHref = getProductEvidenceHref(product.slug);
+  const unsuitableWarnings = getProductUnsuitableWarnings(product.warnings).join(" / ");
 
   return (
-    <Link
-      href={`/products/${product.slug}`}
+    <article
       className="group overflow-hidden rounded-lg border border-[var(--border-subtle)] bg-[var(--surface)] shadow-sm hover:border-[var(--border)]"
     >
-      <div className="relative h-48 bg-white">
+      <Link href={`/products/${product.slug}`} className="relative block h-48 bg-white">
         {image ? (
           <Image
             src={image}
@@ -350,7 +372,7 @@ function ProductCard({ product }: { product: Product }) {
             {product.badge}
           </span>
         ) : null}
-      </div>
+      </Link>
 
       <div className="p-4">
         <div className="mb-2 flex flex-wrap items-center gap-2">
@@ -360,13 +382,26 @@ function ProductCard({ product }: { product: Product }) {
           <span className={`rounded-full px-2.5 py-1 text-xs font-semibold ${categoryTone[product.category]}`}>
             {categoryLabel[product.category]}
           </span>
+          <span className="rounded-full bg-[var(--clinical-primary-soft)] px-2.5 py-1 text-xs font-semibold text-[var(--clinical-primary)]">
+            {getProductScenarioLabel(productScenario)}
+          </span>
         </div>
-        <h3 className="line-clamp-2 min-h-[48px] text-base font-semibold leading-6 text-[var(--text-primary)] group-hover:text-[var(--teal-dark)]">
+        <Link
+          href={`/products/${product.slug}`}
+          className="block line-clamp-2 min-h-[48px] text-base font-semibold leading-6 text-[var(--text-primary)] group-hover:text-[var(--teal-dark)]"
+        >
           {product.name}
-        </h3>
-        <p className="mt-2 line-clamp-2 text-sm leading-6 text-[var(--text-secondary)]">
-          适配方向：{product.plans.map((plan) => planLabel[plan] ?? plan).join(" / ")}。建议先完成评估再进入购买入口。
-        </p>
+        </Link>
+        <div className="mt-3 rounded-lg border border-[var(--border-subtle)] bg-[var(--surface-muted)] px-3 py-3 text-xs leading-5 text-[var(--text-secondary)]">
+          <p>
+            <span className="font-semibold text-[var(--text-primary)]">Suitable for: </span>
+            {getProductSuitableForCopy(productScenario)}
+          </p>
+          <p className="mt-2">
+            <span className="font-semibold text-[var(--text-primary)]">Not suitable for: </span>
+            {unsuitableWarnings}
+          </p>
+        </div>
         {product.shippingNote ? (
           <p className="mt-2 text-xs font-medium text-[var(--teal-dark)]">{product.shippingNote}</p>
         ) : null}
@@ -378,17 +413,27 @@ function ProductCard({ product }: { product: Product }) {
             </div>
             <p className="mt-1 text-xs text-[var(--text-muted)]">{product.unit} / {product.origin}</p>
           </div>
-          <span className="rounded-lg bg-[#e8f5f1] px-3 py-2 text-xs font-semibold text-[var(--teal-dark)]">
-            查看
-          </span>
+          <ProductSuitabilityCardCta
+            productSlug={product.slug}
+            productScenario={productScenario}
+            assessmentHref={assessmentHref}
+            assessment={assessment}
+          />
         </div>
-        <p className="mt-3 text-xs text-[var(--text-muted)]">
-          不确定方向？先去
-          <span className="font-semibold text-[var(--teal-dark)]"> AI评估 </span>
-          再选择。
-        </p>
-        <span className="sr-only">建议入口：{consultHref}</span>
+        <div className="mt-3 flex items-center justify-between gap-3 text-xs">
+          <ProductEvidenceLink
+            productSlug={product.slug}
+            href={evidenceHref}
+            source="product_card"
+            className="font-semibold text-[var(--teal-dark)] hover:text-[var(--clinical-primary)]"
+          />
+          {assessment ? (
+            <span className="text-[var(--text-muted)]">assessment loaded</span>
+          ) : (
+            <span className="text-[var(--text-muted)]">assess first</span>
+          )}
+        </div>
       </div>
-    </Link>
+    </article>
   );
 }
