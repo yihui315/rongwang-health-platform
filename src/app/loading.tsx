@@ -1,13 +1,18 @@
 export default function Loading() {
   return (
-    <main className="min-h-screen bg-slate-50 flex items-center justify-center">
-      <div className="text-center">
-        <div className="inline-flex items-center gap-2 mb-4">
-          <div className="h-3 w-3 rounded-full bg-teal-500 animate-bounce" style={{ animationDelay: '0ms' }} />
-          <div className="h-3 w-3 rounded-full bg-teal-500 animate-bounce" style={{ animationDelay: '150ms' }} />
-          <div className="h-3 w-3 rounded-full bg-teal-500 animate-bounce" style={{ animationDelay: '300ms' }} />
+    <main
+      className="min-h-screen bg-slate-50"
+      aria-busy="true"
+      aria-label="Page content is loading"
+    >
+      <div className="mx-auto flex max-w-6xl flex-col gap-5 px-6 py-16">
+        <div className="h-8 w-48 animate-pulse rounded-full bg-slate-200" />
+        <div className="h-12 w-full max-w-3xl animate-pulse rounded-lg bg-slate-200" />
+        <div className="grid gap-4 md:grid-cols-3">
+          <div className="h-40 animate-pulse rounded-lg bg-slate-200" />
+          <div className="h-40 animate-pulse rounded-lg bg-slate-200" />
+          <div className="h-40 animate-pulse rounded-lg bg-slate-200" />
         </div>
-        <p className="text-sm text-slate-500">加载中...</p>
       </div>
     </main>
   );

@@ -5,29 +5,49 @@
 :root {
   --font-inter: "Noto Sans SC", "PingFang SC", "Microsoft YaHei", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
 
-  --bg: #fbfaf7;
-  --bg-soft: #f4efe7;
-  --surface: #fffdf8;
-  --surface-muted: #f7f3eb;
-  --surface-strong: #183531;
+  --bg: #f6f9fc;
+  --bg-soft: #eef5f8;
+  --surface: #ffffff;
+  --surface-muted: #f4f7fa;
+  --surface-cool: #e8f0f5;
+  --surface-strong: #082f44;
 
-  --text-primary: #18231f;
-  --text-secondary: #52615b;
-  --text-muted: #7d8a84;
+  --text-primary: #102033;
+  --text-secondary: #465a69;
+  --text-muted: #718391;
 
-  --teal: #0f766e;
-  --teal-bright: #14b8a6;
-  --teal-dark: #134e4a;
-  --clay: #b96b4b;
-  --clay-dark: #914f37;
-  --amber-soft: #f1d7a9;
-  --border: #dfd8cb;
-  --border-subtle: #eee8de;
-  --ring-focus: rgba(15, 118, 110, 0.32);
+  --clinical-primary: #0f4c6a;
+  --clinical-primary-hover: #0b3a53;
+  --clinical-primary-soft: #eaf4f8;
+  --clinical-primary-subtle: #f4f9fb;
+  --clinical-border: #c9d9e4;
 
-  --shadow-xs: 0 1px 2px rgba(24, 35, 31, 0.04);
-  --shadow-sm: 0 6px 18px rgba(24, 35, 31, 0.06);
-  --shadow-md: 0 16px 40px rgba(24, 35, 31, 0.08);
+  --nutrition-teal: #138f84;
+  --nutrition-teal-dark: #0f766e;
+  --nutrition-soft: #e8f6f3;
+  --nutrition-border: #a9dcd3;
+
+  --teal: #138f84;
+  --teal-bright: #35a99b;
+  --teal-dark: #0f766e;
+  --clay: #b7791f;
+  --clay-dark: #965f18;
+  --amber-soft: #fff7e6;
+
+  --risk-medium: #b7791f;
+  --risk-medium-soft: #fff7e6;
+  --risk-medium-border: #f3d08a;
+  --risk-high: #b42318;
+  --risk-high-soft: #fff1f0;
+  --risk-high-border: #f4b3ac;
+
+  --border: #d8e2ea;
+  --border-subtle: #e7eef3;
+  --ring-focus: rgba(15, 76, 106, 0.28);
+
+  --shadow-xs: 0 1px 2px rgba(16, 32, 51, 0.04);
+  --shadow-sm: 0 8px 22px rgba(16, 32, 51, 0.06);
+  --shadow-md: 0 18px 42px rgba(16, 32, 51, 0.09);
 
   --radius-sm: 6px;
   --radius: 8px;
@@ -36,7 +56,7 @@
 
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
   --duration-fast: 150ms;
-  --duration-normal: 240ms;
+  --duration-normal: 220ms;
 }
 
 html {
@@ -73,7 +93,7 @@ button {
 }
 
 ::selection {
-  background: rgba(15, 118, 110, 0.16);
+  background: rgba(15, 76, 106, 0.16);
   color: var(--text-primary);
 }
 
@@ -83,20 +103,21 @@ h3,
 h4,
 h5 {
   letter-spacing: 0;
-  line-height: 1.15;
+  line-height: 1.16;
   font-weight: 700;
 }
 
 h1 {
-  font-size: 3rem;
+  font-size: clamp(2.25rem, 4vw, 3.5rem);
+  line-height: 1.1;
 }
 
 h2 {
-  font-size: 2.25rem;
+  font-size: clamp(1.75rem, 2.6vw, 2.25rem);
 }
 
 h3 {
-  font-size: 1.35rem;
+  font-size: 1.25rem;
 }
 
 @media (max-width: 768px) {
@@ -105,7 +126,7 @@ h3 {
   }
 
   h2 {
-    font-size: 1.75rem;
+    font-size: 1.65rem;
   }
 }
 
@@ -134,7 +155,7 @@ h3 {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #cabfab;
+  background: #b8c7d2;
   border-radius: var(--radius-pill);
 }
 
@@ -181,7 +202,7 @@ h3 {
 }
 
 .dot-pattern {
-  background-image: radial-gradient(circle, rgba(82, 97, 91, 0.28) 1px, transparent 1px);
+  background-image: radial-gradient(circle, rgba(70, 90, 105, 0.22) 1px, transparent 1px);
   background-size: 24px 24px;
 }
 
@@ -198,27 +219,27 @@ h3 {
     @apply inline-flex items-center justify-center gap-2 px-5 py-3 text-sm font-semibold text-white;
     min-height: 44px;
     border-radius: var(--radius);
-    background: var(--teal);
+    background: var(--clinical-primary);
     box-shadow: var(--shadow-xs);
   }
 
   .btn-primary:hover {
-    background: var(--teal-dark);
+    background: var(--clinical-primary-hover);
     box-shadow: var(--shadow-sm);
   }
 
   .btn-secondary {
     @apply inline-flex items-center justify-center gap-2 border px-5 py-3 text-sm font-semibold;
     min-height: 44px;
-    border-color: var(--border);
+    border-color: var(--clinical-border);
     border-radius: var(--radius);
     background: var(--surface);
-    color: var(--text-primary);
+    color: var(--clinical-primary);
   }
 
   .btn-secondary:hover {
-    background: var(--surface-muted);
-    border-color: #cfc5b6;
+    background: var(--clinical-primary-subtle);
+    border-color: var(--clinical-primary);
   }
 
   .btn-ghost {
@@ -234,9 +255,10 @@ h3 {
   .card-elevated,
   .card-hover,
   .card-interactive,
-  .card-glass {
+  .card-glass,
+  .report-card {
     border-radius: var(--radius);
-    border: 1px solid var(--border-subtle);
+    border: 1px solid var(--border);
     background: var(--surface);
     box-shadow: var(--shadow-xs);
   }
@@ -250,9 +272,56 @@ h3 {
   }
 
   .card-hover:hover,
-  .card-interactive:hover {
-    border-color: var(--border);
+  .card-interactive:hover,
+  .compact-selector:hover {
+    border-color: var(--clinical-border);
     box-shadow: var(--shadow-sm);
+  }
+
+  .report-card {
+    @apply p-5 sm:p-6;
+  }
+
+  .compact-selector {
+    @apply flex min-h-[148px] flex-col border p-4;
+    border-radius: var(--radius);
+    border-color: var(--border);
+    background: var(--surface);
+    box-shadow: var(--shadow-xs);
+  }
+
+  .process-strip {
+    @apply grid gap-0 overflow-hidden border;
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+    border-color: var(--border);
+    border-radius: var(--radius);
+    background: var(--surface);
+    box-shadow: var(--shadow-xs);
+  }
+
+  .process-step {
+    @apply p-5;
+    border-bottom: 1px solid var(--border-subtle);
+  }
+
+  .process-step:last-child {
+    border-bottom: 0;
+  }
+
+  .evidence-table {
+    @apply overflow-hidden border;
+    border-color: var(--border-subtle);
+    border-radius: var(--radius);
+    background: var(--surface);
+  }
+
+  .evidence-row {
+    @apply px-4 py-3;
+    border-top: 1px solid var(--border-subtle);
+  }
+
+  .evidence-row:first-child {
+    border-top: 0;
   }
 
   .badge {
@@ -263,54 +332,74 @@ h3 {
 
   .badge-teal {
     @apply badge;
-    background: #e8f5f1;
-    color: var(--teal-dark);
-    box-shadow: inset 0 0 0 1px rgba(15, 118, 110, 0.14);
+    background: var(--clinical-primary-soft);
+    color: var(--clinical-primary);
+    box-shadow: inset 0 0 0 1px rgba(15, 76, 106, 0.16);
+  }
+
+  .badge-nutrition {
+    @apply badge;
+    background: var(--nutrition-soft);
+    color: var(--nutrition-teal-dark);
+    box-shadow: inset 0 0 0 1px rgba(19, 143, 132, 0.18);
   }
 
   .badge-orange,
   .badge-clay {
     @apply badge;
-    background: #f8ece4;
-    color: var(--clay-dark);
-    box-shadow: inset 0 0 0 1px rgba(185, 107, 75, 0.16);
+    background: var(--risk-medium-soft);
+    color: var(--risk-medium);
+    box-shadow: inset 0 0 0 1px rgba(183, 121, 31, 0.18);
   }
 
   .badge-slate {
     @apply badge;
-    background: #ebe7df;
+    background: var(--surface-muted);
     color: var(--text-secondary);
-    box-shadow: inset 0 0 0 1px rgba(82, 97, 91, 0.14);
+    box-shadow: inset 0 0 0 1px rgba(70, 90, 105, 0.14);
   }
 
   .bg-gradient-hero {
-    background:
-      radial-gradient(circle at 8% 10%, rgba(15, 118, 110, 0.12), transparent 32%),
-      linear-gradient(180deg, #fffdf8 0%, #fbfaf7 58%, #f4efe7 100%);
+    background: linear-gradient(180deg, #ffffff 0%, #f6f9fc 58%, #eef5f8 100%);
   }
 
   .bg-gradient-cta {
-    background: linear-gradient(135deg, #183531 0%, #234842 100%);
+    background: linear-gradient(135deg, var(--clinical-primary-hover) 0%, var(--surface-strong) 100%);
   }
 
   .bg-gradient-teal {
-    background: linear-gradient(135deg, var(--teal) 0%, var(--teal-dark) 100%);
+    background: linear-gradient(135deg, var(--clinical-primary) 0%, var(--clinical-primary-hover) 100%);
   }
 
   .clinical-panel {
-    border: 1px solid rgba(223, 216, 203, 0.88);
+    border: 1px solid var(--border);
     border-radius: var(--radius-lg);
-    background: rgba(255, 253, 248, 0.86);
+    background: rgba(255, 255, 255, 0.88);
     box-shadow: var(--shadow-sm);
     backdrop-filter: blur(18px);
   }
 
   .warm-band {
-    background: linear-gradient(180deg, #fffdf8 0%, #f4efe7 100%);
+    background: linear-gradient(180deg, #ffffff 0%, var(--bg-soft) 100%);
   }
 
   .text-gradient,
   .text-gradient-warm {
-    color: var(--teal-dark);
+    color: var(--clinical-primary);
+  }
+
+  @screen md {
+    .process-strip {
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+    }
+
+    .process-step {
+      border-right: 1px solid var(--border-subtle);
+      border-bottom: 0;
+    }
+
+    .process-step:last-child {
+      border-right: 0;
+    }
   }
 }

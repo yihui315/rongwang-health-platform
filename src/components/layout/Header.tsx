@@ -46,10 +46,10 @@ export default function Header() {
     >
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6 lg:px-8">
         <Link href="/" className="group flex items-center gap-2.5">
-          <span className="inline-flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-teal-600 to-teal-500 text-sm font-black text-white shadow-sm transition group-hover:scale-105 group-hover:shadow-md">
+          <span className="inline-flex h-8 w-8 items-center justify-center rounded-lg bg-[var(--clinical-primary)] text-sm font-black text-white shadow-sm transition group-hover:shadow-md">
             荣
           </span>
-          <span className="text-lg font-bold tracking-tight text-slate-900">
+          <span className="text-lg font-bold tracking-tight text-[var(--text-primary)]">
             荣旺健康
           </span>
         </Link>
@@ -61,13 +61,13 @@ export default function Header() {
               href={link.href}
               className={`relative rounded-lg px-3.5 py-2 text-[13px] font-medium transition-all ${
                 isActive(link.href, link.matchPrefix)
-                  ? "bg-teal-50/80 text-teal-700"
-                  : "text-slate-500 hover:bg-slate-50 hover:text-slate-900"
+                  ? "bg-[var(--clinical-primary-soft)] text-[var(--clinical-primary)]"
+                  : "text-[var(--text-secondary)] hover:bg-[var(--surface-muted)] hover:text-[var(--text-primary)]"
               }`}
             >
               {link.label}
               {isActive(link.href, link.matchPrefix) ? (
-                <span className="absolute bottom-0 left-1/2 h-0.5 w-4 -translate-x-1/2 rounded-full bg-teal-600" />
+                <span className="absolute bottom-0 left-1/2 h-0.5 w-4 -translate-x-1/2 rounded-full bg-[var(--clinical-primary)]" />
               ) : null}
             </Link>
           ))}
@@ -78,7 +78,7 @@ export default function Header() {
 
           <Link
             href="/ai-consult"
-            className="hidden items-center gap-1.5 rounded-full bg-teal-600 px-5 py-2 text-[13px] font-semibold text-white shadow-sm transition-all hover:bg-teal-700 hover:shadow-md sm:inline-flex"
+            className="hidden items-center gap-1.5 rounded-lg bg-[var(--clinical-primary)] px-5 py-2 text-[13px] font-semibold text-white shadow-sm transition-all hover:bg-[var(--clinical-primary-hover)] hover:shadow-md sm:inline-flex"
           >
             <span className="relative flex h-1.5 w-1.5">
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-white opacity-75" />
@@ -117,8 +117,8 @@ export default function Header() {
                 onClick={() => setMobileOpen(false)}
                 className={`flex items-center gap-3 rounded-xl px-4 py-3 text-[15px] font-medium transition ${
                   isActive(link.href, link.matchPrefix)
-                    ? "bg-teal-50 text-teal-700"
-                    : "text-slate-600 hover:bg-slate-50 active:bg-slate-100"
+                    ? "bg-[var(--clinical-primary-soft)] text-[var(--clinical-primary)]"
+                    : "text-[var(--text-secondary)] hover:bg-[var(--surface-muted)] active:bg-slate-100"
                 }`}
               >
                 {link.label}
@@ -129,7 +129,7 @@ export default function Header() {
             <Link
               href="/ai-consult"
               onClick={() => setMobileOpen(false)}
-              className="flex w-full items-center justify-center gap-2 rounded-full bg-teal-600 py-3 text-[15px] font-semibold text-white shadow-sm transition hover:bg-teal-700"
+              className="flex w-full items-center justify-center gap-2 rounded-lg bg-[var(--clinical-primary)] py-3 text-[15px] font-semibold text-white shadow-sm transition hover:bg-[var(--clinical-primary-hover)]"
             >
               <span className="relative flex h-1.5 w-1.5">
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-white opacity-75" />

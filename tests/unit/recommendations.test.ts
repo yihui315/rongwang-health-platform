@@ -38,10 +38,29 @@ test("urgent consultation results never return product recommendations", () => {
   assert.deepEqual(getRecommendations(urgentResult, profile), []);
 });
 
-test("non-urgent consultation results can return rule-based recommendations", () => {
+test("medium and high consultation results do not return product recommendations", () => {
+  const result: HealthConsultationResult = {
+    summary: "需要先观察变化。",
+    riskLevel: "medium",
+    possibleFactors: ["作息波动"],
+    redFlags: [],
+    lifestyleAdvice: ["先记录 7 天变化"],
+    supplementDirections: ["基础营养支持方向"],
+    otcDirections: [],
+    recommendedSolutionType: "fatigue",
+    productRecommendationReason: "先看支持方向。",
+    disclaimer: "本内容仅供健康教育和一般参考。",
+  };
+
+  assert.deepEqual(getRecommendations(result, profile), []);
+  assert.deepEqual(getRecommendations({ ...result, riskLevel: "high" }, profile), []);
+});
+
+
+test("low-risk consultation results can return rule-based recommendations", () => {
   const result: HealthConsultationResult = {
     summary: "当前更像是恢复不足和睡眠债。",
-    riskLevel: "medium",
+    riskLevel: "low",
     possibleFactors: ["睡眠恢复不足"],
     redFlags: [],
     lifestyleAdvice: ["先稳定作息"],
@@ -62,7 +81,7 @@ test("non-urgent consultation results can return rule-based recommendations", ()
 test("female health consultation results return rule-based support directions", () => {
   const result: HealthConsultationResult = {
     summary: "当前更适合先围绕女性周期、疲劳恢复和睡眠节律做健康教育评估。",
-    riskLevel: "medium",
+    riskLevel: "low",
     possibleFactors: ["周期节律波动", "睡眠恢复不足"],
     redFlags: [],
     lifestyleAdvice: ["先记录周期、睡眠和疲劳变化"],

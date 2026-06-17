@@ -13,7 +13,7 @@ test("robots keeps AI-first content crawlable and excludes operational routes", 
       {
         userAgent: "*",
         allow: ["/", "/llms.txt", "/ai-consult", "/assessment/", "/solutions/", "/tools/", "/products/", "/articles/"],
-        disallow: ["/api/", "/admin", "/product-map/"],
+        disallow: ["/api/", "/admin", "/product-map/", "/assessment/result/"],
       },
     ]);
   } finally {

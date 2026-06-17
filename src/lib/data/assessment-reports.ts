@@ -172,6 +172,8 @@ export async function saveAssessmentReportForUser(
           metadata: toJson({
             savedFrom: "assessment-result",
             aiStatus: detail.aiLog?.status ?? null,
+            assessment: detail.assessment ?? null,
+            consent: detail.consent ?? null,
           }),
         },
       });
@@ -221,6 +223,12 @@ export async function saveAssessmentReportForUser(
     aiProvider: detail.aiLog?.provider ?? null,
     aiModel: detail.aiLog?.model ?? null,
     promptVersion: detail.aiLog?.promptVersion ?? null,
+    metadata: {
+      savedFrom: "assessment-result",
+      aiStatus: detail.aiLog?.status ?? null,
+      assessment: detail.assessment ?? null,
+      consent: detail.consent ?? null,
+    },
     createdAt: nowIso(),
     updatedAt: nowIso(),
   };

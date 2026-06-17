@@ -94,7 +94,7 @@ export function assessMedicalSafety(profile: HealthProfile): SafetyAssessment {
     riskLevel,
     redFlags,
     cautionFlags: Array.from(new Set(cautionFlags)),
-    commerceAllowed: riskLevel !== "urgent",
+    commerceAllowed: riskLevel === "low",
     clinicianAdvice,
   };
 }

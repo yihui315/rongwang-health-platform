@@ -15,6 +15,24 @@ export default function RecommendationPanel({
   solutionSlug,
   canShowSolutionLink,
 }: RecommendationPanelProps) {
+  if (!canShowSolutionLink) {
+    const isHighRisk =
+      response.result.riskLevel === "high" || response.result.riskLevel === "urgent";
+
+    return (
+      <div className="card-elevated">
+        <h3 className="text-xl font-semibold text-[var(--text-primary)]">
+          {isHighRisk ? "高风险保护边界" : "谨慎观察边界"}
+        </h3>
+        <p className="mt-4 text-sm leading-7 text-[var(--text-secondary)]">
+          {isHighRisk
+            ? "当前结果建议优先线下咨询，本页不展示购买入口，也不展示产品推荐。请先咨询医生或药师。"
+            : "当前建议先观察并保留复测，本页暂不展示购买入口。你可以先保存报告，7 天后对照变化。"}
+        </p>
+      </div>
+    );
+  }
+
   return (
     <div className="card-elevated">
       <h3 className="text-xl font-semibold text-[var(--text-primary)]">可控购买入口</h3>

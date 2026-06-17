@@ -3,6 +3,7 @@
 import Link from "next/link";
 import type { ConsultationResponse } from "@/schemas/consultation-response";
 import { solutionTypeToSlug } from "@/lib/health/solutions";
+import { canShowProductPath } from "@/lib/health/risk-triage";
 import RecommendationPanel from "@/components/ai/RecommendationPanel";
 import RiskCard from "@/components/ai/RiskCard";
 import SaveAssessmentReportButton from "@/components/ai/SaveAssessmentReportButton";
@@ -22,11 +23,27 @@ const aiStatusLabels = {
 export default function ConsultResult({ response }: ConsultResultProps) {
   const result = response.result;
   const solutionSlug = solutionTypeToSlug(result.recommendedSolutionType);
-  const canShowSolutionLink = result.riskLevel !== "urgent";
+  const canShowSolutionLink = canShowProductPath(result.riskLevel);
 
   return (
     <div className="space-y-5 xl:sticky xl:top-24 xl:self-start">
       <RiskCard response={response} />
+
+      <div className="rounded-2xl border border-[var(--clinical-border)] bg-[var(--surface-muted)] px-5 py-4">
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <div>
+            <p className="text-sm font-semibold text-[var(--text-primary)]">
+              风险分流结果页
+            </p>
+            <p className="mt-1 text-sm leading-6 text-[var(--text-secondary)]">
+              查看 LOW / MEDIUM / HIGH 分流后的下一步，并保留本次评估版本信息。
+            </p>
+          </div>
+          <Link href={`/assessment/result/${response.consultationId}`} className="btn-secondary">
+            查看结果页
+          </Link>
+        </div>
+      </div>
 
       <SaveAssessmentReportButton consultationId={response.consultationId} />
 

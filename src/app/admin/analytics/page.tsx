@@ -7,6 +7,7 @@ export default async function AdminAnalyticsPage() {
     getAnalyticsSummary(),
     getPddClickSummary(),
   ]);
+  const eventCount = eventSummary.byName;
 
   return (
     <main className="bg-[var(--bg)]">
@@ -25,10 +26,10 @@ export default async function AdminAnalyticsPage() {
         </div>
 
         <div className="mt-8 grid gap-4 md:grid-cols-4">
-          <MetricCard title="Assessment start" value={eventSummary.byName.assessment_started} note="AI evaluation started" />
-          <MetricCard title="Completion rate" value={`${Math.round(eventSummary.completionRate * 100)}%`} note={`${eventSummary.byName.assessment_completed} completed`} />
-          <MetricCard title="Recommendation CTR" value={`${Math.round(eventSummary.recommendationClickRate * 100)}%`} note={`${eventSummary.byName.recommendation_clicked} recommendation clicks`} />
-          <MetricCard title="PDD redirect rate" value={`${Math.round(eventSummary.pddRedirectRate * 100)}%`} note={`${eventSummary.byName.pdd_redirect_clicked} redirect events`} />
+          <MetricCard title="Assessment start" value={eventCount.assessment_started ?? 0} note="AI evaluation started" />
+          <MetricCard title="Completion rate" value={`${Math.round(eventSummary.completionRate * 100)}%`} note={`${eventCount.assessment_completed ?? 0} completed`} />
+          <MetricCard title="Recommendation CTR" value={`${Math.round(eventSummary.recommendationClickRate * 100)}%`} note={`${eventCount.recommendation_clicked ?? 0} recommendation clicks`} />
+          <MetricCard title="PDD redirect rate" value={`${Math.round(eventSummary.pddRedirectRate * 100)}%`} note={`${eventCount.pdd_redirect_clicked ?? 0} redirect events`} />
         </div>
 
         <div className="mt-4 grid gap-4 md:grid-cols-3">

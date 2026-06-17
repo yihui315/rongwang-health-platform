@@ -8,9 +8,9 @@ interface RiskCardProps {
 }
 
 const riskStyles: Record<RiskLevel, string> = {
-  low: "bg-emerald-50 text-emerald-700 ring-emerald-200/70",
-  medium: "bg-amber-50 text-amber-700 ring-amber-200/70",
-  high: "bg-orange-50 text-orange-700 ring-orange-200/70",
+  low: "bg-[var(--nutrition-soft)] text-[var(--nutrition-teal-dark)] ring-[var(--nutrition-border)]",
+  medium: "bg-[var(--risk-medium-soft)] text-[var(--risk-medium)] ring-[var(--risk-medium-border)]",
+  high: "bg-[var(--risk-high-soft)] text-[var(--risk-high)] ring-[var(--risk-high-border)]",
   urgent: "bg-red-50 text-red-700 ring-red-200/70",
 };
 

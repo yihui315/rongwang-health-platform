@@ -3,6 +3,7 @@ import { listActiveRecommendationRules } from "@/lib/data/recommendation-rules";
 import { isFeatureEnabled } from "@/lib/feature-flags";
 import { getRecommendationsFromCatalog } from "@/lib/health/recommendations";
 import { getRecommendationsFromRules } from "@/lib/health/rule-mapper";
+import { canShowProductPath } from "@/lib/health/risk-triage";
 import type { HealthConsultationResult } from "@/schemas/ai-result";
 import type { HealthProfile } from "@/schemas/health";
 
@@ -35,7 +36,7 @@ export async function getRecommendationsForConsultation(
   profile: HealthProfile,
   limit = 3,
 ) {
-  if (result.riskLevel === "urgent") {
+  if (!canShowProductPath(result.riskLevel)) {
     return [];
   }
 

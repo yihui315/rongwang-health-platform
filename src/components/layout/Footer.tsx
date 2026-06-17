@@ -12,6 +12,7 @@ const footerLinks = {
   resources: [
     { href: "/ai-consult", label: "AI健康评估" },
     { href: "/assessment/sleep", label: "免费自测入口" },
+    { href: "/health-review-standard", label: "健康内容与评估规则标准" },
     { href: "/articles", label: "健康内容" },
     { href: "/products", label: "商品库" },
   ],

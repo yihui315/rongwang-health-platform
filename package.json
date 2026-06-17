@@ -29,6 +29,8 @@
     "start": "next start",
     "typecheck": "tsc --noEmit",
     "lint": "npm run typecheck",
+    "compliance:copy": "node scripts/compliance-copy-lint.mjs",
+    "compliance:copy:warn": "node scripts/compliance-copy-lint.mjs --warn",
     "audit:prod": "npm audit --omit=dev --registry=https://registry.npmjs.org",
     "scaffold": "node scripts/scaffold.mjs",
     "prisma:generate": "prisma generate",

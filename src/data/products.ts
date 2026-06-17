@@ -369,7 +369,7 @@ export const products: Product[] = [
       { name: '灵芝', dose: '150mg', benefit: '安神益气 · 保肝护肝' },
     ],
     scientificBasis:
-      '桑黄(Sanghuangporus sanghuang)是珍稀药用真菌，其多糖和黄酮类成分在研究中显示了免疫调节、抗氧化和降血糖的生物活性。传统中医用于清热解毒、活血化瘀。',
+      '桑黄(Sanghuangporus sanghuang)是珍稀药用真菌，其多糖和黄酮类成分在研究中显示了免疫调节、抗氧化和血糖健康管理相关生物活性。传统中医用于清热解毒、活血化瘀。',
     howToUse: '每日2次，每次4粒，饭后温水送服。',
     warnings: ['孕妇禁用', '服用降糖药者请在医生指导下使用', '手术前后2周停用'],
     certifications: ['国食健字', 'GMP', '彭寿堂百年品牌'],
@@ -410,7 +410,7 @@ export const products: Product[] = [
       { name: '石斛多糖', dose: '≥20%', benefit: '免疫调节 · 抗氧化' },
     ],
     scientificBasis:
-      '金钗石斛(Dendrobium nobile)为中华九大仙草之首。现代药理研究发现石斛碱具有神经保护活性，石斛多糖在动物模型中显示了降血糖和免疫调节作用。',
+      '金钗石斛(Dendrobium nobile)为中华九大仙草之首。现代药理研究发现石斛碱具有神经保护活性，石斛多糖在动物模型中显示了血糖健康管理相关支持和免疫调节作用。',
     howToUse: '每日2次，每次2粒，餐后温水服用。',
     warnings: ['脾胃虚寒者慎用', '服用降压/降糖药者请咨询医生'],
     certifications: ['国食健字', 'GMP', '彭寿堂百年品牌', '道地产区认证'],
