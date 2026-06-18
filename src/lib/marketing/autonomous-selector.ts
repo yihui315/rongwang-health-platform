@@ -209,11 +209,18 @@ function buildJobFile(
     distribution: {
       publish_mode: 'draft',
       channels: [
-        {
-          platform: 'wordpress',
-          utm_campaign: recommendation.planSlug,
-        },
+        { platform: 'wordpress' },
       ],
+    },
+    tracking: {
+      utm_campaign: `auto_${recommendation.planSlug}`,
+      utm_medium: 'content_ai',
+      conversion_event: 'blog_cta_clicked',
+    },
+    runtime: {
+      timeout_seconds: 300,
+      max_retries: 2,
+      shadow_mode: false,
     },
   };
 
