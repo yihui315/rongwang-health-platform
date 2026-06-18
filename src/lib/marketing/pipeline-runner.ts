@@ -775,7 +775,7 @@ ${COMPLIANCE_RULES}
         return await publishWordPressDraft(
           { title: content.title, content: content.content, excerpt: content.excerpt },
           { runId: this.runId, utmCampaign: ctx.utmCampaign ?? '' },
-          'draft'
+          this.job.distribution.publish_mode ?? 'draft'
         );
       }
       // Other platforms: fall back to manual_package
