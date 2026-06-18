@@ -538,11 +538,48 @@ ${COMPLIANCE_RULES}
       appendFileSync(eventsPath, JSON.stringify(event) + '\n', 'utf-8');
     }
 
+    // Phase 3: Autonomous topic selection (non-blocking)
+    await this.runAutonomousSelection();
+
     return this.stepResult<void>('finalize', 'success', timer.ms(), {
       nextAction: 'continue',
       output: undefined,
       evidence: [{ kind: 'json', path: runPath }],
     });
+  }
+
+  // ── Autonomous Topic Selection (Phase 3) ──────────────────────────────────
+  // Runs at end of finalize, ONLY for cron-triggered jobs, NOT shadow mode.
+  // Analyzes click data + history → generates next batch of job files → self-trigger loop
+
+  private async runAutonomousSelection(): Promise<void> {
+    // Only run for cron jobs, not shadow mode (shadow = analysis only, no publishing)
+    if (this.job.trigger !== 'cron' || this.ctx.shadowMode) {
+      this.log('info', 'autonomous', 'skipping (not cron or shadow mode)');
+      return;
+    }
+
+    try {
+      const { selectNextTopics } = await import('./autonomous-selector');
+      const result = await selectNextTopics(2);
+
+      if (result.generated === 0) {
+        this.log('warn', 'autonomous', 'no topics selected (all candidates recently covered or no click data)');
+        return;
+      }
+
+      this.log('info', 'autonomous',
+        `selected ${result.generated} topics: ${result.jobs.map(j => j.topic).join(', ')}`,
+        { clickDataSummary: result.clickDataSummary }
+      );
+
+      // Write selection report alongside the run record
+      const reportPath = join(this.evidenceDir, 'next-topics-report.json');
+      writeFileSync(reportPath, JSON.stringify(result, null, 2), 'utf-8');
+    } catch (err) {
+      // Autonomous selection failure must NEVER block the pipeline
+      this.log('warn', 'autonomous', `selection failed (non-fatal): ${err}`);
+    }
   }
 
   // ── Helper Methods ─────────────────────────────────────────────────────────
