@@ -180,7 +180,7 @@ function scoreTopic(
 // ─────────────────────────────────────────────────────────────────────────────
 
 function buildJobFile(
-  recommendation: TopicRecommendation,
+  recommendation: CandidateTopic & { signal?: string },
   outputDir: string
 ): { jobId: string; filePath: string } {
   const jobId = `mj_auto_${Date.now().toString(36)}`;
@@ -278,7 +278,6 @@ export async function selectNextTopics(count = 2): Promise<AutonomousSelectorRes
         score,
         signal,
       } as TopicRecommendation,
-      },
     });
   }
 
