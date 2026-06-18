@@ -230,9 +230,23 @@ export async function publishWordPressDraft(
       };
     }
 
+    // ─────────────────────────────────────────────────────────────────────────
+    // 注入 CTA section：将拼多多店铺链接以 UTM 参数追加到文章末尾
+    // ─────────────────────────────────────────────────────────────────
+    const pddMallUrl = `https://mobile.yangkeduo.com/mall_page.html?mall_id=516573367&utm_source=auto_marketing&utm_medium=${encodeURIComponent(context.utmCampaign || 'content_ai')}&utm_campaign=rongwang_blog_cta`;
+    const ctaHtml = `
+<hr style="margin: 2rem 0; border: none; border-top: 2px solid #e2e8f0;">
+<div style="background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%); border-radius: 12px; padding: 1.5rem; text-align: center; margin: 1.5rem 0;">
+  <p style="margin: 0 0 0.75rem; font-size: 1.1rem; font-weight: 600; color: #1e3a5f;">科学配比，正规跨境 · 荣旺健康</p>
+  <p style="margin: 0 0 1rem; font-size: 0.95rem; color: #475569;">专注抗衰老、免疫、护眼、睡眠等健康方案，100%正规渠道，海关监管保障。</p>
+  <a href="${pddMallUrl}" target="_blank" rel="noopener" style="display: inline-block; background: #ef4444; color: #fff; padding: 0.75rem 2rem; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 1rem;">进店逛逛 →</a>
+</div>`;
+
+    const contentWithCta = input.content + ctaHtml;
+
     // 创建草稿
     const { postId, postUrl } = await createWordPressDraft(
-      { title: input.title, content: input.content, excerpt: input.excerpt },
+      { title: input.title, content: contentWithCta, excerpt: input.excerpt },
       context,
       publishMode
     );
