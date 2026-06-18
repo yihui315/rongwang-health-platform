@@ -237,9 +237,10 @@ export async function publishWordPressDraft(
     // 目标URL：拼多多店铺 + UTM参数
     const targetPddMall = `https://mobile.yangkeduo.com/mall_page.html?mall_id=516573367&utm_source=auto_marketing&utm_medium=${encodeURIComponent(context.utmCampaign || 'content_ai')}&utm_campaign=blog_cta`;
     // Base64 encode目标URL，通过 /api/pdd/redirect 记录点击后302重定向
+    // 注意：API路由在rongwang.hk（主站），不是blog.rongwang.hk
     const encodedTarget = Buffer.from(targetPddMall).toString('base64');
     const planSlug = `blog-${context.runId}`;
-    const trackedCtaUrl = `/api/pdd/redirect?url=${encodedTarget}&plan=${planSlug}&ch=articles`;
+    const trackedCtaUrl = `https://rongwang.hk/api/pdd/redirect?url=${encodedTarget}&plan=${planSlug}&ch=articles`;
 
     const ctaHtml = `
 <hr style="margin: 2rem 0; border: none; border-top: 2px solid #e2e8f0;">
