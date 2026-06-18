@@ -231,15 +231,22 @@ export async function publishWordPressDraft(
     }
 
     // ─────────────────────────────────────────────────────────────────────────
-    // 注入 CTA section：将拼多多店铺链接以 UTM 参数追加到文章末尾
+    // 注入 CTA section：使用 /api/pdd/redirect 回调追踪链接
+    // Plan B：记录"内容→点击"数据，转化（实际销售）数据暂无法自动获取
     // ─────────────────────────────────────────────────────────────────
-    const pddMallUrl = `https://mobile.yangkeduo.com/mall_page.html?mall_id=516573367&utm_source=auto_marketing&utm_medium=${encodeURIComponent(context.utmCampaign || 'content_ai')}&utm_campaign=rongwang_blog_cta`;
+    // 目标URL：拼多多店铺 + UTM参数
+    const targetPddMall = `https://mobile.yangkeduo.com/mall_page.html?mall_id=516573367&utm_source=auto_marketing&utm_medium=${encodeURIComponent(context.utmCampaign || 'content_ai')}&utm_campaign=blog_cta`;
+    // Base64 encode目标URL，通过 /api/pdd/redirect 记录点击后302重定向
+    const encodedTarget = Buffer.from(targetPddMall).toString('base64');
+    const planSlug = `blog-${context.runId}`;
+    const trackedCtaUrl = `/api/pdd/redirect?url=${encodedTarget}&plan=${planSlug}&ch=articles`;
+
     const ctaHtml = `
 <hr style="margin: 2rem 0; border: none; border-top: 2px solid #e2e8f0;">
 <div style="background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%); border-radius: 12px; padding: 1.5rem; text-align: center; margin: 1.5rem 0;">
   <p style="margin: 0 0 0.75rem; font-size: 1.1rem; font-weight: 600; color: #1e3a5f;">科学配比，正规跨境 · 荣旺健康</p>
   <p style="margin: 0 0 1rem; font-size: 0.95rem; color: #475569;">专注抗衰老、免疫、护眼、睡眠等健康方案，100%正规渠道，海关监管保障。</p>
-  <a href="${pddMallUrl}" target="_blank" rel="noopener" style="display: inline-block; background: #ef4444; color: #fff; padding: 0.75rem 2rem; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 1rem;">进店逛逛 →</a>
+  <a href="${trackedCtaUrl}" target="_blank" rel="noopener" style="display: inline-block; background: #ef4444; color: #fff; padding: 0.75rem 2rem; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 1rem;">进店逛逛 →</a>
 </div>`;
 
     const contentWithCta = input.content + ctaHtml;

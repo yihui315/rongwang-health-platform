@@ -1,0 +1,10 @@
+{"ts":"2026-06-18T07:54:51.000Z","runId":"run_69ffd443","step":"prepare","level":"info","message":"starting job validation and context preparation"}
+{"ts":"2026-06-18T07:54:51.010Z","runId":"run_69ffd443","step":"prepare","level":"info","message":"context prepared: NAD+抗衰老, shadow=false"}
+{"ts":"2026-06-18T07:54:51.014Z","runId":"run_69ffd443","step":"generate_content","level":"info","status":"success","durationMs":11,"message":"generating content for: NAD+抗衰老"}
+{"ts":"2026-06-18T07:55:03.276Z","runId":"run_69ffd443","step":"generate_content","level":"warn","status":"success","durationMs":11,"message":"compliance warnings: 避免绝对化效果承诺。"}
+{"ts":"2026-06-18T07:55:03.277Z","runId":"run_69ffd443","step":"generate_content","level":"info","status":"success","durationMs":11,"message":"content generated: 1485 words"}
+{"ts":"2026-06-18T07:55:03.279Z","runId":"run_69ffd443","step":"seo_geo_gate","level":"info","status":"success","durationMs":12263,"message":"calculating SEO/GEO Ready Score"}
+{"ts":"2026-06-18T07:55:03.288Z","runId":"run_69ffd443","step":"seo_geo_gate","level":"warn","status":"success","durationMs":12263,"message":"SEO score 75 below threshold keyword density not optimal"}
+{"ts":"2026-06-18T07:55:03.290Z","runId":"run_69ffd443","step":"publish_drafts","level":"info","status":"degraded","durationMs":9,"message":"publishing to wordpress"}
+{"ts":"2026-06-18T07:55:05.528Z","runId":"run_69ffd443","step":"baseline_snapshot","level":"info","status":"success","durationMs":2237,"message":"capturing baseline snapshot"}
+{"ts":"2026-06-18T07:55:05.536Z","runId":"run_69ffd443","step":"finalize","level":"info","status":"success","durationMs":7,"message":"writing run record and events"}
