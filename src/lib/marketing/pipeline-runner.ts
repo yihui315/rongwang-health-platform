@@ -392,8 +392,10 @@ ${COMPLIANCE_RULES}
 
     if (!score.passed) {
       this.log('warn', 'seo_geo_gate', `SEO score ${score.total} below threshold ${score.blockers.join(', ')}`);
+      // Only pause for manual review if human_review is required; otherwise proceed with warning
+      const nextAction = this.job.content?.human_review_required ? 'manual_review' : 'continue';
       return this.stepResult<SeoReadyScoreDetail>('seo_geo_gate', 'degraded', timer.ms(), {
-        nextAction: 'manual_review',
+        nextAction,
         output: pipelineScore,
         errorMessage: `SEO score ${score.total}/${this.job.seo.min_ready_score ?? 70}: ${score.blockers.join(', ')}`,
         evidence: [
