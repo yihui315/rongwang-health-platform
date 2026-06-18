@@ -277,6 +277,7 @@ export async function selectNextTopics(count = 2): Promise<AutonomousSelectorRes
           : `候选池补充选题`,
         score,
         signal,
+      } as TopicRecommendation,
       },
     });
   }
