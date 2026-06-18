@@ -49,7 +49,7 @@ export type ErrorCode =
 
 export type JobTrigger = 'cron' | 'manual' | 'api';
 
-export type PublishMode = 'none' | 'draft' | 'manual_package';
+export type PublishMode = 'none' | 'draft' | 'publish' | 'manual_package';
 
 export type ReviewerRole = 'medical_editor' | 'nutrition_editor' | 'ops_editor' | 'none';
 
@@ -387,7 +387,7 @@ export const marketingJobSchema = {
       properties: {
         publish_mode: {
           type: 'string',
-          enum: ['none', 'draft', 'manual_package'],
+          enum: ['none', 'draft', 'publish', 'manual_package'],
           default: 'draft',
         },
         channels: {
