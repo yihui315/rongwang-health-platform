@@ -16,7 +16,8 @@ export type PipelinePhase =
   | 'seo_geo_gate'
   | 'publish_drafts'
   | 'baseline_snapshot'
-  | 'finalize';
+  | 'finalize'
+  | 'autonomous';
 
 export type StepStatus = 'success' | 'degraded' | 'retrying' | 'failed' | 'skipped';
 
