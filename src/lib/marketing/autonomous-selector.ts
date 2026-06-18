@@ -183,7 +183,7 @@ function buildJobFile(
   recommendation: CandidateTopic & { signal?: string },
   outputDir: string
 ): { jobId: string; filePath: string } {
-  const jobId = `mj_auto_${Date.now().toString(36)}`;
+  const jobId = `mj_auto_${Date.now().toString(36)}_${Math.random().toString(36).slice(2, 6)}`;
   const filePath = join(outputDir, `${jobId}.json`);
 
   const job = {
