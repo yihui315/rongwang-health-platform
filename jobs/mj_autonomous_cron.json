@@ -1,0 +1,36 @@
+{
+  "job_id": "mj_autonomous_cron",
+  "trigger": "cron",
+  "locale": "zh-CN",
+  "source": {
+    "type": "autonomous"
+  },
+  "content": {
+    "template_key": "health_education",
+    "max_words": 800,
+    "human_review_required": false,
+    "min_source_count": 2
+  },
+  "seo": {
+    "primary_keyword": "",
+    "secondary_keywords": [],
+    "schema_types": ["Article"],
+    "min_ready_score": 70
+  },
+  "distribution": {
+    "publish_mode": "draft",
+    "channels": [
+      { "platform": "wordpress", "required": true }
+    ]
+  },
+  "tracking": {
+    "utm_campaign": "auto_marketing",
+    "utm_medium": "content_ai",
+    "conversion_event": "blog_cta_clicked"
+  },
+  "runtime": {
+    "timeout_seconds": 300,
+    "max_retries": 2,
+    "shadow_mode": false
+  }
+}
