@@ -1,0 +1,29 @@
+{
+  "jobId": "mj_rongwang_sleep_001_v2",
+  "idempotencyKey": "idemp_rongwang_sleep_20250614_001",
+  "sourceDigest": "8af15adc91863f28",
+  "locale": "zh-CN",
+  "templateKey": "health_article_standard",
+  "primaryKeyword": "睡眠不好怎么调理",
+  "secondaryKeywords": [
+    "睡眠障碍调理",
+    "改善睡眠的方法",
+    "中医调理睡眠"
+  ],
+  "titleHint": "睡眠不好怎么调理",
+  "humanReviewRequired": true,
+  "reviewerRole": "medical_editor",
+  "minSourceCount": 2,
+  "maxWords": 1500,
+  "publishMode": "draft",
+  "channels": [
+    "wechat",
+    "wordpress"
+  ],
+  "utmCampaign": "sleep_topic_2025q2",
+  "utmMedium": "marketing_pipeline",
+  "conversionEvent": "ai_health_check_start",
+  "timeoutSeconds": 300,
+  "maxRetries": 2,
+  "shadowMode": true
+}

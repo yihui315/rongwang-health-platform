@@ -1,0 +1,40 @@
+{
+  "job_id": "mj_test_wp_publish",
+  "trigger": "manual",
+  "locale": "zh-CN",
+  "source": {
+    "type": "topic",
+    "topic": "NAD+抗衰老机制"
+  },
+  "content": {
+    "template_key": "health_education",
+    "max_words": 800,
+    "human_review_required": false,
+    "min_source_count": 2
+  },
+  "seo": {
+    "primary_keyword": "NAD+抗衰老",
+    "secondary_keywords": [
+      "NMN与NAD+区别",
+      "NAD+补充剂科学"
+    ],
+    "schema_types": ["Article"],
+    "min_ready_score": 70
+  },
+  "distribution": {
+    "publish_mode": "draft",
+    "channels": [
+      { "platform": "wordpress", "required": true }
+    ]
+  },
+  "tracking": {
+    "utm_campaign": "auto_marketing_test",
+    "utm_medium": "content_ai",
+    "conversion_event": "blog_cta_clicked"
+  },
+  "runtime": {
+    "timeout_seconds": 300,
+    "max_retries": 2,
+    "shadow_mode": false
+  }
+}

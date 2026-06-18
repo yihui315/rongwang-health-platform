@@ -1,0 +1,45 @@
+{
+  "job_id": "mj_rongwang_gut_001",
+  "idempotency_key": "idemp_rongwang_gut_20250615_001",
+  "trigger": "manual",
+  "locale": "zh-CN",
+  "source": {
+    "type": "topic",
+    "topic": "肠胃不好怎么调理",
+    "title_hint": "肠胃不好怎么调理"
+  },
+  "content": {
+    "template_key": "health_article_standard",
+    "max_words": 1500,
+    "human_review_required": true,
+    "reviewer_role": "medical_editor",
+    "min_source_count": 2
+  },
+  "seo": {
+    "primary_keyword": "肠胃不好怎么调理",
+    "secondary_keywords": [
+      "肠胃虚弱怎么调理",
+      "养胃的方法",
+      "中医调理肠胃"
+    ],
+    "schema_types": ["Article"],
+    "min_ready_score": 70
+  },
+  "distribution": {
+    "publish_mode": "draft",
+    "channels": [
+      { "platform": "wechat", "required": true },
+      { "platform": "wordpress", "required": true }
+    ]
+  },
+  "tracking": {
+    "utm_campaign": "gut_topic_2025q2",
+    "utm_medium": "marketing_pipeline",
+    "conversion_event": "ai_health_check_start"
+  },
+  "runtime": {
+    "timeout_seconds": 300,
+    "max_retries": 2,
+    "shadow_mode": true
+  }
+}

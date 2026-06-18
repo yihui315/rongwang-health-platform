@@ -2,7 +2,7 @@ import {
   getAiConsultHrefForValue,
   getAssessmentHrefForValue,
   getSolutionHrefForValue,
-} from "@/lib/health/consult-entry";
+} from "../../lib/health/consult-entry";
 import { normalizeSolutionSlug, type SolutionSlug } from "@/lib/health/mappings";
 
 function toSlug(value: string | null | undefined): SolutionSlug | null {

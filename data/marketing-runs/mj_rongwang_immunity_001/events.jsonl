@@ -1,0 +1,11 @@
+{"ts":"2026-06-15T02:50:29.597Z","runId":"run_9880ea7c","step":"prepare","level":"info","message":"starting job validation and context preparation"}
+{"ts":"2026-06-15T02:50:29.608Z","runId":"run_9880ea7c","step":"prepare","level":"info","message":"human review skipped (runtime.skip_human_review=true)"}
+{"ts":"2026-06-15T02:50:29.608Z","runId":"run_9880ea7c","step":"prepare","level":"info","message":"context prepared: 免疫力低下怎么调理, shadow=true"}
+{"ts":"2026-06-15T02:50:29.609Z","runId":"run_9880ea7c","step":"generate_content","level":"info","status":"success","durationMs":11,"message":"generating content for: 免疫力低下怎么调理"}
+{"ts":"2026-06-15T02:50:48.586Z","runId":"run_9880ea7c","step":"generate_content","level":"warn","status":"success","durationMs":11,"message":"compliance warnings: 避免诊断、治疗或处方表达。, 避免绝对化效果承诺。"}
+{"ts":"2026-06-15T02:50:48.587Z","runId":"run_9880ea7c","step":"generate_content","level":"info","status":"success","durationMs":11,"message":"content generated: 1919 words"}
+{"ts":"2026-06-15T02:50:48.588Z","runId":"run_9880ea7c","step":"seo_geo_gate","level":"info","status":"success","durationMs":18978,"message":"calculating SEO/GEO Ready Score"}
+{"ts":"2026-06-15T02:50:48.600Z","runId":"run_9880ea7c","step":"seo_geo_gate","level":"info","status":"success","durationMs":18978,"message":"SEO score 100 passed"}
+{"ts":"2026-06-15T02:50:48.600Z","runId":"run_9880ea7c","step":"publish_drafts","level":"info","status":"success","durationMs":12,"message":"skipped: shadow_mode active"}
+{"ts":"2026-06-15T02:50:48.600Z","runId":"run_9880ea7c","step":"baseline_snapshot","level":"info","status":"skipped","durationMs":0,"message":"skipped: shadow_mode active"}
+{"ts":"2026-06-15T02:50:48.601Z","runId":"run_9880ea7c","step":"finalize","level":"info","status":"skipped","durationMs":0,"message":"writing run record and events"}

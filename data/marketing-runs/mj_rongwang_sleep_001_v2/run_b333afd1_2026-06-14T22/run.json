@@ -1,0 +1,149 @@
+{
+  "runId": "run_b333afd1",
+  "jobId": "mj_rongwang_sleep_001_v2",
+  "trigger": "manual",
+  "status": "success",
+  "startedAt": "2026-06-14T22:27:35.445Z",
+  "endedAt": "2026-06-14T22:27:50.446Z",
+  "totalDurationMs": 0,
+  "shadowMode": true,
+  "steps": [
+    {
+      "step": "prepare",
+      "status": "success",
+      "startedAt": "2026-06-14T22:27:35.462Z",
+      "endedAt": "2026-06-14T22:27:35.462Z",
+      "durationMs": 15,
+      "retryCount": 0,
+      "retryable": false,
+      "nextAction": "continue",
+      "evidence": [],
+      "output": {
+        "jobId": "mj_rongwang_sleep_001_v2",
+        "idempotencyKey": "idemp_rongwang_sleep_20250614_001",
+        "sourceDigest": "8af15adc91863f28",
+        "locale": "zh-CN",
+        "templateKey": "health_article_standard",
+        "primaryKeyword": "睡眠不好怎么调理",
+        "secondaryKeywords": [
+          "睡眠障碍调理",
+          "改善睡眠的方法",
+          "中医调理睡眠"
+        ],
+        "titleHint": "睡眠不好怎么调理",
+        "humanReviewRequired": true,
+        "reviewerRole": "medical_editor",
+        "minSourceCount": 2,
+        "maxWords": 1500,
+        "publishMode": "draft",
+        "channels": [
+          "wechat",
+          "wordpress"
+        ],
+        "utmCampaign": "sleep_topic_2025q2",
+        "utmMedium": "marketing_pipeline",
+        "conversionEvent": "ai_health_check_start",
+        "timeoutSeconds": 300,
+        "maxRetries": 2,
+        "shadowMode": true
+      }
+    },
+    {
+      "step": "generate_content",
+      "status": "success",
+      "startedAt": "2026-06-14T22:27:50.162Z",
+      "endedAt": "2026-06-14T22:27:50.162Z",
+      "durationMs": 14700,
+      "retryCount": 0,
+      "retryable": false,
+      "nextAction": "continue",
+      "evidence": [
+        {
+          "kind": "markdown",
+          "path": "/root/rongwang-health-platform/data/marketing-runs/mj_rongwang_sleep_001_v2/run_b333afd1_2026-06-14T22/article.md"
+        }
+      ],
+      "output": {
+        "title": "睡眠不好怎么调理",
+        "content": "# 睡眠不好怎么调理\n\n## 前言\n\n夜深人静，您是否还在辗转反侧，数着绵羊却依然无法入睡？白天疲惫不堪，晚上却精神亢奋——这种“睡眠不好”的困扰，正在悄悄影响着无数人的生活质量。长期睡眠障碍不仅让人精力不济，还可能引发情绪波动、注意力下降等问题。其实，改善睡眠并非无章可循，通过科学的生活方式调整和中医调理思路，我们可以逐步找回安稳的睡眠节奏。\n\n## 睡眠不好怎么调理：从生活习惯入手\n\n### 建立规律的生物钟\n\n睡眠不好怎么调理？第一步往往是调整作息节律。人体内部有一个精密的“生物钟”，它通过光照、饮食、活动等信号来调节睡眠-觉醒周期。如果您经常熬夜或作息不规律，生物钟就会紊乱，导致入睡困难或早醒。\n\n建议每天固定时间上床和起床，即使在周末也尽量保持一致。睡前1小时关闭手机、电脑等电子设备，因为蓝光会抑制褪黑素分泌，干扰睡眠信号。可以尝试用暖色调灯光、听轻柔音乐或阅读纸质书来过渡到睡眠状态。这种规律性坚持2-4周，身体会逐渐形成自然的睡眠节律，帮助改善睡眠质量。\n\n### 优化睡眠环境与饮食\n\n睡眠障碍调理离不开对环境的关注。卧室温度保持在18-22摄氏度、湿度在50%-60%较为适宜。选择遮光窗帘、使用耳塞或白噪音机，减少外界干扰。床垫和枕头要符合人体工学，支撑颈椎和腰椎的自然曲线。\n\n饮食方面，晚餐不宜过饱或过晚，睡前3小时避免进食。咖啡因（咖啡、浓茶、可乐）和尼古丁会刺激神经系统，建议下午4点后停止摄入。酒精虽然能让人快速入睡，但会破坏深度睡眠结构，导致夜间易醒。可以尝试睡前喝一小杯温牛奶或酸枣仁茶，查阅研究文献显示，这些食物中的色氨酸和甘氨酸可能对促进放松有辅助参考价值。\n\n## 改善睡眠的方法：中医调理思路\n\n### 辨证看待失眠类型\n\n中医调理睡眠讲究“因人而异”，不同体质的人睡眠障碍表现不同。常见类型包括：\n\n- **心脾两虚型**：表现为多梦易醒、心悸健忘、面色萎黄，常见于思虑过度、用脑频繁的人群。调理方向以补益心脾为主，可参考食用龙眼肉、红枣、莲子等食材。\n- **肝火扰心型**：表现为入睡困难、烦躁易怒、口苦咽干，多见于压力大、情绪紧张者。调理方向以疏肝清热为主，菊花、决明子、夏枯草等可作为健康辅助参考。\n- **阴虚火旺型**：表现为心烦不寐、手足心热、盗汗，常见于更年期女性或长期熬夜者。调理方向以滋阴降火为主，百合、麦冬、枸杞等可适当搭配。\n\n### 中医非药物调理方法\n\n改善睡眠的方法中，中医外治法值得关注。睡前用40℃左右温水泡脚15-20分钟，水位没过脚踝，可加入艾叶或生姜片，有助于引火归元、放松身心。按揉“安眠穴”（耳垂后凹陷处）和“神门穴”（手腕内侧小指侧）各3-5分钟，力度以酸胀感为宜，查阅研究文献显示，这类穴位刺激可能对调节自主神经有辅助参考价值。\n\n此外，八段锦、太极拳等柔和运动，以及腹式呼吸练习（吸气4秒、屏气7秒、呼气8秒），都能帮助降低交感神经兴奋度，为入睡创造生理条件。建议在睡前1小时进行，避免剧烈运动。\n\n## 先评估，再看方案\n\n每个人的睡眠问题背后，可能涉及不同的生理、心理或环境因素。盲目尝试各种方法，不仅效果有限，还可能延误根本问题的解决。因此，我们建议您在调整生活方式之前，先进行一次系统的健康评估。\n\n通过AI健康评估，您可以获得个性化的睡眠调理建议，包括饮食搭配、作息调整、情绪管理等多维度方案。评估过程仅需3-5分钟，基于您填写的睡眠时长、入睡时间、夜间醒来次数、日间精神状态等信息，结合中医体质辨识模型，生成专属调理参考。点击下方按钮，开始您的睡眠健康评估，迈出改善睡眠的第一步。\n\n---\n\n**免责声明**：本内容仅供健康教育参考，不构成医学建议。如果您长期存在严重睡眠障碍，或伴有心悸、胸闷、头痛等症状，或正在服用其他药物，请及时咨询专业医生。所有调理方法均需结合个人体质，效果因人而异，不可替代正规医疗诊断与治疗。",
+        "excerpt": "睡眠不好怎么调理\n\n 前言\n\n夜深人静，您是否还在辗转反侧，数着绵羊却依然无法入睡？白天疲惫不堪，晚上却精神亢奋——这种“睡眠不好”的困扰，正在悄悄影响着无数人的生活质量。长期睡眠障碍不仅让人精力不济，还可能引发情绪波动、注意力下降等问题。其实，改善睡眠并非无章可循，通过科学的生活方式调整和中医调理思路，我们可以逐步找回安稳的睡眠节奏。\n\n 睡眠不好怎么调理：从生活习惯入手",
+        "wordCount": 1538,
+        "compliance": {
+          "approved": false,
+          "warnings": [
+            "避免诊断、治疗或处方表达。"
+          ],
+          "safeDisclaimer": "本内容仅供健康教育和一般参考，不构成医学诊断、治疗建议或处方；若症状严重、持续或正在服药，请咨询医生或药师。"
+        }
+      }
+    },
+    {
+      "step": "seo_geo_gate",
+      "status": "success",
+      "startedAt": "2026-06-14T22:27:50.446Z",
+      "endedAt": "2026-06-14T22:27:50.446Z",
+      "durationMs": 284,
+      "retryCount": 0,
+      "retryable": false,
+      "nextAction": "continue",
+      "evidence": [
+        {
+          "kind": "markdown",
+          "path": "/root/rongwang-health-platform/data/marketing-runs/mj_rongwang_sleep_001_v2/run_b333afd1_2026-06-14T22/article.md"
+        },
+        {
+          "kind": "json",
+          "path": "/root/rongwang-health-platform/data/marketing-runs/mj_rongwang_sleep_001_v2/run_b333afd1_2026-06-14T22/seo-report.json"
+        }
+      ],
+      "output": {
+        "title_h1": 20,
+        "author_reviewer_sources": 20,
+        "content_uniqueness": 15,
+        "article_jsonld": 15,
+        "meta_canonical_date": 25,
+        "internal_links_cta": 5,
+        "image_alt_visibility": 5,
+        "total": 100,
+        "passed": true,
+        "blockers": []
+      }
+    },
+    {
+      "step": "publish_drafts",
+      "status": "skipped",
+      "startedAt": "2026-06-14T22:27:50.446Z",
+      "endedAt": "2026-06-14T22:27:50.446Z",
+      "durationMs": 0,
+      "retryCount": 0,
+      "retryable": false,
+      "nextAction": "skip_optional",
+      "evidence": []
+    },
+    {
+      "step": "baseline_snapshot",
+      "status": "skipped",
+      "startedAt": "2026-06-14T22:27:50.446Z",
+      "endedAt": "2026-06-14T22:27:50.446Z",
+      "durationMs": 0,
+      "retryCount": 0,
+      "retryable": false,
+      "nextAction": "skip_optional",
+      "evidence": []
+    }
+  ],
+  "seoReadyScore": {
+    "title_h1": 20,
+    "author_reviewer_sources": 20,
+    "content_uniqueness": 15,
+    "article_jsonld": 15,
+    "meta_canonical_date": 25,
+    "internal_links_cta": 5,
+    "image_alt_visibility": 5,
+    "total": 100,
+    "passed": true,
+    "blockers": []
+  },
+  "idempotencyKey": "idemp_rongwang_sleep_20250614_001",
+  "evidenceDir": "/root/rongwang-health-platform/data/marketing-runs/mj_rongwang_sleep_001_v2/run_b333afd1_2026-06-14T22"
+}

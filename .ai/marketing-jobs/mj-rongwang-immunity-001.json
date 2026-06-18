@@ -1,0 +1,45 @@
+{
+  "job_id": "mj_rongwang_immunity_001",
+  "idempotency_key": "idemp_rongwang_immunity_20250615_001",
+  "trigger": "manual",
+  "locale": "zh-CN",
+  "source": {
+    "type": "topic",
+    "topic": "免疫力低下怎么调理",
+    "title_hint": "免疫力低下怎么调理"
+  },
+  "content": {
+    "template_key": "health_article_standard",
+    "max_words": 1500,
+    "human_review_required": true,
+    "reviewer_role": "medical_editor",
+    "min_source_count": 2
+  },
+  "seo": {
+    "primary_keyword": "免疫力低下怎么调理",
+    "secondary_keywords": [
+      "免疫力低下的原因",
+      "如何提高免疫力",
+      "免疫调理方法"
+    ],
+    "schema_types": ["Article"],
+    "min_ready_score": 70
+  },
+  "distribution": {
+    "publish_mode": "draft",
+    "channels": [
+      { "platform": "wechat", "required": true },
+      { "platform": "wordpress", "required": true }
+    ]
+  },
+  "tracking": {
+    "utm_campaign": "immunity_topic_2025q2",
+    "utm_medium": "marketing_pipeline",
+    "conversion_event": "ai_health_check_start"
+  },
+  "runtime": {
+    "timeout_seconds": 300,
+    "max_retries": 2,
+    "shadow_mode": true
+  }
+}

@@ -1,0 +1,22 @@
+{"ts":"2026-06-14T22:27:35.446Z","runId":"run_b333afd1","step":"prepare","level":"info","message":"starting job validation and context preparation"}
+{"ts":"2026-06-14T22:27:35.461Z","runId":"run_b333afd1","step":"prepare","level":"info","message":"human review skipped (runtime.skip_human_review=true)"}
+{"ts":"2026-06-14T22:27:35.461Z","runId":"run_b333afd1","step":"prepare","level":"info","message":"context prepared: 睡眠不好怎么调理, shadow=true"}
+{"ts":"2026-06-14T22:27:35.462Z","runId":"run_b333afd1","step":"generate_content","level":"info","status":"success","durationMs":15,"message":"generating content for: 睡眠不好怎么调理"}
+{"ts":"2026-06-14T22:27:50.161Z","runId":"run_b333afd1","step":"generate_content","level":"warn","status":"success","durationMs":15,"message":"compliance warnings: 避免诊断、治疗或处方表达。"}
+{"ts":"2026-06-14T22:27:50.162Z","runId":"run_b333afd1","step":"generate_content","level":"info","status":"success","durationMs":15,"message":"content generated: 1538 words"}
+{"ts":"2026-06-14T22:27:50.162Z","runId":"run_b333afd1","step":"seo_geo_gate","level":"info","status":"success","durationMs":14700,"message":"calculating SEO/GEO Ready Score"}
+{"ts":"2026-06-14T22:27:50.446Z","runId":"run_b333afd1","step":"seo_geo_gate","level":"info","status":"success","durationMs":14700,"message":"SEO score 100 passed"}
+{"ts":"2026-06-14T22:27:50.446Z","runId":"run_b333afd1","step":"publish_drafts","level":"info","status":"success","durationMs":284,"message":"skipped: shadow_mode active"}
+{"ts":"2026-06-14T22:27:50.446Z","runId":"run_b333afd1","step":"baseline_snapshot","level":"info","status":"skipped","durationMs":0,"message":"skipped: shadow_mode active"}
+{"ts":"2026-06-14T22:27:50.446Z","runId":"run_b333afd1","step":"finalize","level":"info","status":"skipped","durationMs":0,"message":"writing run record and events"}
+{"ts":"2026-06-15T02:35:54.746Z","runId":"run_4c2a631d","step":"prepare","level":"info","message":"starting job validation and context preparation"}
+{"ts":"2026-06-15T02:35:54.759Z","runId":"run_4c2a631d","step":"prepare","level":"info","message":"human review skipped (runtime.skip_human_review=true)"}
+{"ts":"2026-06-15T02:35:54.759Z","runId":"run_4c2a631d","step":"prepare","level":"info","message":"context prepared: 睡眠不好怎么调理, shadow=true"}
+{"ts":"2026-06-15T02:35:54.760Z","runId":"run_4c2a631d","step":"generate_content","level":"info","status":"success","durationMs":13,"message":"generating content for: 睡眠不好怎么调理"}
+{"ts":"2026-06-15T02:36:12.657Z","runId":"run_4c2a631d","step":"generate_content","level":"warn","status":"success","durationMs":13,"message":"compliance warnings: 避免诊断、治疗或处方表达。, 避免安全性或优越性绝对承诺。"}
+{"ts":"2026-06-15T02:36:12.659Z","runId":"run_4c2a631d","step":"generate_content","level":"info","status":"success","durationMs":13,"message":"content generated: 2063 words"}
+{"ts":"2026-06-15T02:36:12.660Z","runId":"run_4c2a631d","step":"seo_geo_gate","level":"info","status":"success","durationMs":17899,"message":"calculating SEO/GEO Ready Score"}
+{"ts":"2026-06-15T02:36:12.678Z","runId":"run_4c2a631d","step":"seo_geo_gate","level":"info","status":"success","durationMs":17899,"message":"SEO score 100 passed"}
+{"ts":"2026-06-15T02:36:12.679Z","runId":"run_4c2a631d","step":"publish_drafts","level":"info","status":"success","durationMs":19,"message":"skipped: shadow_mode active"}
+{"ts":"2026-06-15T02:36:12.679Z","runId":"run_4c2a631d","step":"baseline_snapshot","level":"info","status":"skipped","durationMs":0,"message":"skipped: shadow_mode active"}
+{"ts":"2026-06-15T02:36:12.680Z","runId":"run_4c2a631d","step":"finalize","level":"info","status":"skipped","durationMs":0,"message":"writing run record and events"}

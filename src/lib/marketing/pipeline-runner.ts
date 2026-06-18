@@ -730,6 +730,15 @@ ${COMPLIANCE_RULES}
           runId: this.runId,
         });
       }
+      if (platform === 'wordpress') {
+        const { publishWordPressDraft } = await import('./adapters/wordpress-rest');
+        // publish_mode 'draft' creates WP draft; 'none'/'manual_package' skip this step entirely
+        return await publishWordPressDraft(
+          { title: content.title, content: content.content, excerpt: content.excerpt },
+          { runId: this.runId, utmCampaign: ctx.utmCampaign },
+          'draft'
+        );
+      }
       // Other platforms: fall back to manual_package
       return { platform, status: 'skipped', skippedReason: `${platform} not yet implemented, manual_package mode` };
     } catch (err) {
