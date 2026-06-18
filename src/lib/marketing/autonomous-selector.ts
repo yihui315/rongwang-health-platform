@@ -207,7 +207,7 @@ function buildJobFile(
       min_ready_score: 70,
     },
     distribution: {
-      publish_mode: 'draft',
+      publish_mode: 'publish',
       channels: [
         { platform: 'wordpress' },
       ],
