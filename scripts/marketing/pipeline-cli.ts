@@ -266,6 +266,23 @@ async function cmdEvidence(jobId: string) {
         await cmdRun(target);
         break;
       }
+      case 'run-latest': {
+        // Find the most recently generated autonomous job file and run it
+        const { readdirSync, statSync } = await import('fs');
+        const jobsDir = join(PROJECT_ROOT, 'jobs');
+        const autoJobs = readdirSync(jobsDir)
+          .filter(f => f.startsWith('mj_auto_') && f.endsWith('.json'))
+          .map(f => ({ file: f, mtime: statSync(join(jobsDir, f)).mtimeMs }))
+          .sort((a, b) => b.mtime - a.mtime);
+        if (!autoJobs.length) {
+          console.error('❌ No autonomous job files found in jobs/');
+          process.exit(1);
+        }
+        const latest = join(jobsDir, autoJobs[0].file);
+        console.log(`🤖 Running latest autonomous job: ${autoJobs[0].file}`);
+        await cmdRun(latest);
+        break;
+      }
       case 'status': {
         if (!target) {
           console.error('Usage: pipeline-cli.ts status <job_id> [--run-id <id>]');
