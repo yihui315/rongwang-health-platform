@@ -1,0 +1,57 @@
+{
+  "generated": 2,
+  "jobs": [
+    {
+      "jobId": "mj_auto_mqk33a2h_5a5z",
+      "filePath": "/root/rongwang-health-platform/jobs/mj_auto_mqk33a2h_5a5z.json",
+      "topic": "辅酶Q10心脏健康",
+      "recommendation": {
+        "topic": "辅酶Q10心脏健康",
+        "primaryKeyword": "辅酶Q10",
+        "secondaryKeywords": [
+          "辅酶Q10功效",
+          "辅酶Q10心脏",
+          "辅酶Q10服用方法"
+        ],
+        "planSlug": "cardio",
+        "reason": "该品类有0次点击记录，转化信号强",
+        "score": 60,
+        "signal": "click_data"
+      }
+    },
+    {
+      "jobId": "mj_auto_mqk33a2i_lxj5",
+      "filePath": "/root/rongwang-health-platform/jobs/mj_auto_mqk33a2i_lxj5.json",
+      "topic": "褪黑素睡眠",
+      "recommendation": {
+        "topic": "褪黑素睡眠",
+        "primaryKeyword": "褪黑素",
+        "secondaryKeywords": [
+          "褪黑素副作用",
+          "褪黑素剂量",
+          "褪黑素失眠"
+        ],
+        "planSlug": "sleep",
+        "reason": "该品类有0次点击记录，转化信号强",
+        "score": 60,
+        "signal": "click_data"
+      }
+    }
+  ],
+  "skipped": [
+    "胶原蛋白流失",
+    "护肝片解酒",
+    "叶黄素护眼",
+    "维生素D3补钙",
+    "Omega3鱼油",
+    "益生菌肠道",
+    "镁元素减压",
+    "抗疲劳NADH",
+    "跨境购物避坑"
+  ],
+  "clickDataSummary": {
+    "total": 0,
+    "topSources": [],
+    "topSolutions": []
+  }
+}

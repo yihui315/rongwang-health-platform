@@ -1,0 +1,10 @@
+{"ts":"2026-06-18T22:43:32.491Z","runId":"run_f57dd0f4","step":"prepare","level":"info","message":"starting job validation and context preparation"}
+{"ts":"2026-06-18T22:43:32.497Z","runId":"run_f57dd0f4","step":"prepare","level":"info","message":"context prepared: 褪黑素, shadow=false"}
+{"ts":"2026-06-18T22:43:32.499Z","runId":"run_f57dd0f4","step":"generate_content","level":"info","status":"success","durationMs":7,"message":"generating content for: 褪黑素"}
+{"ts":"2026-06-18T22:43:44.835Z","runId":"run_f57dd0f4","step":"generate_content","level":"warn","status":"success","durationMs":7,"message":"compliance warnings: 避免诊断、治疗或处方表达。, 避免绝对化效果承诺。, 避免安全性或优越性绝对承诺。"}
+{"ts":"2026-06-18T22:43:44.835Z","runId":"run_f57dd0f4","step":"generate_content","level":"info","status":"success","durationMs":7,"message":"content generated: 1480 words"}
+{"ts":"2026-06-18T22:43:44.836Z","runId":"run_f57dd0f4","step":"seo_geo_gate","level":"info","status":"success","durationMs":12336,"message":"calculating SEO/GEO Ready Score"}
+{"ts":"2026-06-18T22:43:44.844Z","runId":"run_f57dd0f4","step":"seo_geo_gate","level":"info","status":"success","durationMs":12336,"message":"SEO score 100 passed"}
+{"ts":"2026-06-18T22:43:44.846Z","runId":"run_f57dd0f4","step":"publish_drafts","level":"info","status":"success","durationMs":9,"message":"publishing to wordpress"}
+{"ts":"2026-06-18T22:43:46.860Z","runId":"run_f57dd0f4","step":"baseline_snapshot","level":"info","status":"success","durationMs":2013,"message":"capturing baseline snapshot"}
+{"ts":"2026-06-18T22:43:46.863Z","runId":"run_f57dd0f4","step":"finalize","level":"info","status":"success","durationMs":3,"message":"writing run record and events"}

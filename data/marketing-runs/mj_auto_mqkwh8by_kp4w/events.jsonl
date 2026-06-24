@@ -1,0 +1,10 @@
+{"ts":"2026-06-19T12:23:54.552Z","runId":"run_8914d1a8","step":"prepare","level":"info","message":"starting job validation and context preparation"}
+{"ts":"2026-06-19T12:23:54.564Z","runId":"run_8914d1a8","step":"prepare","level":"info","message":"context prepared: 维生素D3, shadow=false"}
+{"ts":"2026-06-19T12:23:54.566Z","runId":"run_8914d1a8","step":"generate_content","level":"info","status":"success","durationMs":14,"message":"generating content for: 维生素D3"}
+{"ts":"2026-06-19T12:24:07.141Z","runId":"run_8914d1a8","step":"generate_content","level":"warn","status":"success","durationMs":14,"message":"compliance warnings: 避免诊断、治疗或处方表达。"}
+{"ts":"2026-06-19T12:24:07.141Z","runId":"run_8914d1a8","step":"generate_content","level":"info","status":"success","durationMs":14,"message":"content generated: 1286 words"}
+{"ts":"2026-06-19T12:24:07.143Z","runId":"run_8914d1a8","step":"seo_geo_gate","level":"info","status":"success","durationMs":12576,"message":"calculating SEO/GEO Ready Score"}
+{"ts":"2026-06-19T12:24:07.153Z","runId":"run_8914d1a8","step":"seo_geo_gate","level":"info","status":"success","durationMs":12576,"message":"SEO score 100 passed"}
+{"ts":"2026-06-19T12:24:07.155Z","runId":"run_8914d1a8","step":"publish_drafts","level":"info","status":"success","durationMs":11,"message":"publishing to wordpress"}
+{"ts":"2026-06-19T12:24:10.295Z","runId":"run_8914d1a8","step":"baseline_snapshot","level":"info","status":"success","durationMs":3140,"message":"capturing baseline snapshot"}
+{"ts":"2026-06-19T12:24:10.304Z","runId":"run_8914d1a8","step":"finalize","level":"info","status":"success","durationMs":8,"message":"writing run record and events"}

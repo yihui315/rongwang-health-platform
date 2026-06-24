@@ -8,3 +8,52 @@
 {"ts":"2026-06-18T07:55:03.290Z","runId":"run_69ffd443","step":"publish_drafts","level":"info","status":"degraded","durationMs":9,"message":"publishing to wordpress"}
 {"ts":"2026-06-18T07:55:05.528Z","runId":"run_69ffd443","step":"baseline_snapshot","level":"info","status":"success","durationMs":2237,"message":"capturing baseline snapshot"}
 {"ts":"2026-06-18T07:55:05.536Z","runId":"run_69ffd443","step":"finalize","level":"info","status":"success","durationMs":7,"message":"writing run record and events"}
+{"ts":"2026-06-18T08:33:06.307Z","runId":"run_2d973179","step":"prepare","level":"info","message":"starting job validation and context preparation"}
+{"ts":"2026-06-18T08:33:06.337Z","runId":"run_2d973179","step":"prepare","level":"info","message":"context prepared: NAD+抗衰老, shadow=false"}
+{"ts":"2026-06-18T08:33:06.338Z","runId":"run_2d973179","step":"generate_content","level":"info","status":"success","durationMs":30,"message":"generating content for: NAD+抗衰老"}
+{"ts":"2026-06-18T08:33:16.712Z","runId":"run_2d973179","step":"generate_content","level":"warn","status":"success","durationMs":30,"message":"compliance warnings: 避免诊断、治疗或处方表达。"}
+{"ts":"2026-06-18T08:33:16.715Z","runId":"run_2d973179","step":"generate_content","level":"info","status":"success","durationMs":30,"message":"content generated: 1315 words"}
+{"ts":"2026-06-18T08:33:16.716Z","runId":"run_2d973179","step":"seo_geo_gate","level":"info","status":"success","durationMs":10377,"message":"calculating SEO/GEO Ready Score"}
+{"ts":"2026-06-18T08:33:17.028Z","runId":"run_2d973179","step":"seo_geo_gate","level":"warn","status":"success","durationMs":10377,"message":"SEO score 75 below threshold keyword density not optimal"}
+{"ts":"2026-06-18T08:33:17.029Z","runId":"run_2d973179","step":"publish_drafts","level":"info","status":"degraded","durationMs":313,"message":"publishing to wordpress"}
+{"ts":"2026-06-18T08:33:19.511Z","runId":"run_2d973179","step":"baseline_snapshot","level":"info","status":"success","durationMs":2481,"message":"capturing baseline snapshot"}
+{"ts":"2026-06-18T08:33:19.569Z","runId":"run_2d973179","step":"finalize","level":"info","status":"success","durationMs":58,"message":"writing run record and events"}
+{"ts":"2026-06-18T08:40:47.592Z","runId":"run_cf8e7d25","step":"prepare","level":"info","message":"starting job validation and context preparation"}
+{"ts":"2026-06-18T08:40:47.657Z","runId":"run_cf8e7d25","step":"prepare","level":"info","message":"context prepared: NAD+抗衰老, shadow=false"}
+{"ts":"2026-06-18T08:40:47.659Z","runId":"run_cf8e7d25","step":"generate_content","level":"info","status":"success","durationMs":66,"message":"generating content for: NAD+抗衰老"}
+{"ts":"2026-06-18T08:40:59.178Z","runId":"run_cf8e7d25","step":"generate_content","level":"warn","status":"success","durationMs":66,"message":"compliance warnings: 避免诊断、治疗或处方表达。"}
+{"ts":"2026-06-18T08:40:59.179Z","runId":"run_cf8e7d25","step":"generate_content","level":"info","status":"success","durationMs":66,"message":"content generated: 1384 words"}
+{"ts":"2026-06-18T08:40:59.180Z","runId":"run_cf8e7d25","step":"seo_geo_gate","level":"info","status":"success","durationMs":11521,"message":"calculating SEO/GEO Ready Score"}
+{"ts":"2026-06-18T08:40:59.199Z","runId":"run_cf8e7d25","step":"seo_geo_gate","level":"warn","status":"success","durationMs":11521,"message":"SEO score 75 below threshold keyword density not optimal"}
+{"ts":"2026-06-18T08:40:59.200Z","runId":"run_cf8e7d25","step":"publish_drafts","level":"info","status":"degraded","durationMs":20,"message":"publishing to wordpress"}
+{"ts":"2026-06-18T08:41:01.453Z","runId":"run_cf8e7d25","step":"baseline_snapshot","level":"info","status":"success","durationMs":2252,"message":"capturing baseline snapshot"}
+{"ts":"2026-06-18T08:41:01.477Z","runId":"run_cf8e7d25","step":"finalize","level":"info","status":"success","durationMs":24,"message":"writing run record and events"}
+{"ts":"2026-06-18T12:02:19.731Z","runId":"run_c9a84817","step":"prepare","level":"info","message":"starting job validation and context preparation"}
+{"ts":"2026-06-18T12:02:19.774Z","runId":"run_c9a84817","step":"prepare","level":"info","message":"context prepared: NAD+抗衰老, shadow=false"}
+{"ts":"2026-06-18T12:02:19.776Z","runId":"run_c9a84817","step":"generate_content","level":"info","status":"success","durationMs":44,"message":"generating content for: NAD+抗衰老"}
+{"ts":"2026-06-18T12:02:29.864Z","runId":"run_c9a84817","step":"generate_content","level":"warn","status":"success","durationMs":44,"message":"compliance warnings: 避免诊断、治疗或处方表达。"}
+{"ts":"2026-06-18T12:02:29.867Z","runId":"run_c9a84817","step":"generate_content","level":"info","status":"success","durationMs":44,"message":"content generated: 1494 words"}
+{"ts":"2026-06-18T12:02:29.868Z","runId":"run_c9a84817","step":"seo_geo_gate","level":"info","status":"success","durationMs":10091,"message":"calculating SEO/GEO Ready Score"}
+{"ts":"2026-06-18T12:02:29.906Z","runId":"run_c9a84817","step":"seo_geo_gate","level":"warn","status":"success","durationMs":10091,"message":"SEO score 75 below threshold keyword density not optimal"}
+{"ts":"2026-06-18T12:02:29.907Z","runId":"run_c9a84817","step":"publish_drafts","level":"info","status":"degraded","durationMs":38,"message":"publishing to wordpress"}
+{"ts":"2026-06-18T12:02:31.836Z","runId":"run_c9a84817","step":"baseline_snapshot","level":"info","status":"success","durationMs":1928,"message":"capturing baseline snapshot"}
+{"ts":"2026-06-18T12:02:31.849Z","runId":"run_c9a84817","step":"finalize","level":"info","status":"success","durationMs":13,"message":"writing run record and events"}
+{"ts":"2026-06-18T12:43:42.229Z","runId":"run_76ecdec3","step":"prepare","level":"info","message":"starting job validation and context preparation"}
+{"ts":"2026-06-18T12:43:42.537Z","runId":"run_76ecdec3","step":"prepare","level":"info","message":"context prepared: NAD+抗衰老, shadow=false"}
+{"ts":"2026-06-18T12:43:42.538Z","runId":"run_76ecdec3","step":"generate_content","level":"info","status":"success","durationMs":308,"message":"generating content for: NAD+抗衰老"}
+{"ts":"2026-06-18T12:43:52.184Z","runId":"run_76ecdec3","step":"generate_content","level":"warn","status":"success","durationMs":308,"message":"compliance warnings: 避免诊断、治疗或处方表达。"}
+{"ts":"2026-06-18T12:43:52.186Z","runId":"run_76ecdec3","step":"generate_content","level":"info","status":"success","durationMs":308,"message":"content generated: 1273 words"}
+{"ts":"2026-06-18T12:43:52.187Z","runId":"run_76ecdec3","step":"seo_geo_gate","level":"info","status":"success","durationMs":9648,"message":"calculating SEO/GEO Ready Score"}
+{"ts":"2026-06-18T12:43:52.215Z","runId":"run_76ecdec3","step":"seo_geo_gate","level":"warn","status":"success","durationMs":9648,"message":"SEO score 75 below threshold keyword density not optimal"}
+{"ts":"2026-06-18T12:43:52.216Z","runId":"run_76ecdec3","step":"publish_drafts","level":"info","status":"degraded","durationMs":30,"message":"publishing to wordpress"}
+{"ts":"2026-06-18T12:43:54.750Z","runId":"run_76ecdec3","step":"baseline_snapshot","level":"info","status":"success","durationMs":2532,"message":"capturing baseline snapshot"}
+{"ts":"2026-06-18T12:43:54.777Z","runId":"run_76ecdec3","step":"finalize","level":"info","status":"success","durationMs":26,"message":"writing run record and events"}
+{"ts":"2026-06-18T22:16:57.118Z","runId":"run_f2bd59c3","step":"prepare","level":"info","message":"starting job validation and context preparation"}
+{"ts":"2026-06-18T22:16:57.156Z","runId":"run_f2bd59c3","step":"prepare","level":"info","message":"context prepared: NAD+抗衰老, shadow=false"}
+{"ts":"2026-06-18T22:16:57.157Z","runId":"run_f2bd59c3","step":"generate_content","level":"info","status":"success","durationMs":38,"message":"generating content for: NAD+抗衰老"}
+{"ts":"2026-06-18T22:17:06.927Z","runId":"run_f2bd59c3","step":"generate_content","level":"info","status":"success","durationMs":38,"message":"content generated: 1172 words"}
+{"ts":"2026-06-18T22:17:06.928Z","runId":"run_f2bd59c3","step":"seo_geo_gate","level":"info","status":"success","durationMs":9770,"message":"calculating SEO/GEO Ready Score"}
+{"ts":"2026-06-18T22:17:06.953Z","runId":"run_f2bd59c3","step":"seo_geo_gate","level":"warn","status":"success","durationMs":9770,"message":"SEO score 75 below threshold keyword density not optimal"}
+{"ts":"2026-06-18T22:17:06.956Z","runId":"run_f2bd59c3","step":"publish_drafts","level":"info","status":"degraded","durationMs":27,"message":"publishing to wordpress"}
+{"ts":"2026-06-18T22:17:09.225Z","runId":"run_f2bd59c3","step":"baseline_snapshot","level":"info","status":"success","durationMs":2268,"message":"capturing baseline snapshot"}
+{"ts":"2026-06-18T22:17:09.238Z","runId":"run_f2bd59c3","step":"finalize","level":"info","status":"success","durationMs":12,"message":"writing run record and events"}

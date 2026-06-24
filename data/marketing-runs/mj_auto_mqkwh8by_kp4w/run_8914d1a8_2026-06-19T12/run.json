@@ -1,0 +1,197 @@
+{
+  "runId": "run_8914d1a8",
+  "jobId": "mj_auto_mqkwh8by_kp4w",
+  "trigger": "cron",
+  "status": "success",
+  "startedAt": "2026-06-19T12:23:54.545Z",
+  "endedAt": "2026-06-19T12:24:10.306Z",
+  "totalDurationMs": 2,
+  "shadowMode": false,
+  "steps": [
+    {
+      "step": "prepare",
+      "status": "success",
+      "startedAt": "2026-06-19T12:23:54.565Z",
+      "endedAt": "2026-06-19T12:23:54.565Z",
+      "durationMs": 14,
+      "retryCount": 0,
+      "retryable": false,
+      "nextAction": "continue",
+      "evidence": [],
+      "output": {
+        "jobId": "mj_auto_mqkwh8by_kp4w",
+        "idempotencyKey": "b4156126b290ae55796ad2af94dcbdec",
+        "sourceDigest": "07b2412afc2fdac1",
+        "locale": "zh-CN",
+        "templateKey": "health_education",
+        "primaryKeyword": "维生素D3",
+        "secondaryKeywords": [
+          "D3功效",
+          "D3缺乏症状",
+          "D3与K2"
+        ],
+        "humanReviewRequired": false,
+        "reviewerRole": "medical_editor",
+        "minSourceCount": 2,
+        "maxWords": 800,
+        "publishMode": "publish",
+        "channels": [
+          "wordpress"
+        ],
+        "utmCampaign": "auto_immune",
+        "utmMedium": "content_ai",
+        "conversionEvent": "blog_cta_clicked",
+        "timeoutSeconds": 300,
+        "maxRetries": 2,
+        "shadowMode": false
+      }
+    },
+    {
+      "step": "generate_content",
+      "status": "success",
+      "startedAt": "2026-06-19T12:24:07.142Z",
+      "endedAt": "2026-06-19T12:24:07.142Z",
+      "durationMs": 12576,
+      "retryCount": 0,
+      "retryable": false,
+      "nextAction": "continue",
+      "evidence": [
+        {
+          "kind": "markdown",
+          "path": "/root/rongwang-health-platform/data/marketing-runs/mj_auto_mqkwh8by_kp4w/run_8914d1a8_2026-06-19T12/article.md"
+        }
+      ],
+      "output": {
+        "title": "维生素D3：阳光维生素的健康密码",
+        "content": "# 维生素D3：阳光维生素的健康密码\n\n## 前言\n\n您是否经常感到疲惫乏力、情绪低落，或者明明注意补钙却依然骨密度偏低？这些看似不相关的困扰，可能都与一种关键营养素——维生素D3的缺乏有关。作为现代人，我们长期待在室内、防晒过度，导致体内维生素D3水平普遍不足。今天，我们就来深入了解这个“阳光维生素”的真实面貌，帮助您科学认识它对健康的重要作用。\n\n## 维生素D3是什么？它为何如此重要？\n\n维生素D3，又称胆钙化醇，是维生素D家族中生物活性最强的一种形式。与植物来源的维生素D2不同，D3主要通过皮肤在阳光照射下合成，也可从动物性食物中获取。在体内，D3需要经过肝脏和肾脏的两次转化，才能成为具有活性的激素样物质。\n\n从健康辅助的角度看，维生素D3的核心作用在于支持钙磷代谢平衡。查阅研究文献可以发现，充足的D3水平有助于促进肠道对钙的吸收，从而支持骨骼健康。此外，D3还参与调节免疫系统功能、细胞生长分化等生理过程。对于长期室内工作、居住在高纬度地区或经常使用防晒霜的人群，D3的补充尤其值得关注。\n\n## D3缺乏的常见症状与高危人群\n\n维生素D3缺乏的症状往往隐匿而多样，容易被忽视。常见的D3缺乏症状包括：不明原因的疲劳、肌肉酸痛、情绪低落、免疫力下降（如容易感冒）、骨骼疼痛等。在儿童中，严重缺乏可能导致佝偻病；在成人中，则可能增加骨质疏松的风险。\n\n哪些人群更容易出现D3缺乏？研究表明，老年人（皮肤合成能力下降）、深色皮肤人群（黑色素阻碍紫外线吸收）、肥胖者（D3易被脂肪组织储存）、消化吸收功能不佳者，以及长期严格素食者，都是D3缺乏的高危群体。如果您发现自己符合上述特征，并伴有相关症状，建议通过血液检测了解自身D3水平，作为健康管理的参考依据。\n\n## D3与K2：为何这对“黄金搭档”值得关注？\n\n在关注维生素D3的同时，您可能也听说过维生素K2。D3与K2的协同作用，是近年来营养学研究的热点之一。简单来说，D3负责“搬运”钙质进入血液，而K2则像“交通指挥员”，引导钙精准沉积到骨骼和牙齿中，避免钙在血管或肾脏等软组织中的异常沉积。\n\n从健康辅助参考的角度看，同时关注D3和K2的摄入，可能有助于更全面地支持骨骼健康与心血管健康。食物中，纳豆是K2含量最丰富的来源，此外，动物肝脏、奶酪、蛋黄中也含有少量K2。如果您考虑使用补充剂，建议选择同时含有D3和K2的产品，并注意查阅产品说明中的剂量信息。当然，任何补充剂的调整都应在了解自身健康状况的基础上进行。\n\n## 先评估，再看方案\n\n每个人的维生素D3水平受年龄、肤色、日照时间、饮食习惯等多重因素影响，补充方案也应因人而异。在盲目购买补充剂之前，建议您先通过科学的评估了解自身状况。您可以点击下方链接，使用我们的AI健康评估工具，输入您的日常习惯、身体感受和基础信息，系统将为您生成个性化的健康参考建议。记住，评估是健康管理的第一步，也是避免盲目补充的关键。\n\n---\n\n**免责声明**：本内容仅供健康教育参考，不构成医学建议。文中提及的营养素作用基于现有研究文献，不能替代专业医疗诊断或治疗。如您出现严重或持续的健康问题，或正在服用药物，请务必咨询专业医生或注册营养师。",
+        "excerpt": "维生素D3：阳光维生素的健康密码\n\n 前言\n\n您是否经常感到疲惫乏力、情绪低落，或者明明注意补钙却依然骨密度偏低？这些看似不相关的困扰，可能都与一种关键营养素——维生素D3的缺乏有关。作为现代人，我们长期待在室内、防晒过度，导致体内维生素D3水平普遍不足。今天，我们就来深入了解这个“阳光维生素”的真实面貌，帮助您科学认识它对健康的重要作用。\n\n 维生素D3是什么？它为何如此重要？\n\n维",
+        "wordCount": 1286,
+        "compliance": {
+          "approved": false,
+          "warnings": [
+            "避免诊断、治疗或处方表达。"
+          ],
+          "safeDisclaimer": "本内容仅供健康教育和一般参考，不构成医学诊断、治疗建议或处方；若症状严重、持续或正在服药，请咨询医生或药师。"
+        }
+      }
+    },
+    {
+      "step": "seo_geo_gate",
+      "status": "success",
+      "startedAt": "2026-06-19T12:24:07.154Z",
+      "endedAt": "2026-06-19T12:24:07.154Z",
+      "durationMs": 11,
+      "retryCount": 0,
+      "retryable": false,
+      "nextAction": "continue",
+      "evidence": [
+        {
+          "kind": "markdown",
+          "path": "/root/rongwang-health-platform/data/marketing-runs/mj_auto_mqkwh8by_kp4w/run_8914d1a8_2026-06-19T12/article.md"
+        },
+        {
+          "kind": "json",
+          "path": "/root/rongwang-health-platform/data/marketing-runs/mj_auto_mqkwh8by_kp4w/run_8914d1a8_2026-06-19T12/seo-report.json"
+        }
+      ],
+      "output": {
+        "title_h1": 20,
+        "author_reviewer_sources": 20,
+        "content_uniqueness": 15,
+        "article_jsonld": 15,
+        "meta_canonical_date": 25,
+        "internal_links_cta": 5,
+        "image_alt_visibility": 5,
+        "total": 100,
+        "passed": true,
+        "blockers": []
+      }
+    },
+    {
+      "step": "publish_drafts",
+      "status": "success",
+      "startedAt": "2026-06-19T12:24:10.294Z",
+      "endedAt": "2026-06-19T12:24:10.294Z",
+      "durationMs": 3140,
+      "retryCount": 0,
+      "retryable": false,
+      "nextAction": "continue",
+      "evidence": [
+        {
+          "kind": "json",
+          "path": "/root/rongwang-health-platform/data/marketing-runs/mj_auto_mqkwh8by_kp4w/run_8914d1a8_2026-06-19T12/publish-summary.json"
+        }
+      ],
+      "output": {
+        "runId": "run_8914d1a8",
+        "requestedChannels": [
+          "wordpress"
+        ],
+        "succeeded": [
+          "wordpress"
+        ],
+        "failed": [],
+        "authMissing": [],
+        "rateLimited": [],
+        "partialSuccess": false,
+        "manualPackageGenerated": false,
+        "totalDurationMs": 3139
+      }
+    },
+    {
+      "step": "baseline_snapshot",
+      "status": "success",
+      "startedAt": "2026-06-19T12:24:10.303Z",
+      "endedAt": "2026-06-19T12:24:10.303Z",
+      "durationMs": 8,
+      "retryCount": 0,
+      "retryable": false,
+      "nextAction": "continue",
+      "evidence": [
+        {
+          "kind": "json",
+          "path": "/root/rongwang-health-platform/data/marketing-runs/mj_auto_mqkwh8by_kp4w/run_8914d1a8_2026-06-19T12/baseline-snapshot.json"
+        }
+      ],
+      "output": {
+        "keyword": "维生素D3",
+        "snapshotAt": "2026-06-19T12:24:10.303Z",
+        "rankData": {
+          "keyword": "维生素D3",
+          "capturedAt": "2026-06-19T12:24:10.302Z",
+          "source": "placeholder",
+          "positions": []
+        }
+      }
+    }
+  ],
+  "publishSummary": {
+    "runId": "run_8914d1a8",
+    "requestedChannels": [
+      "wordpress"
+    ],
+    "succeeded": [
+      "wordpress"
+    ],
+    "failed": [],
+    "authMissing": [],
+    "rateLimited": [],
+    "partialSuccess": false,
+    "manualPackageGenerated": false,
+    "totalDurationMs": 3139
+  },
+  "seoReadyScore": {
+    "title_h1": 20,
+    "author_reviewer_sources": 20,
+    "content_uniqueness": 15,
+    "article_jsonld": 15,
+    "meta_canonical_date": 25,
+    "internal_links_cta": 5,
+    "image_alt_visibility": 5,
+    "total": 100,
+    "passed": true,
+    "blockers": []
+  },
+  "idempotencyKey": "b4156126b290ae55796ad2af94dcbdec",
+  "evidenceDir": "/root/rongwang-health-platform/data/marketing-runs/mj_auto_mqkwh8by_kp4w/run_8914d1a8_2026-06-19T12"
+}

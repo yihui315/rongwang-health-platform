@@ -1,0 +1,27 @@
+{
+  "jobId": "mj_auto_mqkwh8by_kp4w",
+  "idempotencyKey": "b4156126b290ae55796ad2af94dcbdec",
+  "sourceDigest": "07b2412afc2fdac1",
+  "locale": "zh-CN",
+  "templateKey": "health_education",
+  "primaryKeyword": "维生素D3",
+  "secondaryKeywords": [
+    "D3功效",
+    "D3缺乏症状",
+    "D3与K2"
+  ],
+  "humanReviewRequired": false,
+  "reviewerRole": "medical_editor",
+  "minSourceCount": 2,
+  "maxWords": 800,
+  "publishMode": "publish",
+  "channels": [
+    "wordpress"
+  ],
+  "utmCampaign": "auto_immune",
+  "utmMedium": "content_ai",
+  "conversionEvent": "blog_cta_clicked",
+  "timeoutSeconds": 300,
+  "maxRetries": 2,
+  "shadowMode": false
+}

@@ -1,0 +1,57 @@
+{
+  "generated": 2,
+  "jobs": [
+    {
+      "jobId": "mj_auto_mqk2vpet_ykdf",
+      "filePath": "/root/rongwang-health-platform/jobs/mj_auto_mqk2vpet_ykdf.json",
+      "topic": "辅酶Q10心脏健康",
+      "recommendation": {
+        "topic": "辅酶Q10心脏健康",
+        "primaryKeyword": "辅酶Q10",
+        "secondaryKeywords": [
+          "辅酶Q10功效",
+          "辅酶Q10心脏",
+          "辅酶Q10服用方法"
+        ],
+        "planSlug": "cardio",
+        "reason": "该品类有0次点击记录，转化信号强",
+        "score": 60,
+        "signal": "click_data"
+      }
+    },
+    {
+      "jobId": "mj_auto_mqk2vpeu_e042",
+      "filePath": "/root/rongwang-health-platform/jobs/mj_auto_mqk2vpeu_e042.json",
+      "topic": "护肝片解酒",
+      "recommendation": {
+        "topic": "护肝片解酒",
+        "primaryKeyword": "护肝片",
+        "secondaryKeywords": [
+          "护肝片成分",
+          "解酒原理",
+          "护肝片副作用"
+        ],
+        "planSlug": "liver",
+        "reason": "该品类有0次点击记录，转化信号强",
+        "score": 60,
+        "signal": "click_data"
+      }
+    }
+  ],
+  "skipped": [
+    "胶原蛋白流失",
+    "褪黑素睡眠",
+    "叶黄素护眼",
+    "维生素D3补钙",
+    "Omega3鱼油",
+    "益生菌肠道",
+    "镁元素减压",
+    "抗疲劳NADH",
+    "跨境购物避坑"
+  ],
+  "clickDataSummary": {
+    "total": 0,
+    "topSources": [],
+    "topSolutions": []
+  }
+}

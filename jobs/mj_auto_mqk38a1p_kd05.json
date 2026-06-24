@@ -1,0 +1,45 @@
+{
+  "job_id": "mj_auto_mqk38a1p_kd05",
+  "trigger": "cron",
+  "locale": "zh-CN",
+  "source": {
+    "type": "topic",
+    "topic": "叶黄素护眼"
+  },
+  "content": {
+    "template_key": "health_education",
+    "max_words": 800,
+    "human_review_required": false,
+    "min_source_count": 2
+  },
+  "seo": {
+    "primary_keyword": "叶黄素",
+    "secondary_keywords": [
+      "叶黄素功效",
+      "叶黄素儿童",
+      "叶黄素视网膜"
+    ],
+    "schema_types": [
+      "Article"
+    ],
+    "min_ready_score": 70
+  },
+  "distribution": {
+    "publish_mode": "publish",
+    "channels": [
+      {
+        "platform": "wordpress"
+      }
+    ]
+  },
+  "tracking": {
+    "utm_campaign": "auto_immune",
+    "utm_medium": "content_ai",
+    "conversion_event": "blog_cta_clicked"
+  },
+  "runtime": {
+    "timeout_seconds": 300,
+    "max_retries": 2,
+    "shadow_mode": false
+  }
+}

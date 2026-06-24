@@ -1,0 +1,9 @@
+{"ts":"2026-06-18T22:34:53.678Z","runId":"run_515cbdd0","step":"prepare","level":"info","message":"starting job validation and context preparation"}
+{"ts":"2026-06-18T22:34:53.685Z","runId":"run_515cbdd0","step":"prepare","level":"info","message":"context prepared: NMN抗衰老, shadow=false"}
+{"ts":"2026-06-18T22:34:53.687Z","runId":"run_515cbdd0","step":"generate_content","level":"info","status":"success","durationMs":8,"message":"generating content for: NMN抗衰老"}
+{"ts":"2026-06-18T22:35:04.261Z","runId":"run_515cbdd0","step":"generate_content","level":"info","status":"success","durationMs":8,"message":"content generated: 1336 words"}
+{"ts":"2026-06-18T22:35:04.262Z","runId":"run_515cbdd0","step":"seo_geo_gate","level":"info","status":"success","durationMs":10574,"message":"calculating SEO/GEO Ready Score"}
+{"ts":"2026-06-18T22:35:04.271Z","runId":"run_515cbdd0","step":"seo_geo_gate","level":"info","status":"success","durationMs":10574,"message":"SEO score 100 passed"}
+{"ts":"2026-06-18T22:35:04.272Z","runId":"run_515cbdd0","step":"publish_drafts","level":"info","status":"success","durationMs":9,"message":"publishing to wordpress"}
+{"ts":"2026-06-18T22:35:05.134Z","runId":"run_515cbdd0","step":"baseline_snapshot","level":"info","status":"success","durationMs":861,"message":"capturing baseline snapshot"}
+{"ts":"2026-06-18T22:35:05.141Z","runId":"run_515cbdd0","step":"finalize","level":"info","status":"success","durationMs":6,"message":"writing run record and events"}

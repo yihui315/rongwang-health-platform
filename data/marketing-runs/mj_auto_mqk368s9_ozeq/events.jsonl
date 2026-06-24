@@ -1,0 +1,10 @@
+{"ts":"2026-06-18T22:44:36.416Z","runId":"run_f9d70796","step":"prepare","level":"info","message":"starting job validation and context preparation"}
+{"ts":"2026-06-18T22:44:36.424Z","runId":"run_f9d70796","step":"prepare","level":"info","message":"context prepared: 辅酶Q10, shadow=false"}
+{"ts":"2026-06-18T22:44:36.427Z","runId":"run_f9d70796","step":"generate_content","level":"info","status":"success","durationMs":8,"message":"generating content for: 辅酶Q10"}
+{"ts":"2026-06-18T22:44:50.036Z","runId":"run_f9d70796","step":"generate_content","level":"warn","status":"success","durationMs":8,"message":"compliance warnings: 避免诊断、治疗或处方表达。, 避免绝对化效果承诺。"}
+{"ts":"2026-06-18T22:44:50.036Z","runId":"run_f9d70796","step":"generate_content","level":"info","status":"success","durationMs":8,"message":"content generated: 1749 words"}
+{"ts":"2026-06-18T22:44:50.037Z","runId":"run_f9d70796","step":"seo_geo_gate","level":"info","status":"success","durationMs":13609,"message":"calculating SEO/GEO Ready Score"}
+{"ts":"2026-06-18T22:44:50.044Z","runId":"run_f9d70796","step":"seo_geo_gate","level":"info","status":"success","durationMs":13609,"message":"SEO score 100 passed"}
+{"ts":"2026-06-18T22:44:50.045Z","runId":"run_f9d70796","step":"publish_drafts","level":"info","status":"success","durationMs":7,"message":"publishing to wordpress"}
+{"ts":"2026-06-18T22:44:51.768Z","runId":"run_f9d70796","step":"baseline_snapshot","level":"info","status":"success","durationMs":1721,"message":"capturing baseline snapshot"}
+{"ts":"2026-06-18T22:44:51.773Z","runId":"run_f9d70796","step":"finalize","level":"info","status":"success","durationMs":4,"message":"writing run record and events"}

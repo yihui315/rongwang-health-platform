@@ -148,6 +148,13 @@ export default function ConsultExperience() {
       return;
     }
 
+    // Basic email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!form.email || !emailRegex.test(form.email)) {
+      setError("请输入有效的邮箱地址，以便接收评估结果。");
+      return;
+    }
+
     setResponse(null);
     setIsSubmitting(true);
     requestAbortRef.current?.abort();
@@ -181,6 +188,22 @@ export default function ConsultExperience() {
       }
 
       setResponse(validated.data);
+
+      // Fire-and-forget: notify WordPress for email auto-reply + PushPlus
+      fetch("https://blog.rongwang.hk/wp-json/ai-consult-notify/v1/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email: form.email,
+          name: form.email.split("@")[0],
+          age: Number(form.age),
+          gender: form.gender === "male" ? "男性" : form.gender === "female" ? "女性" : "其他",
+          symptoms: form.symptoms.join("、"),
+          result: validated.data.result,
+          consultation_id: validated.data.consultationId,
+        }),
+      }).catch(() => {/* non-critical */});
+
       trackAnalyticsEvent({
         name: "assessment_completed",
         consultationId: validated.data.consultationId,
@@ -235,6 +258,9 @@ export default function ConsultExperience() {
             onSubmit={handleSubmit}
             onAgeChange={(value) =>
               setForm((current) => ({ ...current, age: value }))
+            }
+            onEmailChange={(value) =>
+              setForm((current) => ({ ...current, email: value }))
             }
             onGenderChange={(value) =>
               setForm((current) => ({ ...current, gender: value }))

@@ -1,0 +1,199 @@
+{
+  "runId": "run_f57dd0f4",
+  "jobId": "mj_auto_mqk368sa_9uct",
+  "trigger": "cron",
+  "status": "success",
+  "startedAt": "2026-06-18T22:43:32.489Z",
+  "endedAt": "2026-06-18T22:43:46.863Z",
+  "totalDurationMs": 0,
+  "shadowMode": false,
+  "steps": [
+    {
+      "step": "prepare",
+      "status": "success",
+      "startedAt": "2026-06-18T22:43:32.498Z",
+      "endedAt": "2026-06-18T22:43:32.498Z",
+      "durationMs": 7,
+      "retryCount": 0,
+      "retryable": false,
+      "nextAction": "continue",
+      "evidence": [],
+      "output": {
+        "jobId": "mj_auto_mqk368sa_9uct",
+        "idempotencyKey": "823c55aae10009b0d2995b32a461b829",
+        "sourceDigest": "2dd977688409ac7f",
+        "locale": "zh-CN",
+        "templateKey": "health_education",
+        "primaryKeyword": "褪黑素",
+        "secondaryKeywords": [
+          "褪黑素副作用",
+          "褪黑素剂量",
+          "褪黑素失眠"
+        ],
+        "humanReviewRequired": false,
+        "reviewerRole": "medical_editor",
+        "minSourceCount": 2,
+        "maxWords": 800,
+        "publishMode": "publish",
+        "channels": [
+          "wordpress"
+        ],
+        "utmCampaign": "auto_sleep",
+        "utmMedium": "content_ai",
+        "conversionEvent": "blog_cta_clicked",
+        "timeoutSeconds": 300,
+        "maxRetries": 2,
+        "shadowMode": false
+      }
+    },
+    {
+      "step": "generate_content",
+      "status": "success",
+      "startedAt": "2026-06-18T22:43:44.835Z",
+      "endedAt": "2026-06-18T22:43:44.835Z",
+      "durationMs": 12336,
+      "retryCount": 0,
+      "retryable": false,
+      "nextAction": "continue",
+      "evidence": [
+        {
+          "kind": "markdown",
+          "path": "/root/rongwang-health-platform/data/marketing-runs/mj_auto_mqk368sa_9uct/run_f57dd0f4_2026-06-18T22/article.md"
+        }
+      ],
+      "output": {
+        "title": "褪黑素：你需要了解的助眠“信号兵”",
+        "content": "# 褪黑素：你需要了解的助眠“信号兵”\n\n你是否也曾在深夜辗转反侧，盯着天花板，数了上千只羊却依然毫无睡意？失眠，已经成为现代人普遍的健康困扰。很多人开始关注“褪黑素”，把它当作入睡的“救命稻草”。但褪黑素到底是什么？它真的适合每个人吗？今天，我们就从健康教育的角度，帮你全面了解褪黑素的作用、常见副作用以及如何科学参考使用。\n\n## 什么是褪黑素？它如何影响睡眠？\n\n褪黑素是人体大脑松果体自然分泌的一种激素，它就像身体内部的“生物钟信号兵”，主要负责调节昼夜节律。当夜幕降临、光线变暗时，褪黑素的分泌量会逐渐增加，向身体发出“该休息了”的信号，帮助我们产生睡意并维持睡眠状态。因此，褪黑素与失眠的关系非常密切——当这种自然分泌节律被打乱（如熬夜、倒时差、轮班工作），就可能出现入睡困难或睡眠质量下降。\n\n市面上常见的褪黑素补充剂，并非“安眠药”，而是通过外源性补充，帮助调整紊乱的睡眠节律。查阅相关研究文献发现，对于因时差、轮班工作或生物钟紊乱导致的失眠，适量补充褪黑素可能起到一定的辅助调理作用。但需要明确的是，它并不能替代健康的生活习惯或解决所有类型的失眠问题。\n\n## 褪黑素的常见副作用与使用注意事项\n\n虽然褪黑素被许多人视为“温和”的助眠辅助品，但并非完全没有副作用。根据健康辅助参考信息，部分人群在使用后可能出现以下情况：\n\n- **日间困倦与头晕**：如果剂量不当或服用时间过晚，第二天早晨可能感到昏昏沉沉、注意力不集中。\n- **头痛或胃肠不适**：少数使用者报告出现轻微头痛、恶心或胃部不适。\n- **影响内分泌调节**：长期、大剂量使用可能干扰人体自身褪黑素的正常分泌节律，甚至影响其他激素水平（如女性月经周期）。\n\n**使用建议**：\n- 从低剂量开始尝试（如0.5-1毫克），观察身体反应。\n- 建议在睡前30-60分钟服用，避免白天使用。\n- 不建议长期连续使用，一般以2-4周为一个参考周期，之后应暂停评估。\n- 孕妇、哺乳期女性、自身免疫性疾病患者或正在服用其他药物（如抗凝药、免疫抑制剂）的人群，使用前务必先咨询医生。\n\n## 褪黑素的剂量：并非越多越好\n\n关于褪黑素剂量，很多人存在“吃得多睡得快”的误区。实际上，查阅多项研究文献表明，褪黑素的助眠效果并非与剂量成正比。人体对褪黑素的敏感度个体差异很大，通常0.5-3毫克被认为是常见的辅助参考范围。超过5毫克的高剂量，不仅不会显著提升效果，反而可能增加副作用风险（如次日困倦、头痛）。\n\n**科学参考剂量原则**：\n- **初次使用者**：从0.5-1毫克开始，连续使用3-5天评估效果。\n- **短期调整者**：如因倒时差需要，可参考1-3毫克，但建议不超过5毫克。\n- **长期依赖者**：如果发现需要不断加大剂量才能入睡，这可能是身体产生了耐受或存在其他睡眠障碍，建议暂停使用并寻求专业评估。\n\n记住：褪黑素是“调节信号”，不是“强制开关”。合理的剂量是帮助身体找回自然节律，而不是强行压制清醒状态。\n\n## 先评估，再看方案\n\n在考虑使用褪黑素之前，建议你先对自己的睡眠状况做一个简单评估。你的失眠是短期压力引起的，还是长期存在的？是否伴有焦虑、打鼾、夜醒频繁等其他症状？是否正在服用其他药物？这些因素都会影响褪黑素是否适合你。\n\n如果你希望获得更个性化的健康参考建议，可以点击下方链接，使用我们的AI健康评估工具。它将根据你的具体情况，提供关于睡眠调理、营养补充和生活调整的综合参考信息，帮助你更科学地管理睡眠健康。\n\n---\n\n**免责声明**：本内容仅供健康教育参考，不构成医学建议。褪黑素作为营养补充剂，其效果因人而异。如失眠症状严重、持续超过两周，或正在服用其他药物，请务必先咨询专业医生或药师，切勿自行诊断或替代正规医疗方案。",
+        "excerpt": "褪黑素：你需要了解的助眠“信号兵”\n\n你是否也曾在深夜辗转反侧，盯着天花板，数了上千只羊却依然毫无睡意？失眠，已经成为现代人普遍的健康困扰。很多人开始关注“褪黑素”，把它当作入睡的“救命稻草”。但褪黑素到底是什么？它真的适合每个人吗？今天，我们就从健康教育的角度，帮你全面了解褪黑素的作用、常见副作用以及如何科学参考使用。\n\n 什么是褪黑素？它如何影响睡眠？\n\n褪黑素是人体大脑松果体自然分泌",
+        "wordCount": 1480,
+        "compliance": {
+          "approved": false,
+          "warnings": [
+            "避免诊断、治疗或处方表达。",
+            "避免绝对化效果承诺。",
+            "避免安全性或优越性绝对承诺。"
+          ],
+          "safeDisclaimer": "本内容仅供健康教育和一般参考，不构成医学诊断、治疗建议或处方；若症状严重、持续或正在服药，请咨询医生或药师。"
+        }
+      }
+    },
+    {
+      "step": "seo_geo_gate",
+      "status": "success",
+      "startedAt": "2026-06-18T22:43:44.845Z",
+      "endedAt": "2026-06-18T22:43:44.845Z",
+      "durationMs": 9,
+      "retryCount": 0,
+      "retryable": false,
+      "nextAction": "continue",
+      "evidence": [
+        {
+          "kind": "markdown",
+          "path": "/root/rongwang-health-platform/data/marketing-runs/mj_auto_mqk368sa_9uct/run_f57dd0f4_2026-06-18T22/article.md"
+        },
+        {
+          "kind": "json",
+          "path": "/root/rongwang-health-platform/data/marketing-runs/mj_auto_mqk368sa_9uct/run_f57dd0f4_2026-06-18T22/seo-report.json"
+        }
+      ],
+      "output": {
+        "title_h1": 20,
+        "author_reviewer_sources": 20,
+        "content_uniqueness": 15,
+        "article_jsonld": 15,
+        "meta_canonical_date": 25,
+        "internal_links_cta": 5,
+        "image_alt_visibility": 5,
+        "total": 100,
+        "passed": true,
+        "blockers": []
+      }
+    },
+    {
+      "step": "publish_drafts",
+      "status": "success",
+      "startedAt": "2026-06-18T22:43:46.859Z",
+      "endedAt": "2026-06-18T22:43:46.859Z",
+      "durationMs": 2013,
+      "retryCount": 0,
+      "retryable": false,
+      "nextAction": "continue",
+      "evidence": [
+        {
+          "kind": "json",
+          "path": "/root/rongwang-health-platform/data/marketing-runs/mj_auto_mqk368sa_9uct/run_f57dd0f4_2026-06-18T22/publish-summary.json"
+        }
+      ],
+      "output": {
+        "runId": "run_f57dd0f4",
+        "requestedChannels": [
+          "wordpress"
+        ],
+        "succeeded": [
+          "wordpress"
+        ],
+        "failed": [],
+        "authMissing": [],
+        "rateLimited": [],
+        "partialSuccess": false,
+        "manualPackageGenerated": false,
+        "totalDurationMs": 2013
+      }
+    },
+    {
+      "step": "baseline_snapshot",
+      "status": "success",
+      "startedAt": "2026-06-18T22:43:46.863Z",
+      "endedAt": "2026-06-18T22:43:46.863Z",
+      "durationMs": 3,
+      "retryCount": 0,
+      "retryable": false,
+      "nextAction": "continue",
+      "evidence": [
+        {
+          "kind": "json",
+          "path": "/root/rongwang-health-platform/data/marketing-runs/mj_auto_mqk368sa_9uct/run_f57dd0f4_2026-06-18T22/baseline-snapshot.json"
+        }
+      ],
+      "output": {
+        "keyword": "褪黑素",
+        "snapshotAt": "2026-06-18T22:43:46.863Z",
+        "rankData": {
+          "keyword": "褪黑素",
+          "capturedAt": "2026-06-18T22:43:46.862Z",
+          "source": "placeholder",
+          "positions": []
+        }
+      }
+    }
+  ],
+  "publishSummary": {
+    "runId": "run_f57dd0f4",
+    "requestedChannels": [
+      "wordpress"
+    ],
+    "succeeded": [
+      "wordpress"
+    ],
+    "failed": [],
+    "authMissing": [],
+    "rateLimited": [],
+    "partialSuccess": false,
+    "manualPackageGenerated": false,
+    "totalDurationMs": 2013
+  },
+  "seoReadyScore": {
+    "title_h1": 20,
+    "author_reviewer_sources": 20,
+    "content_uniqueness": 15,
+    "article_jsonld": 15,
+    "meta_canonical_date": 25,
+    "internal_links_cta": 5,
+    "image_alt_visibility": 5,
+    "total": 100,
+    "passed": true,
+    "blockers": []
+  },
+  "idempotencyKey": "823c55aae10009b0d2995b32a461b829",
+  "evidenceDir": "/root/rongwang-health-platform/data/marketing-runs/mj_auto_mqk368sa_9uct/run_f57dd0f4_2026-06-18T22"
+}

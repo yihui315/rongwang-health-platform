@@ -1,0 +1,10 @@
+{"ts":"2026-06-18T22:40:46.572Z","runId":"run_87199294","step":"prepare","level":"info","message":"starting job validation and context preparation"}
+{"ts":"2026-06-18T22:40:46.579Z","runId":"run_87199294","step":"prepare","level":"info","message":"context prepared: 护肝片, shadow=false"}
+{"ts":"2026-06-18T22:40:46.581Z","runId":"run_87199294","step":"generate_content","level":"info","status":"success","durationMs":7,"message":"generating content for: 护肝片"}
+{"ts":"2026-06-18T22:40:57.665Z","runId":"run_87199294","step":"generate_content","level":"warn","status":"success","durationMs":7,"message":"compliance warnings: 避免诊断、治疗或处方表达。, 避免绝对化效果承诺。, 避免安全性或优越性绝对承诺。"}
+{"ts":"2026-06-18T22:40:57.665Z","runId":"run_87199294","step":"generate_content","level":"info","status":"success","durationMs":7,"message":"content generated: 1290 words"}
+{"ts":"2026-06-18T22:40:57.666Z","runId":"run_87199294","step":"seo_geo_gate","level":"info","status":"success","durationMs":11085,"message":"calculating SEO/GEO Ready Score"}
+{"ts":"2026-06-18T22:40:57.672Z","runId":"run_87199294","step":"seo_geo_gate","level":"info","status":"success","durationMs":11085,"message":"SEO score 100 passed"}
+{"ts":"2026-06-18T22:40:57.673Z","runId":"run_87199294","step":"publish_drafts","level":"info","status":"success","durationMs":6,"message":"publishing to wordpress"}
+{"ts":"2026-06-18T22:40:58.546Z","runId":"run_87199294","step":"baseline_snapshot","level":"info","status":"success","durationMs":872,"message":"capturing baseline snapshot"}
+{"ts":"2026-06-18T22:40:58.550Z","runId":"run_87199294","step":"finalize","level":"info","status":"success","durationMs":3,"message":"writing run record and events"}

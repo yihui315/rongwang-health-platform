@@ -1,0 +1,16 @@
+{
+  "total": 75,
+  "passed": false,
+  "blockers": [
+    "keyword density not optimal"
+  ],
+  "breakdown": {
+    "title": 25,
+    "content": 0,
+    "length": 25,
+    "meta": 25
+  },
+  "keywordDensity": 0,
+  "wordCount": 978,
+  "minScore": 70
+}

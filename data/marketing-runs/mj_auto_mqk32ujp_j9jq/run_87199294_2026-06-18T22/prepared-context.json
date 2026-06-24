@@ -1,0 +1,27 @@
+{
+  "jobId": "mj_auto_mqk32ujp_j9jq",
+  "idempotencyKey": "8c5718022f29b9df89a51a6702f83986",
+  "sourceDigest": "1701c7833c828a93",
+  "locale": "zh-CN",
+  "templateKey": "health_education",
+  "primaryKeyword": "护肝片",
+  "secondaryKeywords": [
+    "护肝片成分",
+    "解酒原理",
+    "护肝片副作用"
+  ],
+  "humanReviewRequired": false,
+  "reviewerRole": "medical_editor",
+  "minSourceCount": 2,
+  "maxWords": 800,
+  "publishMode": "publish",
+  "channels": [
+    "wordpress"
+  ],
+  "utmCampaign": "auto_liver",
+  "utmMedium": "content_ai",
+  "conversionEvent": "blog_cta_clicked",
+  "timeoutSeconds": 300,
+  "maxRetries": 2,
+  "shadowMode": false
+}

@@ -19,6 +19,7 @@ interface ConsultFormProps {
   isSubmitting: boolean;
   onSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
   onAgeChange: (value: string) => void;
+  onEmailChange: (value: string) => void;
   onGenderChange: (value: HealthProfile["gender"]) => void;
   onToggleSymptom: (symptom: string) => void;
   onCustomSymptomChange: (value: string) => void;
@@ -50,6 +51,7 @@ export default function ConsultForm({
   isSubmitting,
   onSubmit,
   onAgeChange,
+  onEmailChange,
   onGenderChange,
   onToggleSymptom,
   onCustomSymptomChange,
@@ -111,6 +113,21 @@ export default function ConsultForm({
               ))}
             </div>
           </div>
+        </div>
+
+        <div className="mt-4">
+          <label className="block">
+            <span className="text-sm font-medium text-[var(--text-primary)]">
+              邮箱 <span className="text-[var(--text-muted)]">（用于接收评估结果和专家建议）</span>
+            </span>
+            <input
+              value={form.email}
+              onChange={(event) => onEmailChange(event.target.value)}
+              type="email"
+              className="mt-2 w-full rounded-lg border border-[var(--border)] bg-[var(--surface)] px-4 py-3 text-sm outline-none focus:border-[var(--teal)] focus:ring-2 focus:ring-[var(--ring-focus)]"
+              placeholder="your@email.com"
+            />
+          </label>
         </div>
       </div>
 

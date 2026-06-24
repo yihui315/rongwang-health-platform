@@ -2,6 +2,7 @@ import { healthProfileSchema, type HealthProfile } from "@/schemas/health";
 
 export interface ConsultFormState {
   age: string;
+  email: string;
   gender: HealthProfile["gender"];
   symptoms: string[];
   duration: string;
@@ -16,6 +17,7 @@ export interface ConsultFormState {
 
 export const initialConsultFormState = {
   age: "",
+  email: "",
   gender: "female",
   symptoms: [],
   duration: "1到4周",

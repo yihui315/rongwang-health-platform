@@ -1,0 +1,15 @@
+{
+  "runId": "run_8914d1a8",
+  "requestedChannels": [
+    "wordpress"
+  ],
+  "succeeded": [
+    "wordpress"
+  ],
+  "failed": [],
+  "authMissing": [],
+  "rateLimited": [],
+  "partialSuccess": false,
+  "manualPackageGenerated": false,
+  "totalDurationMs": 3139
+}

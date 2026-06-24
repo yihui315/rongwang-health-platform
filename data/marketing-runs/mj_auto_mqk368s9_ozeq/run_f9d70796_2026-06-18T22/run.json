@@ -1,0 +1,198 @@
+{
+  "runId": "run_f9d70796",
+  "jobId": "mj_auto_mqk368s9_ozeq",
+  "trigger": "cron",
+  "status": "success",
+  "startedAt": "2026-06-18T22:44:36.414Z",
+  "endedAt": "2026-06-18T22:44:51.773Z",
+  "totalDurationMs": 0,
+  "shadowMode": false,
+  "steps": [
+    {
+      "step": "prepare",
+      "status": "success",
+      "startedAt": "2026-06-18T22:44:36.425Z",
+      "endedAt": "2026-06-18T22:44:36.425Z",
+      "durationMs": 8,
+      "retryCount": 0,
+      "retryable": false,
+      "nextAction": "continue",
+      "evidence": [],
+      "output": {
+        "jobId": "mj_auto_mqk368s9_ozeq",
+        "idempotencyKey": "f9f0e548e2f2a092a2190467f9cd8340",
+        "sourceDigest": "17521eafd6366471",
+        "locale": "zh-CN",
+        "templateKey": "health_education",
+        "primaryKeyword": "辅酶Q10",
+        "secondaryKeywords": [
+          "辅酶Q10功效",
+          "辅酶Q10心脏",
+          "辅酶Q10服用方法"
+        ],
+        "humanReviewRequired": false,
+        "reviewerRole": "medical_editor",
+        "minSourceCount": 2,
+        "maxWords": 800,
+        "publishMode": "publish",
+        "channels": [
+          "wordpress"
+        ],
+        "utmCampaign": "auto_cardio",
+        "utmMedium": "content_ai",
+        "conversionEvent": "blog_cta_clicked",
+        "timeoutSeconds": 300,
+        "maxRetries": 2,
+        "shadowMode": false
+      }
+    },
+    {
+      "step": "generate_content",
+      "status": "success",
+      "startedAt": "2026-06-18T22:44:50.036Z",
+      "endedAt": "2026-06-18T22:44:50.036Z",
+      "durationMs": 13609,
+      "retryCount": 0,
+      "retryable": false,
+      "nextAction": "continue",
+      "evidence": [
+        {
+          "kind": "markdown",
+          "path": "/root/rongwang-health-platform/data/marketing-runs/mj_auto_mqk368s9_ozeq/run_f9d70796_2026-06-18T22/article.md"
+        }
+      ],
+      "output": {
+        "title": "辅酶Q10：心脏健康的“能量引擎”，你了解多少？",
+        "content": "# 辅酶Q10：心脏健康的“能量引擎”，你了解多少？\n\n## 前言\n\n你是否经常感到疲惫乏力，稍微活动就心慌气短？随着年龄增长，很多人开始关注心脏健康，却忽略了一个关键的营养素——辅酶Q10。这种存在于人体每个细胞中的物质，被誉为“细胞能量工厂”，尤其在心脏中含量最高。当辅酶Q10水平下降，心脏的活力也可能随之减弱。今天，我们就来聊聊辅酶Q10的功效、与心脏的关系，以及科学的服用方法，帮助你更好地守护身体活力。\n\n## 辅酶Q10是什么？为什么对心脏如此重要？\n\n辅酶Q10是一种脂溶性醌类化合物，广泛存在于人体细胞线粒体中，主要参与能量代谢过程。简单来说，它就像细胞的“充电宝”，帮助将食物转化为能量（ATP）。而心脏作为人体最勤劳的器官，每天跳动约10万次，对能量的需求极大，因此心脏中的辅酶Q10浓度也最高。\n\n研究文献指出，人体内的辅酶Q10水平会随年龄增长而自然下降，20岁后开始减少，40岁时可能只有20岁时的60%左右。此外，长期服用某些药物（如他汀类降脂药）也可能消耗体内的辅酶Q10。当心脏细胞能量供应不足时，可能出现疲劳、胸闷、运动耐力下降等表现。因此，维持充足的辅酶Q10水平，对支持心脏的正常工作具有重要的健康辅助参考价值。\n\n## 辅酶Q10的三大核心功效\n\n### 1. 支持心脏能量代谢，改善心肌活力\n\n辅酶Q10最受关注的功效就是其对心脏健康的支持作用。多项研究表明，辅酶Q10能够帮助心肌细胞更高效地产生能量，从而改善心脏的泵血功能。对于中老年人或经常感到心脏不适的人群，适量补充辅酶Q10可能有助于缓解疲劳感，提升日常活动能力。需要强调的是，这并非治疗心脏疾病，而是作为一种营养支持，帮助心脏更好地应对日常负荷。\n\n### 2. 抗氧化，保护细胞免受自由基损伤\n\n除了能量代谢，辅酶Q10还是一种强效的抗氧化剂。它能够中和自由基，减少氧化应激对细胞膜的损害。心脏细胞长期处于高耗氧状态，更容易受到氧化损伤。辅酶Q10的抗氧化作用有助于维护血管内皮的完整性，支持血管弹性，从而间接促进血液循环健康。对于长期熬夜、压力大或饮食不均衡的人群，辅酶Q10的抗氧化特性也具有一定的健康辅助意义。\n\n### 3. 辅助改善运动耐力与身体活力\n\n由于辅酶Q10参与全身细胞的能量供应，其水平充足时，肌肉（包括心肌和骨骼肌）的耐力表现可能更佳。一些研究文献显示，补充辅酶Q10后，部分受试者的运动后疲劳感有所减轻，日常精力状态得到改善。这并非“立竿见影”的效果，而是长期营养调理的体现。如果你经常感到精力不足，不妨将辅酶Q10作为日常营养支持的一部分来参考。\n\n## 辅酶Q10如何正确服用？剂量与注意事项\n\n### 服用剂量：因人而异，循序渐进\n\n目前市面上的辅酶Q10补充剂常见剂量为30mg、100mg、200mg等。对于日常健康维护，一般建议从较低剂量（如30-100mg/天）开始，观察身体反应。如果用于特定健康需求（如支持心脏功能），部分研究文献中使用的剂量可达100-300mg/天。但请注意，具体剂量应结合个人年龄、健康状况及医生建议来调整，切勿盲目追求高剂量。\n\n### 服用时间与方式：随餐服用吸收更佳\n\n辅酶Q10是脂溶性物质，与含脂肪的食物一起服用（如随餐或饭后）可以显著提高吸收率。建议选择午餐或晚餐后服用，避免空腹。此外，由于辅酶Q10可能对少数人产生轻微的胃肠道刺激，从低剂量开始并随餐服用有助于减少不适。\n\n### 注意事项：这些人群需谨慎\n\n- **正在服用抗凝药物（如华法林）或降脂药（如他汀类）的人群**：辅酶Q10可能与药物发生相互作用，建议在服用前咨询医生。\n- **孕妇、哺乳期女性及儿童**：目前缺乏足够的安全性研究，不建议自行服用。\n- **症状严重或持续不适者**：如出现胸痛、严重心悸、呼吸困难等，请立即就医，而非依赖营养补充剂。\n\n## 先评估，再看方案\n\n每个人的身体状况不同，辅酶Q10是否适合你、需要多大剂量，都取决于你的年龄、生活习惯、用药史以及心脏健康状态。与其盲目跟风，不如先进行一次科学的健康评估。点击下方链接，完成AI健康评估，系统将根据你的个人情况，生成个性化的营养调理建议，帮助你更安全、更有效地管理健康。\n\n---\n\n**免责声明**：本内容仅供健康教育参考，不构成医学建议。辅酶Q10作为营养补充剂，不能替代药物或专业医疗诊断。如症状严重、持续或正在服药，请务必先咨询医生或营养师。",
+        "excerpt": "辅酶Q10：心脏健康的“能量引擎”，你了解多少？\n\n 前言\n\n你是否经常感到疲惫乏力，稍微活动就心慌气短？随着年龄增长，很多人开始关注心脏健康，却忽略了一个关键的营养素——辅酶Q10。这种存在于人体每个细胞中的物质，被誉为“细胞能量工厂”，尤其在心脏中含量最高。当辅酶Q10水平下降，心脏的活力也可能随之减弱。今天，我们就来聊聊辅酶Q10的功效、与心脏的关系，以及科学的服用方法，帮助你更好地",
+        "wordCount": 1749,
+        "compliance": {
+          "approved": false,
+          "warnings": [
+            "避免诊断、治疗或处方表达。",
+            "避免绝对化效果承诺。"
+          ],
+          "safeDisclaimer": "本内容仅供健康教育和一般参考，不构成医学诊断、治疗建议或处方；若症状严重、持续或正在服药，请咨询医生或药师。"
+        }
+      }
+    },
+    {
+      "step": "seo_geo_gate",
+      "status": "success",
+      "startedAt": "2026-06-18T22:44:50.044Z",
+      "endedAt": "2026-06-18T22:44:50.044Z",
+      "durationMs": 7,
+      "retryCount": 0,
+      "retryable": false,
+      "nextAction": "continue",
+      "evidence": [
+        {
+          "kind": "markdown",
+          "path": "/root/rongwang-health-platform/data/marketing-runs/mj_auto_mqk368s9_ozeq/run_f9d70796_2026-06-18T22/article.md"
+        },
+        {
+          "kind": "json",
+          "path": "/root/rongwang-health-platform/data/marketing-runs/mj_auto_mqk368s9_ozeq/run_f9d70796_2026-06-18T22/seo-report.json"
+        }
+      ],
+      "output": {
+        "title_h1": 20,
+        "author_reviewer_sources": 20,
+        "content_uniqueness": 15,
+        "article_jsonld": 15,
+        "meta_canonical_date": 25,
+        "internal_links_cta": 5,
+        "image_alt_visibility": 5,
+        "total": 100,
+        "passed": true,
+        "blockers": []
+      }
+    },
+    {
+      "step": "publish_drafts",
+      "status": "success",
+      "startedAt": "2026-06-18T22:44:51.766Z",
+      "endedAt": "2026-06-18T22:44:51.767Z",
+      "durationMs": 1721,
+      "retryCount": 0,
+      "retryable": false,
+      "nextAction": "continue",
+      "evidence": [
+        {
+          "kind": "json",
+          "path": "/root/rongwang-health-platform/data/marketing-runs/mj_auto_mqk368s9_ozeq/run_f9d70796_2026-06-18T22/publish-summary.json"
+        }
+      ],
+      "output": {
+        "runId": "run_f9d70796",
+        "requestedChannels": [
+          "wordpress"
+        ],
+        "succeeded": [
+          "wordpress"
+        ],
+        "failed": [],
+        "authMissing": [],
+        "rateLimited": [],
+        "partialSuccess": false,
+        "manualPackageGenerated": false,
+        "totalDurationMs": 1721
+      }
+    },
+    {
+      "step": "baseline_snapshot",
+      "status": "success",
+      "startedAt": "2026-06-18T22:44:51.772Z",
+      "endedAt": "2026-06-18T22:44:51.772Z",
+      "durationMs": 4,
+      "retryCount": 0,
+      "retryable": false,
+      "nextAction": "continue",
+      "evidence": [
+        {
+          "kind": "json",
+          "path": "/root/rongwang-health-platform/data/marketing-runs/mj_auto_mqk368s9_ozeq/run_f9d70796_2026-06-18T22/baseline-snapshot.json"
+        }
+      ],
+      "output": {
+        "keyword": "辅酶Q10",
+        "snapshotAt": "2026-06-18T22:44:51.772Z",
+        "rankData": {
+          "keyword": "辅酶Q10",
+          "capturedAt": "2026-06-18T22:44:51.772Z",
+          "source": "placeholder",
+          "positions": []
+        }
+      }
+    }
+  ],
+  "publishSummary": {
+    "runId": "run_f9d70796",
+    "requestedChannels": [
+      "wordpress"
+    ],
+    "succeeded": [
+      "wordpress"
+    ],
+    "failed": [],
+    "authMissing": [],
+    "rateLimited": [],
+    "partialSuccess": false,
+    "manualPackageGenerated": false,
+    "totalDurationMs": 1721
+  },
+  "seoReadyScore": {
+    "title_h1": 20,
+    "author_reviewer_sources": 20,
+    "content_uniqueness": 15,
+    "article_jsonld": 15,
+    "meta_canonical_date": 25,
+    "internal_links_cta": 5,
+    "image_alt_visibility": 5,
+    "total": 100,
+    "passed": true,
+    "blockers": []
+  },
+  "idempotencyKey": "f9f0e548e2f2a092a2190467f9cd8340",
+  "evidenceDir": "/root/rongwang-health-platform/data/marketing-runs/mj_auto_mqk368s9_ozeq/run_f9d70796_2026-06-18T22"
+}

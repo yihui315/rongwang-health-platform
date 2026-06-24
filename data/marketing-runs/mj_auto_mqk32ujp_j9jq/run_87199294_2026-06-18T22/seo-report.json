@@ -1,0 +1,14 @@
+{
+  "total": 100,
+  "passed": true,
+  "blockers": [],
+  "breakdown": {
+    "title": 25,
+    "content": 25,
+    "length": 25,
+    "meta": 25
+  },
+  "keywordDensity": 1.56,
+  "wordCount": 1136,
+  "minScore": 70
+}

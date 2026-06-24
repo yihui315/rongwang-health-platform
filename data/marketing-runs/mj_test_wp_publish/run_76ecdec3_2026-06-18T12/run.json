@@ -1,0 +1,201 @@
+{
+  "runId": "run_76ecdec3",
+  "jobId": "mj_test_wp_publish",
+  "trigger": "manual",
+  "status": "success",
+  "startedAt": "2026-06-18T12:43:42.226Z",
+  "endedAt": "2026-06-18T12:43:54.777Z",
+  "totalDurationMs": 0,
+  "shadowMode": false,
+  "steps": [
+    {
+      "step": "prepare",
+      "status": "success",
+      "startedAt": "2026-06-18T12:43:42.538Z",
+      "endedAt": "2026-06-18T12:43:42.538Z",
+      "durationMs": 308,
+      "retryCount": 0,
+      "retryable": false,
+      "nextAction": "continue",
+      "evidence": [],
+      "output": {
+        "jobId": "mj_test_wp_publish",
+        "idempotencyKey": "8980c8308f60f6e6c47c3aa2fd3469bc",
+        "sourceDigest": "9eca1916b51d2de3",
+        "locale": "zh-CN",
+        "templateKey": "health_education",
+        "primaryKeyword": "NAD+抗衰老",
+        "secondaryKeywords": [
+          "NMN与NAD+区别",
+          "NAD+补充剂科学"
+        ],
+        "humanReviewRequired": false,
+        "reviewerRole": "medical_editor",
+        "minSourceCount": 2,
+        "maxWords": 800,
+        "publishMode": "draft",
+        "channels": [
+          "wordpress"
+        ],
+        "utmCampaign": "auto_marketing_test",
+        "utmMedium": "content_ai",
+        "conversionEvent": "blog_cta_clicked",
+        "timeoutSeconds": 300,
+        "maxRetries": 2,
+        "shadowMode": false
+      }
+    },
+    {
+      "step": "generate_content",
+      "status": "success",
+      "startedAt": "2026-06-18T12:43:52.186Z",
+      "endedAt": "2026-06-18T12:43:52.186Z",
+      "durationMs": 9648,
+      "retryCount": 0,
+      "retryable": false,
+      "nextAction": "continue",
+      "evidence": [
+        {
+          "kind": "markdown",
+          "path": "/root/rongwang-health-platform/data/marketing-runs/mj_test_wp_publish/run_76ecdec3_2026-06-18T12/article.md"
+        }
+      ],
+      "output": {
+        "title": "NAD+抗衰老：科学认识NAD+补充剂与NMN的区别",
+        "content": "# NAD+抗衰老：科学认识NAD+补充剂与NMN的区别\n\n## 前言\n\n随着年龄增长，你是否发现精力下降、睡眠变差、皮肤松弛？这些衰老迹象背后，有一个关键分子在悄悄减少——NAD+。近年来，“NAD+抗衰老”成为健康领域的热门话题，但很多人对NMN与NAD+区别感到困惑。本文将从科学角度，帮助你理性认识NAD+补充剂的作用机制与使用参考。\n\n## 什么是NAD+？它为何与衰老相关\n\nNAD+（烟酰胺腺嘌呤二核苷酸）是人体细胞内一种重要的辅酶，参与能量代谢、DNA修复和细胞信号传导。科学研究表明，人体内的NAD+水平从30岁左右开始显著下降，到60岁时可能降至年轻时的50%以下。这种下降与线粒体功能减退、氧化应激增加密切相关，被认为是衰老进程的重要生物学标志。\n\n在“NAD+抗衰老”的研究中，科学家发现提升NAD+水平可能有助于支持细胞能量代谢和修复机制。但需要明确的是，这属于基础研究层面的探索，并非临床治疗手段。目前，通过饮食、运动和特定营养素来辅助维持NAD+水平，是较为公认的健康管理思路。\n\n## NMN与NAD+区别：前体与辅酶的关系\n\n很多人将NMN（烟酰胺单核苷酸）与NAD+混为一谈，实际上两者有本质区别。简单来说，NAD+是细胞直接使用的“能量货币”，而NMN是合成NAD+的前体物质。补充NMN后，人体会将其转化为NAD+，从而间接提升NAD+水平。\n\n理解NMN与NAD+区别的关键在于：直接补充NAD+分子较大，难以被细胞有效吸收；而NMN分子较小，更容易进入细胞参与代谢。目前市面上的NAD+补充剂，多数以NMN或NR（烟酰胺核糖）等前体形式存在。查阅研究文献发现，动物实验中NMN显示出对代谢功能的支持作用，但人体研究仍处于早期阶段，个体差异较大。\n\n## 如何科学看待NAD+补充剂\n\n面对“NAD+抗衰老”的宣传，保持理性至关重要。首先，NAD+补充剂并非“万能药”，其效果受年龄、基础健康状况、生活方式等多因素影响。其次，市面产品质量参差不齐，选择时应关注第三方检测报告和原料来源。\n\n从健康辅助参考角度，以下人群可能更值得关注NAD+水平：中老年人、长期熬夜者、高强度脑力工作者。但需要强调的是，任何补充剂都不能替代均衡饮食和规律运动。查阅研究文献显示，间歇性禁食、中等强度有氧运动也能自然提升NAD+水平，且无额外成本。\n\n如果你正在服用其他药物或患有慢性疾病，建议先咨询医生，评估补充剂与现有方案的兼容性。NAD+补充剂可能影响某些代谢通路，盲目使用存在潜在风险。\n\n## 先评估，再看方案\n\n每个人的衰老进程和NAD+水平不同，盲目跟风补充可能适得其反。我们建议你先完成一次科学的健康评估，了解自身代谢状态、氧化应激水平和营养缺口。点击下方“AI健康评估”，输入你的年龄、生活习惯和健康困扰，系统将基于现有研究数据，为你生成个性化的NAD+管理参考方案。评估结果仅供健康教育参考，不作为诊断或治疗依据。\n\n---\n\n**免责声明**：本内容仅供健康教育参考，不构成医学建议。NAD+、NMN等补充剂的相关研究仍在发展中，个体效果存在差异。如症状严重、持续或正在服药，请务必咨询专业医生。",
+        "excerpt": "NAD+抗衰老：科学认识NAD+补充剂与NMN的区别\n\n 前言\n\n随着年龄增长，你是否发现精力下降、睡眠变差、皮肤松弛？这些衰老迹象背后，有一个关键分子在悄悄减少——NAD+。近年来，“NAD+抗衰老”成为健康领域的热门话题，但很多人对NMN与NAD+区别感到困惑。本文将从科学角度，帮助你理性认识NAD+补充剂的作用机制与使用参考。\n\n 什么是NAD+？它为何与衰老相关\n\nNAD+（烟",
+        "wordCount": 1273,
+        "compliance": {
+          "approved": false,
+          "warnings": [
+            "避免诊断、治疗或处方表达。"
+          ],
+          "safeDisclaimer": "本内容仅供健康教育和一般参考，不构成医学诊断、治疗建议或处方；若症状严重、持续或正在服药，请咨询医生或药师。"
+        }
+      }
+    },
+    {
+      "step": "seo_geo_gate",
+      "status": "degraded",
+      "startedAt": "2026-06-18T12:43:52.216Z",
+      "endedAt": "2026-06-18T12:43:52.216Z",
+      "durationMs": 30,
+      "retryCount": 0,
+      "retryable": false,
+      "nextAction": "continue",
+      "evidence": [
+        {
+          "kind": "markdown",
+          "path": "/root/rongwang-health-platform/data/marketing-runs/mj_test_wp_publish/run_76ecdec3_2026-06-18T12/article.md"
+        },
+        {
+          "kind": "json",
+          "path": "/root/rongwang-health-platform/data/marketing-runs/mj_test_wp_publish/run_76ecdec3_2026-06-18T12/seo-report.json"
+        }
+      ],
+      "output": {
+        "title_h1": 20,
+        "author_reviewer_sources": 0,
+        "content_uniqueness": 0,
+        "article_jsonld": 0,
+        "meta_canonical_date": 25,
+        "internal_links_cta": 5,
+        "image_alt_visibility": 5,
+        "total": 75,
+        "passed": false,
+        "blockers": [
+          "keyword density not optimal"
+        ]
+      },
+      "errorMessage": "SEO score 75/70: keyword density not optimal"
+    },
+    {
+      "step": "publish_drafts",
+      "status": "success",
+      "startedAt": "2026-06-18T12:43:54.749Z",
+      "endedAt": "2026-06-18T12:43:54.749Z",
+      "durationMs": 2532,
+      "retryCount": 0,
+      "retryable": false,
+      "nextAction": "continue",
+      "evidence": [
+        {
+          "kind": "json",
+          "path": "/root/rongwang-health-platform/data/marketing-runs/mj_test_wp_publish/run_76ecdec3_2026-06-18T12/publish-summary.json"
+        }
+      ],
+      "output": {
+        "runId": "run_76ecdec3",
+        "requestedChannels": [
+          "wordpress"
+        ],
+        "succeeded": [
+          "wordpress"
+        ],
+        "failed": [],
+        "authMissing": [],
+        "rateLimited": [],
+        "partialSuccess": false,
+        "manualPackageGenerated": false,
+        "totalDurationMs": 2532
+      }
+    },
+    {
+      "step": "baseline_snapshot",
+      "status": "success",
+      "startedAt": "2026-06-18T12:43:54.776Z",
+      "endedAt": "2026-06-18T12:43:54.776Z",
+      "durationMs": 26,
+      "retryCount": 0,
+      "retryable": false,
+      "nextAction": "continue",
+      "evidence": [
+        {
+          "kind": "json",
+          "path": "/root/rongwang-health-platform/data/marketing-runs/mj_test_wp_publish/run_76ecdec3_2026-06-18T12/baseline-snapshot.json"
+        }
+      ],
+      "output": {
+        "keyword": "NAD+抗衰老",
+        "snapshotAt": "2026-06-18T12:43:54.776Z",
+        "rankData": {
+          "keyword": "NAD+抗衰老",
+          "capturedAt": "2026-06-18T12:43:54.776Z",
+          "source": "placeholder",
+          "positions": []
+        }
+      }
+    }
+  ],
+  "publishSummary": {
+    "runId": "run_76ecdec3",
+    "requestedChannels": [
+      "wordpress"
+    ],
+    "succeeded": [
+      "wordpress"
+    ],
+    "failed": [],
+    "authMissing": [],
+    "rateLimited": [],
+    "partialSuccess": false,
+    "manualPackageGenerated": false,
+    "totalDurationMs": 2532
+  },
+  "seoReadyScore": {
+    "title_h1": 20,
+    "author_reviewer_sources": 0,
+    "content_uniqueness": 0,
+    "article_jsonld": 0,
+    "meta_canonical_date": 25,
+    "internal_links_cta": 5,
+    "image_alt_visibility": 5,
+    "total": 75,
+    "passed": false,
+    "blockers": [
+      "keyword density not optimal"
+    ]
+  },
+  "idempotencyKey": "8980c8308f60f6e6c47c3aa2fd3469bc",
+  "evidenceDir": "/root/rongwang-health-platform/data/marketing-runs/mj_test_wp_publish/run_76ecdec3_2026-06-18T12"
+}
