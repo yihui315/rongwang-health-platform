@@ -57,6 +57,27 @@ export async function POST(request: Request) {
     aiLog: consultation.aiLog,
   });
 
+  /* ── 通知 WordPress：邮件自动回复 + PushPlus 微信通知 ── */
+  const wpNotify = fetch('https://blog.rongwang.hk/wp-json/ai-consult-notify/v1/submit', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      email: profile.email,
+      name: profile.name || '用户',
+      age: profile.age,
+      gender: profile.gender,
+      symptoms: Array.isArray(profile.symptoms) ? profile.symptoms.join('、') : (profile.symptoms || ''),
+      result: {
+        riskLevel: consultation.result.riskLevel,
+        summary: consultation.result.summary,
+        recommendedProducts: consultation.result.recommendedProducts?.slice(0, 3).map((r: { name: string }) => r.name) ?? [],
+      },
+      consultation_id: consultationId,
+    }),
+  }).catch(err => {
+    console.error('[AI-Consult] WordPress notify failed:', err);
+  });
+
   const responsePayload = consultationResponseSchema.parse({
     consultationId,
     generatedAt: new Date().toISOString(),

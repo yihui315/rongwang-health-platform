@@ -8,6 +8,7 @@ const optionalNote = z
   .transform((value) => value ?? "");
 
 export const healthProfileSchema = z.object({
+  email: z.string().email("请输入有效的邮箱地址"),
   age: z
     .coerce
     .number()
