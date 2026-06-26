@@ -70,7 +70,8 @@ export async function POST(request: Request) {
       result: {
         riskLevel: consultation.result.riskLevel,
         summary: consultation.result.summary,
-        recommendedProducts: consultation.result.recommendedProducts?.slice(0, 3).map((r: { name: string }) => r.name) ?? [],
+        recommendedSolutionType: consultation.result.recommendedSolutionType,
+        topProducts: consultation.recommendations.slice(0, 3).map((r: { name: string }) => r.name) ?? [],
       },
       consultation_id: consultationId,
     }),
