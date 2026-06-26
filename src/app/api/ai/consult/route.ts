@@ -63,7 +63,7 @@ export async function POST(request: Request) {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
       email: profile.email,
-      name: profile.name || '用户',
+      name: '用户',
       age: profile.age,
       gender: profile.gender,
       symptoms: Array.isArray(profile.symptoms) ? profile.symptoms.join('、') : (profile.symptoms || ''),
