@@ -1,0 +1,45 @@
+{
+  "job_id": "mj_auto_mr4wrt37_e4wx",
+  "trigger": "cron",
+  "locale": "zh-CN",
+  "source": {
+    "type": "topic",
+    "topic": "镁元素减压"
+  },
+  "content": {
+    "template_key": "health_education",
+    "max_words": 800,
+    "human_review_required": false,
+    "min_source_count": 2
+  },
+  "seo": {
+    "primary_keyword": "镁元素",
+    "secondary_keywords": [
+      "镁缺乏症状",
+      "甘氨酸镁",
+      "L-茶氨酸"
+    ],
+    "schema_types": [
+      "Article"
+    ],
+    "min_ready_score": 70
+  },
+  "distribution": {
+    "publish_mode": "publish",
+    "channels": [
+      {
+        "platform": "wordpress"
+      }
+    ]
+  },
+  "tracking": {
+    "utm_campaign": "auto_stress",
+    "utm_medium": "content_ai",
+    "conversion_event": "blog_cta_clicked"
+  },
+  "runtime": {
+    "timeout_seconds": 300,
+    "max_retries": 2,
+    "shadow_mode": false
+  }
+}

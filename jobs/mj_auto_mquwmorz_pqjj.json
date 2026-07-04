@@ -1,0 +1,45 @@
+{
+  "job_id": "mj_auto_mquwmorz_pqjj",
+  "trigger": "cron",
+  "locale": "zh-CN",
+  "source": {
+    "type": "topic",
+    "topic": "抗疲劳NADH"
+  },
+  "content": {
+    "template_key": "health_education",
+    "max_words": 800,
+    "human_review_required": false,
+    "min_source_count": 2
+  },
+  "seo": {
+    "primary_keyword": "NADH",
+    "secondary_keywords": [
+      "NADH功效",
+      "NADH线粒体",
+      "NADH疲劳"
+    ],
+    "schema_types": [
+      "Article"
+    ],
+    "min_ready_score": 70
+  },
+  "distribution": {
+    "publish_mode": "publish",
+    "channels": [
+      {
+        "platform": "wordpress"
+      }
+    ]
+  },
+  "tracking": {
+    "utm_campaign": "auto_fatigue",
+    "utm_medium": "content_ai",
+    "conversion_event": "blog_cta_clicked"
+  },
+  "runtime": {
+    "timeout_seconds": 300,
+    "max_retries": 2,
+    "shadow_mode": false
+  }
+}

@@ -1,0 +1,10 @@
+{"ts":"2026-07-03T12:26:58.285Z","runId":"run_52c3d046","step":"prepare","level":"info","message":"starting job validation and context preparation"}
+{"ts":"2026-07-03T12:26:58.331Z","runId":"run_52c3d046","step":"prepare","level":"info","message":"context prepared: 跨境购物, shadow=false"}
+{"ts":"2026-07-03T12:26:58.333Z","runId":"run_52c3d046","step":"generate_content","level":"info","status":"success","durationMs":46,"message":"generating content for: 跨境购物"}
+{"ts":"2026-07-03T12:27:12.315Z","runId":"run_52c3d046","step":"generate_content","level":"warn","status":"success","durationMs":46,"message":"compliance warnings: 避免诊断、治疗或处方表达。, 不能暗示替代医生或延误就医。"}
+{"ts":"2026-07-03T12:27:12.316Z","runId":"run_52c3d046","step":"generate_content","level":"info","status":"success","durationMs":46,"message":"content generated: 1370 words"}
+{"ts":"2026-07-03T12:27:12.317Z","runId":"run_52c3d046","step":"seo_geo_gate","level":"info","status":"success","durationMs":13983,"message":"calculating SEO/GEO Ready Score"}
+{"ts":"2026-07-03T12:27:12.327Z","runId":"run_52c3d046","step":"seo_geo_gate","level":"info","status":"success","durationMs":13983,"message":"SEO score 100 passed"}
+{"ts":"2026-07-03T12:27:12.329Z","runId":"run_52c3d046","step":"publish_drafts","level":"info","status":"success","durationMs":10,"message":"publishing to wordpress"}
+{"ts":"2026-07-03T12:27:15.014Z","runId":"run_52c3d046","step":"baseline_snapshot","level":"info","status":"success","durationMs":2683,"message":"capturing baseline snapshot"}
+{"ts":"2026-07-03T12:27:15.025Z","runId":"run_52c3d046","step":"finalize","level":"info","status":"success","durationMs":9,"message":"writing run record and events"}

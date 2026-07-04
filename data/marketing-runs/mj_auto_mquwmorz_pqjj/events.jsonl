@@ -1,0 +1,10 @@
+{"ts":"2026-06-26T12:25:49.967Z","runId":"run_60ac4a3a","step":"prepare","level":"info","message":"starting job validation and context preparation"}
+{"ts":"2026-06-26T12:25:49.977Z","runId":"run_60ac4a3a","step":"prepare","level":"info","message":"context prepared: NADH, shadow=false"}
+{"ts":"2026-06-26T12:25:49.979Z","runId":"run_60ac4a3a","step":"generate_content","level":"info","status":"success","durationMs":10,"message":"generating content for: NADH"}
+{"ts":"2026-06-26T12:26:00.301Z","runId":"run_60ac4a3a","step":"generate_content","level":"warn","status":"success","durationMs":10,"message":"compliance warnings: 避免诊断、治疗或处方表达。, 避免绝对化效果承诺。"}
+{"ts":"2026-06-26T12:26:00.302Z","runId":"run_60ac4a3a","step":"generate_content","level":"info","status":"success","durationMs":10,"message":"content generated: 1415 words"}
+{"ts":"2026-06-26T12:26:00.304Z","runId":"run_60ac4a3a","step":"seo_geo_gate","level":"info","status":"success","durationMs":10323,"message":"calculating SEO/GEO Ready Score"}
+{"ts":"2026-06-26T12:26:00.314Z","runId":"run_60ac4a3a","step":"seo_geo_gate","level":"info","status":"success","durationMs":10323,"message":"SEO score 100 passed"}
+{"ts":"2026-06-26T12:26:00.315Z","runId":"run_60ac4a3a","step":"publish_drafts","level":"info","status":"success","durationMs":11,"message":"publishing to wordpress"}
+{"ts":"2026-06-26T12:26:02.327Z","runId":"run_60ac4a3a","step":"baseline_snapshot","level":"info","status":"success","durationMs":2011,"message":"capturing baseline snapshot"}
+{"ts":"2026-06-26T12:26:02.332Z","runId":"run_60ac4a3a","step":"finalize","level":"info","status":"success","durationMs":4,"message":"writing run record and events"}

@@ -92,12 +92,10 @@ export default function ChatWidget() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18 18 6M6 6l12 12" />
               </svg>
             </button>
-            <div className="mx-auto mb-4 flex h-48 w-48 items-center justify-center rounded-lg border border-[var(--border-subtle)] bg-[var(--surface-muted)]">
-              <p className="text-sm leading-6 text-[var(--text-muted)]">
-                微信二维码
-                <br />
-                待替换为实际图片
-              </p>
+            <div className="mx-auto mb-4 flex h-48 w-48 items-center justify-center rounded-lg border border-[var(--border-subtle)] bg-[var(--surface-muted)] relative overflow-hidden">
+              {/* 微信二维码图片，请上传到 /public/images/wechat-qr.png */}
+              <img src="/images/wechat-qr.png" alt="微信客服二维码" className="w-full h-full object-cover" onError={(e) => { (e.target as HTMLImageElement).style.display='none'; }} />
+              <span className="absolute text-sm text-[var(--text-muted)] text-center leading-tight px-2">微信二维码<br/>待上传</span>
             </div>
             <h3 className="text-lg font-bold text-[var(--text-primary)]">扫码添加微信客服</h3>
             <p className="mt-1 text-sm text-[var(--text-secondary)]">微信号：rongwang_health</p>

@@ -1,0 +1,57 @@
+{
+  "generated": 2,
+  "jobs": [
+    {
+      "jobId": "mj_auto_mquwna5a_h3ss",
+      "filePath": "/root/rongwang-health-platform/jobs/mj_auto_mquwna5a_h3ss.json",
+      "topic": "镁元素减压",
+      "recommendation": {
+        "topic": "镁元素减压",
+        "primaryKeyword": "镁元素",
+        "secondaryKeywords": [
+          "镁缺乏症状",
+          "甘氨酸镁",
+          "L-茶氨酸"
+        ],
+        "planSlug": "stress",
+        "reason": "近期未覆盖品类，扩展内容矩阵",
+        "score": 50,
+        "signal": "coverage_gap"
+      }
+    },
+    {
+      "jobId": "mj_auto_mquwna5a_ayhm",
+      "filePath": "/root/rongwang-health-platform/jobs/mj_auto_mquwna5a_ayhm.json",
+      "topic": "跨境购物避坑",
+      "recommendation": {
+        "topic": "跨境购物避坑",
+        "primaryKeyword": "跨境购物",
+        "secondaryKeywords": [
+          "蓝帽子辨别",
+          "进口注册号",
+          "保税仓"
+        ],
+        "planSlug": "direct",
+        "reason": "近期未覆盖品类，扩展内容矩阵",
+        "score": 50,
+        "signal": "coverage_gap"
+      }
+    }
+  ],
+  "skipped": [
+    "辅酶Q10心脏健康",
+    "胶原蛋白流失",
+    "护肝片解酒",
+    "褪黑素睡眠",
+    "叶黄素护眼",
+    "维生素D3补钙",
+    "Omega3鱼油",
+    "益生菌肠道",
+    "抗疲劳NADH"
+  ],
+  "clickDataSummary": {
+    "total": 0,
+    "topSources": [],
+    "topSolutions": []
+  }
+}
