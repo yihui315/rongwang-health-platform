@@ -5,6 +5,7 @@
 
 import React from "react";
 import type { Metadata } from "next";
+import EmailCapture from "@/components/shop/EmailCapture";
 
 export const metadata: Metadata = {
   title: "購買渠道 | 荣旺健康",
@@ -186,23 +187,7 @@ export default function ShopPage() {
               </span>
             ))}
           </div>
-          {/* 邮箱捕获 */}
-          <div className="mt-8 max-w-md mx-auto">
-            <p className="text-sm text-slate-500 mb-2">关注公众号，获取专属优惠和健康资讯</p>
-            <form className="flex gap-2" onSubmit={(e) => e.preventDefault()}>
-              <input
-                type="email"
-                placeholder="输入邮箱，领取9折券"
-                className="flex-1 px-4 py-2.5 rounded-lg border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500"
-              />
-              <button
-                type="submit"
-                className="px-5 py-2.5 bg-[var(--teal)] hover:bg-[var(--teal-dark)] text-white text-sm font-semibold rounded-lg transition"
-              >
-                领取
-              </button>
-            </form>
-          </div>
+          <EmailCapture />
         </div>
       </section>
 
