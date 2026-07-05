@@ -46,6 +46,31 @@ const nextConfig = {
         destination: '/ai-consult',
         permanent: true,
       },
+      {
+        source: '/health-guide',
+        destination: '/articles',
+        permanent: true,
+      },
+      {
+        source: '/ai-assessment',
+        destination: '/ai-consult',
+        permanent: true,
+      },
+      {
+        source: '/brand/certifications',
+        destination: '/brand',
+        permanent: true,
+      },
+      {
+        source: '/brand/media',
+        destination: '/brand',
+        permanent: true,
+      },
+      {
+        source: '/products/bundles',
+        destination: '/products',
+        permanent: true,
+      },
     ];
   },
   async headers() {
